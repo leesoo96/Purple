@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+ 
+<tiles-definitions>
+
+	<definition name="layout" template="/WEB-INF/views/layout/layout.jsp">
+		<put-attribute name="header" value="/WEB-INF/views/layout/header.jsp" />
+	  	<put-attribute name="leftSide" value="/WEB-INF/views/layout/leftSide.jsp" />
+	  	<put-attribute name="rightSide" value="/WEB-INF/views/layout/rightSide.jsp" />
+	  	<put-attribute name="content" value="" />
+	</definition>
+	
+	<definition name="redirect:/*" extends="layout">
+	  	<put-attribute name="content" value="/WEB-INF/views/content/{2}.jsp" />
+	</definition>
+	<definition name="/*" extends="layout">
+	  	<put-attribute name="content" value="/WEB-INF/views/content/{1}.jsp" />
+	</definition>
+	<!-- no tiles -->
+	<definition name="nolayout" template="/WEB-INF/views/layout/nolayout.jsp">
+		<put-attribute name="body" />
+	</definition>
+
+	<definition name="*/*" extends="nolayout">
+  		<put-attribute name="body" value="/WEB-INF/views/{1}/{2}.jsp"></put-attribute>
+	</definition>
+
+	
+
+	 
+</tiles-definitions>

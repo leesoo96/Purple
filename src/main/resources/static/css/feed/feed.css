@@ -1,0 +1,98 @@
+#selectBox select{
+  position : relative;
+  margin-top: 1em;
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin-bottom: 0.5em;
+  border: 0.1em solid black;
+  border-radius: 0.5em;
+}
+
+#feed{
+  position : relative;
+}
+
+.feed_container {
+margin-top: 0.8em;
+position : relative;
+height: auto;
+width: auto;
+border: 1px solid;
+border-radius: 0.5em;
+}
+
+.feed_title{
+height: 40px;
+padding : 8px;
+position : relative;
+display: flex;
+align-items: center;  
+}
+
+.feed_title img {
+width: 3em;
+border-radius: 2em;
+height:auto;
+}
+
+.feed_title span {
+position: relative;
+font-size: 0.9rem;
+margin-left : 0.6em;
+}
+.feed_title i {
+position: relative;
+margin-left: auto;
+cursor: pointer;
+margin-right: 1.0em;
+}
+.feed_img {
+position: relative;
+width: 595.5px;
+}
+
+.leftposition{
+width: 4em;
+float: left;
+}
+
+.rightposition{
+width: 4em;
+float: right;
+}
+.rightposition i{
+position: relative;
+float: right;
+}
+
+
+.feed_img img{
+margin-left: 1px;
+position: relative;
+width: 595.5px;
+}
+
+.feed_content {
+padding-left: 20px;
+position: relative;
+font-size: 15px;
+white-space: pre-line;
+}
+
+.feed_functionbar{
+position: relative;
+width:auto;
+height: 40px;
+display: flex;
+align-items: center;
+margin-bottom: 0.5em;
+}
+.feed_functionbar i{
+margin-left: 0.3em;
+font-size: 35;
+cursor: pointer;
+}
+.feed_functionbar span{
+margin-left: 0.1em;
+margin-right: 0.5em;
+}

@@ -1,0 +1,30 @@
+spring:
+  #jsp
+  mvc:
+    devtools: 
+      livereload:  
+         enabled: true
+    static-path-pattern: /resources/**
+    view: 
+      prefix: /WEB-INF/views/
+      suffix: .jsp
+
+  #jdbc 설정
+  datasource:
+    url: jdbc:mysql://localhost:3306/purple?autoReconnect=true
+    username: root
+    password: koreait2020
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+#myBatis 설정    
+mybatis:
+  mapper-locations: mybatis-mapper/**/*.xml
+  type-aliases-package: com.purple.demo.model 
+
+handlebars:
+  suffix: .html
+  expose-session-attributes: true
+  
+#Tomcat
+server: 
+  port: 8090 
