@@ -8,7 +8,7 @@
             </a>
           </div>
           <div id="home">
-            <a href="temp.html">
+            <a href="/feed">
               <i class="fas fa-home menu_icons"></i>
               <span>홈</span>
             </a>
@@ -47,20 +47,24 @@
 
           <div id="temp_user">
             <img src="resources/img/common/basic_profile.png" alt="기본프로필사진">
+            
              <sec:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_USER')">
-  			<sec:authentication property="principal" var="userInfo"/>
-  			<p>${userInfo.user_name }</p>
+  				<sec:authentication property="principal" var="userInfo"/>
+  				<p>${userInfo.user_name }</p>
          	</sec:authorize> 
+         	
             <i class="fas fa-grip-lines"></i>
           </div>
           <div class="only_modalClose"></div> <!-- user_modal창을 닫기위한 도구적 클래스 -->
           <div id="temp_user_modal">
             <img src="resources/img/common/basic_profile.png" alt="기본프로필사진">
+            
             <sec:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_USER')">
-  			<sec:authentication property="principal" var="userInfo"/>
-  			<p>${userInfo.user_id }</p>
-         </sec:authorize> 
-            <a href="#">마이페이지</a>
+  				<sec:authentication property="principal" var="userInfo"/>
+  				<p>${userInfo.user_id }</p>
+        	 </sec:authorize> 
+         
+            <a href="/mypage">마이페이지</a>
             <a href="/logout">로그아웃</a>
           </div>
           

@@ -10,17 +10,17 @@ const errMSG = document.querySelector('#errMSG')
 function login() {
 	togglebtn_span[0].style.color = '#fff'
 	togglebtn_span[1].style.color = '#000'
-	loginFrmEle.style.left = "50px";
-	registerFrmEle.style.left = "480px";
-	btn_wrapEle.style.left = "0";
+	loginFrmEle.style.left = "50px"
+	registerFrmEle.style.left = "480px"
+	btn_wrapEle.style.left = "0"
 }
 
 function register() {
 	togglebtn_span[0].style.color = '#000'
 	togglebtn_span[1].style.color = '#fff'
-	loginFrmEle.style.left = "-400px";
-	registerFrmEle.style.left = "50px";
-	btn_wrapEle.style.left = "147px";
+	loginFrmEle.style.left = "-400px"
+	registerFrmEle.style.left = "50px"
+	btn_wrapEle.style.left = "147px"
 	errMSG.style.left = "-400px"
 }
 
@@ -28,7 +28,7 @@ function register() {
 const loginBtn = document.querySelector('#login_Btn')
 let user_id = loginFrmEle.user_id
 let user_pw = loginFrmEle.user_pw
-let remember_Id = loginFrm.remember_Id 
+let remember_Id = loginFrm.remember_userId
 
 loginBtn.addEventListener('click', () => {
 	loginFunc()
@@ -42,9 +42,9 @@ function loginFunc() {
 		let param = {
 			user_id : user_id.value,
 			user_pw : user_pw.value,
-			remember_Id : remember_Id.value
+			remember_Id : remember_Id.checked
 		}	
-		
+		console.log(remember_Id.value)
 		fetch('/login', {
 			method: 'post',
 			headers : {

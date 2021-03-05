@@ -27,7 +27,7 @@ public class UserPrincipal extends UserEntity implements UserDetails, Principal 
 		this.setUser_name(user.getUser_name());
 		this.setUser_email(user.getUser_email());
 		this.setUser_auth(user.getUser_auth());
-		
+
 		authorities = Collections.singletonList(new SimpleGrantedAuthority(user.getUser_auth()));
 	}
 	

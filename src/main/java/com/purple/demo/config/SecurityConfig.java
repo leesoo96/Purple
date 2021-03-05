@@ -18,8 +18,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.session.HttpSessionEventPublisher;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-import com.purple.demo.common.LoginFailHandler;
-import com.purple.demo.common.LoginSuccessHandler;
+import com.purple.demo.handler.LoginFailHandler;
+import com.purple.demo.handler.LoginSuccessHandler;
+
 
 @Configuration
 @EnableWebSecurity

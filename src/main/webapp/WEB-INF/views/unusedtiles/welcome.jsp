@@ -30,10 +30,18 @@
     	</div>
 
       	<form id="loginFrm" class="input-login" action="/login" method="post">
-        	<input type="text" name="user_id" class="input-field" placeholder="아이디를 입력해주세요" required>
+        	<input type="text" value="${cookie.RememberId.value}" name="user_id" class="input-field" placeholder="아이디를 입력해주세요" required>
         	<input type="password" name="user_pw" class="input-field" placeholder="비밀번호를 입력해주세요" required>
-        	<input type="checkbox" class="checkbox">
-          	<span id="loginChkBox">Remember userId</span>
+        	
+        	<c:choose>
+        		<c:when test="${cookie.RememberId.value == null}">
+        			<input type="checkbox" id="remember_us" name="remember_userId"> 아이디 기억하기 
+        		</c:when>
+        		<c:otherwise>
+        			<input type="checkbox" id="remember_us" name="remember_userId" checked> 아이디 기억하기 
+        		</c:otherwise>
+        	</c:choose>
+        	    	
         	<input type="submit" id="login_Btn" class="input_submit" value="로그인">
         	<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }">
      	</form>
