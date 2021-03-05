@@ -44,7 +44,7 @@ function loginFunc() {
 			user_pw : user_pw.value,
 			remember_Id : remember_Id.checked
 		}	
-		console.log(remember_Id.value)
+		
 		fetch('/login', {
 			method: 'post',
 			headers : {

@@ -21,7 +21,6 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import com.purple.demo.handler.LoginFailHandler;
 import com.purple.demo.handler.LoginSuccessHandler;
 
-
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(securedEnabled = true)
@@ -70,7 +69,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 					.maxSessionsPreventsLogin(true) // 중복 로그인 시 x
 					.expiredUrl("/welcome"); // 세션 만료 또는 중복 시 리다이렉트되는 url
 
-//					.sessionRegistry(sessionRegistry); 
+//					.sessionRegistry(null); 
 			
 			http.exceptionHandling()
 				.accessDeniedPage("/welcome");

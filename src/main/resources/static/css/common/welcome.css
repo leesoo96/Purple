@@ -38,7 +38,7 @@ a {
 #errMSG {
   font-size: 1.3rem;
   position: relative;
-  top: 6em;
+  top: 7.3em;
   left: 2.2em;
   color: red;
 }
@@ -103,7 +103,7 @@ a {
     transition: .5s;
 }
 .input-login .input_submit {
-  margin: 10px 0 0 70px;
+  margin: 40px 0 0 70px;
 }
 .input-register {
   top: 87px;
