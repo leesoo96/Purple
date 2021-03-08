@@ -19,9 +19,11 @@ for (let i = 0; i < cs_notice_titlebar.length; i++) {
       let notice_pk = cs_notice_titlebarEle.dataset.pk;
       fetch(`/updNoticevieView?notice_pk=${notice_pk}`, {
         method: "put",
-      }).then(function (res) {
-        return res.json();
-      });
+      })
+        .then(function (res) {
+          return res.json();
+        })
+        .then(() => {});
       for (let i = 0; i <= 25; i++) {
         setTimeout(function () {
           cs_notice_detail.style.height = `${i}em`;
