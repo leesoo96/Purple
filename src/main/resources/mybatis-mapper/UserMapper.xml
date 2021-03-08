@@ -15,14 +15,7 @@
 	<select id="loginUser" resultType="com.purple.demo.model.UserEntity">
 		SELECT *
 		FROM user
-		<where>
-			<if test="user_id != null and user_id !=''">
-				and user_id = #{user_id}
-			</if>
-			<if test="user_auth > 0">
-				user_auth = #{user_auth}
-			</if>
-		</where>
+		WHERE user_id = #{user_id}
 	</select> 
 	
 	<!-- 아이디 중복체크 -->

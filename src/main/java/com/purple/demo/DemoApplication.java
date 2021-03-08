@@ -14,7 +14,6 @@ public class DemoApplication {
 		SpringApplication.run(DemoApplication.class, args);
 	}
 
-//	만일의 오류를 위해서 아래의 코드들은 전부 주석처리해주세요(HTTPS관련코드)
 	@Bean
 	public ServletWebServerFactory serverFactory() {
         TomcatServletWebServerFactory tomcatServletWebServerFactory

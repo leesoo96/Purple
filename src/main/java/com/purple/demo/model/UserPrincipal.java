@@ -18,6 +18,10 @@ import lombok.EqualsAndHashCode;
 public class UserPrincipal extends UserEntity implements UserDetails, Principal {
 	private Collection<? extends GrantedAuthority> authorities;
 	
+	
+	
+	
+	
 	public UserPrincipal(UserEntity user) {
 		this.setUser_pk(user.getUser_pk());
 		this.setUser_id(user.getUser_id());
