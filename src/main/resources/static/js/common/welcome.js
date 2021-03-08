@@ -44,7 +44,7 @@ function loginFunc() {
 			user_pw : user_pw.value,
 			remember_Id : remember_Id.checked
 		}	
-		
+
 		fetch('/login', {
 			method: 'post',
 			headers : {
@@ -52,7 +52,9 @@ function loginFunc() {
 			},
 			body : JSON.stringify(param)
 		})
-		.then(res => res.json())
+		.then((res) => {
+			res.json()
+		})
 		.then(function(myJson) {
 			console.log(myJson)
 		})

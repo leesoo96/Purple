@@ -35,12 +35,13 @@
         	
         	<c:choose>
         		<c:when test="${cookie.RememberId.value == null}">
-        			<input type="checkbox" id="remember_us" name="remember_userId"> 아이디 기억하기 
+        			<input type="checkbox" id="remember_us" name="remember_userId">      			
         		</c:when>
         		<c:otherwise>
-        			<input type="checkbox" id="remember_us" name="remember_userId" checked> 아이디 기억하기 
+        			<input type="checkbox" id="remember_us" name="remember_userId" checked>
         		</c:otherwise>
         	</c:choose>
+        	<span>아이디 기억하기</span>  	
         	    	
         	<input type="submit" id="login_Btn" class="input_submit" value="로그인">
         	<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }">

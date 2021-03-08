@@ -28,3 +28,13 @@ handlebars:
 #Tomcat
 server: 
   port: 8090 
+  
+  ssl:
+    enabled: true
+    key-alias: purplestore
+    key-store: purplestore
+    key-store-password: 'purple'
+    key-password: 'purple'
+    trust-store: purpletrust
+    trust-store-password: 'purple' 
+    

@@ -13,7 +13,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 // loadUserByUsername 메소드가 userDetails를 리턴
-//@entity
 @Data
 @EqualsAndHashCode(of = "user_id")
 public class UserPrincipal extends UserEntity implements UserDetails, Principal {
