@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
   pageEncoding="UTF-8"%>
 <div id="followers">
-        <h3>Followers</h3>
+        <h3>알 수도 있는 사람</h3>
         <table>
           <tr>
             <td>

@@ -3,7 +3,7 @@
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %> 
 <div id="menus">
           <div id="logo">
-            <a href="#">
+            <a href="/feed">
               <img src="resources/img/common/logo1.png" alt="로고">
             </a>
           </div>
@@ -50,7 +50,7 @@
             
              <sec:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_USER')">
   				<sec:authentication property="principal" var="userInfo"/>
-  				<p>${userInfo.user_name }</p>
+  				<p>${userInfo.user_id }</p>
          	</sec:authorize> 
          	
             <i class="fas fa-grip-lines"></i>
@@ -61,7 +61,7 @@
             
             <sec:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_USER')">
   				<sec:authentication property="principal" var="userInfo"/>
-  				<p>${userInfo.user_id }</p>
+          <p>${userInfo.user_name }</p>
         	 </sec:authorize> 
          
             <a href="/mypage">마이페이지</a>
