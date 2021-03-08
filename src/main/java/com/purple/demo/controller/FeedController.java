@@ -1,6 +1,8 @@
 package com.purple.demo.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -30,9 +32,9 @@ public class FeedController {
 	
 	@ResponseBody
 	@RequestMapping(value="", method= RequestMethod.POST)
-	public Map<String, Object> login(@RequestBody UserEntity entity, HttpSession session) {
+	public HashMap<String, Object> login(@RequestBody UserEntity entity, HttpSession session) {
 		
-		Map<String, Object> loginResult = new HashMap<>();
+		HashMap<String, Object> loginResult = new HashMap<String, Object>();
 		loginResult.put("result", service.loadUserByUsername(entity.getUser_id()));
 
 		return loginResult;

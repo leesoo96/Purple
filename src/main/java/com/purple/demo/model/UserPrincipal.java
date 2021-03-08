@@ -17,7 +17,6 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(of = "user_id")
 public class UserPrincipal extends UserEntity implements UserDetails, Principal {
 	private Collection<? extends GrantedAuthority> authorities;
-	private UserEntity entity;
 	
 	public UserPrincipal(UserEntity user) {
 		this.setUser_pk(user.getUser_pk());

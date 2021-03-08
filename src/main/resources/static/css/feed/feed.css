@@ -86,6 +86,7 @@ height: 40px;
 display: flex;
 align-items: center;
 margin-bottom: 0.5em;
+margin-left: 1em;
 }
 .feed_functionbar i{
 margin-left: 0.3em;
