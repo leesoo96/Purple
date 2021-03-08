@@ -71,8 +71,7 @@
 		a.question_typ , b.answer_ctnt
 		FROM
 		cs_question AS a LEFT JOIN cs_answer AS b
-		on a.question_pk =
-		b.answer_pk
+		on a.question_pk = b.answer_pk
 		ORDER BY a.question_pk DESC;
 	</select>
 

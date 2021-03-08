@@ -9,6 +9,8 @@ for (let i = 0; i < cs_notice_titlebar.length; i++) {
   let cs_notice_titlebarEle = cs_notice_titlebar[i];
   cs_notice_titlebarEle.addEventListener("click", function () {
     let cs_notice_detail = this.nextSibling.nextSibling;
+    let notice_view = this.childNodes[2];
+    console.log(notice_view);
     if (cs_notice_detail.style.height < "100px") {
       for (let j = 0; j < cs_notice_detail_close.length; j++) {
         cs_notice_titlebar[j].style.backgroundColor = "rgb(255, 255, 255)";
@@ -23,7 +25,9 @@ for (let i = 0; i < cs_notice_titlebar.length; i++) {
         .then(function (res) {
           return res.json();
         })
-        .then(() => {});
+        .then(() => {
+          notice_view.value = 1;
+        });
       for (let i = 0; i <= 25; i++) {
         setTimeout(function () {
           cs_notice_detail.style.height = `${i}em`;

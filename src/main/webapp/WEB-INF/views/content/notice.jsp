@@ -22,7 +22,7 @@
 					<span>[공지사항]</span><span>${item.notice_title}</span>
 				</div>
 				<div class="cs_notice_extratitle">
-					<span>조회수: </span> <span>${item.notice_view}</span><span> |
+					<span>조회수: </span> <span name="notice_view">${item.notice_view}</span><span> |
 					</span><span>${item.notice_writedate}</span>
 				</div>
 			</div>
