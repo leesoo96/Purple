@@ -38,8 +38,8 @@
               <i class="fas fa-cogs menu_icons"></i>
               <span>고객센터</span>
               <div id="cs_menus">
-                <a href="#">공지사항</a>
-                <a href="#">문의사항</a>
+                <a href="/notice">공지사항</a>
+                <a href="/question">문의사항</a>
               </div>   
           </div>
          
