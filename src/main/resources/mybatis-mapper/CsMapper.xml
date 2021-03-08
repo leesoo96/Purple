@@ -14,13 +14,13 @@
 	</insert>
 
 	<!-- 공지사항 글 리스트 -->
-	<select id="selNoticeList" resultType="NoticeEntity">
+	<select id="selNoticeList" resultType="CsNoticeEntity">
 		SELECT * FROM cs_notice
 		ORDER BY notice_pk DESC
 	</select>
 
 	<!-- 공지사항 글 -->
-	<select id="selNotice" resultType="NoticeEntity">
+	<select id="selNotice" resultType="CsNoticeEntity">
 		SELECT * FROM cs_notice
 		WHERE
 		notice_pk = #{notice_pk};
@@ -63,7 +63,7 @@
 	</insert>
 
 	<!-- 문의사항 글 리스트 -->
-	<select id="selQuestionList" resultType="QuestionEntity">
+	<select id="selQuestionList" resultType="CsQuestionEntity">
 		SELECT a.question_pk
 		,a.question_title, a.question_ctnt,
 		a.question_writedate,
@@ -77,7 +77,7 @@
 	</select>
 
 	<!-- 문의사항 글 -->
-	<select id="selQuestion" resultType="QuestionEntity">
+	<select id="selQuestion" resultType="CsQuestionEntity">
 		SELECT * FROM cs_question
 		WHERE question_pk = #{question_pk};
 	</select>

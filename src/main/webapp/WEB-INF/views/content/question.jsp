@@ -35,7 +35,7 @@
 				<div class="cs_modal_close">
 					<a href="#">close</a>
 				</div>
-				댓글
+				${item.answer_ctnt}
 			</div>
 		</div>
 	</c:forEach>
