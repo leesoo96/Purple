@@ -1,6 +1,6 @@
 //본문 참조 기능
 
-//noticeasdasd
+//notice
 
 let cs_notice_titlebar = document.querySelectorAll(".cs_notice_titlebar");
 let cs_notice_detail_close = document.querySelectorAll(".cs_notice_detail");
