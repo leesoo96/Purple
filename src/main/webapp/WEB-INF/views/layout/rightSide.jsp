@@ -74,6 +74,7 @@
                   <small>상태메시지</small>
                 </td>
                 <td id="friend_block">
+                  <span>친구정보보기</span>
                   <span>차단하기</span>
                 </td>
                 <td id="friend_chat_func">
@@ -86,7 +87,8 @@
                   <span>friendName2</span>
                   <small>상태메시지</small>
                 </td>
-                <td id="friend_block">
+                 <td id="friend_block">
+                  <span>친구정보보기</span>
                   <span>차단하기</span>
                 </td>
                 <td id="friend_chat_func">
@@ -99,12 +101,12 @@
                   <span>friendNameeee3</span>
                   <small>상태메시지</small>
                 </td>
-                <td id="friend_block">
+                 <td id="friend_block">
+                  <span>친구정보보기</span>
                   <span>차단하기</span>
                 </td>
                 <td id="friend_chat_func">
                     <span>대화</span>
-                  </div>
                 </td>
               </tr>
               <tr>
@@ -113,7 +115,8 @@
                   <span>friendNameeeee4</span>
                   <small>상태메시지</small>
                 </td>
-                <td id="friend_block">
+                   <td id="friend_block">
+                  <span>친구정보보기</span>
                   <span>차단하기</span>
                 </td>
                 <td id="friend_chat_func">
@@ -126,7 +129,8 @@
                   <span>friendNameeeee5</span>
                   <small>상태메시지</small>
                 </td>
-                <td id="friend_block">
+                   <td id="friend_block">
+                  <span>친구정보보기</span>
                   <span>차단하기</span>
                 </td>
                 <td id="friend_chat_func">
@@ -158,11 +162,10 @@
           </div> <!-- chat_list -->
 
           <div class="chat_msg">
-            <img src="img/temp/back.png" alt="뒤로가기">
-            <p>friendName</p>
+            <p id="chat_friendName">@friendName</p>
 
             <div class="chat">
-              <span>- 2021년 00월 00일 -</span>
+              <span id="chat_date">- 2021년 00월 00일 -</span>
               <div class="friendMsgContainer">
                 <p class="friendMsg">야</p>
                 <small class="friendMsg_time">오후 00:00</small>

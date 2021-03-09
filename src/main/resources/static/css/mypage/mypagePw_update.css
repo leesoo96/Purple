@@ -1,16 +1,16 @@
 @charset "UTF-8";
 
 .modal_pw{
-	width: 400px;
+width: 400px;
   height: 400px;
   position: fixed;
-	top: 32%;
-  left: 43%;
+  top: 32%;
+  left: 50.5%;
   background: #bdc3c7;
   z-index: 2;
-	border-radius: 1em;
-	display: none;	/* 요소가 전혀 표시되지 X(레이아웃에 영향 주지 X, 공간이 사라짐) */
-	animation: fade 0.7s ease;
+  border-radius: 1em;
+  display: none;	/* 요소가 전혀 표시되지 X(레이아웃에 영향 주지 X, 공간이 사라짐) */
+  animation: fade 0.7s ease;
 }
 
 .pw_bg{

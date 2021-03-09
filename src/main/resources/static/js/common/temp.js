@@ -38,7 +38,7 @@ temp_user.onclick = function () {
     }
 }
 
-// dm창 열고 닫기 이벤트(JQuery -> JavaScript로 코드변경)
+// dm창 열고 닫기 이벤트
 function dm_view() {
    let dm_open = document.querySelector('.dm_open')
    let dm_close = document.querySelector('.dm_close')
@@ -71,6 +71,9 @@ f_btn.onclick = function () {
     friend_list.style.transition = '.5s'
 
     chat_list.style.left = '27em'
+
+	chat_msg.style.right = '-23em';
+    chat_msg.style.transition = '.5s';
 }
 
 c_btn.onclick = function () {
@@ -81,26 +84,24 @@ c_btn.onclick = function () {
     chat_list.style.transition = '.5s'
 
     friend_list.style.left = '-27em'
+
+	chat_msg.style.right = '-23em';
+    chat_msg.style.transition = '.5s';
 }
 
 // 친구 아이디 클릭 시 차단하기 표시 & 숨김
 let friend_info = document.querySelectorAll('#friend_info')
-let friend_block = document.querySelectorAll('#friend_block span')
+let friend_block = document.querySelectorAll('#friend_block')
 for (let i = 0; i < friend_info.length; i++) {
    
     friend_info[i].onclick = function () {
-        if(friend_block[i].style.display === 'block'){
-            friend_block[i].style.display = 'none' 
+        if(friend_block[i].style.visibility === 'visible'){
+            friend_block[i].style.visibility = 'hidden' 
         }else {
-            friend_block[i].style.display = 'block' 
+            friend_block[i].style.visibility = 'visible' 
         }
     }
-    
-    friend_block[i].onclick = function () {
-        alert('정말 차단하시겠습니까?')
-    }
 } 
-
 
 // 대화목록에서 각 대화 클릭 시 
 let chat_msg = document.querySelector('.chat_msg');
@@ -111,7 +112,7 @@ for (let i = 0; i < c_div.length; i++) {
         chat_msg.style.right = '17px';
         chat_msg.style.transition = '.5s';
         
-        chat_list.style.left = '-18em';
+        chat_list.style.left = '-24em';
     }
 }
 
