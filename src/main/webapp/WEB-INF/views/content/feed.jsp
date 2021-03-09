@@ -20,7 +20,7 @@
     </div>
 
     <div class="feed_img">
-    <div class="previous"><i class="fas fa-chevron-left"></i></div>
+      <div class="previous"><i class="fas fa-chevron-left"></i></div>
       <img src="resources/img/feed/demo3.PNG" style="width:100%">
       <img src="resources/img/feed/demo4.PNG" style="width:100%">
       <img src="resources/img/feed/demo3.PNG" style="width:100%">

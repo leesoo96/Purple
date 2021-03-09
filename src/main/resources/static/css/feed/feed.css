@@ -1,5 +1,5 @@
-#selectBox select{
-  position : relative;
+#selectBox select {
+  position: relative;
   margin-top: 1em;
   font-size: 1.1rem;
   font-weight: bold;
@@ -8,85 +8,83 @@
   border-radius: 0.5em;
 }
 
-#feed{
-  position : relative;
+#feed {
+  position: relative;
 }
 
 .feed_container {
-margin-top: 0.8em;
-position : relative;
-height: auto;
-width: auto;
-border: 1px solid;
-border-radius: 0.5em;
+  margin-top: 0.8em;
+  position: relative;
+  height: auto;
+  width: auto;
+  border: 1px solid;
+  border-radius: 0.5em;
 }
 
-.feed_title{
-height: 40px;
-padding : 8px;
-position : relative;
-display: flex;
-align-items: center;  
+.feed_title {
+  height: 40px;
+  padding: 8px;
+  position: relative;
+  display: flex;
+  align-items: center;
 }
 
 .feed_title img {
-width: 3em;
-border-radius: 2em;
-height:auto;
+  width: 3em;
+  border-radius: 2em;
+  height: auto;
 }
 
 .feed_title span {
-position: relative;
-font-size: 0.9rem;
-margin-left : 0.6em;
+  position: relative;
+  font-size: 0.9rem;
+  margin-left: 0.6em;
 }
 .feed_title i {
-position: relative;
-margin-left: auto;
-cursor: pointer;
-margin-right: 1.0em;
+  position: relative;
+  margin-left: auto;
+  cursor: pointer;
+  margin-right: 1em;
 }
 
-
-
-.leftposition{
-width: 4em;
-float: left;
+.leftposition {
+  width: 4em;
+  float: left;
 }
 
-.rightposition{
-width: 4em;
-float: right;
+.rightposition {
+  width: 4em;
+  float: right;
 }
-.rightposition i{
-position: relative;
-float: right;
+.rightposition i {
+  position: relative;
+  float: right;
 }
 
 .feed_content {
-padding-left: 20px;
-position: relative;
-font-size: 15px;
-white-space: pre-line;
+  padding-left: 20px;
+  position: relative;
+  font-size: 15px;
+  white-space: pre-line;
 }
 
-.feed_functionbar{
-position: relative;
-width:auto;
-height: 40px;
-display: flex;
-align-items: center;
-margin-bottom: 0.5em;
-margin-left: 1em;
+.feed_functionbar {
+  position: relative;
+  width: auto;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5em;
+  margin-left: 1em;
 }
-.feed_functionbar i{
-margin-left: 0.3em;
-font-size: 35;
-cursor: pointer;
+.feed_functionbar i {
+  margin-left: 0.3em;
+  font-size: 35;
+  cursor: pointer;
 }
-.feed_functionbar span{
-margin-left: 0.1em;
-margin-right: 0.5em;
+.feed_functionbar span {
+  margin-left: 0.1em;
+  margin-right: 0.5em;
 }
 
 .slideshow-container {
@@ -95,7 +93,6 @@ margin-right: 0.5em;
   margin: auto;
 }
 
-
 .feed_img {
   max-width: 630px;
   position: relative;
@@ -103,7 +100,8 @@ margin-right: 0.5em;
   background-color: red;
 }
 
-.previous, .next {
+.previous,
+.next {
   background-color: purple;
   cursor: pointer;
   position: absolute;
@@ -117,7 +115,7 @@ margin-right: 0.5em;
   transition: 0.6s ease;
   border-radius: 0 3px 3px 0;
   user-select: none;
-  z-index: 3;
+  z-index: 1;
 }
 
 .feed_img img {

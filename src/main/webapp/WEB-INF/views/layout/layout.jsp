@@ -30,7 +30,7 @@
 	      </form>
 	      <input id="submit_btn" type="submit" value="upload">           
   	</div>
-  </div> 
+  </div>
   <div id="container">
     <div id="layers">
       <div id="nav1">
