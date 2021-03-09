@@ -187,7 +187,7 @@ function questionReg() {
       question_title: question_write_form.question_title.value,
       question_ctnt: question_write_form.question_ctnt.value,
       question_userpk: question_write_form.question_userpk.value,
-      question_typ: question_write_form.question_typ.value,
+      question_type: question_write_form.question_type.value,
     };
     fetch("/question_write", {
       method: "post",

@@ -17,7 +17,17 @@
 		<div class="cs_question_content">
 			<div class="cs_question_titlebar" data-pk="${item.question_pk}">
 				<div class="cs_question_title">
-					<span>[${item.question_typ}]</span><span>${item.question_title}</span>
+					<span>[
+					<c:choose>
+					   <c:when test="${item.question_type == 0}">
+					   계정관리
+					   </c:when>
+					
+					   <c:otherwise>
+					   서비스 이용
+					   </c:otherwise>
+					</c:choose>
+							]</span><span>${item.question_title}</span>
 				</div>
 				<div class="cs_question_extratitle">
 					<span>조회수: </span> <span>${item.question_view}</span><span>

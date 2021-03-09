@@ -11,6 +11,6 @@ public class QuestionEntity extends AnswerEntity{
 		private String question_ctnt;
 		private String question_writedate;
 		private int question_view;
-		private String question_typ;
+		private int question_type;
 		private int question_userpk;
 }
