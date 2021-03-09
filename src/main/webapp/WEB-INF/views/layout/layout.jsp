@@ -19,7 +19,7 @@
               <div id="add_image">사진을 추가해 주세요</div>
             		<!-- 미리보기 공간 -->  	
         		  </div>
-	  			<img src="resources/img/common/x_icon.png" id="write_icon" onclick="document.getElementById('file').click();" />
+	  			<img src="resources/img/common/close_icon.png" id="write_icon" onclick="document.getElementById('file').click();" />
 	  			<input type="file" id="file" accept="image/*" onchange="setThumbnail(event);"  onchange="document.getElementById('txt').value=this.value;" multiple />
 	  			<img src="resources/img/common/video_icon.png" id="video_icon" onclick="document.getElementById('file_video').click();" />
 	  			<input type="file" id="file_video" accept="video/*" onchange="setThumbnailvideo(event);" onchange="document.getElementById('txt').value=this.value;" multiple>	  			

@@ -46,10 +46,8 @@ margin-left: auto;
 cursor: pointer;
 margin-right: 1.0em;
 }
-.feed_img {
-position: relative;
-width: 595.5px;
-}
+
+
 
 .leftposition{
 width: 4em;
@@ -63,13 +61,6 @@ float: right;
 .rightposition i{
 position: relative;
 float: right;
-}
-
-
-.feed_img img{
-margin-left: 1px;
-position: relative;
-width: 595.5px;
 }
 
 .feed_content {
@@ -96,4 +87,47 @@ cursor: pointer;
 .feed_functionbar span{
 margin-left: 0.1em;
 margin-right: 0.5em;
+}
+
+.slideshow-container {
+  max-width: 1000px;
+  position: relative;
+  margin: auto;
+}
+
+
+.feed_img {
+  max-width: 630px;
+  position: relative;
+  margin: auto;
+  background-color: red;
+}
+
+.previous, .next {
+  background-color: purple;
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  margin-top: -22px;
+  padding: 16px;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+  z-index: 3;
+}
+
+.feed_img img {
+  display: none;
+}
+.next {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+.previous {
+  left: 0;
+  border-radius: 3px 0 0 3px;
 }
