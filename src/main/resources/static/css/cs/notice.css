@@ -1,0 +1,120 @@
+@charset "UTF-8";
+#title_bar {
+  top: 0.3em;
+  width: auto;
+  height: 50px;
+  position: sticky;
+}
+
+/* 게시판 전체 */
+#cs_notice_container {
+  position: relative;
+  /* box-shadow: 10px 10px 30px #ab54ee; */
+  width: auto;
+  height: auto;
+  overflow: scroll;
+  -ms-overflow-style: none;
+  /* border: solid; */
+  /* border-color: rgb(139, 118, 118); */
+  border-radius: 15px;
+}
+
+#cs_notice_container::-webkit-scrollbar {
+  display: none;
+}
+
+#cs_reg {
+  position: relative;
+  left: 30em;
+}
+
+/* 글 1개당 양식 */
+.cs_notice_content {
+  width: 100%;
+  margin-top: 10px;
+}
+
+/* 타이틀 바 */
+.cs_notice_titlebar {
+  border-radius: 16px 16px 0px 0px;
+  transition: all 0.5s;
+  margin-top: 10px;
+  position: relative;
+  height: 4em;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  border-bottom: 2px solid rgb(82, 0, 121);
+}
+
+.cs_notice_titlebar:hover {
+  cursor: pointer;
+}
+
+.cs_notice_title {
+  position: relative;
+  font-size: 20px;
+}
+
+.cs_notice_title span {
+  position: relative;
+  padding-left: 10px;
+}
+
+.cs_notice_extratitle {
+  position: relative;
+  margin-left: auto;
+  font-size: 14px;
+}
+
+.cs_notice_extratitle span {
+  position: relative;
+  padding-right: 10px;
+}
+
+/* 내용 */
+.cs_notice_detail {
+  overflow: scroll;
+  overflow-x: hidden;
+  transition: all 1s;
+  border-radius: 0px 0px 16px 16px;
+  position: relative;
+  height: 0px;
+  width: auto;
+  align-items: center;
+  border-bottom: 2px solid rgb(82, 0, 121);
+}
+.cs_notice_detail::-webkit-scrollbar {
+  width: 10px;
+}
+.cs_notice_detail::-webkit-scrollbar-thumb {
+  background-color: rgb(82, 0, 121);
+  border-radius: 10px;
+  background-clip: padding-box;
+  border: 2px solid transparent;
+}
+.cs_notice_detail::-webkit-scrollbar-track {
+  background-color: rgb(255, 255, 255);
+}
+/* detail요소 안에서 글씨체 조정 부분 */
+.cs_notice_detail p {
+  position: relative;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-size: 18px;
+  white-space: pre-line;
+}
+.cs_notice_detail span {
+  position: relative;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+/*페이징*/
+#cs_paging {
+  text-align: center;
+  font-size: 20px;
+  letter-spacing: 25px;
+  position: relative;
+  top: 1em;
+}
