@@ -24,9 +24,9 @@
 		</tr>
 		<tr>
 			<th>문의유형</th>
-			<td id="category"><select name="question_typ">
-					<option value="계정 관리" selected="selected">계정 관리</option>
-					<option value="서비스이용">서비스이용</option>
+			<td id="category"><select name="question_type">
+					<option value="0" selected="selected">계정 관리</option>
+					<option value="1">서비스이용</option>
 			</select></td>
 		</tr>
 		<tr>

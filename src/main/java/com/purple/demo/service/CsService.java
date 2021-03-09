@@ -4,6 +4,8 @@ package com.purple.demo.service;
 
 import java.util.List;
 
+import javax.servlet.ServletContext;
+
 import com.purple.demo.mapper.CsMapper;
 import com.purple.demo.model.NoticeEntity;
 import com.purple.demo.model.QuestionEntity;
@@ -67,5 +69,4 @@ public class CsService {
 	public int question_del(QuestionEntity p) {
 		return mapper.question_del(p);
 	}
-	
 }

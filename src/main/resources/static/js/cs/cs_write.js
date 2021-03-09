@@ -187,8 +187,13 @@ function questionReg() {
       question_title: question_write_form.question_title.value,
       question_ctnt: question_write_form.question_ctnt.value,
       question_userpk: question_write_form.question_userpk.value,
+<<<<<<< HEAD
       question_typ: question_write_form.question_typ.value,
     }
+=======
+      question_type: question_write_form.question_type.value,
+    };
+>>>>>>> 9c8db40d72b92d4dd87269963cf76a3a534c9c99
     fetch("/question_write", {
       method: "post",
       headers: {
