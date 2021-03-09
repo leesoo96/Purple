@@ -51,7 +51,7 @@
     <div class="mypage_mod">
       <div class="exit">
         <a href="" class="close">
-          <img src="img/mypage/times-solid.svg" alt="닫기">
+          <img src="resources/img/common/close_icon.png" alt="닫기">
         </a>
       </div>
 
@@ -64,8 +64,8 @@
 
       <div class="scroll">
         <div class="profile_background">
-          <img src="img/temp/profie.png" class="profile_img" alt="기본프로필사진">
-          <img src="img/mypage/add_photo.png" class="camera_icon" alt="카메라 사진">
+          <img src="resources/img/common/basic_profile.png" class="profile_img" alt="기본프로필사진">
+          <img src="resources/img/common/photo_icon.png" class="camera_icon" alt="카메라 사진">
           <img src="img/mypage/add_photo.png" class="backgroundcamera_icon" alt="카메라 사진">
         </div>
         
