@@ -9,8 +9,7 @@ for (let i = 0; i < cs_notice_titlebar.length; i++) {
   let cs_notice_titlebarEle = cs_notice_titlebar[i];
   cs_notice_titlebarEle.addEventListener("click", function () {
     let cs_notice_detail = this.nextSibling.nextSibling;
-    let notice_view = this.childNodes[2];
-    console.log(notice_view);
+    let notice_view = this.childNodes.item(3).childNodes.item(3);
     if (cs_notice_detail.style.height < "100px") {
       for (let j = 0; j < cs_notice_detail_close.length; j++) {
         cs_notice_titlebar[j].style.backgroundColor = "rgb(255, 255, 255)";
@@ -19,14 +18,16 @@ for (let i = 0; i < cs_notice_titlebar.length; i++) {
         cs_notice_detail_close[j].style.padding = "0px";
       }
       let notice_pk = cs_notice_titlebarEle.dataset.pk;
-      fetch(`/updNoticevieView?notice_pk=${notice_pk}`, {
+      fetch(`/updNoticeView?notice_pk=${notice_pk}`, {
         method: "put",
       })
         .then(function (res) {
           return res.json();
         })
-        .then(() => {
-          notice_view.value = 1;
+        .then((myJson) => {
+          if (myJson.result == 1) {
+            notice_view.innerHTML = myJson.notice_view;
+          }
         });
       for (let i = 0; i <= 25; i++) {
         setTimeout(function () {

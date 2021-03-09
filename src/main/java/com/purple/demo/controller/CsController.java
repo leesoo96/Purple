@@ -45,13 +45,14 @@ public class CsController {
 		noticeWriteResult.put("result", service.regNotice(p));
 		return noticeWriteResult;
 	}
-	 //공지사항 글 수정
+	 //공지사항 글 수정 (화면) 
 	@GetMapping("/notice_upd")
 	public String notice_upd(Model model, CsNoticeEntity p) {
 		model.addAttribute("noticeUpd", service.selNotice(p)); 
 		return "/notice_write";
 	}
 	
+	//공지사항 글 수정
 	@ResponseBody
 	@PostMapping("/notice_upd") 
 	public Map<String, Object> notice_upd(@RequestBody CsNoticeEntity p) {
@@ -64,11 +65,11 @@ public class CsController {
 	//공지사항 조회수
 	
 	@ResponseBody
-	@PutMapping("/updNoticevieView")
+	@PutMapping("/updNoticeView")
 	public Map<String, Object> updNoticevieView(CsNoticeEntity p) {
 		Map<String, Object> noticeWriteResult = new HashMap<String, Object>();
 		noticeWriteResult.put("result", service.updNoticevieView(p));
-		System.out.println("1111");
+		noticeWriteResult.put("notice_view", p.getNotice_view());
 		return noticeWriteResult;
 	}
 	
@@ -83,16 +84,6 @@ public class CsController {
 	}
 	
 	//문의사항
-	
-
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	@GetMapping("/question")
@@ -126,6 +117,16 @@ public class CsController {
 		noticeWriteResult.put("result", service.question_upd(p));
 		System.out.println("성공");
 		return noticeWriteResult;
+	}
+
+	//문의사항 조회수
+	@ResponseBody
+	@PutMapping("/updQuestionView")
+	public Map<String, Object> updQuestionView(CsQuestionEntity p) {
+		Map<String, Object> QuestionWriteResult = new HashMap<String, Object>();
+		QuestionWriteResult.put("result", service.updQuestionView(p));
+		QuestionWriteResult.put("question_view", p.getQuestion_view());
+		return QuestionWriteResult;
 	}
 	
 	//문의사항 글삭제

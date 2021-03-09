@@ -2,6 +2,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://www.springframework.org/security/tags"
+	prefix="sec"%>
 
 <!DOCTYPE html>
 <link rel="stylesheet" href="resources/css/common/temp.css" />
@@ -13,12 +15,12 @@
 	</div>
 	<c:forEach items="${questionData}" var="item">
 		<div class="cs_question_content">
-			<div class="cs_question_titlebar">
+			<div class="cs_question_titlebar" data-pk="${item.question_pk}">
 				<div class="cs_question_title">
 					<span>[${item.question_typ}]</span><span>${item.question_title}</span>
 				</div>
 				<div class="cs_question_extratitle">
-					<span>조회수: </span> <span>${item.question_views}</span><span>
+					<span>조회수: </span> <span>${item.question_view}</span><span>
 						| </span><span>${item.question_writedate}</span>
 				</div>
 			</div>
@@ -33,13 +35,18 @@
 			</div>
 			<div class="cs_cmt_vlew">
 				<div class="cs_modal_close">
-					<a href="#">close</a>
+					<a href="qeustion">close</a>
 				</div>
 				${item.answer_ctnt}
+				<sec:authorize access="hasAnyRole('ROLE_ADMIN')">
+					<button onclick="cs_cmt_reg(${item.question_pk})">댓글달기</button>
+					<textarea></textarea>
+				</sec:authorize>
 			</div>
 		</div>
 	</c:forEach>
 </div>
+<div class="cs_black_bg"></div>
 <div id="cs_paging"></div>
 
 
