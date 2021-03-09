@@ -44,6 +44,8 @@ public interface CsMapper {
 	int regQuestion(CsQuestionEntity p) ;
 	
 	int question_upd(CsQuestionEntity p);
+
+	int updQuestionView(CsQuestionEntity p);
 	
 	int question_del(CsQuestionEntity p);
 }

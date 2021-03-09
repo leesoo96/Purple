@@ -10,7 +10,7 @@ public class CsQuestionEntity extends CsAnswerEntity{
 		private String question_title;
 		private String question_ctnt;
 		private String question_writedate;
-		private int question_views;
+		private int question_view;
 		private String question_typ;
 		private int question_userpk;
 	

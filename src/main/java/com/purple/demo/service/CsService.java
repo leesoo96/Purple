@@ -42,21 +42,7 @@ public class CsService {
 	}
 	
 
-	
-	
-	
-	
-	
-	
-	
-	
-	 
-	
-	
-	
-	
-	
-	
+	//문의사항
 	
 	public 	List<CsQuestionEntity> selQuestionList(CsQuestionEntity p){
 		return mapper.selQuestionList(p);
@@ -72,6 +58,10 @@ public class CsService {
 	
 	public int question_upd(CsQuestionEntity p) {
 		return mapper.question_upd(p);
+	}
+
+	public int updQuestionView(CsQuestionEntity p) {
+		return mapper.updQuestionView(p);
 	}
 	
 	public int question_del(CsQuestionEntity p) {

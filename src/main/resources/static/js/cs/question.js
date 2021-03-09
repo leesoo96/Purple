@@ -1,25 +1,3 @@
-//삭제 버튼 클릭
-function clkDel(i_board, typ) {
-  if (confirm("삭제 하시겠습니까?")) {
-    fetch(`/board/del/${i_board}`, {
-      method: "delete",
-    })
-      .then(function (res) {
-        return res.json();
-      })
-      .then(function (myJson) {
-        console.log(myJson);
-        if (myJson.result === 1) {
-          //삭제 완료
-          location.href = `/board/list?typ=${typ}`;
-        } else {
-          //삭제 실패
-          alert("삭제 실패하였습니다.");
-        }
-      });
-  }
-}
-
 //question
 let cs_question_titlebar = document.querySelectorAll(".cs_question_titlebar");
 let cs_question_detail_close = document.querySelectorAll(".cs_question_detail");
@@ -27,6 +5,7 @@ for (let i = 0; i < cs_question_titlebar.length; i++) {
   let cs_question_titlebarEle = cs_question_titlebar[i];
   cs_question_titlebarEle.addEventListener("click", function () {
     let cs_question_detail = this.nextSibling.nextSibling;
+    let question_view = this.childNodes.item(3).childNodes.item(3);
     if (cs_question_detail.style.height < "100px") {
       for (let j = 0; j < cs_question_detail_close.length; j++) {
         cs_question_titlebar[j].style.backgroundColor = "rgb(255, 255, 255)";
@@ -34,6 +13,18 @@ for (let i = 0; i < cs_question_titlebar.length; i++) {
         cs_question_detail_close[j].style.height = "0em";
         cs_question_detail_close[j].style.padding = "0px";
       }
+      let question_pk = cs_question_titlebarEle.dataset.pk;
+      fetch(`/updQuestionView?question_pk=${question_pk}`, {
+        method: "put",
+      })
+        .then(function (res) {
+          return res.json();
+        })
+        .then((myJson) => {
+          if (myJson.result == 1) {
+            question_view.innerHTML = myJson.question_view;
+          }
+        });
       for (let i = 0; i <= 25; i++) {
         setTimeout(function () {
           cs_question_detail.style.height = `${i}em`;
@@ -93,6 +84,9 @@ for (let i = 0; i < cs_modal_close.length; i++) {
     openCLoseCmtModal("none");
   });
 }
+
+//댓글 등록
+function cs_cmt_reg(question_pk) {}
 
 //문의사항 삭제\
 function cs_del_btn(question_pk) {
