@@ -3,8 +3,8 @@ package com.purple.demo.controller;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.purple.demo.model.CsNoticeEntity;
-import com.purple.demo.model.CsQuestionEntity;
+import com.purple.demo.model.NoticeEntity;
+import com.purple.demo.model.QuestionEntity;
 import com.purple.demo.service.CsService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +26,7 @@ public class CsController {
 	
 	//공지사항 패이지(화면)
 	@GetMapping("/notice")
-	public String noticeList(Model model, CsNoticeEntity p) {
+	public String noticeList(Model model, NoticeEntity p) {
 		model.addAttribute("noticeData", service.selNoticeList(p));
 		return "/notice";
 	}
@@ -40,14 +40,14 @@ public class CsController {
 	//공지사항 글등록
 	@ResponseBody
 	@PostMapping("/notice_write")
-	public Map<String, Object> notice_write(@RequestBody CsNoticeEntity p) {
+	public Map<String, Object> notice_write(@RequestBody NoticeEntity p) {
 		Map<String, Object> noticeWriteResult = new HashMap<String, Object>();
 		noticeWriteResult.put("result", service.regNotice(p));
 		return noticeWriteResult;
 	}
 	 //공지사항 글 수정 (화면) 
 	@GetMapping("/notice_upd")
-	public String notice_upd(Model model, CsNoticeEntity p) {
+	public String notice_upd(Model model, NoticeEntity p) {
 		model.addAttribute("noticeUpd", service.selNotice(p)); 
 		return "/notice_write";
 	}
@@ -55,7 +55,7 @@ public class CsController {
 	//공지사항 글 수정
 	@ResponseBody
 	@PostMapping("/notice_upd") 
-	public Map<String, Object> notice_upd(@RequestBody CsNoticeEntity p) {
+	public Map<String, Object> notice_upd(@RequestBody NoticeEntity p) {
 		Map<String, Object> noticeWriteResult = new HashMap<String, Object>();
 		noticeWriteResult.put("result", service.notice_upd(p));
 		System.out.println("성공");
@@ -66,7 +66,7 @@ public class CsController {
 	
 	@ResponseBody
 	@PutMapping("/updNoticeView")
-	public Map<String, Object> updNoticevieView(CsNoticeEntity p) {
+	public Map<String, Object> updNoticevieView(NoticeEntity p) {
 		Map<String, Object> noticeWriteResult = new HashMap<String, Object>();
 		noticeWriteResult.put("result", service.updNoticevieView(p));
 		noticeWriteResult.put("notice_view", p.getNotice_view());
@@ -77,7 +77,7 @@ public class CsController {
 	//공지사항 글삭제
 	@ResponseBody
 	@DeleteMapping("/notice_del")
-	public Map<String, Object> notice_del(CsNoticeEntity p) {
+	public Map<String, Object> notice_del(NoticeEntity p) {
 		Map<String, Object> noticeWriteResult = new HashMap<String, Object>();
 		noticeWriteResult.put("result", service.Notice_del(p));
 		return noticeWriteResult;
@@ -87,7 +87,7 @@ public class CsController {
 	
 	
 	@GetMapping("/question")
-	public String question(Model model, CsQuestionEntity p) {
+	public String question(Model model, QuestionEntity p) {
 		model.addAttribute("questionData", service.selQuestionList(p));
 		return "/question";
 	}
@@ -99,20 +99,20 @@ public class CsController {
 	
 	@ResponseBody
 	@PostMapping("/question_write")
-	public Map<String, Object> regQuestion(@RequestBody CsQuestionEntity p) {
+	public Map<String, Object> regQuestion(@RequestBody QuestionEntity p) {
 		Map<String, Object> noticeWriteResult = new HashMap<String, Object>();
 		noticeWriteResult.put("result", service.regQuestion(p));
 		return noticeWriteResult;
 	}
 	@GetMapping("/question_upd")
-	public String question_upd(Model model, CsQuestionEntity p) {
+	public String question_upd(Model model, QuestionEntity p) {
 		model.addAttribute("questionUpd", service.selQuestion(p)); 
 		return "/question_write";
 	}
 
 	@ResponseBody
 	@PostMapping("/question_upd") 
-	public Map<String, Object> question_upd(@RequestBody CsQuestionEntity p) {
+	public Map<String, Object> question_upd(@RequestBody QuestionEntity p) {
 		Map<String, Object> noticeWriteResult = new HashMap<String, Object>();
 		noticeWriteResult.put("result", service.question_upd(p));
 		System.out.println("성공");
@@ -122,7 +122,7 @@ public class CsController {
 	//문의사항 조회수
 	@ResponseBody
 	@PutMapping("/updQuestionView")
-	public Map<String, Object> updQuestionView(CsQuestionEntity p) {
+	public Map<String, Object> updQuestionView(QuestionEntity p) {
 		Map<String, Object> QuestionWriteResult = new HashMap<String, Object>();
 		QuestionWriteResult.put("result", service.updQuestionView(p));
 		QuestionWriteResult.put("question_view", p.getQuestion_view());
@@ -132,7 +132,7 @@ public class CsController {
 	//문의사항 글삭제
 		@ResponseBody
 		@DeleteMapping("/question_del")
-		public Map<String, Object> question_del(CsQuestionEntity p) {
+		public Map<String, Object> question_del(QuestionEntity p) {
 			Map<String, Object> noticeWriteResult = new HashMap<String, Object>();
 			noticeWriteResult.put("result", service.question_del(p));
 			return noticeWriteResult;

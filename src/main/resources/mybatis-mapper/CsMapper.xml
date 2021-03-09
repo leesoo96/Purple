@@ -5,7 +5,7 @@
 	<!-- 공지사항 -->
 	<!-- 공지사항 글 등록 -->
 	<insert id="regNotice">
-		INSERT INTO cs_notice
+		INSERT INTO notice
 		( notice_title, notice_ctnt,
 		notice_userpk )
 		VALUES
@@ -14,21 +14,21 @@
 	</insert>
 
 	<!-- 공지사항 글 리스트 -->
-	<select id="selNoticeList" resultType="CsNoticeEntity">
-		SELECT * FROM cs_notice
+	<select id="selNoticeList" resultType="NoticeEntity">
+		SELECT * FROM notice
 		ORDER BY notice_pk DESC
 	</select>
 
 	<!-- 공지사항 글 -->
-	<select id="selNotice" resultType="CsNoticeEntity">
-		SELECT * FROM cs_notice
+	<select id="selNotice" resultType="NoticeEntity">
+		SELECT * FROM notice
 		WHERE
 		notice_pk = #{notice_pk};
 	</select>
 
 	<!-- 공지사항 글 수정 -->
 	<update id="notice_upd">
-		UPDATE cs_notice
+		UPDATE notice
 		SET notice_title = #{notice_title}
 		,notice_ctnt = #{notice_ctnt}
 		WHERE notice_pk = #{notice_pk}
@@ -36,19 +36,19 @@
 
 	<!-- 공지사항 조회수 -->
 	<update id="updNoticevieView">
-		UPDATE cs_notice
+		UPDATE notice
 		SET notice_view = notice_view + 1
 		WHERE notice_pk = #{notice_pk}
 		<selectKey keyProperty="notice_view" resultType="int" order="AFTER">
 		SELECT notice_view
-		FROM cs_notice 
-		 WHERE notice_pk = #{notice_pk}
+		FROM notice 
+		WHERE notice_pk = #{notice_pk}
 		</selectKey>
 	</update>
 
 	<!-- 공지사항 글 삭제 -->
 	<delete id="notice_del">
-		DELETE FROM cs_notice
+		DELETE FROM notice
 		WHERE notice_pk = #{notice_pk}
 	</delete>
 
@@ -57,7 +57,7 @@
 	<!-- 문의사항 -->
 
 	<insert id="regQuestion">
-		INSERT INTO cs_question
+		INSERT INTO question
 		( question_title,
 		question_ctnt,
 		question_userpk, question_typ )
@@ -68,27 +68,27 @@
 	</insert>
 
 	<!-- 문의사항 글 리스트 -->
-	<select id="selQuestionList" resultType="CsQuestionEntity">
+	<select id="selQuestionList" resultType="QuestionEntity">
 		SELECT a.question_pk
 		,a.question_title, a.question_ctnt,
 		a.question_writedate,
 		a.question_view, a.question_userpk,
 		a.question_typ , b.answer_ctnt
 		FROM
-		cs_question AS a LEFT JOIN cs_answer AS b
+		question AS a LEFT JOIN answer AS b
 		on a.question_pk = b.answer_pk
 		ORDER BY a.question_pk DESC;
 	</select>
 
 	<!-- 문의사항 글 -->
-	<select id="selQuestion" resultType="CsQuestionEntity">
-		SELECT * FROM cs_question
+	<select id="selQuestion" resultType="QuestionEntity">
+		SELECT * FROM question
 		WHERE question_pk = #{question_pk};
 	</select>
 
 	<!-- 문의사항 글 수정 -->
 	<update id="question_upd">
-		UPDATE cs_question
+		UPDATE question
 		SET question_title =
 		#{question_title} ,question_ctnt = #{question_ctnt}
 		WHERE question_pk =
@@ -97,19 +97,19 @@
 
 	<!-- 문의사항 조회수 -->
 	<update id="updQuestionView">
-		UPDATE cs_question
+		UPDATE question
 		SET question_view = question_view + 1
 		WHERE question_pk = #{question_pk}
 		<selectKey keyProperty="question_view" resultType="int" order="AFTER">
 		SELECT question_view
-		FROM cs_question 
-		 WHERE question_pk = #{question_pk}
+		FROM question 
+		WHERE question_pk = #{question_pk}
 		</selectKey>
 	</update>
 
 	<!-- 문의사항 글 삭제 -->
 	<delete id="question_del">
-		DELETE FROM cs_question
+		DELETE FROM question
 		WHERE question_pk =
 		#{question_pk}
 	</delete>

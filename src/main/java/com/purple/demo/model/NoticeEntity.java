@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class CsNoticeEntity {
+public class NoticeEntity {
 	
 	private int notice_pk;
 	private String notice_title;

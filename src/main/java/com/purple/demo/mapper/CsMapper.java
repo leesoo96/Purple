@@ -2,27 +2,25 @@ package com.purple.demo.mapper;
 
 import java.util.List;
 
-import com.purple.demo.model.CsNoticeEntity;
-import com.purple.demo.model.CsQuestionEntity;
+import com.purple.demo.model.NoticeEntity;
+import com.purple.demo.model.QuestionEntity;
 
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface CsMapper {
 
-	List<CsNoticeEntity> selNoticeList(CsNoticeEntity p);
+	List<NoticeEntity> selNoticeList(NoticeEntity p);
 	
-	CsNoticeEntity selNotice(CsNoticeEntity p);
+	NoticeEntity selNotice(NoticeEntity p);
 	
-	int regNotice(CsNoticeEntity p);
+	int regNotice(NoticeEntity p);
 	
-	int notice_upd(CsNoticeEntity p);
+	int notice_upd(NoticeEntity p);
 	
-	int updNoticevieView(CsNoticeEntity p);
+	int updNoticevieView(NoticeEntity p);
 	
-	int notice_del(CsNoticeEntity p);
-	
-	
+	int notice_del(NoticeEntity p);
 	
 	
 	
@@ -37,15 +35,17 @@ public interface CsMapper {
 	
 	
 	
-	List<CsQuestionEntity> selQuestionList(CsQuestionEntity p);
 	
-	CsQuestionEntity selQuestion(CsQuestionEntity p);
 	
-	int regQuestion(CsQuestionEntity p) ;
+	List<QuestionEntity> selQuestionList(QuestionEntity p);
 	
-	int question_upd(CsQuestionEntity p);
+	QuestionEntity selQuestion(QuestionEntity p);
+	
+	int regQuestion(QuestionEntity p) ;
+	
+	int question_upd(QuestionEntity p);
 
-	int updQuestionView(CsQuestionEntity p);
+	int updQuestionView(QuestionEntity p);
 	
-	int question_del(CsQuestionEntity p);
+	int question_del(QuestionEntity p);
 }

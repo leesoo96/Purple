@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class CsAnswerEntity {
+public class AnswerEntity {
     private int answer_pk;
 	private String answer_ctnt;
 	private String answer_writedate;

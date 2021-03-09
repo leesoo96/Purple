@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class CsQuestionEntity extends CsAnswerEntity{
+public class QuestionEntity extends AnswerEntity{
 		private int question_pk;
 		private String question_title;
 		private String question_ctnt;
@@ -13,5 +13,4 @@ public class CsQuestionEntity extends CsAnswerEntity{
 		private int question_view;
 		private String question_typ;
 		private int question_userpk;
-	
 }
