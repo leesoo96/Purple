@@ -26,9 +26,7 @@ for (let i = 0; i < cs_question_titlebar.length; i++) {
           }
         });
       for (let i = 0; i <= 25; i++) {
-        setTimeout(function () {
-          cs_question_detail.style.height = `${i}em`;
-        });
+        cs_question_detail.style.height = `${i}em`;
       }
       cs_question_titlebarEle.style.backgroundColor = "rgb(82, 0, 121)";
       cs_question_titlebarEle.style.color = "rgb(255, 255, 255)";
@@ -36,9 +34,7 @@ for (let i = 0; i < cs_question_titlebar.length; i++) {
       cs_question_detail.style.paddingBottom = "1em";
     } else if (cs_question_detail.style.height > "100px") {
       for (let i = 25; i >= 0; i--) {
-        setTimeout(function () {
-          cs_question_detail.style.height = `${i}em`;
-        });
+        cs_question_detail.style.height = `${i}em`;
       }
       cs_question_titlebarEle.style.backgroundColor = "rgb(255, 255, 255)";
       cs_question_titlebarEle.style.color = "rgb(0, 0, 0)";

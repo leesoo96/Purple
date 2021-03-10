@@ -14,9 +14,10 @@
 	</insert>
 
 	<!-- 공지사항 글 리스트 -->
-	<select id="selNoticeList" resultType="NoticeEntity">
+	<select id="selNoticeList"  resultType="NoticeEntity">
 		SELECT * FROM notice
 		ORDER BY notice_pk DESC
+		LIMIT 1,10;
 	</select>
 
 	<!-- 공지사항 글 -->
@@ -24,6 +25,11 @@
 		SELECT * FROM notice
 		WHERE
 		notice_pk = #{notice_pk};
+	</select>
+
+	<!-- 공지사항 글의 갯수 -->
+	<select id="selNoticeCount"  resultType="int">
+		SELECT COUNT(notice_pk)as notice_count FROM notice;
 	</select>
 
 	<!-- 공지사항 글 수정 -->

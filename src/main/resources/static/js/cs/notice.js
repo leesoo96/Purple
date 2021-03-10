@@ -30,9 +30,7 @@ for (let i = 0; i < cs_notice_titlebar.length; i++) {
           }
         });
       for (let i = 0; i <= 25; i++) {
-        setTimeout(function () {
-          cs_notice_detail.style.height = `${i}em`;
-        });
+        cs_notice_detail.style.height = `${i}em`;
       }
       cs_notice_titlebarEle.style.backgroundColor = "rgb(82, 0, 121)";
       cs_notice_titlebarEle.style.color = "rgb(255, 255, 255)";
@@ -40,9 +38,7 @@ for (let i = 0; i < cs_notice_titlebar.length; i++) {
       cs_notice_detail.style.paddingBottom = "1em";
     } else if (cs_notice_detail.style.height > "100px") {
       for (let i = 25; i >= 0; i--) {
-        setTimeout(function () {
-          cs_notice_detail.style.height = `${i}em`;
-        });
+        cs_notice_detail.style.height = `${i}em`;
       }
       cs_notice_titlebarEle.style.backgroundColor = "rgb(255, 255, 255)";
       cs_notice_titlebarEle.style.color = "rgb(0, 0, 0)";
@@ -76,15 +72,17 @@ function cs_del_btn(notice_pk) {
     });
 }
 
-/*
 //페이징
+
+function totalPage(index1) {
+  console.log(index1);
+}
 let totalData = 100; // 총 데이터 수
 let dataPerPage = 10; // 한 페이지에 나타낼 데이터 수
 let pageCount = 10; // 한 화면에 나타낼 페이지 수
-let totalPage = Math.ceil(totalData / dataPerPage); // 총 페이지 수
+let totalPage = totalData / dataPerPage; // 총 페이지 수
+let cs_paging = document.querySelector("#cs_paging");
 for (let index = 1; index < totalPage; index++) {
-	//버튼 추가
-	let cs_paging = document.querySelector("#cs_paging");
-	cs_paging.innerHTML += `<a class="totalPage">${index}</a>`;
+  //버튼 추가
+  cs_paging.innerHTML += `<span onclick="totalPage(${index})">${index}</span>`;
 }
-*/

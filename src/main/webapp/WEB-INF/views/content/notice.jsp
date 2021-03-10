@@ -2,6 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib uri="http://www.springframework.org/security/tags"
 	prefix="sec"%>
 <!DOCTYPE html>
@@ -22,8 +23,14 @@
 					<span>[공지사항]</span><span>${item.notice_title}</span>
 				</div>
 				<div class="cs_notice_extratitle">
-					<span>조회수: </span> <span>${item.notice_view}</span><span> |
-					</span><span>${item.notice_writedate}</span>
+					<span>조회수: </span> <span>${item.notice_view}</span><span>  | 
+					</span>
+					<span>
+					<fmt:parseDate value="${item.notice_writedate}" var="dateValue" pattern="yyyy-MM-dd HH:mm:ss"/>
+					<fmt:formatDate value="${dateValue}" pattern="yyyy.MM.dd"/>
+						<c:out value="${today}"/>
+
+					</span>
 				</div>
 			</div>
 			<div class="cs_notice_detail">
@@ -39,3 +46,4 @@
 		</div>
 	</div>
 </c:forEach>
+<div id="cs_paging"></div>

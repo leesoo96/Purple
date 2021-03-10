@@ -13,6 +13,8 @@ public interface CsMapper {
 	List<NoticeEntity> selNoticeList(NoticeEntity p);
 	
 	NoticeEntity selNotice(NoticeEntity p);
+
+	NoticeEntity selNotice_count(NoticeEntity p);
 	
 	int regNotice(NoticeEntity p);
 	

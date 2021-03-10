@@ -37,7 +37,7 @@
 /* 타이틀 바 */
 .cs_notice_titlebar {
   border-radius: 16px 16px 0px 0px;
-  transition: all 0.5s;
+  transition: all 0.3s;
   margin-top: 10px;
   position: relative;
   height: 4em;
@@ -76,7 +76,7 @@
 .cs_notice_detail {
   overflow: scroll;
   overflow-x: hidden;
-  transition: all 1s;
+  transition: all 0.5s;
   border-radius: 0px 0px 16px 16px;
   position: relative;
   height: 0px;

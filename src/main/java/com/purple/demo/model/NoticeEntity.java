@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class NoticeEntity {
+public class NoticeEntity{
 	
 	private int notice_pk;
 	private String notice_title;
@@ -13,5 +13,6 @@ public class NoticeEntity {
 	private String notice_writedate;
 	private int notice_view;
 	private int notice_userpk;
+	private int notice_count;
 	//private String notice_file;
 }
