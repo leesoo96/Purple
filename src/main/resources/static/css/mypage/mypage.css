@@ -92,9 +92,22 @@
 #mypage_menu{
   height: 3.5em;
   width: auto;
-  background-color: yellow;
   position: relative;
   margin-bottom: 1.5em;
+}
+
+#mypage_menu :nth-child(1){
+  position: relative;
+  bottom: -.5em;
+  left: 6.3em;
+  cursor: pointer;
+}
+
+#mypage_menu :nth-child(2){
+  position: relative;
+  top: .6em;
+  left: 11.5em;
+  cursor: pointer;
 }
 
 #searchBox select{
@@ -122,7 +135,7 @@
 }
 
 #mypage_modcontent_btn:hover{
-  background-color: #0097e6;
+  background-color: #D980FA;
 }
 
 #mypage_pw_btn{
@@ -142,9 +155,8 @@
 }
 
 #mypage_pw_btn:hover{
-  background-color: #0097e6;
+  background-color: #D980FA;
 }
-
 
 body, div, button{
   margin: 0; padding: 0;
