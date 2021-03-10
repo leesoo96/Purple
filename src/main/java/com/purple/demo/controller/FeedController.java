@@ -47,8 +47,8 @@ public class FeedController {
 		return loginResult;
 	}
 
-	@GetMapping(value="")
-	public void FeedList(Model model, FeedEntity param) {
-		model.addAttribute(Const.KEY_FEEDLISTDATA, feedservice.detailFeed(p));
-	}
+	// @GetMapping(value="")
+	// public void FeedList(Model model, FeedEntity param) {
+	// 	model.addAttribute(Const.KEY_FEEDLISTDATA, );
+	// }
 }
