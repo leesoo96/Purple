@@ -6,7 +6,6 @@
 <script defer src="resources/js/mypage/mypage.js"></script>
 <script defer src="resources/js/mypage/mypagePw_update.js"></script>
 
-
 <div id="mypage_userinfo_container">
   <div id="mypage_userinfo_backimg">
     <!-- 배경 이미지 삽입 공간-->
@@ -42,7 +41,8 @@
 </div>
 
 <div id="mypage_menu">
-  메뉴 넣을 자리
+  <i class="fas fa-pen fa-2x"></i>
+  <i class="fas fa-heart fa-2x"></i>
 </div>
 
 <div class="black_bg"></div>

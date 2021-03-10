@@ -1,0 +1,113 @@
+@charset "UTF-8";
+
+#userinfo_container {
+    margin-top: 0.3em;
+    position : relative;
+    width: auto;
+    height: 26em;
+}
+
+#userinfo_img {
+    position: relative;
+    background: #bdc3c7;
+    height: 13em;
+    width: 100%;
+    z-index: 0;
+}
+
+#userinfo_img {
+    position: absolute;
+    top: 8em;
+    left: 1em;
+    z-index: 1;
+}
+
+#userinfo_img img {
+    width: 132px;
+    height: 132px;
+    border-radius: 50%;
+    bottom: -1.5em;
+    left: 3em;
+    border : rgb(255, 255, 255) 0.3em solid;
+    z-index:10;
+}
+
+#userinfo_content{
+    position: relative;
+    float:left;
+    top: 4.5em;
+    left: 1em;
+    line-height: 140%;
+}
+
+#userinfo_content .userinfo_nm{
+    font-size: 23px;
+}
+
+#userinfo_content .userinfo_id{
+    font-size: 14px;
+}
+
+#userinfo_content .userinfo_introduce{
+    font-size: 14px;
+    margin-top: .5em;
+}
+
+#userinfo_content .userinfo_registeration{
+    font-size: 16px;
+    margin-top: .2em;
+}
+
+#userinfo_content .userinfo_following{
+    font-size: 16px;
+    margin-top: .4em;
+}
+
+#userinfo_button {
+    top: 1em;
+    right: 3em;
+    position: relative;
+    float: right;
+}
+
+#userinfo_btn{
+    position: relative;
+    right: -3em;
+    bottom: .5em;
+    padding: 10px 24px;
+    cursor: pointer;
+    font-weight: 700;
+    font-family: Y_Spotlight;
+    background: #000;
+    color: #fff;
+    border-radius: 3em;
+    border: 0;
+    outline: 0;
+    white-space: nowrap;
+}
+  
+#userinfo_btn:hover{
+    background-color: #D980FA;
+}
+
+/* mypage_menu */
+#userinfo_menu{
+    height: 3.5em;
+    width: auto;
+    position: relative;
+    margin-bottom: 1.5em;
+}
+
+#userinfo_menu :nth-child(1){
+    position: relative;
+    bottom: -.5em;
+    left: 6.3em;
+    cursor: pointer;
+}
+  
+#userinfo_menu :nth-child(2){
+    position: relative;
+    top: .6em;
+    left: 11.5em;
+    cursor: pointer;
+}
