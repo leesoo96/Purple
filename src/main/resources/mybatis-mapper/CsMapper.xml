@@ -60,11 +60,11 @@
 		INSERT INTO question
 		( question_title,
 		question_ctnt,
-		question_userpk, question_typ )
+		question_userpk, question_type )
 		VALUES
 		(
 		#{question_title}, #{question_ctnt}, #{question_userpk},
-		#{question_typ} )
+		#{question_type} )
 	</insert>
 
 	<!-- 문의사항 글 리스트 -->
@@ -73,7 +73,7 @@
 		,a.question_title, a.question_ctnt,
 		a.question_writedate,
 		a.question_view, a.question_userpk,
-		a.question_typ , b.answer_ctnt
+		a.question_type , b.answer_ctnt
 		FROM
 		question AS a LEFT JOIN answer AS b
 		on a.question_pk = b.answer_pk
