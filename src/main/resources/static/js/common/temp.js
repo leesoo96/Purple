@@ -118,13 +118,49 @@ for (let i = 0; i < c_div.length; i++) {
 // feed_content 클릭 이벤트
 let feed_content = document.querySelector(".feed_content")
 let feed_overlay = document.querySelector(".feed_overlay")
-
 feed_content.onclick = function () {
   feed_overlay.style.display = "block"
 }
 
 const feed_overlay_close = document.querySelector(".fa-times")
-console.log(feed_overlay_close)
 feed_overlay_close.onclick = function () {
   feed_overlay.style.display = "none"
+}
+
+// 채팅 - 친구목록 확인
+const friend_btn = document.querySelector("#friend_btn")
+let fList_table = document.querySelector(".friend_list table")
+
+friend_btn.addEventListener("click", () => {
+  getFriendListFunc()
+})
+
+function getFriendListFunc() {
+  fetch(`/friendList`)
+    .then((res) => res.json())
+    .then((myJson) => {
+      friend_list(myJson)
+    })
+}
+
+let fList_span = document.querySelector(".friend_list span")
+function friend_list(myJson) {
+  if (myJson.length === 0) {
+    let fList_div = document.createElement("div")
+    fList_span.append(fList_div)
+    fList_div.innerHTML = "친구가 없습니다ㅠ"
+    return
+  }
+
+  for (let i = 0; i < myJson.length; i++) {
+    let fList_tr = document.createElement("tr")
+
+    let name_td = document.createElement("td")
+    name_td.innerText = MyJson[i].user_id
+    fList_tr.appendChild(name_td)
+    let profileimg_td = document.createElement("td")
+    let bio_td = document.createElement("td")
+
+    fList_table.appendChild(fList_tr)
+  }
 }

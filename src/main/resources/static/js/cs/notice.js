@@ -30,9 +30,7 @@ for (let i = 0; i < cs_notice_titlebar.length; i++) {
           }
         })
       for (let i = 0; i <= 25; i++) {
-        setTimeout(function () {
-          cs_notice_detail.style.height = `${i}em`
-        })
+        cs_notice_detail.style.height = `${i}em`
       }
       cs_notice_titlebarEle.style.backgroundColor = "rgb(82, 0, 121)"
       cs_notice_titlebarEle.style.color = "rgb(255, 255, 255)"
