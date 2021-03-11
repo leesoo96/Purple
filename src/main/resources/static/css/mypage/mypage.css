@@ -223,11 +223,23 @@
   padding: 0.3em;
 }
 
-#mod_background {
+#mod_userbackground {
   position: relative;
   background-color: #9c9c9c;
   width: 98%;
   height: 12em;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+#mod_userbackground img {
+  position: relative;
+  width: 100%;
+  height: auto;
+}
+
+#mod_background {
+  display: none;
 }
 
 #mod_userimg {
@@ -245,41 +257,11 @@
   left: 3em;
   border: rgb(255, 255, 255) 0.3em solid;
   z-index: 10;
-}
-
-.profile_img {
-  width: 7em;
-  border-radius: 50%;
-  position: relative;
-  bottom: -12em;
-  left: 1em;
-  border: rgb(255, 255, 255) 0.3em solid;
-}
-
-.camera_icon {
-  position: relative;
-  top: 9em;
-  right: 4.2em;
   cursor: pointer;
 }
 
-.backgroundcamera_icon {
-  position: relative;
-  top: 1em;
-  left: 7em;
-  cursor: pointer;
-}
-
-.mypage_top {
-  padding-bottom: 10px;
-  border-bottom: 1px solid;
-}
-
-.mypage_top span {
-  position: relative;
-  left: 3em;
-  bottom: 0.6em;
-  font-size: 20px;
+#mod_img {
+  display: none;
 }
 
 #userModFrm {
@@ -289,7 +271,7 @@
   height: 20em;
   display: inline-block;
 }
-input[name="mod_id"] {
+input[name='mod_id'] {
   position: relative;
   height: 2.5em;
   width: 85%;
@@ -300,7 +282,7 @@ input[name="mod_id"] {
   margin-bottom: 0.5em;
 }
 
-input[name="id_check"] {
+input[name='id_check'] {
   text-align: center;
   padding: 8px;
   background: #d980fa;
@@ -309,10 +291,16 @@ input[name="id_check"] {
   vertical-align: middle;
 }
 
-input[name="mod_name"],
-input[name="mod_bio"],
-input[name="mod_location"],
-input[name="mod_website"] {
+label[for='mod_background'] {
+  width: 100%;
+  height: 100%;
+  display: inline-block;
+}
+
+input[name='mod_name'],
+input[name='mod_bio'],
+input[name='mod_location'],
+input[name='mod_website'] {
   position: relative;
   height: 2.5em;
   width: 99%;
@@ -323,7 +311,7 @@ input[name="mod_website"] {
   margin-bottom: 0.4em;
 }
 
-input[name="mod_birth"] {
+input[name='mod_birth'] {
   position: relative;
   height: 2.5em;
   width: 99.5%;
@@ -380,12 +368,12 @@ input[name="mod_birth"] {
   margin-left: 0.2em;
 }
 
-form[name="userPwModFrm"] {
+form[name='userPwModFrm'] {
   position: relative;
   width: 100%;
 }
 
-input[type="password"] {
+input[type='password'] {
   position: relative;
   height: 2.5em;
   width: 98%;
@@ -396,7 +384,7 @@ input[type="password"] {
   margin-top: 0.4em;
 }
 
-input[name="pwModBtn"] {
+input[name='pwModBtn'] {
   margin-top: 0.4em;
   text-align: center;
   padding: 8px;

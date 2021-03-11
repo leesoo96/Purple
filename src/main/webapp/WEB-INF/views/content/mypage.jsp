@@ -18,10 +18,17 @@
 		</div>
 	</div>
 	<div id="userMod_content">
-		<div id="mod_background">
+		<div id="mod_userbackground">
+			<label for="mod_background">
+				<img src="" onerror="this.style.display='none'">
+			</label>
+			<input type="file" id="mod_background" accept="image/jpeg, image/jpg, image/png"/>
         </div>
 		<div id="mod_userimg">
-		<img src="resources/img/common/basic_profile.png" alt="기본프로필사진">
+			<label for="mod_img">
+       			<img src="resources/img/common/basic_profile.png"/>
+    		</label>
+			<input id="mod_img" type="file" accept="image/jpeg, image/jpg, image/png"/>
 		</div>
 		<form id="userModFrm">
 			<input type="text" name="mod_id" placeholder="Id" maxlength="10">
