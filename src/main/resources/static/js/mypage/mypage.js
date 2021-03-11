@@ -74,7 +74,7 @@ saveBtn.addEventListener('click', () => {
   let mod_website = userModFrm.mod_website.value
   let mod_birth = userModFrm.mod_birth.value
 
-  if (mod_id) {
+  if (userModFrm.mod_id.value) {
     if (check_state === 0) {
       alert('아이디 중복체크를 해주세요')
       return

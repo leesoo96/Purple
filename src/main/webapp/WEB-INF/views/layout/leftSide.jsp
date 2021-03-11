@@ -14,7 +14,7 @@
             </a>
           </div>
           <div id="search">
-            <a href="#">
+            <a href="/search">
               <i class="fas fa-search menu_icons"></i>
               <span>검색하기</span>
             </a>
