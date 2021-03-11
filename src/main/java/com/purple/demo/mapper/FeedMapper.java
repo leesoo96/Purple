@@ -5,7 +5,6 @@ import java.util.List;
 import com.purple.demo.model.FeedDomain;
 import com.purple.demo.model.FeedEntity;
 import com.purple.demo.model.HashtagEntity;
-import com.purple.demo.model.Hashtag_RelationEntity;
 import com.purple.demo.model.MediaEntity;
 
 import org.apache.ibatis.annotations.Mapper;
