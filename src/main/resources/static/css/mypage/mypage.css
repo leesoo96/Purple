@@ -1,16 +1,16 @@
 @charset "UTF-8";
 
-#title_bar{
+#title_bar {
   width: auto;
   height: 50px;
-  position : relative;
+  position: relative;
 }
 
-#title_bar .user_name{
+#title_bar .user_name {
   font-size: 20px;
 }
 
-#title_bar .user_bulletin{
+#title_bar .user_bulletin {
   font-size: 15px;
   display: block;
   margin-top: 5px;
@@ -19,10 +19,11 @@
 /* mypage userinfo */
 #mypage_userinfo_container {
   margin-top: 0.3em;
-  position : relative;
+  position: relative;
   width: auto;
-  height: 26em;
-
+  height: 28em;
+  border-bottom: 2px solid rgb(237, 217, 248);
+  border-radius: 10px;
 }
 
 #mypage_userinfo_backimg {
@@ -31,6 +32,13 @@
   height: 13em;
   width: 100%;
   z-index: 0;
+  overflow: hidden;
+}
+
+#mypage_userinfo_backimg img {
+  position: relative;
+  width: 100%;
+  height: auto;
 }
 
 #mypage_userinfo_img {
@@ -46,39 +54,43 @@
   border-radius: 50%;
   bottom: -1.5em;
   left: 3em;
-  border : rgb(255, 255, 255) 0.3em solid;
-  z-index:10;
+  border: rgb(255, 255, 255) 0.3em solid;
+  z-index: 10;
 }
 
-#mypage_userinfo_content{
+#mypage_userinfo_content {
   position: relative;
-  float:left;
+  float: left;
   top: 4.5em;
   left: 1em;
   line-height: 140%;
 }
 
-#mypage_userinfo_content .mypageuser_nm{
+#mypage_userinfo_content .mypageuser_nm {
+  font-size: 14px;
+}
+
+#mypage_userinfo_content .mypageuser_id {
   font-size: 23px;
 }
-
-#mypage_userinfo_content .mypageuser_id{
+#mypage_userinfo_content .mypageuser_bio {
+  width: 25em;
+}
+#mypage_userinfo_content .mypageuser_bio span {
+  word-break: break-all;
+  display: block;
   font-size: 14px;
+  margin-top: 0.5em;
 }
 
-#mypage_userinfo_content .mypageuser_introduce{
-  font-size: 14px;
-  margin-top: .5em;
-}
-
-#mypage_userinfo_content .mypageuser_registeration{
+#mypage_userinfo_content .mypageuser_birth {
   font-size: 16px;
-  margin-top: .2em;
+  margin-top: 0.2em;
 }
 
-#mypage_userinfo_content .mypageuser_following{
+#mypage_userinfo_content .mypageuser_following {
   font-size: 16px;
-  margin-top: .4em;
+  margin-top: 0.4em;
 }
 
 #mypage_userinfo_button {
@@ -89,43 +101,24 @@
 }
 
 /* mypage_menu */
-#mypage_menu{
-  height: 3.5em;
-  width: auto;
+#selectBox select {
   position: relative;
-  margin-bottom: 1.5em;
-}
-
-#mypage_menu :nth-child(1){
-  position: relative;
-  bottom: -.5em;
-  left: 6.3em;
-  cursor: pointer;
-}
-
-#mypage_menu :nth-child(2){
-  position: relative;
-  top: .6em;
-  left: 11.5em;
-  cursor: pointer;
-}
-
-#searchBox select{
+  margin-top: 1em;
   font-size: 1.3rem;
   font-weight: bold;
-  margin-bottom: 1.2em;
+  margin-bottom: 0.5em;
   border: 0.1em solid black;
   border-radius: 0.5em;
 }
 
-#mypage_modcontent_btn{
+#mypage_modcontent_btn {
   position: relative;
-  right: -3em;
-  bottom: .5em;
+  right: 0.5em;
+  top: 2em;
+  bottom: 0.5em;
   padding: 10px 24px;
   cursor: pointer;
   font-weight: 700;
-  font-family: Y_Spotlight;
   background: #000;
   color: #fff;
   border-radius: 3em;
@@ -134,13 +127,14 @@
   white-space: nowrap;
 }
 
-#mypage_modcontent_btn:hover{
-  background-color: #D980FA;
+#mypage_modcontent_btn:hover {
+  background-color: #d980fa;
 }
 
-#mypage_pw_btn{
+#mypage_pw_btn {
   position: relative;
-  right: -3em;
+  right: 0.5em;
+  top: 2em;
   bottom: 1.2em;
   padding: 10px 18px;
   cursor: pointer;
@@ -154,109 +148,106 @@
   white-space: nowrap;
 }
 
-#mypage_pw_btn:hover{
-  background-color: #D980FA;
-}
-
-body, div, button{
-  margin: 0; padding: 0;
+#mypage_pw_btn:hover {
+  background-color: #d980fa;
 }
 
 #modal_background {
   position: fixed;
-  top: 0; left: 0;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0,0,0,0.5);
-  z-index: 2;
-  animation: fade 0.7s ease;
+  background-color: rgba(71, 71, 71, 0.5);
+  z-index: 3;
+  display: none;
 }
 
-@keyframes fade {
-  from {opacity: 0.2;}
-  to {opacity: 1;}
-}
-
-.mypage_mod{
-  position: fixed;
-  border: 0;
-  overflow-x: hidden;
-  overflow-y: hidden;
-  top: 50%;
-  left: 50.5%;
-  border-radius: 13px;
-  transform: translate(-50%,-50%);
-  background: #fff;
+/* userMod_modal창 */
+#userMod_container {
+  position: absolute;
+  background-color: white;
+  z-index: 5;
   width: 600px;
-  height: 650px;
+  height: 660px;
+  top: 21%;
+  left: 4%;
+  border-radius: 15px;
+  display: none;
 }
 
-/* ::-webkit-scrollbar { 
-  width: 3px;
-} */
-
-.mypage_top{
-  padding-bottom: 10px;
-  border-bottom: 1px solid;
-}
-
-.mypage_top span{
+#userMod_top {
   position: relative;
-  left: 3em;
-  bottom: .6em;
-  font-size: 20px;
+  width: 100%;
+  height: 3em;
+  border-bottom: #d980fa solid 2px;
+  display: flex;
+  align-items: center;
 }
 
-.exit{
+#close_userMod {
   position: relative;
-  left: 1.3em;
-  top: .9em;
+  width: 10em;
+  height: 3em;
+  overflow: hidden;
+  margin-left: 0.5em;
 }
 
-.exit img{
-  width: 1em;
-}
-
-.content_btn{
-  margin-bottom: -40px;
-}
-
-.content_btn button{
+#close_userMod img {
   position: relative;
-  right: -39em;
-  bottom: 2.9em;
-  padding: 7px 16px;
+  width: 22px;
+  padding: 8px;
   cursor: pointer;
-  font-weight: 700;
-  font-family: Y_Spotlight;
-  background: #D980FA;
+  top: 14.5%;
+}
+#userMod_top span {
+  width: 70em;
+  position: relative;
+  font-size: 1.3em;
+}
+
+#save_userModBtn {
+  position: relative;
+  cursor: pointer;
+  margin-right: 2em;
+  font-weight: 600;
+  background: #d980fa;
   color: #fff;
   border-radius: 3em;
-  border: 0;
-  outline: 0;
-  white-space: nowrap;
+  padding: 10px 24px;
 }
-
-.scroll{
-  width: 600px;
-  height: 595px;
-  overflow-x: hidden;
-  overflow-y: scroll;
-}
-
-/* .scroll::-webkit-scrollbar {
-  display: none;
-} */
-
-.profile_background{
-  background: #bdc3c7;
+#userMod_content {
+  position: relative;
+  height: 100%;
   width: 100%;
-  height: 245px;
-  margin-top: 0.2em;
-  margin-left: .1em;
+  padding: 0.3em;
 }
 
-.profile_background .profile_img{
+#mod_background {
+  position: relative;
+  background-color: #9c9c9c;
+  width: 98%;
+  height: 12em;
+}
+
+#mod_userimg {
+  position: absolute;
+  top: 8em;
+  left: 1em;
+  z-index: 1;
+}
+
+#mod_userimg img {
+  width: 132px;
+  height: 132px;
+  border-radius: 50%;
+  bottom: -1.5em;
+  left: 3em;
+  border: rgb(255, 255, 255) 0.3em solid;
+  z-index: 10;
+}
+
+.profile_img {
   width: 7em;
   border-radius: 50%;
   position: relative;
@@ -265,143 +256,154 @@ body, div, button{
   border: rgb(255, 255, 255) 0.3em solid;
 }
 
-.profile_background .camera_icon{
+.camera_icon {
   position: relative;
   top: 9em;
   right: 4.2em;
   cursor: pointer;
 }
 
-.profile_background .backgroundcamera_icon{
+.backgroundcamera_icon {
   position: relative;
   top: 1em;
   left: 7em;
   cursor: pointer;
 }
 
-.mypage_mod_content {
-  top: 4em;
-  position:relative;
-  width: auto;
-  height: 88%;
+.mypage_top {
+  padding-bottom: 10px;
+  border-bottom: 1px solid;
 }
 
-.mypage_user_name {
+.mypage_top span {
   position: relative;
-  width: auto;
-  height: 36px;
-  bottom: -1em;
+  left: 3em;
+  bottom: 0.6em;
+  font-size: 20px;
 }
 
-.mypage_user_name input {
-  left: .9em;
+#userModFrm {
   position: relative;
-  height: 56px;
-  width: 551px;
+  margin-top: 5em;
+  width: 98%;
+  height: 20em;
+  display: inline-block;
+}
+input[name="mod_id"] {
+  position: relative;
+  height: 2.5em;
+  width: 85%;
   font-size: 16px;
   border-radius: 6px;
-  outline-color: #D980FA;
-  font-family: 'Y_Spotlight';
+  outline-color: #d980fa;
   border: 1px solid;
+  margin-bottom: 0.5em;
 }
 
-.user_introduce {
-  position:relative;
-  width: auto;
-  height: 0px;
-  top: -6.5em;
-}
-
-.user_introduce textarea {
-  position: relative;
-  width: 551px;
-  height: 108px;
-  top: 10.6em;
-  left: .9em;
-  font-size: 16px;
-  resize: none;
+input[name="id_check"] {
+  text-align: center;
+  padding: 8px;
+  background: #d980fa;
+  color: #fff;
   border-radius: 6px;
-  outline-color: #D980FA;
-  font-family: 'Y_Spotlight';
+  vertical-align: middle;
 }
 
-.user_place {
-  position:relative;
-  width: auto;
-  height: 0px;
-  top: -4.5em;
-}
-
-.user_place input{
+input[name="mod_name"],
+input[name="mod_bio"],
+input[name="mod_location"],
+input[name="mod_website"] {
   position: relative;
-  width: 551px;
-  height: 56px;
-  top: 17.2em;
-  left: .9em;
+  height: 2.5em;
+  width: 99%;
   font-size: 16px;
   border-radius: 6px;
-  outline-color: #D980FA;
-  font-family: 'Y_Spotlight';
+  outline-color: #d980fa;
   border: 1px solid;
+  margin-bottom: 0.4em;
 }
 
-.user_site input{
+input[name="mod_birth"] {
   position: relative;
-  width: 551px;
-  height: 56px;
-  top: 17.9em;
-  left: .9em;
+  height: 2.5em;
+  width: 99.5%;
   font-size: 16px;
   border-radius: 6px;
-  outline-color: #D980FA;
-  font-family: 'Y_Spotlight';
+  outline-color: #d980fa;
   border: 1px solid;
+  margin-bottom: 0.4em;
 }
+/* userMod_modal창 종료 */
 
-.user_birthdate{
-  position: relative;
-  top: 19.3em;
-  left: 1em;
-}
-
-.dot{
-  position: relative;
-  top: 19.3em;
-  left: 1em;
-}
-
-.user_edit{
-  position: relative;
-  top: 19.3em;
-  left: -7.2em;
-}
-
-.user_edit a{
-  text-decoration: none;
-  color:#D980FA;
-}
-
-.user_birthday{
-  position: relative;
-  top: 18.5em;
-  left: -4.4em;
-  font-size: 18px;
-}
-
-.modal_wrap{
-	display: none;
-  position: fixed;
-  background:#eee;
-  z-index: 2;
-}
-
-.black_bg{
+/* userPwMod_modal창 */
+#userPwMod_container {
+  position: absolute;
+  background-color: white;
+  z-index: 5;
+  width: 20em;
+  height: 15.5em;
+  top: 60%;
+  left: 25%;
+  border-radius: 15px;
+  padding: 0.3em;
   display: none;
-	position: fixed;
-	content: "";
-	width: 100%;
-	height: 100%;
-	top: 0;
-	left: 0;
-	z-index: 1;
 }
+
+#userPwMod_top {
+  position: relative;
+  width: 100%;
+  height: 3em;
+  border-bottom: #d980fa solid 2px;
+  display: flex;
+  align-items: center;
+}
+
+#close_userPwMod {
+  position: relative;
+  width: 10em;
+  height: 3em;
+  overflow: hidden;
+  margin-right: 0.5em;
+}
+
+#close_userPwMod img {
+  position: relative;
+  width: 22px;
+  padding: 8px;
+  cursor: pointer;
+  top: 14.5%;
+}
+#userPwMod_top span {
+  position: relative;
+  width: 70em;
+  font-size: 1.3em;
+  margin-left: 0.2em;
+}
+
+form[name="userPwModFrm"] {
+  position: relative;
+  width: 100%;
+}
+
+input[type="password"] {
+  position: relative;
+  height: 2.5em;
+  width: 98%;
+  font-size: 16px;
+  border-radius: 6px;
+  outline-color: #d980fa;
+  border: 1px solid;
+  margin-top: 0.4em;
+}
+
+input[name="pwModBtn"] {
+  margin-top: 0.4em;
+  text-align: center;
+  padding: 8px;
+  background: #d980fa;
+  color: #fff;
+  border-radius: 6px;
+  vertical-align: middle;
+  margin-left: 38%;
+}
+/* userPwMod_modal창 종료 */
