@@ -117,17 +117,28 @@ for (let i = 0; i < c_div.length; i++) {
 
 // 채팅 - 친구목록 확인
 const friend_btn = document.querySelector('#friend_btn')
-
+const user_pk = document.querySelector('#user_pk')
 friend_btn.addEventListener('click', () => {
   getFriendListFunc()
 })
 
 function getFriendListFunc() {
-  fetch('/chat/getFriendList')
-    .then((res) => res.json())
-    .then((myJson) => {
+  let param = {
+    user_pkValue: user_pk.value,
+  }
+  fetch('/getFriendList', {
+    method: 'post',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(param),
+  })
+    .then((res) => {
+      res.json()
+    })
+    .then(function (myJson) {
       getFriend_list(myJson)
-      console.log('json = ' + myJson)
+      console.log(myJson)
     })
 }
 

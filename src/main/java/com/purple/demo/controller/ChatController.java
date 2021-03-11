@@ -7,7 +7,7 @@ import com.purple.demo.model.UserEntity;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -19,7 +19,7 @@ public class ChatController {
     private ChatMapper mapper;
 
     @ResponseBody
-    @GetMapping("/getFriendList")
+    @PostMapping("/getFriendList")
     public List<UserEntity> getFriendList(UserEntity entity) {
         System.out.println("pk = "+entity.getUser_pk());
         return mapper.getFriendList(entity);
