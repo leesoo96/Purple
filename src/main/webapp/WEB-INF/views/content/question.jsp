@@ -14,7 +14,7 @@
 	<div id="cs_question_write">
 		<a href="question_write"><button>+</button></a>
 	</div>
-	<c:forEach items="${questionData}" var="item">
+	<c:forEach items="${requestScope.questionData.list}" var="item">
 		<div class="cs_question_content">
 			<div class="cs_question_titlebar" data-pk="${item.question_pk}">
 				<div class="cs_question_title">
@@ -62,7 +62,28 @@
 		</div>
 	</c:forEach>
 </div>
+
+<!-- 페이징-->
+<form id="pageFrm" action="/question" method="get">
+	<input type="hidden" name="page" value="1">
+</form>
+
+<c:if test="${requestScope.questionData.SPage > 1}">
+	<span class="page" onclick="pageClick(1)">1</span>
+	<span>...</span>
+</c:if>	
+		
+<c:forEach begin="${requestScope.questionData.SPage}" end="${requestScope.questionData.EPage}" var="i">			
+	<span class="page ${requestScope.questionData.page == i ? 'selected' : ''}" onclick="pageClick(${i})">${i}</span>
+</c:forEach>
+		
+<c:if test="${requestScope.questionData.EPage < requestScope.questionData.maxPageNum}">
+	<span>...</span>
+	<span class="page" onclick="pageClick(${requestScope.questionData.maxPageNum})">${requestScope.questionData.maxPageNum}</span>
+</c:if>
+
+
 <div class="cs_black_bg"></div>
-<div id="cs_paging"></div>
+
 
 

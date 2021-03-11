@@ -15,7 +15,7 @@
 		<a href="notice_write">공지사항 등록</a>
 	</div>
 </sec:authorize>
-<c:forEach items="${noticeData}" var="item">
+<c:forEach items="${requestScope.noticeData.list}" var="item">
 	<div id="cs_notice_container">
 		<div class="cs_notice_content">
 			<div class="cs_notice_titlebar" data-pk="${item.notice_pk}">
@@ -46,4 +46,22 @@
 		</div>
 	</div>
 </c:forEach>
-<div id="cs_paging"></div>
+
+<!-- 페이징-->
+<form id="pageFrm" action="/notice" method="get">
+	<input type="hidden" name="page" value="1">
+</form>
+
+<c:if test="${requestScope.noticeData.SPage > 1}">
+	<span class="page" onclick="pageClick(1)">1</span>
+	<span>...</span>
+</c:if>	
+		
+<c:forEach begin="${requestScope.noticeData.SPage}" end="${requestScope.noticeData.EPage}" var="i">			
+	<span class="page ${requestScope.noticeData.page == i ? 'selected' : ''}" onclick="pageClick(${i})">${i}</span>
+</c:forEach>
+		
+<c:if test="${requestScope.noticeData.EPage < requestScope.noticeData.maxPageNum}">
+	<span>...</span>
+	<span class="page" onclick="pageClick(${requestScope.noticeData.maxPageNum})">${requestScope.noticeData.maxPageNum}</span>
+</c:if>

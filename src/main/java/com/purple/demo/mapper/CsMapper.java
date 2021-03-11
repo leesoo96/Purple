@@ -2,7 +2,9 @@ package com.purple.demo.mapper;
 
 import java.util.List;
 
+import com.purple.demo.model.NoticeDTO;
 import com.purple.demo.model.NoticeEntity;
+import com.purple.demo.model.QuestionDTO;
 import com.purple.demo.model.QuestionEntity;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -10,11 +12,11 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface CsMapper {
 
-	List<NoticeEntity> selNoticeList(NoticeEntity p);
+	List<NoticeEntity> selNoticeList(NoticeDTO p);
 	
 	NoticeEntity selNotice(NoticeEntity p);
 
-	NoticeEntity selNotice_count(NoticeEntity p);
+	int selNoticeMaxPage(NoticeDTO p);
 	
 	int regNotice(NoticeEntity p);
 	
@@ -39,9 +41,11 @@ public interface CsMapper {
 	
 	
 	
-	List<QuestionEntity> selQuestionList(QuestionEntity p);
+	List<QuestionEntity> selQuestionList(QuestionDTO p);
 	
 	QuestionEntity selQuestion(QuestionEntity p);
+
+	int selQuestionMaxPage(QuestionDTO p);
 	
 	int regQuestion(QuestionEntity p) ;
 	
