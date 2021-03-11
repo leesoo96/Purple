@@ -12,4 +12,8 @@ public class MypageController {
 		return "/mypage";
 	}
 
+	@RequestMapping("/modinfo")
+	public String modinfo() {
+		return "/mypage";
+	}
 }

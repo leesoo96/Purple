@@ -1,11 +1,11 @@
 spring:
   #jsp
   mvc:
-    devtools: 
-      livereload:  
-         enabled: true
+    devtools:
+      livereload:
+        enabled: true
     static-path-pattern: /resources/**
-    view: 
+    view:
       prefix: /WEB-INF/views/
       suffix: .jsp
 
@@ -16,25 +16,24 @@ spring:
     password: koreait2020
     driver-class-name: com.mysql.cj.jdbc.Driver
 
-#myBatis 설정    
+#myBatis 설정
 mybatis:
   mapper-locations: mybatis-mapper/**/*.xml
-  type-aliases-package: com.purple.demo.model 
+  type-aliases-package: com.purple.demo.model
 
 handlebars:
   suffix: .html
   expose-session-attributes: true
-  
+
 #Tomcat
-server: 
-  port: 8090 
-  
+server:
+  port: 8090
+
   ssl:
     enabled: true
     key-alias: purplestore
     key-store: purplestore
-    key-store-password: 'purple'
-    key-password: 'purple'
+    key-store-password: "purple"
+    key-password: "purple"
     trust-store: purpletrust
-    trust-store-password: 'purple' 
-    
+    trust-store-password: "purple"

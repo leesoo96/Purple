@@ -26,7 +26,7 @@ public class CsController {
 	@Autowired
 	private CsService service;
 	
-	//공지사항 패이지(화면)
+	//공지사항 페이지(화면)
 	@GetMapping("/notice")
 	public String noticeList(Model model, NoticeDTO p) {
 		model.addAttribute("noticeData", service.selNoticeList(p));

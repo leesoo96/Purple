@@ -26,5 +26,4 @@
         SELECT * FROM hashtag_relation
         WHERE htrel_hashtagpk = #{htrel_hashtagpk}
     </select>
-    
 </mapper>

@@ -22,6 +22,7 @@ public class UserPrincipal extends UserEntity implements UserDetails, Principal 
 		this.setUser_pk(user.getUser_pk());
 		this.setUser_id(user.getUser_id());
 		this.setUser_pw(user.getUser_pw());
+		this.setUser_bio(user.getUser_bio());
 		this.setUser_name(user.getUser_name());
 		this.setUser_email(user.getUser_email());
 		this.setUser_auth(user.getUser_auth());
