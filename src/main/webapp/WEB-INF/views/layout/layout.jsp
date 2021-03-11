@@ -9,6 +9,10 @@
 </head>
 
 <body>
+<sec:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_USER')">
+  <sec:authentication property="principal" var="userInfo" />
+  <input type="text" id="user_pk" value="${userInfo.user_pk}">
+</sec:authorize>
   <!-- 글쓰기 모달창 -->
   <div id="overlay">
   	<div id="write_container">

@@ -68,9 +68,8 @@
             <span>친구목록</span>
             
             <table>
-            <div id="friendId"></div>
-            <div id="friendBio"></div>
-            <div id="friendProfileImg"></div>
+              <div>${userinfo.user_pk}</div>
+          
             <!--  <tr>
                 <td><img src="resources/img/common/basic_profile.png" alt="프로필사진"></td>
                 <td id="friend_info">

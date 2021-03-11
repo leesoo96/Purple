@@ -8,6 +8,6 @@
         FROM user AS A
         LEFT JOIN friend AS B
         ON (A.user_pk = B.friend_pk)
-        WHERE B.user_pk = #{user_pk}
+        WHERE B.user_pk = #{B.user_pk}
     </select>
 </mapper>

@@ -7,5 +7,5 @@ import com.purple.demo.model.UserEntity;
 
 @Mapper
 public interface ChatMapper {
-   List<UserEntity> getFriendList();
+   List<UserEntity> getFriendList(UserEntity entity);
 }
