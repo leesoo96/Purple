@@ -27,10 +27,6 @@ public class UserServiceImpl implements UserDetailsService {
 		entity.setUser_id(user_id);
 		
 		UserEntity user = mapper.loginUser(entity);
-		if(user == null) {
-			return null;
-		}
-		
 		return UserPrincipal.create(user);
 	}
 

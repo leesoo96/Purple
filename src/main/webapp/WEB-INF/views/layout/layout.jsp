@@ -26,11 +26,12 @@
               <textarea id="write_text" name="feed_ctnt" rows="7" placeholder="내용을 입력하세요"></textarea>
               <div id="write_hashtag">
             	<input type="text" onkeyup="enterkey();" class="text_hashtag" placeholder="#해시태그(최대10개)"  />
-          </div>
+            </div>
 	      </form>
 	      <input id="submit_btn" type="submit" value="upload">           
   	</div>
   </div>
+
   <div id="container">
     <div id="layers">
       <div id="nav1">

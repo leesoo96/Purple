@@ -3,7 +3,9 @@ package com.purple.demo.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.purple.demo.model.NoticeDTO;
 import com.purple.demo.model.NoticeEntity;
+import com.purple.demo.model.QuestionDTO;
 import com.purple.demo.model.QuestionEntity;
 import com.purple.demo.service.CsService;
 
@@ -24,9 +26,9 @@ public class CsController {
 	@Autowired
 	private CsService service;
 	
-	//공지사항 패이지(화면)
+	//공지사항 페이지(화면)
 	@GetMapping("/notice")
-	public String noticeList(Model model, NoticeEntity p) {
+	public String noticeList(Model model, NoticeDTO p) {
 		model.addAttribute("noticeData", service.selNoticeList(p));
 		return "/notice";
 	}
@@ -87,7 +89,7 @@ public class CsController {
 	
 	
 	@GetMapping("/question")
-	public String question(Model model, QuestionEntity p) {
+	public String question(Model model, QuestionDTO p){
 		model.addAttribute("questionData", service.selQuestionList(p));
 		return "/question";
 	}
