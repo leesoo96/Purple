@@ -2,6 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib uri="http://www.springframework.org/security/tags"
 	prefix="sec"%>
 
@@ -13,7 +14,7 @@
 	<div id="cs_question_write">
 		<a href="question_write"><button>+</button></a>
 	</div>
-	<c:forEach items="${questionData}" var="item">
+	<c:forEach items="${requestScope.questionData.list}" var="item">
 		<div class="cs_question_content">
 			<div class="cs_question_titlebar" data-pk="${item.question_pk}">
 				<div class="cs_question_title">
@@ -31,7 +32,12 @@
 				</div>
 				<div class="cs_question_extratitle">
 					<span>조회수: </span> <span>${item.question_view}</span><span>
-						| </span><span>${item.question_writedate}</span>
+						| </span>
+						<span>
+							<fmt:parseDate value="${item.question_writedate}" var="dateValue" pattern="yyyy-MM-dd HH:mm:ss"/>
+							<fmt:formatDate value="${dateValue}" pattern="yyyy.MM.dd"/>
+							<c:out value="${today}"/>
+						</span>
 				</div>
 			</div>
 			<div class="cs_question_detail">
@@ -56,7 +62,28 @@
 		</div>
 	</c:forEach>
 </div>
+
+<!-- 페이징-->
+<form id="pageFrm" action="/question" method="get">
+	<input type="hidden" name="page" value="1">
+</form>
+
+<c:if test="${requestScope.questionData.SPage > 1}">
+	<span class="page" onclick="pageClick(1)">1</span>
+	<span>...</span>
+</c:if>	
+		
+<c:forEach begin="${requestScope.questionData.SPage}" end="${requestScope.questionData.EPage}" var="i">			
+	<span class="page ${requestScope.questionData.page == i ? 'selected' : ''}" onclick="pageClick(${i})">${i}</span>
+</c:forEach>
+		
+<c:if test="${requestScope.questionData.EPage < requestScope.questionData.maxPageNum}">
+	<span>...</span>
+	<span class="page" onclick="pageClick(${requestScope.questionData.maxPageNum})">${requestScope.questionData.maxPageNum}</span>
+</c:if>
+
+
 <div class="cs_black_bg"></div>
-<div id="cs_paging"></div>
+
 
 

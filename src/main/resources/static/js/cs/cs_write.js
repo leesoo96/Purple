@@ -1,38 +1,38 @@
 // 클릭 이벤트
 function on() {
-  document.querySelector("#overlay").style.display = "block"
+  document.querySelector('#overlay').style.display = 'block'
 }
 
 function off() {
-  document.querySelector("#overlay").style.display = "none"
+  document.querySelector('#overlay').style.display = 'none'
 }
 
 //해시태그
 function hashtag(event) {
-  var input_test = document.querySelector(".text_hashtag")
+  var input_test = document.querySelector('.text_hashtag')
   var input_ht = input_test.value
-  var span_ht = document.createElement("span")
-  span_ht.className = "span_ht"
-  var div_DeleteBtn2 = document.createElement("div")
-  div_DeleteBtn2.className = "DeleteBtn2"
-  div_DeleteBtn2.innerText = "x"
-  div_DeleteBtn2.addEventListener("click", function () {
+  var span_ht = document.createElement('span')
+  span_ht.className = 'span_ht'
+  var div_DeleteBtn2 = document.createElement('div')
+  div_DeleteBtn2.className = 'DeleteBtn2'
+  div_DeleteBtn2.innerText = 'x'
+  div_DeleteBtn2.addEventListener('click', function () {
     span_ht.remove()
   })
-  var input = document.createElement("input")
-  input.className = "text_hashtag"
-  input.type = "text"
+  var input = document.createElement('input')
+  input.className = 'text_hashtag'
+  input.type = 'text'
   span_ht.innerText = sarp(input_ht)
   span_ht.append(div_DeleteBtn2)
-  document.querySelector("#write_hashtag").appendChild(span_ht)
+  document.querySelector('#write_hashtag').appendChild(span_ht)
   input_test.before(span_ht)
-  input_test.value = ""
+  input_test.value = ''
 }
 
 //맨앞에 #붙이기
 function sarp(input_ht) {
-  if (input_ht.charAt(0) !== "#") {
-    input_ht = "#" + input_ht
+  if (input_ht.charAt(0) !== '#') {
+    input_ht = '#' + input_ht
     return input_ht
   }
   return input_ht
@@ -51,19 +51,19 @@ function setThumbnail(event) {
     var reader = new FileReader()
 
     reader.onload = function (event) {
-      var div_preview = document.createElement("div")
-      div_preview.className = "preview"
-      var div_DeleteBtn = document.createElement("div")
-      div_DeleteBtn.className = "DeleteBtn"
-      div_DeleteBtn.innerText = "x"
-      div_DeleteBtn.addEventListener("click", function () {
+      var div_preview = document.createElement('div')
+      div_preview.className = 'preview'
+      var div_DeleteBtn = document.createElement('div')
+      div_DeleteBtn.className = 'DeleteBtn'
+      div_DeleteBtn.innerText = 'x'
+      div_DeleteBtn.addEventListener('click', function () {
         div_preview.remove()
       })
-      var img = document.createElement("img")
-      img.setAttribute("src", event.target.result)
+      var img = document.createElement('img')
+      img.setAttribute('src', event.target.result)
       div_preview.append(div_DeleteBtn)
       div_preview.append(img)
-      document.querySelector("div.write_preview").appendChild(div_preview)
+      document.querySelector('div.write_preview').appendChild(div_preview)
     }
 
     console.log(image)
@@ -77,16 +77,16 @@ function setThumbnailvideo(event) {
     var reader = new FileReader()
 
     reader.onload = function (event) {
-      var div_preview = document.createElement("div")
-      div_preview.className = "preview"
-      var div_DeleteBtn = document.createElement("div")
-      div_DeleteBtn.className = "DeleteBtn"
-      div_DeleteBtn.innerText = "x"
-      div_DeleteBtn.addEventListener("click", function () {
+      var div_preview = document.createElement('div')
+      div_preview.className = 'preview'
+      var div_DeleteBtn = document.createElement('div')
+      div_DeleteBtn.className = 'DeleteBtn'
+      div_DeleteBtn.innerText = 'x'
+      div_DeleteBtn.addEventListener('click', function () {
         div_preview.remove()
       })
-      var video = document.createElement("video")
-      video.setAttribute("src", event.target.result)
+      var video = document.createElement('video')
+      video.setAttribute('src', event.target.result)
       if (video.paused) {
         video.play()
       } else {
@@ -94,7 +94,7 @@ function setThumbnailvideo(event) {
       }
       div_preview.append(div_DeleteBtn)
       div_preview.append(video)
-      document.querySelector("div.write_preview").appendChild(div_preview)
+      document.querySelector('div.write_preview').appendChild(div_preview)
     }
 
     console.log(video)
@@ -109,7 +109,7 @@ function return_page() {
 }
 
 //공지사항 등록
-const notice_write_form = document.querySelector("#notice_write_form")
+const notice_write_form = document.querySelector('#notice_write_form')
 
 function notice_write_submit_btn() {
   if (!notice_write_form.notice_pk.value) {
@@ -127,10 +127,10 @@ function noticeReg() {
       notice_ctnt: notice_write_form.notice_ctnt.value,
       notice_userpk: notice_write_form.notice_userpk.value,
     }
-    fetch("/notice_write", {
-      method: "post",
+    fetch('/notice_write', {
+      method: 'post',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify(param),
     })
@@ -154,10 +154,10 @@ function noticeUpd() {
       notice_pk: notice_write_form.notice_pk.value,
     }
     console.log(param)
-    fetch("/notice_upd", {
-      method: "post",
+    fetch('/notice_upd', {
+      method: 'post',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify(param),
     })
@@ -170,7 +170,7 @@ function noticeUpd() {
 }
 //문의사항
 
-const question_write_form = document.querySelector("#question_write_form")
+const question_write_form = document.querySelector('#question_write_form')
 
 function question_write_submit_btn() {
   if (!question_write_form.question_pk.value) {
@@ -187,17 +187,12 @@ function questionReg() {
       question_title: question_write_form.question_title.value,
       question_ctnt: question_write_form.question_ctnt.value,
       question_userpk: question_write_form.question_userpk.value,
-<<<<<<< HEAD
-      question_typ: question_write_form.question_typ.value,
+      question_typ: question_write_form.question_type.value,
     }
-=======
-      question_type: question_write_form.question_type.value,
-    };
->>>>>>> 9c8db40d72b92d4dd87269963cf76a3a534c9c99
-    fetch("/question_write", {
-      method: "post",
+    fetch('/question_write', {
+      method: 'post',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify(param),
     })
@@ -221,10 +216,10 @@ function questionUpd() {
       question_pk: question_write_form.question_pk.value,
     }
     console.log(param)
-    fetch("/question_upd", {
-      method: "post",
+    fetch('/question_upd', {
+      method: 'post',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify(param),
     })

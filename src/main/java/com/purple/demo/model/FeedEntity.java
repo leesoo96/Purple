@@ -6,7 +6,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class FeedEntity {
-
     private int feed_pk; //피드번호
     private String feed_ctnt; //피드내용
     private String feed_writedate; //작성날짜
