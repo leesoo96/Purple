@@ -51,7 +51,7 @@
 			</div>
 			<div class="cs_cmt_vlew">
 				<div class="cs_modal_close">
-					<a href="qeustion">close</a>
+					<a href="question">close</a>
 				</div>
 				${item.answer_ctnt}
 				<sec:authorize access="hasAnyRole('ROLE_ADMIN')">
