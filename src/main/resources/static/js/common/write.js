@@ -80,35 +80,35 @@ function setThumbnail(event) {
     console.log(image)
     reader.readAsDataURL(image)
   }
-}
 
-//preview_video
-function setThumbnailvideo(event) {
-  for (var video of event.target.files) {
-    var reader = new FileReader()
+  //preview_video
+  function setThumbnailvideo(event) {
+    for (var video of event.target.files) {
+      var reader = new FileReader()
 
-    reader.onload = function (event) {
-      var div_preview = document.createElement('div')
-      div_preview.className = 'preview'
-      var div_DeleteBtn = document.createElement('div')
-      div_DeleteBtn.className = 'DeleteBtn'
-      div_DeleteBtn.innerText = 'x'
-      div_DeleteBtn.addEventListener('click', function () {
-        div_preview.remove()
-      })
-      var video = document.createElement('video')
-      video.setAttribute('src', event.target.result)
-      if (video.paused) {
-        video.play()
-      } else {
-        video.pause()
+      reader.onload = function (event) {
+        var div_preview = document.createElement('div')
+        div_preview.className = 'preview'
+        var div_DeleteBtn = document.createElement('div')
+        div_DeleteBtn.className = 'DeleteBtn'
+        div_DeleteBtn.innerText = 'x'
+        div_DeleteBtn.addEventListener('click', function () {
+          div_preview.remove()
+        })
+        var video = document.createElement('video')
+        video.setAttribute('src', event.target.result)
+        if (video.paused) {
+          video.play()
+        } else {
+          video.pause()
+        }
+        div_preview.append(div_DeleteBtn)
+        div_preview.append(video)
+        document.querySelector('div.write_preview').appendChild(div_preview)
       }
-      div_preview.append(div_DeleteBtn)
-      div_preview.append(video)
-      document.querySelector('div.write_preview').appendChild(div_preview)
-    }
 
-    console.log(video)
-    reader.readAsDataURL(video)
+      console.log(video)
+      reader.readAsDataURL(video)
+    }
   }
 }
