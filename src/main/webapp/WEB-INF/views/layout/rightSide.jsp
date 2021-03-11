@@ -66,8 +66,9 @@
           </div> <!-- dm_close -->
           <div class="friend_list">
             <span>친구목록</span>
+            
             <table>
-              <tr>
+            <!--  <tr>
                 <td><img src="resources/img/common/basic_profile.png" alt="프로필사진"></td>
                 <td id="friend_info">
                   <span>friendName</span>
@@ -136,7 +137,7 @@
                 <td id="friend_chat_func">
                   <span>대화</span>
                 </td>
-              </tr>
+              </tr> -->
             </table>
           </div> <!-- friend_lsit -->
 
