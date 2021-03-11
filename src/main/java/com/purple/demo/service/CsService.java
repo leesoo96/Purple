@@ -1,7 +1,5 @@
 package com.purple.demo.service;
 
-
-
 import java.util.List;
 
 import javax.servlet.ServletContext;

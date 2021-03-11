@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.purple.demo.mapper.ChatMapper">
+     <!-- 채팅 => 친구목록 가져오기 -->
+     <select id="getFriendList" resultType="userEntity">
+        SELECT user_id, user_bio, user_profileImg 
+        FROM user AS A
+        LEFT JOIN friend AS B
+        ON (A.user_pk = B.friend_pk)
+        WHERE B.user_pk = #{user_pk}
+    </select>
+</mapper>
