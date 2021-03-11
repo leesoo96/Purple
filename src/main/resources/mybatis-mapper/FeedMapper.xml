@@ -2,29 +2,29 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.purple.demo.mapper.FeedMapper">
-    <select id="selFeed" resultType="FeedEntity">
-        SELECT * FROM feed
-        WHERE feed_pk = #{feed_pk}
-    </select>
-
     <select id="selFeedList" resultType="FeedEntity">
         SELECT * FROM feed
         ORDER BY feed_pk DESC
     </select>
 
-    <select id="selHashTag" resultType="HashTagEntity">
-        SELECT * FROM hastag
-        WHERE hashtag_pk = #{hashtag_pk}
+    <select id="selFeed" resultType="FeedEntity">
+        SELECT * FROM feed
+        WHERE feed_pk = #{feed_pk}
     </select>
 
-    <select id="selMedia" resultType="MediaEntity">
+    <select id="selMediaList" resultType="MediaEntity">
         SELECT * FROM media
         WHERE media_pk = #{media_pk}
     </select>
 
-    <select id="selHashtag_Relation" resultType="Hashtag_RelationEntity">
-        SELECT * FROM hashtag_relation
-        WHERE htrel_hashtagpk = #{htrel_hashtagpk}
+    <select id="selHashtagList" resultType="HashtagEntity">
+        SELECT * FROM hashtag
+        WHERE hashtag_pk = #{hashtag_pk}
+    </select>
+
+    <select id="selUserList" resultType="UserEntity">
+        SELECT * FROM user
+        WHERE user_pk = #{user_pk}
     </select>
     
 </mapper>

@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.purple.demo.common.Const;
-import com.purple.demo.model.FeedDomain;
 import com.purple.demo.model.FeedEntity;
 import com.purple.demo.model.UserEntity;
 import com.purple.demo.service.FeedService;
@@ -47,8 +46,10 @@ public class FeedController {
 		return loginResult;
 	}
 
-	// @GetMapping(value="")
-	// public void FeedList(Model model, FeedEntity param) {
-	// 	model.addAttribute(Const.KEY_FEEDLISTDATA, );
-	// }
+	@GetMapping("")
+	public String FeedList(Model model, FeedEntity param) {
+		model.addAttribute(Const.KEY_FEEDLISTDATA, feedservice.selFeedList());
+
+		return "/feed";
+	}
 }
