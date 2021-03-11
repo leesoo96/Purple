@@ -85,7 +85,6 @@
 			<sec:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_USER')">
 				<sec:authentication property="principal" var="userInfo" />
 				<span>${userInfo.user_bio}</span>
-
 			</sec:authorize>
 		</div>
 
