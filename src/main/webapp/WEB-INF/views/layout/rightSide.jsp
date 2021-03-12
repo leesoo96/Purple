@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
   pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>  
 <div id="followers">
         <h3>알 수도 있는 사람</h3>
         <table>
@@ -64,83 +65,11 @@
           <div class="dm_close">
             <i class="fas fa-angle-double-down"></i>
           </div> <!-- dm_close -->
-          <div class="friend_list">
+          <div id="friend_list">
             <span>친구목록</span>
-            
             <table>
-          
-            <!--  <tr>
-                <td><img src="resources/img/common/basic_profile.png" alt="프로필사진"></td>
-                <td id="friend_info">
-                  <span>friendName</span>
-                  <small>상태메시지</small>
-                </td>
-                <td id="friend_block">
-                  <span>친구정보보기</span>
-                  <span>차단하기</span>
-                </td>
-                <td id="friend_chat_func">
-                  <span>대화</span>
-                </td>
-              </tr>
-              <tr>
-                <td><img src="resources/img/common/basic_profile.png" alt="프로필사진"></td>
-                <td id="friend_info">
-                  <span>friendName2</span>
-                  <small>상태메시지</small>
-                </td>
-                 <td id="friend_block">
-                  <span>친구정보보기</span>
-                  <span>차단하기</span>
-                </td>
-                <td id="friend_chat_func">
-                  <span>대화</span>
-                </td>
-              </tr>
-              <tr>
-                <td><img src="resources/img/common/basic_profile.png" alt="프로필사진"></td>
-                <td id="friend_info">
-                  <span>friendNameeee3</span>
-                  <small>상태메시지</small>
-                </td>
-                 <td id="friend_block">
-                  <span>친구정보보기</span>
-                  <span>차단하기</span>
-                </td>
-                <td id="friend_chat_func">
-                    <span>대화</span>
-                </td>
-              </tr>
-              <tr>
-                <td><img src="resources/img/common/basic_profile.png" alt="프로필사진"></td>
-                <td id="friend_info">
-                  <span>friendNameeeee4</span>
-                  <small>상태메시지</small>
-                </td>
-                   <td id="friend_block">
-                  <span>친구정보보기</span>
-                  <span>차단하기</span>
-                </td>
-                <td id="friend_chat_func">
-                  <span>대화</span>
-                </td>
-              </tr>
-              <tr>
-                <td><img src="resources/img/common/basic_profile.png" alt="프로필사진"></td>
-                <td id="friend_info">
-                  <span>friendNameeeee5</span>
-                  <small>상태메시지</small>
-                </td>
-                   <td id="friend_block">
-                  <span>친구정보보기</span>
-                  <span>차단하기</span>
-                </td>
-                <td id="friend_chat_func">
-                  <span>대화</span>
-                </td>
-              </tr> -->
             </table>
-          </div> <!-- friend_lsit -->
+          </div>
 
           <div class="chat_list">
             <span>대화목록</span>
