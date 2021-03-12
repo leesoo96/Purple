@@ -3,6 +3,7 @@ package com.purple.demo.mapper;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
+
 import com.purple.demo.model.UserEntity;
 
 @Mapper
