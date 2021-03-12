@@ -12,10 +12,6 @@
 <div id="cs_write_title">${noticeUpd == null ? '공지사항 등록' : '공지사항 수정'}</div>
 <form id="notice_write_form">
 	<div>
-		<sec:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_USER')">
-			<sec:authentication property="principal" var="userInfo" />
-			<input type="hidden" name="notice_userpk" value="${userInfo.user_pk}">
-		</sec:authorize>
 	</div>
 	<div><input type="hidden" name="notice_pk" value="${noticeUpd.notice_pk}"></div>
 	<table id="cs_write_table">

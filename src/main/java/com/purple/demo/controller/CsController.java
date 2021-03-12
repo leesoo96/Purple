@@ -38,7 +38,7 @@ public class CsController {
 	public String notice_write() {
 		return "/notice_write";
 	}
-	
+	 
 	//공지사항 글등록
 	@ResponseBody
 	@PostMapping("/notice_write")
