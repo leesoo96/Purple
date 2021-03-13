@@ -26,4 +26,16 @@
         </set>
         WHERE user_pk = #{user_pk}
     </update>
+
+    <select id="checkUserpw" resultType="string">
+        SELECT user_pw
+        FROM user
+        WHERE user_pk = #{user_pk}
+    </select>
+
+    <update id="modUserPw">
+        UPDATE user
+        SET user_pw = #{user_pw}
+        WHERE user_pk = #{user_pk}
+    </update>
 </mapper>

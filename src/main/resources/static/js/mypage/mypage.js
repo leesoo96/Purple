@@ -16,8 +16,7 @@ mod_userimg.addEventListener('change', (event) => {
   reader.onload = (event) => {
     let img = document.createElement('img')
     img.src = event.target.result
-    mod_userimg.querySelector('img').remove()
-    mod_userimg.querySelector('label').appendChild(img)
+    mod_userimg.querySelector('img').replaceWith(img)
     console.log(img)
   }
 
@@ -33,9 +32,7 @@ mod_userbackground.addEventListener('change', (event) => {
   reader.onload = (event) => {
     let img = document.createElement('img')
     img.src = event.target.result
-    mod_userbackground.querySelector('img').remove()
-    mod_userbackground.querySelector('label').append(img)
-    console.log(img)
+    mod_userbackground.querySelector('img').replaceWith(img)
   }
   reader.readAsDataURL(event.target.files[0])
 })
@@ -61,7 +58,7 @@ id_chekBtn.addEventListener('click', () => {
       })
   }
 })
-// save
+// 사용자 정보 변경
 const userMod_contentEle = document.querySelector('#userMod_content')
 const saveBtn = document.querySelector('#save_userModBtn')
 const user_pkInput = document.querySelector('#user_pk')
@@ -102,6 +99,74 @@ saveBtn.addEventListener('click', () => {
       .then((myJson) => {
         if (myJson.result === 1) {
           alert('회원정보 수정이 완료되었습니다.')
+          location.href = `/logout`
+          return
+        }
+      })
+  }
+})
+const userPwModFrm = document.querySelector('form[name="userPwModFrm"]')
+//현재 비밀번호 검사
+function pw_check(user_pk, user_pw) {
+  fetch(`/mypage/pw_check`, {
+    method: 'post',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      user_pk: user_pk,
+      user_pw: user_pw,
+    }),
+  })
+    .then((res) => res.json())
+    .then((myJson) => {
+      if (myJson.result !== 1) {
+        alert('현재 비밀번호가 틀렸습니다. 다시 확인해 주세요')
+        userPwModFrm.user_pw.value = ''
+        return
+      }
+    })
+}
+//비밀번호 확인 검사
+const mod_chkpw = userPwModFrm.mod_chkpw
+mod_chkpw.addEventListener('change', () => {
+  check_modpw()
+  function check_modpw() {
+    if (userPwModFrm.mod_pw.value !== mod_chkpw.value) {
+      alert('비밀번호가 일치하지 않습니다!')
+      mod_chkpw.value = ''
+      mod_chkpw.focus()
+      return false
+    }
+  }
+})
+
+//사용자 비밀번호 변경
+const pwModBtn = document.querySelector('input[name="pwModBtn"]')
+
+pwModBtn.addEventListener('click', () => {
+  ajax()
+  function ajax() {
+    let user_pk = user_pkInput.value
+    let user_pw = userPwModFrm.user_pw.value
+    let mod_pw = userPwModFrm.mod_pw.value
+
+    pw_check(user_pk, user_pw)
+
+    fetch(`/mypage/mod_userpw`, {
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        user_pk: user_pk,
+        user_pw: mod_pw,
+      }),
+    })
+      .then((res) => res.json())
+      .then((myJson) => {
+        if (myJson.result === 1) {
+          alert('비밀번호가 변경 되었습니다.')
           location.href = `/logout`
           return
         }

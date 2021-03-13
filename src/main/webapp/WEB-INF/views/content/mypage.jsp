@@ -53,7 +53,7 @@
 		<input type="password" name="user_pw" placeholder="현재 비밀번호">
 		<input type="password" name="mod_pw" placeholder="변경 할 비밀번호">
 		<input type="password" name="mod_chkpw" placeholder="비밀번호 확인">
-		<input type="submit" name="pwModBtn" value="변경하기">
+		<input type="button" name="pwModBtn" value="변경하기">
 	</form>
 </div>
 
