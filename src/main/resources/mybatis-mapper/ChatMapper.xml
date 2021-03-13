@@ -6,8 +6,18 @@
      <select id="getFriendList" resultType="userEntity">
         SELECT A.user_id, A.user_bio, A.user_profileImg 
         FROM user AS A
-        LEFT JOIN friend AS B
+        JOIN friend AS B
         ON (A.user_pk = B.friend_pk)
         WHERE B.user_pk = #{user_pk}
+    </select>
+
+    <select id="getFriendChatList" resultType="ChatRoomDTO">
+        SELECT A.user_id, C.chatroom_lasttalk, C.chatroom_date  
+        FROM user AS A
+        LEFT OUTER JOIN chatting_relation AS B 
+        ON (A.user_pk = B.chatroom_friendpk)
+        LEFT OUTER  JOIN chatroom AS C
+        ON (C.chatroom_pk = B.chatroom_pk)
+        WHERE B.chatroom_userpk = #{user_pk}
     </select>
 </mapper>
