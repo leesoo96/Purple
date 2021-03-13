@@ -73,25 +73,9 @@
 
           <div class="chat_list">
             <span>대화목록</span>
-            <div>
-              <span>friendName</span>
-              <p>안녕안녕</p>
-              <small>오전 00:00</small>
-            </div>
+          </div> 
 
-            <div>
-              <span>friendName2</span>
-              <p>ㅇㅇ</p>
-              <small>오전 00:00</small>
-            </div>
-
-            <div>
-              <span>friendNameeee3</span>
-              <p>ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ</p>
-              <small>오전 00:00</small>
-            </div>
-          </div> <!-- chat_list -->
-
+          <!-- 채팅방 --> 
           <div class="chat_msg">
             <p id="chat_friendName">@friendName</p>
 

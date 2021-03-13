@@ -6,6 +6,9 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface MypageMapper {
-
     int modUserInfo(UserEntity entity);
+
+    String checkUserpw(int user_pk);
+
+    int modUserPw(UserEntity entity);
 }

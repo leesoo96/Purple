@@ -3,11 +3,11 @@ package com.purple.demo.controller;
 import java.util.List;
 
 import com.purple.demo.mapper.ChatMapper;
+import com.purple.demo.model.ChatRoomDTO;
 import com.purple.demo.model.UserEntity;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,10 +20,17 @@ public class ChatController {
     @Autowired
     private ChatMapper mapper;
 
+    // 친구목록
     @ResponseBody
     @PostMapping("/getFriendList")
-    public List<UserEntity> getFriendList(@RequestBody UserEntity entity, Model model) {
-       
+    public List<UserEntity> getFriendList(@RequestBody UserEntity entity) {
         return mapper.getFriendList(entity);
+    }
+
+    // 대화목록
+    @ResponseBody
+    @PostMapping("/getFriendChatList")
+    public List<ChatRoomDTO> getFriendChatList(@RequestBody ChatRoomDTO dto) {
+        return mapper.getFriendChatList(dto);
     }
 }
