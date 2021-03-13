@@ -20,11 +20,12 @@ public class FeedController {
 		return "/feed";
 	}
 
+	/*
 	@GetMapping("")
 	public String selFeedList(Model model, FeedDomain param){
 		List<FeedDomain> feedList = feedservice.selFeedList(param);
 		model.addAttribute("feedListData", feedList);
 
 		return "/feed";
-	}
+	} */
 }

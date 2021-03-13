@@ -73,7 +73,7 @@
 
           <div class="chat_list">
             <span>대화목록</span>
-          </div> <!-- chat_list -->
+          </div> 
 
           <!-- 채팅방 --> 
           <div class="chat_msg">

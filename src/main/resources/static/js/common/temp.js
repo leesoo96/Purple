@@ -139,7 +139,6 @@ function getFriend_list(myJson) {
       friend_profileImg_td.innerHTML =
         '<img src="resources/img/common/basic_profile.png" alt="프로필사진">'
     } else {
-      // -> 친구의 프로필이 표시되도록 변경되어야하는 코드
       friend_profileImg_td.innerHTML = '<img src="" alt="프로필사진">'
     }
 
