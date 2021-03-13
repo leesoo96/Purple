@@ -61,3 +61,7 @@ for (let i = 0; i < feedDetail_imgs.length; i++) {
     })
 }
 
+// 피드 뿌리기
+let feed_containerEle = document.querySelectorAll('.feed_container')
+
+

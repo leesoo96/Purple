@@ -2,28 +2,50 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.purple.demo.mapper.FeedMapper">
-    <select id="selFeedList" resultType="FeedEntity">
-        SELECT * FROM feed
-        ORDER BY feed_pk DESC
+    <select id="selFeedList" resultType="FeedDomain">
+        SELECT A.feed_pk, feed_ctnt, feed_writedate, feed_userpk
+        FROM feed
+        ORDER BY feed_writedate DESC
+        LIMIT 0, 5
     </select>
 
     <select id="selFeed" resultType="FeedEntity">
-        SELECT * FROM feed
+        SELECT feed_ctnt, feed_writedate, feed_userpk FROM feed
         WHERE feed_pk = #{feed_pk}
     </select>
 
     <select id="selMediaList" resultType="MediaEntity">
-        SELECT * FROM media
-        WHERE media_pk = #{media_pk}
+        SELECT media_feedpk, media_url FROM media
+        WHERE media_type = #{media_type}
     </select>
 
     <select id="selHashtagList" resultType="HashtagEntity">
-        SELECT * FROM hashtag
-        WHERE hashtag_pk = #{hashtag_pk}
+        SELECT a.hashtag_ctnt FROM hashtag AS a
+        INNER JOIN hashtag_relation AS b
+        ON a.hashtag_pk = b.htrel_feedpk
     </select>
 
-    <select id="selUserList" resultType="UserEntity">
-        SELECT * FROM user
-        WHERE user_pk = #{user_pk}
+    <select id="FavoriteCnt" resultType="FavoriteEntity">
+        SELECT favorite_feedpk, COUNT(favorite_feedpk) AS favorite_cnt
+	    FROM favorite
+		GROUP BY favorite_feedpk
+    </select>
+
+    <select id="CommentCnt" resultType="CommentEntity">
+        SELECT comment_feedpk, COUNT(comment_ctnt) AS comment_cnt
+        FROM comment
+        ORDER BY comment_ctnt
+    </select>
+
+    <select id="BookmarkState" resultType="BookmarkEntity">
+        <!-- bookmark_feedpk 값이 존재하면, 북마크 상태, 값이 없으면 북마크 상태 X -->
+        SELECT bookmark_feedpk FROM bookmark
+		WHERE bookmark_userpk = #{bookmark_userpk}
+    </select>
+
+    <select id="FavoriteState" resultType="FavoriteEntity">
+        <!-- favorite_feedpk 값이 존재하면, 좋아요 상태, 값이 없으면 좋아요 상태 X -->
+        SELECT favorite_feedpk FROM favorite
+        WHERE favorite_userpk = #{favorite_userpk}
     </select>
 </mapper>
