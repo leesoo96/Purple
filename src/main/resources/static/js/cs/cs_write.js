@@ -114,6 +114,7 @@ const notice_write_form = document.querySelector('#notice_write_form')
 function notice_write_submit_btn() {
   if (!notice_write_form.notice_pk.value) {
     noticeReg()
+    console.log(notice_write_form.file.value)
     return
   }
   noticeUpd()
@@ -125,7 +126,7 @@ function noticeReg() {
     let param = {
       notice_title: notice_write_form.notice_title.value,
       notice_ctnt: notice_write_form.notice_ctnt.value,
-      notice_userpk: notice_write_form.notice_userpk.value,
+      notice_userpk: document.querySelector('#user_pk').value,
     }
     fetch('/notice_write', {
       method: 'post',
@@ -137,9 +138,7 @@ function noticeReg() {
       .then((res) => res.json())
       .then(function (myJson) {
         console.log(myJson)
-        if (myJson.result === 1) {
-          location.href = `/notice`
-        }
+        location.href = `/notice`
       })
   }
 }
@@ -163,7 +162,6 @@ function noticeUpd() {
     })
       .then((res) => res.json())
       .then(function (myJson) {
-        console.log(myJson)
         location.href = `/notice`
       })
   }
@@ -199,9 +197,7 @@ function questionReg() {
       .then((res) => res.json())
       .then(function (myJson) {
         console.log(myJson)
-        if (myJson.result === 1) {
-          location.href = `/question`
-        }
+        location.href = `/question`
       })
   }
 }
@@ -225,7 +221,6 @@ function questionUpd() {
     })
       .then((res) => res.json())
       .then(function (myJson) {
-        console.log(myJson)
         location.href = `/question`
       })
   }

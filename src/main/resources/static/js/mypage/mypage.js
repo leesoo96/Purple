@@ -1,4 +1,3 @@
-'use strict'
 // 모달창 열고 닫기
 function openCloseModal(modalname, state) {
   let modalElem = document.querySelector(`${modalname}`)
@@ -65,15 +64,9 @@ id_chekBtn.addEventListener('click', () => {
 // save
 const userMod_contentEle = document.querySelector('#userMod_content')
 const saveBtn = document.querySelector('#save_userModBtn')
-
+const user_pkInput = document.querySelector('#user_pk')
 saveBtn.addEventListener('click', () => {
-  let mod_id = userModFrm.mod_id.value
-  let mod_name = userModFrm.mod_name.value
-  let mod_bio = userModFrm.mod_bio.value
-  let mod_location = userModFrm.mod_location.value
-  let mod_website = userModFrm.mod_website.value
-  let mod_birth = userModFrm.mod_birth.value
-
+  // 아이디 변경을 할 때 중복검사 여부 확인
   if (userModFrm.mod_id.value) {
     if (check_state === 0) {
       alert('아이디 중복체크를 해주세요')
@@ -81,6 +74,37 @@ saveBtn.addEventListener('click', () => {
     }
     return
   }
-  console.log(mod_website)
-  console.log(mod_birth)
+
+  if (confirm('정보를 변경하시겠습니까?')) {
+    ajax()
+  }
+
+  function ajax() {
+    let params = {
+      user_pk: user_pkInput.value,
+      // TODO: 사진 변경할 때
+      user_id: userModFrm.mod_id.value,
+      user_name: userModFrm.mod_name.value,
+      user_bio: userModFrm.mod_bio.value,
+      user_location: userModFrm.mod_location.value,
+      user_website: userModFrm.mod_website.value,
+      user_birth: userModFrm.mod_birth.value,
+    }
+    console.log(params.user_bio)
+    fetch(`/mypage/mod_userinfo`, {
+      method: 'put',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(params),
+    })
+      .then((res) => res.json())
+      .then((myJson) => {
+        if (myJson.result === 1) {
+          alert('회원정보 수정이 완료되었습니다.')
+          location.href = `/logout`
+          return
+        }
+      })
+  }
 })

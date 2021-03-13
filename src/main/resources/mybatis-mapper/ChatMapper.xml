@@ -4,7 +4,7 @@
 <mapper namespace="com.purple.demo.mapper.ChatMapper">
      <!-- 채팅 => 친구목록 가져오기 -->
      <select id="getFriendList" resultType="userEntity">
-        SELECT user_id, user_bio, user_profileImg 
+        SELECT A.user_id, A.user_bio, A.user_profileImg 
         FROM user AS A
         LEFT JOIN friend AS B
         ON (A.user_pk = B.friend_pk)

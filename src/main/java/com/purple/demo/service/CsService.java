@@ -3,6 +3,9 @@ package com.purple.demo.service;
 
 
 
+import java.io.File;
+import java.io.IOException;
+
 import com.purple.demo.mapper.CsMapper;
 import com.purple.demo.model.NoticeDTO;
 import com.purple.demo.model.NoticeDomain;
@@ -13,6 +16,7 @@ import com.purple.demo.model.QuestionEntity;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class CsService {

@@ -2,12 +2,13 @@ package com.purple.demo.controller;
 
 import java.util.List;
 
+import com.purple.demo.mapper.ChatMapper;
 import com.purple.demo.model.UserEntity;
-import com.purple.demo.service.ChatService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -17,13 +18,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class ChatController {
     
     @Autowired
-    private ChatService service;
+    private ChatMapper mapper;
 
     @ResponseBody
-    @GetMapping("/getFriendList")
-    public List<UserEntity> getFriendList(UserEntity entity) {
-        entity.getUser_pk();
-        
-        return service.getFriendList(entity);
+    @PostMapping("/getFriendList")
+    public List<UserEntity> getFriendList(@RequestBody UserEntity entity, Model model) {
+       
+        return mapper.getFriendList(entity);
     }
 }

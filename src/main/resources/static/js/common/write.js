@@ -71,6 +71,7 @@ function setThumbnail(event) {
         div_preview.remove()
       })
       var img = document.createElement('img')
+      img.className = 'img'
       img.setAttribute('src', event.target.result)
       div_preview.append(div_DeleteBtn)
       div_preview.append(img)
@@ -80,35 +81,53 @@ function setThumbnail(event) {
     console.log(image)
     reader.readAsDataURL(image)
   }
-}
 
-//preview_video
-function setThumbnailvideo(event) {
-  for (var video of event.target.files) {
-    var reader = new FileReader()
+  //preview_video
+  function setThumbnailvideo(event) {
+    for (var video of event.target.files) {
+      var reader = new FileReader()
 
-    reader.onload = function (event) {
-      var div_preview = document.createElement('div')
-      div_preview.className = 'preview'
-      var div_DeleteBtn = document.createElement('div')
-      div_DeleteBtn.className = 'DeleteBtn'
-      div_DeleteBtn.innerText = 'x'
-      div_DeleteBtn.addEventListener('click', function () {
-        div_preview.remove()
-      })
-      var video = document.createElement('video')
-      video.setAttribute('src', event.target.result)
-      if (video.paused) {
-        video.play()
-      } else {
-        video.pause()
+      reader.onload = function (event) {
+        var div_preview = document.createElement('div')
+        div_preview.className = 'preview'
+        var div_DeleteBtn = document.createElement('div')
+        div_DeleteBtn.className = 'DeleteBtn'
+        div_DeleteBtn.innerText = 'x'
+        div_DeleteBtn.addEventListener('click', function () {
+          div_preview.remove()
+        })
+        var video = document.createElement('video')
+        video.setAttribute('src', event.target.result)
+        if (video.paused) {
+          video.play()
+        } else {
+          video.pause()
+        }
+        div_preview.append(div_DeleteBtn)
+        div_preview.append(video)
+        document.querySelector('div.write_preview').appendChild(div_preview)
       }
-      div_preview.append(div_DeleteBtn)
-      div_preview.append(video)
-      document.querySelector('div.write_preview').appendChild(div_preview)
-    }
 
-    console.log(video)
-    reader.readAsDataURL(video)
+      console.log(video)
+      reader.readAsDataURL(video)
+    }
   }
 }
+
+const writer_containerBtn = document.querySelector('#submit_btn')
+const inputImgElem = document.querySelector('#file_video')
+writer_containerBtn.addEventListener('click', () => {
+  let formData = new FormData()
+  for (var i = 0; i < inputImgElem.files.length; i++) {
+    formData.append('imgs', inputImgElem.files[i])
+  }
+  console.log(formData)
+
+  let feed_ctntVal = document.querySelector('#write_text').value
+  console.log('feed_ctnt: ' + feed_ctntVal)
+
+  let hashtag_ctntVals = document.querySelectorAll('.span_ht')
+  for (let i = 0; i < hashtag_ctntVals.length; i++) {
+    console.log(hashtag_ctntVals[i].innerText.slice(0, -1))
+  }
+})
