@@ -30,12 +30,19 @@ public class FeedController {
 	}
 
 	// 피드
-	@ResponseBody
-	@GetMapping("")
-	public Map<String, Object> selFeedList(Model model, @RequestBody FeedDomain param){
-		Map<String, Object> FeedListResult = new HashMap<String, Object>();
-		FeedListResult.put(Const.KEY_FEEDLISTDATA, feedservice.selFeedList(param));
+	// @ResponseBody
+	// @GetMapping("")
+	// public Map<String, Object> selFeedList(Model model, @RequestBody FeedDomain param){
+	// 	Map<String, Object> FeedListResult = new HashMap<String, Object>();
+	// 	FeedListResult.put(Const.KEY_FEEDLISTDATA, feedservice.selFeedList(param));
 
-		return FeedListResult;
+	// 	return FeedListResult;
+	// }
+
+	@GetMapping("")
+	public String selFeedList(Model model, FeedDomain param){
+		model.addAttribute(Const.KEY_FEEDLISTDATA, feedservice.selFeedList(param));
+
+		return "/feed";
 	}
 }
