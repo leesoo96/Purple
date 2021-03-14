@@ -17,7 +17,6 @@ mod_userimg.addEventListener('change', (event) => {
     let img = document.createElement('img')
     img.src = event.target.result
     mod_userimg.querySelector('img').replaceWith(img)
-    console.log(img)
   }
 
   reader.readAsDataURL(event.target.files[0])
@@ -39,12 +38,16 @@ mod_userbackground.addEventListener('change', (event) => {
 const userModFrm = document.querySelector('#userModFrm')
 // ID 중복검사
 let check_state = 0
-const id_chekBtn = document.querySelector('input[name="id_check"]')
+const id_chekBtn = document.querySelector('button[name="id_check"]')
 id_chekBtn.addEventListener('click', () => {
+  let mod_id = userModFrm.mod_id.value
+  if (mod_id === '' || mod_id === null) {
+    alert('변경할 아이디를 입력해주세요')
+    userModFrm.mod_id.focus()
+    return
+  }
   ajax()
   function ajax() {
-    let mod_id = userModFrm.mod_id.value
-
     fetch(`/join/${mod_id}`)
       .then((res) => res.json())
       .then(function (myJson) {
@@ -100,7 +103,6 @@ saveBtn.addEventListener('click', () => {
         if (myJson.result === 1) {
           alert('회원정보 수정이 완료되었습니다.')
           location.href = `/logout`
-          return
         }
       })
   }
@@ -147,7 +149,7 @@ mod_chkpw.addEventListener('change', () => {
 })
 
 //사용자 비밀번호 변경
-const pwModBtn = document.querySelector('input[name="pwModBtn"]')
+const pwModBtn = document.querySelector('button[name="pwModBtn"]')
 
 pwModBtn.addEventListener('click', () => {
   ajax()
