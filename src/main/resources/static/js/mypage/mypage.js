@@ -105,9 +105,11 @@ saveBtn.addEventListener('click', () => {
       })
   }
 })
+
 const userPwModFrm = document.querySelector('form[name="userPwModFrm"]')
 //현재 비밀번호 검사
 function pw_check(user_pk, user_pw) {
+  let isTrue = true
   fetch(`/mypage/pw_check`, {
     method: 'post',
     headers: {
@@ -123,9 +125,12 @@ function pw_check(user_pk, user_pw) {
       if (myJson.result !== 1) {
         alert('현재 비밀번호가 틀렸습니다. 다시 확인해 주세요')
         userPwModFrm.user_pw.value = ''
-        return
+        isTrue = false
+      } else {
+        isTrue = true
       }
     })
+  return Boolean(isTrue)
 }
 //비밀번호 확인 검사
 const mod_chkpw = userPwModFrm.mod_chkpw
@@ -151,7 +156,21 @@ pwModBtn.addEventListener('click', () => {
     let user_pw = userPwModFrm.user_pw.value
     let mod_pw = userPwModFrm.mod_pw.value
 
-    pw_check(user_pk, user_pw)
+    if (!pw_check(user_pk, user_pw)) {
+      return
+    }
+
+    if (mod_pw === '' || mod_pw === null) {
+      alert('변경할 비밀번호를 입력해 주세요')
+      userPwModFrm.mod_pw.focus()
+      return
+    }
+
+    if (mod_chkpw.value === '' || mod_chkpw.value === null) {
+      alert('비밀번호를 확인란을 입력해 주세요')
+      mod_chkpw.focus()
+      return
+    }
 
     fetch(`/mypage/mod_userpw`, {
       method: 'post',
