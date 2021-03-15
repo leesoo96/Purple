@@ -12,7 +12,6 @@
         JOIN user C
         ON A.friend_pk = B.user_pk
         AND B.friend_pk = C.user_pk
-        WHERE A.user_pk = #{user_pk}
         AND b.friend_pk 
         NOT IN
         (
@@ -20,7 +19,16 @@
             FROM friend 
             WHERE user_pk = #{user_pk}
         )
+        AND b.friend_pk 
+        NOT IN ( #{user_pk})
         ORDER BY RAND()
+        LIMIT 20
+    </select>
+
+    <select id="getRandomRecommandFriendList" resultType="FriendDTO">
+        SELECT user_pk, user_id, user_profileimg
+        FROM user 
+        ORDER BY RAND() 
         LIMIT 20
     </select>
 
