@@ -74,7 +74,6 @@ public class UserPrincipal extends UserEntity implements UserDetails, Principal 
 
 	@Override
 	public String getName() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 }

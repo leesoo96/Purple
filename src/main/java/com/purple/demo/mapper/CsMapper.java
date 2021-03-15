@@ -30,21 +30,6 @@ public interface CsMapper {
 	
 	int notice_del(NoticeEntity p);
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	List<QuestionEntity> selQuestionList(QuestionDTO p);
 	
 	QuestionEntity selQuestion(QuestionEntity p);

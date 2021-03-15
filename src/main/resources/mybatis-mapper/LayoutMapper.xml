@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.purple.demo.mapper.LayoutMapper">
+
+<!-- RightLayout only //////////////////////////// -->
+    <!-- 알 수도 있는 사람 목록 가져오기 -->
+    <select id="getRecommandFriendList" resultType="FriendDTO">
+        SELECT DISTINCT B.friend_pk, C.user_id, C.user_profileimg
+        FROM friend AS A
+        INNER JOIN friend AS B
+        JOIN user C
+        ON A.friend_pk = B.user_pk
+        AND B.friend_pk = C.user_pk
+        AND b.friend_pk 
+        NOT IN
+        (
+            SELECT friend_pk 
+            FROM friend 
+            WHERE user_pk = #{user_pk}
+        )
+        AND b.friend_pk 
+        NOT IN ( #{user_pk})
+        ORDER BY RAND()
+        LIMIT 20
+    </select>
+
+    <!-- 친구가 없는 사용자에게 랜덤으로 목록을 출력합니다 -->
+    <select id="getRandomRecommandFriendList" resultType="FriendDTO">
+        SELECT user_pk, user_id, user_profileimg
+        FROM user 
+        ORDER BY RAND() 
+        LIMIT 20
+    </select>
+
+    <!-- 친구목록 가져오기 -->
+    <select id="getFriendList" resultType="userEntity">
+        SELECT A.user_id, A.user_bio, A.user_profileImg 
+        FROM user AS A
+        JOIN friend AS B
+        ON (A.user_pk = B.friend_pk)
+        WHERE B.user_pk = #{user_pk}
+    </select>
+
+    <!-- 대화목록 가져오기 -->
+    <select id="getFriendChatList" resultType="ChatRoomDTO">
+        SELECT A.user_id, C.chatroom_lasttalk, C.chatroom_date  
+        FROM user AS A
+        INNER JOIN chatting_relation AS B 
+        ON (A.user_pk = B.chatroom_friendpk)
+        
+        INNER JOIN chatroom AS C
+        ON (C.chatroom_pk = B.chatroom_pk)
+        WHERE B.chatroom_userpk = #{user_pk}
+    </select>
+</mapper>

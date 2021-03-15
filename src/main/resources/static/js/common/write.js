@@ -71,6 +71,7 @@ function setThumbnail(event) {
         div_preview.remove()
       })
       var img = document.createElement('img')
+      img.className = 'img'
       img.setAttribute('src', event.target.result)
       div_preview.append(div_DeleteBtn)
       div_preview.append(img)
@@ -112,3 +113,21 @@ function setThumbnail(event) {
     }
   }
 }
+
+const writer_containerBtn = document.querySelector('#submit_btn')
+const inputImgElem = document.querySelector('#file_video')
+writer_containerBtn.addEventListener('click', () => {
+  let formData = new FormData()
+  for (var i = 0; i < inputImgElem.files.length; i++) {
+    formData.append('imgs', inputImgElem.files[i])
+  }
+  console.log(formData)
+
+  let feed_ctntVal = document.querySelector('#write_text').value
+  console.log('feed_ctnt: ' + feed_ctntVal)
+
+  let hashtag_ctntVals = document.querySelectorAll('.span_ht')
+  for (let i = 0; i < hashtag_ctntVals.length; i++) {
+    console.log(hashtag_ctntVals[i].innerText.slice(0, -1))
+  }
+})

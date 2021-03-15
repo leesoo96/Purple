@@ -103,7 +103,6 @@ public class CsService {
 	}
 
 	//문의사항
-	
 	public 	QuestionDomain selQuestionList(QuestionDTO p){
 		if(p.getRecordCntPerPage() == 0) {
 			p.setRecordCntPerPage(10);

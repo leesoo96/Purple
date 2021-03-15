@@ -19,31 +19,31 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class CommonController {
 
-		final UserServiceImpl service;
+	final UserServiceImpl service;
 		
-//		첫화면 
-		@RequestMapping({"/", "/welcome"})
-		public String first() {
-			return "unusedtiles/welcome";
-		}
+//	첫화면 
+	@RequestMapping({"/", "/welcome"})
+	public String first() {
+		return "unusedtiles/welcome";
+	}
 	
-//		회원가입
-		@ResponseBody
-		@PostMapping("/join")
-		public Map<String, Object> join(@RequestBody UserEntity entity) {
-			Map<String, Object> joinResult = new HashMap<String, Object>();
-			joinResult.put("result", service.join(entity));
+//	회원가입
+	@ResponseBody
+	@PostMapping("/join")
+	public Map<String, Object> join(@RequestBody UserEntity entity) {
+		Map<String, Object> joinResult = new HashMap<String, Object>();
+		joinResult.put("result", service.join(entity));
 			
-			return joinResult;
-		}
+		return joinResult;
+	}
 		
-//		중복체크 
-		@ResponseBody
-		@GetMapping("/join/{user_id}")
-		public Map<String, Object> overlap_Confirm(UserEntity entity) {
-			Map<String, Object> value = new HashMap<String, Object>();
-			value.put("result", service.overlap_Confirm(entity));
+//	중복체크 
+	@ResponseBody
+	@GetMapping("/join/{user_id}")
+	public Map<String, Object> overlap_Confirm(UserEntity entity) {
+		Map<String, Object> value = new HashMap<String, Object>();
+		value.put("result", service.overlap_Confirm(entity));
 			
-			return value;
-		}
+		return value;
+	}
 }

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.purple.demo.mapper.MypageMapper">
+    <update id="modUserInfo">
+        UPDATE user
+        <set>
+            <if test="user_id != null and user_id != ''">
+                user_id = #{user_id},
+            </if>
+            <if test="user_name != null and user_name != ''">
+                user_name = #{user_name},
+            </if>
+            <if test="user_bio != null and user_bio != ''">
+                user_bio = #{user_bio},
+            </if>
+            <if test="user_location != null and user_location != ''">
+                user_location = #{user_location},
+            </if>
+            <if test="user_website != null and user_website != ''">
+                user_website = #{user_website},
+            </if>
+            <if test="user_birth != null and user_birth != ''">
+                user_birth = #{user_birth},
+            </if>
+        </set>
+        WHERE user_pk = #{user_pk}
+    </update>
+
+    <select id="checkUserpw" resultType="string">
+        SELECT user_pw
+        FROM user
+        WHERE user_pk = #{user_pk}
+    </select>
+
+    <update id="modUserPw">
+        UPDATE user
+        SET user_pw = #{user_pw}
+        WHERE user_pk = #{user_pk}
+    </update>
+</mapper>
