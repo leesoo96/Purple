@@ -246,7 +246,7 @@ function getChat_List(myJson) {
   }
 }
 
-// 알 수도 있는 사람
+// 알 수도 있는 사람 목록(추천친구)
 getRecommandFriendListFunc()
 
 function getRecommandFriendListFunc() {
@@ -270,16 +270,7 @@ function getRecommandFriendListFunc() {
 const recFriendTable = document.querySelector("table[name='recommand_friend']")
 
 function getRecFriend_List(myJson) {
-  // if (myJson.length === 0) {
-  //   let notExistFriend = document.createElement('p')
-  //   notExistFriend.innerText = '아직 친구가 없습니다'
-  //   recFriendTable.appendChild(notExistFriend)
-
-  //   return
-  // }
-
   for (let i = 0; i < myJson.length; i++) {
-    console.log(myJson.length)
     let recFriendTr = document.createElement('tr')
     recFriendTable.appendChild(recFriendTr)
 

@@ -25,6 +25,7 @@
         LIMIT 20
     </select>
 
+    <!-- 친구가 없는 사용자에게 랜덤으로 목록을 출력합니다 -->
     <select id="getRandomRecommandFriendList" resultType="FriendDTO">
         SELECT user_pk, user_id, user_profileimg
         FROM user 
