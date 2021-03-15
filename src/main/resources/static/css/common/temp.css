@@ -290,16 +290,49 @@ a {
   width: 2em;
   border-radius: 3em;
 }
-#followers table {
-  width: auto;
-  border-top: 0.15em solid rgb(112, 17, 163);
-  padding-top: 1.2em;
-}
 #followers span {
   position: relative;
   top: -1em;
   margin-left: 0.5em;
   font-size: 1.1rem;
+}
+
+#recommand_div {
+  overflow: hidden;
+  overflow-y: scroll;
+  height: 17em;
+  border-top: 0.15em solid rgb(112, 17, 163);
+}
+#recommand_div::-webkit-scrollbar {
+  width: 2px;
+}
+#recommand_div::-webkit-scrollbar-track {
+  background: #ffffff;
+}
+#recommand_div::-webkit-scrollbar-thumb {
+  background: #ffffff;
+}
+#recommand_div::-webkit-scrollbar-button {
+  display: none;
+}
+#recommand_div table {
+  width: 14em;
+  padding-top: 1em;
+}
+#recommand_div td {
+  cursor: pointer;
+}
+#recommand_div td:hover {
+  color: #a952d4;
+}
+#recommand_div td:nth-of-type(2) {
+  position: relative;
+  left: -2em;
+  top: 1.5em;
+  padding-bottom: 1.7em;
+}
+#recommand_div span {
+  font-size: 1.25rem;
 }
 
 /* footer */
@@ -493,7 +526,7 @@ a {
 }
 #friend_list .friend_info {
   position: relative;
-  left: -3em;
+  left: -2em;
   top: 0.3em;
 }
 #friend_list .friend_info span {

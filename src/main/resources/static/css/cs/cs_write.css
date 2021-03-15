@@ -48,6 +48,7 @@
   border: none;
   resize: none;
   outline: none;
+  height: 500px;
   font-size: 14px;
 }
 
@@ -74,4 +75,9 @@
   line-height: 28px;
   outline: none;
   margin-left: 450px;
+}
+
+.ctnt_img {
+  width: 450px;
+  height: 200px;
 }

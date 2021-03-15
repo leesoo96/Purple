@@ -17,4 +17,5 @@ public interface LayoutMapper {
    List<ChatRoomDTO> getFriendChatList(ChatRoomDTO dto);
 
    List<FriendDTO> getRecommandFriendList(FriendDTO dto);
+   List<FriendDTO> getRandomRecommandFriendList(FriendDTO dto);
 }

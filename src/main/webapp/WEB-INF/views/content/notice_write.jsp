@@ -7,15 +7,12 @@
 
 <link rel="stylesheet" href="resources/css/common/temp.css" />
 <link rel="stylesheet" href="resources/css/cs/cs_write.css" />
-<script defer src="resources/js/cs/cs_write.js"></script>
+<script defer src="resources/js/cs/notice_write.js"></script>
 
 <div id="cs_write_title">${noticeUpd == null ? '공지사항 등록' : '공지사항 수정'}</div>
 <form id="notice_write_form">
-	<div>
-	</div>
 	<div><input type="hidden" name="notice_pk" value="${noticeUpd.notice_pk}"></div>
 	<table id="cs_write_table">
-
 		<tr>
 			<th>제목</th>
 			<td><input type="text" id="title" name="notice_title"
@@ -23,12 +20,15 @@
 		</tr>
 		<tr>
 			<th>첨부파일</th>
-			<td><input type="file" name="file"></td>
+			<td><input type="file" name="notice_img" enctype="multipart/form-data" accept="img/**"></td>
 		</tr>
 		<tr>
 			<th>내용</th>
-			<td><textarea id="text" cols="60" rows="15" name="notice_ctnt"
-					placeholder="내용을 입력하세요">${noticeUpd.notice_ctnt}</textarea></td>
+			<td>
+				<img class="ctnt_img">
+				<textarea  id="text" cols="60" rows="15" name="notice_ctnt"
+					placeholder="내용을 입력하세요">${noticeUpd.notice_ctnt}</textarea>
+			</td>
 		</tr>
 	</table>
 	<button id="cs_write_return_btn" type="button" onclick="return_page()">돌아가기</button>

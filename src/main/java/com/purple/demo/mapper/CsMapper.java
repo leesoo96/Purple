@@ -1,5 +1,6 @@
 package com.purple.demo.mapper;
 
+import java.io.IOException;
 import java.util.List;
 
 import com.purple.demo.model.NoticeDTO;
@@ -8,6 +9,7 @@ import com.purple.demo.model.QuestionDTO;
 import com.purple.demo.model.QuestionEntity;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.web.multipart.MultipartFile;
 
 @Mapper
 public interface CsMapper {
@@ -19,6 +21,8 @@ public interface CsMapper {
 	int selNoticeMaxPage(NoticeDTO p);
 	
 	int regNotice(NoticeEntity p);
+
+	void saveUploadFiles(List<MultipartFile> files) throws IOException;
 	
 	int notice_upd(NoticeEntity p);
 	

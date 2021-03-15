@@ -6,6 +6,7 @@ import com.purple.demo.mapper.LayoutMapper;
 import com.purple.demo.model.ChatRoomDTO;
 import com.purple.demo.model.FriendDTO;
 import com.purple.demo.model.UserEntity;
+import com.purple.demo.service.LayoutService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,12 +23,15 @@ public class LayoutController {
     @Autowired
     private LayoutMapper mapper;
 
+    @Autowired
+    private LayoutService service;
+
     // RightLayout ONLY //////////////////////////////////////////////
     // 알 수도 있는 사람 목록 
     @ResponseBody
     @PostMapping("/recommandFriend")
     public List<FriendDTO> getRecommandFriendList(@RequestBody FriendDTO dto) {
-        return mapper.getRecommandFriendList(dto);
+        return service.getRecommandFriendList(dto);
     }
 
     // 친구목록

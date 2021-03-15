@@ -1,5 +1,8 @@
 package com.purple.demo.service;
 
+
+
+
 import com.purple.demo.mapper.CsMapper;
 import com.purple.demo.model.NoticeDTO;
 import com.purple.demo.model.NoticeDomain;
@@ -7,15 +10,21 @@ import com.purple.demo.model.NoticeEntity;
 import com.purple.demo.model.QuestionDTO;
 import com.purple.demo.model.QuestionDomain;
 import com.purple.demo.model.QuestionEntity;
+import com.purple.demo.utils.FileUtils;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class CsService {
 	
 	@Autowired
 	private CsMapper mapper; 
+
+	@Autowired
+	private FileUtils fUtils;
+
 
 	public 	NoticeDomain selNoticeList(NoticeDTO p){
 		if(p.getRecordCntPerPage() == 0) {
@@ -67,9 +76,16 @@ public class CsService {
 	public NoticeEntity selNotice(NoticeEntity p) {
 		return mapper.selNotice(p);
 	}
-	
+
 	public int regNotice(NoticeEntity p) {
 		return mapper.regNotice(p);
+	}
+	public String notice_img(MultipartFile[] img) {
+		String folder = "/resources/img/cs/notice";
+		MultipartFile file = img[0];
+		String fileNm = fUtils.saveFile(file, folder);
+		System.out.println("fileNm" + fileNm);
+		return fileNm;
 	}
 	
 	public int notice_upd(NoticeEntity p) {
@@ -81,9 +97,10 @@ public class CsService {
 	}
 	
 	public int Notice_del(NoticeEntity p) {
+		String path = "#";
+		fUtils.delFile(path);
 		return mapper.notice_del(p);
 	}
-	
 
 	//문의사항
 	public 	QuestionDomain selQuestionList(QuestionDTO p){
@@ -116,7 +133,7 @@ public class CsService {
 			} else if(sPage >= maxPage - pageLen) {
 				sPage = maxPage - pageLen;
 			}
-			
+		
 			if(ePage > maxPage) {
 				ePage = maxPage;
 			} else if(ePage <= pageLen) {
