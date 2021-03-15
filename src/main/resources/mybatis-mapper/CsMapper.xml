@@ -7,10 +7,10 @@
 	<insert id="regNotice">
 		INSERT INTO notice
 		( notice_title, notice_ctnt,
-		notice_userpk )
+		notice_userpk, notice_img )
 		VALUES
 		( #{notice_title}, #{notice_ctnt},
-		#{notice_userpk} )
+		#{notice_userpk}, #{notice_img} )
 	</insert>
 
 	<!-- 공지사항 글 리스트 -->

@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 
@@ -47,6 +48,16 @@ public class CsController {
 		noticeWriteResult.put("result", service.regNotice(p));
 		return noticeWriteResult;
 	}
+
+	//공지사항 이미지 등록
+	@ResponseBody
+	@PostMapping("/notice_img")
+	public Map<String, Object> notice_img(MultipartFile[] img) {
+		Map<String, Object> noticeWriteResult = new HashMap<String, Object>();
+		noticeWriteResult.put("result", service.notice_img(img));
+		return noticeWriteResult;
+	}
+
 	 //공지사항 글 수정 (화면) 
 	@GetMapping("/notice_upd")
 	public String notice_upd(Model model, NoticeEntity p) {
@@ -85,6 +96,8 @@ public class CsController {
 		return noticeWriteResult;
 	}
 	
+
+	//공지사항 이미지
 	//문의사항
 	
 	
