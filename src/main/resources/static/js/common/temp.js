@@ -103,7 +103,7 @@ function getFriendListFunc() {
   let param = {
     user_pk: user_pk.value,
   }
-  fetch('/chat/getFriendList', {
+  fetch('/layout/getFriendList', {
     method: 'post',
     headers: {
       'Content-Type': 'application/json',
@@ -193,7 +193,7 @@ function getFriendChatListFunc() {
   let param = {
     user_pk: user_pk.value,
   }
-  fetch('/chat/getFriendChatList', {
+  fetch('/layout/getFriendChatList', {
     method: 'post',
     headers: {
       'Content-Type': 'application/json',
@@ -243,5 +243,65 @@ function getChat_List(myJson) {
         chat_list.style.left = '-24em'
       })
     }
+  }
+}
+
+// 알 수도 있는 사람
+getRecommandFriendListFunc()
+
+function getRecommandFriendListFunc() {
+  let param = {
+    user_pk: user_pk.value,
+  }
+  fetch('/layout/recommandFriend', {
+    method: 'post',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(param),
+  })
+    .then((res) => res.json())
+    .then((myJson) => {
+      getRecFriend_List(myJson)
+    })
+}
+
+// 알 수도 있는 사람 목록
+const recFriendTable = document.querySelector("table[name='recommand_friend']")
+
+function getRecFriend_List(myJson) {
+  if (myJson.length === 0) {
+    let notExistFriend = document.createElement('p')
+    notExistFriend.innerText = '아직 친구가 없습니다'
+    recFriendTable.appendChild(notExistFriend)
+
+    return
+  }
+
+  for (let i = 0; i < myJson.length; i++) {
+    let recFriendTr = document.createElement('tr')
+    recFriendTable.appendChild(recFriendTr)
+
+    let recFriend_profile_td = document.createElement('td')
+    let recFriend_profile = document.createElement('img')
+    recFriendTr.appendChild(recFriend_profile_td)
+
+    recFriend_profile_td.appendChild(recFriend_profile)
+    if (myJson[i].user_profileimg === null) {
+      recFriend_profile_td.innerHTML =
+        '<img src="resources/img/common/basic_profile.png" alt="프로필사진">'
+    } else {
+      recFriend_profile_td.innerHTML = '<img src="" alt="프로필사진">'
+    }
+
+    let recFriendTd = document.createElement('td')
+    recFriendTr.appendChild(recFriendTd)
+
+    recFriendTd.innerHTML = `<span>${myJson[i].user_id}</span>`
+
+    let hiddenFriendPk = document.createElement('input')
+    hiddenFriendPk.type = 'hidden'
+    hiddenFriendPk.value = `${myJson[i].friend_pk}`
+    recFriendTd.appendChild(hiddenFriendPk)
   }
 }

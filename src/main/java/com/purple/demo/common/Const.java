@@ -9,5 +9,4 @@ public class Const {
 
 	// ajax통신할 때 결과값
 	public static final String KEY_REUSLT = "result";
-
 }

@@ -2,39 +2,9 @@
   pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>  
 <div id="followers">
-        <h3>알 수도 있는 사람</h3>
-        <table>
-          <tr>
-            <td>
-              <img src="resources/img/common/basic_profile.png" alt="기본프로필사진">
-              <span>friends_one</span>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <img src="resources/img/common/basic_profile.png" alt="기본프로필사진">
-              <span>friends_two</span>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <img src="resources/img/common/basic_profile.png" alt="기본프로필사진">
-              <span>friends_threeeeeeeee</span>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <img src="resources/img/common/basic_profile.png" alt="기본프로필사진">
-              <span>friends_threeeeeeeee</span>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <img src="resources/img/common/basic_profile.png" alt="기본프로필사진">
-              <span>friends_threeeeeeeee</span>
-            </td>
-          </tr>
-        </table>
+  <h3>알 수도 있는 사람</h3>
+  <table name="recommand_friend">
+  </table>
 
         <div id="footer">
           <div id="footer_content">
@@ -65,15 +35,16 @@
           <div class="dm_close">
             <i class="fas fa-angle-double-down"></i>
           </div> <!-- dm_close -->
+
           <div id="friend_list">
             <span>친구목록</span>
             <table>
             </table>
-          </div>
+          </div> <!-- fetch 이용 -->
 
           <div class="chat_list">
             <span>대화목록</span>
-          </div> 
+          </div> <!-- fetch 이용 -->
 
           <!-- 채팅방 --> 
           <div class="chat_msg">
