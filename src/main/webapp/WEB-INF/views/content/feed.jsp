@@ -35,7 +35,7 @@
          </div>
          
          <div class="feed_functionbar">
-            <i class="far fa-heart"></i><span>${feedItem.favorite_count}</span> <i class="fal fa-comment"></i><span>${feedItem.comment_count}</span>
+            <i class="far fa-heart"></i><span>${feedItem.favorite_cnt}</span> <i class="fal fa-comment"></i><span>${feedItem.comment_cnt}</span>
          </div>
          <div class="feed_content">
             <p>

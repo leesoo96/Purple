@@ -15,7 +15,7 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface FeedMapper {
    List<FeedDomain> selFeedList(FeedDomain param);       // 피드 리스트 전체
-   FeedEntity selFeed(FeedEntity param);                 // 피드 1개
+   FeedEntity selFeed(FeedEntity param);                 // 피드 1개 - FeedDetail
    List<MediaEntity> selMediaList(FeedEntity param);     // 피드 1개 당 미디어 리스트(이미지, 동영상)
    List<HashtagEntity> selHashtagList(FeedEntity param); // 피드 1개 당 해시태그 리스트
    int FavoriteCnt(FavoriteEntity param);                // 좋아요 갯수

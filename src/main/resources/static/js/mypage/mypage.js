@@ -17,7 +17,6 @@ mod_userimg.addEventListener('change', (event) => {
     let img = document.createElement('img')
     img.src = event.target.result
     mod_userimg.querySelector('img').replaceWith(img)
-    console.log(img)
   }
 
   reader.readAsDataURL(event.target.files[0])
@@ -39,12 +38,16 @@ mod_userbackground.addEventListener('change', (event) => {
 const userModFrm = document.querySelector('#userModFrm')
 // ID 중복검사
 let check_state = 0
-const id_chekBtn = document.querySelector('input[name="id_check"]')
+const id_chekBtn = document.querySelector('button[name="id_check"]')
 id_chekBtn.addEventListener('click', () => {
+  let mod_id = userModFrm.mod_id.value
+  if (mod_id === '' || mod_id === null) {
+    alert('변경할 아이디를 입력해주세요')
+    userModFrm.mod_id.focus()
+    return
+  }
   ajax()
   function ajax() {
-    let mod_id = userModFrm.mod_id.value
-
     fetch(`/join/${mod_id}`)
       .then((res) => res.json())
       .then(function (myJson) {
@@ -100,14 +103,15 @@ saveBtn.addEventListener('click', () => {
         if (myJson.result === 1) {
           alert('회원정보 수정이 완료되었습니다.')
           location.href = `/logout`
-          return
         }
       })
   }
 })
+
 const userPwModFrm = document.querySelector('form[name="userPwModFrm"]')
 //현재 비밀번호 검사
 function pw_check(user_pk, user_pw) {
+  let isTrue = true
   fetch(`/mypage/pw_check`, {
     method: 'post',
     headers: {
@@ -123,9 +127,12 @@ function pw_check(user_pk, user_pw) {
       if (myJson.result !== 1) {
         alert('현재 비밀번호가 틀렸습니다. 다시 확인해 주세요')
         userPwModFrm.user_pw.value = ''
-        return
+        isTrue = false
+      } else {
+        isTrue = true
       }
     })
+  return Boolean(isTrue)
 }
 //비밀번호 확인 검사
 const mod_chkpw = userPwModFrm.mod_chkpw
@@ -142,7 +149,7 @@ mod_chkpw.addEventListener('change', () => {
 })
 
 //사용자 비밀번호 변경
-const pwModBtn = document.querySelector('input[name="pwModBtn"]')
+const pwModBtn = document.querySelector('button[name="pwModBtn"]')
 
 pwModBtn.addEventListener('click', () => {
   ajax()
@@ -151,7 +158,21 @@ pwModBtn.addEventListener('click', () => {
     let user_pw = userPwModFrm.user_pw.value
     let mod_pw = userPwModFrm.mod_pw.value
 
-    pw_check(user_pk, user_pw)
+    if (!pw_check(user_pk, user_pw)) {
+      return
+    }
+
+    if (mod_pw === '' || mod_pw === null) {
+      alert('변경할 비밀번호를 입력해 주세요')
+      userPwModFrm.mod_pw.focus()
+      return
+    }
+
+    if (mod_chkpw.value === '' || mod_chkpw.value === null) {
+      alert('비밀번호를 확인란을 입력해 주세요')
+      mod_chkpw.focus()
+      return
+    }
 
     fetch(`/mypage/mod_userpw`, {
       method: 'post',

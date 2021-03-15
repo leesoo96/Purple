@@ -62,6 +62,34 @@ for (let i = 0; i < feedDetail_imgs.length; i++) {
 }
 
 // 피드 뿌리기
-let feed_containerEle = document.querySelectorAll('.feed_container')
+let feed_titleEle = document.querySelectorAll('.feed_title')
+let feed_imgEle = document.querySelectorAll('.feed_img')
+let feed_functionbarEle = document.querySelectorAll('.feed_functionbar')
+let feed_contentEle = document.querySelectorAll('.feed_content')
 
+function getFeedList() {
+  ajax()
 
+  function ajax() {
+    let params = {
+      user_id: feed_titleEle.value,
+      user_joindate: feed_titleEle.value,
+      favorite_cnt: feed_functionbarEle.value,
+      comment_cnt: feed_functionbarEle.value,
+      hashtag_ctnt: feed_contentEle.value,
+      feed_ctnt: feed_contentEle.value,
+    }
+
+    console.log(params)
+
+    fetch('/feed', {
+      method: 'get',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(params),
+    })
+    
+
+  }
+}

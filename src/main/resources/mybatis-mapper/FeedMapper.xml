@@ -3,8 +3,29 @@
 
 <mapper namespace="com.purple.demo.mapper.FeedMapper">
     <select id="selFeedList" resultType="FeedDomain">
-        SELECT A.feed_pk, feed_ctnt, feed_writedate, feed_userpk
-        FROM feed
+        SELECT a.feed_ctnt, a.feed_writedate, a.feed_userpk,
+        COUNT(b.favorite_feedpk) AS "좋아요 갯수",
+        COUNT(c.comment_ctnt) AS "댓글 갯수",
+        d.htrel_feedpk,
+        e.hashtag_ctnt,
+        f.user_id, f.user_profileimg
+        FROM feed AS a
+
+        LEFT OUTER JOIN  favorite AS b
+        ON (a.feed_pk = b.favorite_feedpk)
+
+        LEFT OUTER JOIN comment AS c
+        ON (a.feed_pk = c.comment_feedpk)
+
+        LEFT OUTER JOIN hashtag_relation AS d
+        ON (d.htrel_feedpk = a.feed_pk)
+
+        LEFT OUTER JOIN hashtag AS e
+        ON (e.hashtag_pk = d.htrel_hashtagpk)
+
+        LEFT OUTER JOIN user AS f
+        ON (f.user_pk = b.favorite_userpk)
+
         ORDER BY feed_writedate DESC
         LIMIT 0, 5
     </select>
