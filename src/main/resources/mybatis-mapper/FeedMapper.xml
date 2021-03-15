@@ -11,7 +11,7 @@
         f.user_id, f.user_profileimg
         FROM feed AS a
 
-        LEFT OUTER JOIN  favorite AS b
+        LEFT OUTER JOIN favorite AS b
         ON (a.feed_pk = b.favorite_feedpk)
 
         LEFT OUTER JOIN comment AS c
