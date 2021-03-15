@@ -37,8 +37,9 @@
 
 #mypage_userinfo_backimg img {
   position: relative;
+  height: 100%;
   width: 100%;
-  height: auto;
+  object-fit: cover;
 }
 
 #mypage_userinfo_img {
@@ -233,9 +234,9 @@
 }
 
 #mod_userbackground img {
-  position: relative;
+  height: 100%;
   width: 100%;
-  height: auto;
+  object-fit: cover;
 }
 
 #mod_background {
@@ -282,7 +283,7 @@ input[name='mod_id'] {
   margin-bottom: 0.5em;
 }
 
-input[name='id_check'] {
+button[name='id_check'] {
   text-align: center;
   padding: 8px;
   background: #d980fa;
@@ -384,7 +385,7 @@ input[type='password'] {
   margin-top: 0.4em;
 }
 
-input[name='pwModBtn'] {
+button[name='pwModBtn'] {
   margin-top: 0.4em;
   text-align: center;
   padding: 8px;
