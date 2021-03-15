@@ -15,10 +15,10 @@
 
 <div id="feed">
    <div class="feed_container">
-      <c:forEach items="${feedListData}" var="feedItem">
+      <c:forEach items="${requestScope.feedListData}" var="item">
          <div class="feed_title">
             <img src="resources/img/common/basic_profile.png" alt="기본프로필사진">
-            <span>${feedItem.user_id}</span><span>${feedItem.user_joindate}</span> <i class="far fa-bookmark"></i>
+            <span>${item.user_id}</span><span>${item.user_joindate}</span> <i class="far fa-bookmark"></i>
             <i class="fas fa-ellipsis-h"></i>
          </div>
       
@@ -35,14 +35,17 @@
          </div>
          
          <div class="feed_functionbar">
-            <i class="far fa-heart"></i><span>${feedItem.favorite_cnt}</span> <i class="fal fa-comment"></i><span>${feedItem.comment_cnt}</span>
+            <i class="far fa-heart"></i><span>${item.favorite_cnt}</span> <i class="fal fa-comment"></i><span>${item.comment_cnt}</span>
          </div>
+
          <div class="feed_content">
+            <c:forEach var="i">
+               <p>
+                  <a href="#">${i.hashtag_ctnt}</a>
+               </p>
+            </c:forEach>
             <p>
-               <a href="#">${feedItem.hashtag_ctnt}</a> <a href="#">${feedItem.hashtag_ctnt}</a>
-            </p>
-            <p>
-               ${feedItem.feed_ctnt}
+               ${item.feed_ctnt}
             </p>
          </div>
       </c:forEach>

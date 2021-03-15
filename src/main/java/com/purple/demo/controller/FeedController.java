@@ -2,15 +2,12 @@ package com.purple.demo.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import com.purple.demo.common.Const;
 import com.purple.demo.model.FeedDomain;
@@ -30,19 +27,12 @@ public class FeedController {
 	}
 
 	// 피드
-	// @ResponseBody
-	// @GetMapping("")
-	// public Map<String, Object> selFeedList(Model model, @RequestBody FeedDomain param){
-	// 	Map<String, Object> FeedListResult = new HashMap<String, Object>();
-	// 	FeedListResult.put(Const.KEY_FEEDLISTDATA, feedservice.selFeedList(param));
+	@ResponseBody
+	@GetMapping("/feed")
+	public Map<String, Object> selFeedList(@RequestBody FeedDomain param){
+		Map<String, Object> FeedListResult = new HashMap<String, Object>();
+		FeedListResult.put(Const.KEY_FEEDLISTDATA, feedservice.selFeedList(param));
 
-	// 	return FeedListResult;
-	// }
-
-	@GetMapping("")
-	public String selFeedList(Model model, FeedDomain param){
-		model.addAttribute(Const.KEY_FEEDLISTDATA, feedservice.selFeedList(param));
-
-		return "/feed";
+		return FeedListResult;	// JSON 객체로 변환되어 전송.
 	}
 }
