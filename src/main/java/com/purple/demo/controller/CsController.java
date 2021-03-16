@@ -8,9 +8,11 @@ import com.purple.demo.model.NoticeDTO;
 import com.purple.demo.model.NoticeEntity;
 import com.purple.demo.model.QuestionDTO;
 import com.purple.demo.model.QuestionEntity;
+import com.purple.demo.model.UserPrincipal;
 import com.purple.demo.service.CsService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -97,9 +99,13 @@ public class CsController {
 	}
 
 	// 문의사항
-
+	
 	@GetMapping("/question")
 	public String question(Model model, QuestionDTO p) {
+		UserPrincipal principal = (UserPrincipal)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		p.setQuestion_userpk(principal.getUser_pk());   
+		p.setUser_auth(principal.getUser_auth());
+		// p.setQuestion_userpk(question_userpk);
 		model.addAttribute("questionData", service.selQuestionList(p));
 		return "/question";
 	}

@@ -84,6 +84,9 @@
 		FROM
 		question AS a LEFT JOIN answer AS b
 		on a.question_pk = b.answer_pk
+		<if test='user_auth.equals("ROLE_USER")'>
+		WHERE a.question_userpk = #{question_userpk}
+		</if>
 		ORDER BY a.question_pk DESC
 		LIMIT #{sIdx}, #{recordCntPerPage};
 	</select>
