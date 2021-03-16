@@ -305,36 +305,28 @@ function getRecFriend_List(myJson) {
     for (let j = 0; j < addNewFriendBtn_i.length; j++) {
       addNewFriendBtn = addNewFriendBtn_i[j].onclick = function () {
         alert(`${myJson[j].user_id}` + ' 님을 친구 추가하시겠습니까?')
+
         demo()
         function demo() {
-          // let friend_pk = document.querySelector('#friend_pk')
-
           let addFriendParam = {
+            user_pk: user_pk.value,
             friend_pk: `${myJson[j].friend_pk}`,
           }
-          console.log('cvv' + addFriendParam.friend_pk)
+          console.log('추가한 친구 번호 - ' + addFriendParam.friend_pk)
+
+          fetch('/layout/addNewFriend', {
+            method: 'post',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(addFriendParam),
+          })
+            .then((res) => res.json())
+            .then((addFriend) => {
+              console.log(addFriend)
+            })
         }
       }
     }
   }
-}
-
-function addNewFriendFunc() {
-  let newParam = {
-    user_pk: user_pk.value,
-    friend_pk: friend_pk.value,
-  }
-  getFriend_pk()
-  console.log(friend_pk)
-  fetch('/layout/addNewFriend', {
-    method: 'post',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(newParam),
-  })
-    .then((res) => res.json())
-    .then((newJson) => {
-      console.log(newJson)
-    })
 }
