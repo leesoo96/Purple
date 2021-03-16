@@ -18,4 +18,6 @@ public interface LayoutMapper {
 
    List<FriendDTO> getRecommandFriendList(FriendDTO dto);
    List<FriendDTO> getRandomRecommandFriendList(FriendDTO dto);
+
+   int addNewFriend(FriendDTO dto);
 }

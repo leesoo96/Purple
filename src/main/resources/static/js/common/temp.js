@@ -287,13 +287,54 @@ function getRecFriend_List(myJson) {
     }
 
     let recFriendTd = document.createElement('td')
-    recFriendTr.appendChild(recFriendTd)
+    recFriend_profile_td.after(recFriendTd)
+    recFriendTd.innerHTML = `<span><a href="#">${myJson[i].user_id}</a></span>`
 
-    recFriendTd.innerHTML = `<span>${myJson[i].user_id}</span>`
+    let addRecFriendTd = document.createElement('td')
+    recFriendTd.after(addRecFriendTd)
+    addRecFriendTd.innerHTML = '<i class="fas fa-plus"></i>'
 
+    // 각 친구 pk 값
     let hiddenFriendPk = document.createElement('input')
     hiddenFriendPk.type = 'hidden'
+    hiddenFriendPk.className = 'friend_pk'
     hiddenFriendPk.value = `${myJson[i].friend_pk}`
-    recFriendTd.appendChild(hiddenFriendPk)
+    addRecFriendTd.appendChild(hiddenFriendPk)
+
+    let addNewFriendBtn_i = document.querySelectorAll('#recommand_div i')
+    for (let j = 0; j < addNewFriendBtn_i.length; j++) {
+      addNewFriendBtn = addNewFriendBtn_i[j].onclick = function () {
+        alert(`${myJson[j].user_id}` + ' 님을 친구 추가하시겠습니까?')
+        demo()
+        function demo() {
+          // let friend_pk = document.querySelector('#friend_pk')
+
+          let addFriendParam = {
+            friend_pk: `${myJson[j].friend_pk}`,
+          }
+          console.log('cvv' + addFriendParam.friend_pk)
+        }
+      }
+    }
   }
+}
+
+function addNewFriendFunc() {
+  let newParam = {
+    user_pk: user_pk.value,
+    friend_pk: friend_pk.value,
+  }
+  getFriend_pk()
+  console.log(friend_pk)
+  fetch('/layout/addNewFriend', {
+    method: 'post',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(newParam),
+  })
+    .then((res) => res.json())
+    .then((newJson) => {
+      console.log(newJson)
+    })
 }
