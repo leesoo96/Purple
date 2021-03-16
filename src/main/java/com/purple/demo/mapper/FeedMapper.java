@@ -17,4 +17,5 @@ public interface FeedMapper {
    List<MediaEntity> selMediaList(FeedEntity param);
    List<HashtagEntity> selHashtagList(FeedEntity param);
    List<UserEntity> selUserList(UserEntity param);
+   int regFeed(FeedEntity p);
 }

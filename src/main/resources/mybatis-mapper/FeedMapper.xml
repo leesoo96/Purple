@@ -26,4 +26,11 @@
         SELECT * FROM user
         WHERE user_pk = #{user_pk}
     </select>
+
+    <insert id="regFeed">
+		INSERT INTO feed
+		( feed_pk, feed_ctnt, feed_userpk )
+		VALUES
+		( #{feed_pk}, #{feed_ctnt}, 1 )
+	</insert>
 </mapper>
