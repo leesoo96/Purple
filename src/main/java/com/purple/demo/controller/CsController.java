@@ -3,6 +3,7 @@ package com.purple.demo.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.purple.demo.model.AnswerEntity;
 import com.purple.demo.model.NoticeDTO;
 import com.purple.demo.model.NoticeEntity;
 import com.purple.demo.model.QuestionDTO;
@@ -147,6 +148,24 @@ public class CsController {
 	public Map<String, Object> question_del(QuestionEntity p) {
 		Map<String, Object> noticeWriteResult = new HashMap<String, Object>();
 		noticeWriteResult.put("result", service.question_del(p));
+		return noticeWriteResult;
+	}
+
+	//문의사항 댓글 등록
+	@ResponseBody
+	@PostMapping("/question_cmt_reg")
+	public Map<String, Object> question_cmt_reg(@RequestBody AnswerEntity p) {
+		Map<String, Object> noticeWriteResult = new HashMap<String, Object>();
+		noticeWriteResult.put("result", service.question_cmt_reg(p));
+		return noticeWriteResult;
+	}
+
+	// 문의사항 댓글 삭제
+	@ResponseBody
+	@DeleteMapping("/answer_del")
+	public Map<String, Object> answer_del(AnswerEntity p) {
+		Map<String, Object> noticeWriteResult = new HashMap<String, Object>();
+		noticeWriteResult.put("result", service.answer_del(p));
 		return noticeWriteResult;
 	}
 

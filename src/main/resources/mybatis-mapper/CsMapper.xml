@@ -79,7 +79,8 @@
 		,a.question_title, a.question_ctnt,
 		a.question_writedate,
 		a.question_view, a.question_userpk,
-		a.question_type , b.answer_ctnt
+		a.question_type , b.answer_ctnt, b.answer_writedate,
+		b.answer_pk
 		FROM
 		question AS a LEFT JOIN answer AS b
 		on a.question_pk = b.answer_pk
@@ -124,5 +125,25 @@
 		DELETE FROM question
 		WHERE question_pk =
 		#{question_pk}
+	</delete>
+
+
+	<!--문의사항 댓글 등록-->
+	<insert id="question_cmt_reg">
+		INSERT INTO answer
+		( answer_pk,
+		answer_userpk,
+		answer_ctnt)
+		VALUES
+		(
+		#{answer_pk}, #{answer_userpk}, #{answer_ctnt}
+		)
+	</insert>
+
+	<!-- 문의사항 댓글 삭제-->
+	<delete id="answer_del">
+		DELETE FROM answer
+		WHERE answer_pk =
+		#{answer_pk}
 	</delete>
 </mapper>

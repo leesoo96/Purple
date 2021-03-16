@@ -52,7 +52,6 @@ function openCLoseCmtModal(state) {
 let cs_cmt_btn = document.querySelectorAll('.cs_cmt_btn')
 for (let i = 0; i < cs_cmt_btn.length; i++) {
   let cs_cmt_btnEle = cs_cmt_btn[i]
-  console.log(cs_cmt_btnEle.parentNode.nextSibling.nextSibling)
   cs_cmt_btnEle.addEventListener('click', function () {
     let cs_cmt_vlew = this.parentNode.nextSibling.nextSibling
     cs_cmt_vlew.style.display = 'block'
@@ -69,9 +68,52 @@ for (let i = 0; i < cs_modal_close.length; i++) {
     openCLoseCmtModal('none')
   })
 }
-
 //댓글 등록
-function cs_cmt_reg(question_pk) {}
+let cs_cmt_reg = document.querySelectorAll('.cs_cmt_reg')
+for (let i = 0; i < cs_modal_close.length; i++) {
+  let cs_cmt_regEle = cs_cmt_reg[i]
+  cs_cmt_regEle.addEventListener('click', function () {
+    let param = {
+      answer_pk: this.dataset.pk,
+      answer_userpk: document.querySelector('#user_pk').value,
+      answer_ctnt: this.nextSibling.nextSibling.value,
+    }
+    fetch('/question_cmt_reg', {
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(param),
+    })
+      .then((res) => res.json())
+      .then(function (myJson) {
+        location.href = `/question`
+      })
+  })
+}
+
+//댓글 삭제
+function answer_del_btn(answer_pk) {
+  if (alert('삭제 하시겠습니까?')) {
+    return
+  }
+  fetch(`/answer_del?answer_pk=${answer_pk}`, {
+    method: 'delete',
+  })
+    .then(function (res) {
+      return res.json()
+    })
+    .then(function (myJson) {
+      console.log(myJson)
+      if (myJson.result === 1) {
+        //삭제 완료
+        location.href = `question`
+      } else {
+        //삭제 실패
+        alert('삭제 실패하였습니다.')
+      }
+    })
+}
 
 //문의사항 삭제\
 function cs_del_btn(question_pk) {

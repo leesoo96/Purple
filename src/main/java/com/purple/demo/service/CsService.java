@@ -4,6 +4,7 @@ package com.purple.demo.service;
 
 
 import com.purple.demo.mapper.CsMapper;
+import com.purple.demo.model.AnswerEntity;
 import com.purple.demo.model.NoticeDTO;
 import com.purple.demo.model.NoticeDomain;
 import com.purple.demo.model.NoticeEntity;
@@ -168,5 +169,13 @@ public class CsService {
 	
 	public int question_del(QuestionEntity p) {
 		return mapper.question_del(p);
+	}
+
+	public int question_cmt_reg(AnswerEntity p){
+		return mapper.question_cmt_reg(p);
+	}
+
+	public int answer_del(AnswerEntity p){
+		return mapper.answer_del(p);
 	}
 }
