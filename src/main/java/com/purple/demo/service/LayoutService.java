@@ -15,7 +15,7 @@ public class LayoutService {
     @Autowired
     private LayoutMapper mapper;
 
-    public List<FriendDTO> getRecommandFriendList(FriendDTO dto){
+    public List<FriendDTO> getRecommandFriendList(FriendDTO dto) {
         List<FriendDTO> friendList = new ArrayList<FriendDTO>();
         friendList = mapper.getRecommandFriendList(dto);
         if(friendList == null) {
@@ -24,5 +24,9 @@ public class LayoutService {
             return friendList;
         }
         return friendList;
+    }
+
+    public int addNewFriend(FriendDTO dto) {
+        return mapper.addNewFriend(dto);
     }
 }

@@ -266,9 +266,9 @@ function getRecommandFriendListFunc() {
     })
 }
 
-// 알 수도 있는 사람 목록
 const recFriendTable = document.querySelector("table[name='recommand_friend']")
 
+getFriendListFunc()
 function getRecFriend_List(myJson) {
   for (let i = 0; i < myJson.length; i++) {
     let recFriendTr = document.createElement('tr')
@@ -287,13 +287,54 @@ function getRecFriend_List(myJson) {
     }
 
     let recFriendTd = document.createElement('td')
-    recFriendTr.appendChild(recFriendTd)
+    recFriend_profile_td.after(recFriendTd)
+    recFriendTd.innerHTML = `<span><a href="#">${myJson[i].user_id}</a></span>`
 
-    recFriendTd.innerHTML = `<span>${myJson[i].user_id}</span>`
+    let addRecFriendTd = document.createElement('td')
+    recFriendTd.after(addRecFriendTd)
+    addRecFriendTd.innerHTML = '<i class="fas fa-plus"></i>'
 
+    // 각 친구 pk 값
     let hiddenFriendPk = document.createElement('input')
     hiddenFriendPk.type = 'hidden'
+    hiddenFriendPk.className = 'friend_pk'
     hiddenFriendPk.value = `${myJson[i].friend_pk}`
-    recFriendTd.appendChild(hiddenFriendPk)
+    addRecFriendTd.appendChild(hiddenFriendPk)
+
+    let addNewFriendBtn_i = document.querySelectorAll('#recommand_div i')
+    for (let j = 0; j < addNewFriendBtn_i.length; j++) {
+      addNewFriendBtn = addNewFriendBtn_i[j].onclick = function () {
+        let addFriendConfirmMsg = confirm(
+          `${myJson[j].user_id}` + ' 님을 친구 추가하시겠습니까?'
+        )
+
+        if (addFriendConfirmMsg == true) {
+          addFriendFunc()
+          history.go(0)
+        } else {
+          return
+        }
+
+        function addFriendFunc() {
+          let addFriendParam = {
+            user_pk: user_pk.value,
+            friend_pk: `${myJson[j].friend_pk}`,
+          }
+          console.log('추가한 친구 번호 - ' + addFriendParam.friend_pk)
+
+          fetch('/layout/addNewFriend', {
+            method: 'post',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(addFriendParam),
+          })
+            .then((res) => res.json())
+            .then((addFriend) => {
+              console.log(addFriend)
+            })
+        }
+      }
+    }
   }
 }
