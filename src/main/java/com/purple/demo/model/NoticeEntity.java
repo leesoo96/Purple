@@ -13,5 +13,5 @@ public class NoticeEntity{
 	private String notice_writedate;
 	private int notice_view;
 	private int notice_userpk;
-	// private String notice_file;
+	private String notice_img;
 }

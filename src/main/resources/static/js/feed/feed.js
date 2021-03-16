@@ -60,4 +60,3 @@ for (let i = 0; i < feedDetail_imgs.length; i++) {
       return
     })
 }
-

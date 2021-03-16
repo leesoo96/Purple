@@ -1,5 +1,3 @@
-'use strict'
-
 // 각 아이콘 hover event
 let home = document.querySelector('#home a')
 let search = document.querySelector('#search a')
@@ -57,15 +55,16 @@ function dm_view() {
 dm_view()
 
 // 친구목록 버튼과 대화목록 버튼 클릭 시
-let f_btn = document.querySelector('#friend_btn')
-let c_btn = document.querySelector('#chat_btn')
+let friend_btn = document.querySelector('#friend_btn')
+let chat_btn = document.querySelector('#chat_btn')
 
 let friend_list = document.querySelector('#friend_list')
 let chat_list = document.querySelector('.chat_list')
+let chat_msg = document.querySelector('.chat_msg')
 
-f_btn.onclick = function () {
-  f_btn.style.color = '#7901a1'
-  c_btn.style.color = '#525252'
+friend_btn.onclick = function () {
+  friend_btn.style.color = '#7901a1'
+  chat_btn.style.color = '#525252'
 
   friend_list.style.left = '0'
   friend_list.style.transition = '.5s'
@@ -76,9 +75,9 @@ f_btn.onclick = function () {
   chat_msg.style.transition = '.5s'
 }
 
-c_btn.onclick = function () {
-  f_btn.style.color = '#525252'
-  c_btn.style.color = '#7901a1'
+chat_btn.onclick = function () {
+  friend_btn.style.color = '#525252'
+  chat_btn.style.color = '#7901a1'
 
   chat_list.style.left = '0'
   chat_list.style.transition = '.5s'
@@ -89,28 +88,13 @@ c_btn.onclick = function () {
   chat_msg.style.transition = '.5s'
 }
 
-// 대화목록에서 각 대화 클릭 시
-let chat_msg = document.querySelector('.chat_msg')
-let c_div = document.querySelectorAll('.chat_list div')
-
-for (let i = 0; i < c_div.length; i++) {
-  c_div[i].onclick = function () {
-    chat_msg.style.right = '17px'
-    chat_msg.style.transition = '.5s'
-
-    chat_list.style.left = '-24em'
-  }
-}
-
 // 채팅 - 친구목록 확인
-const friend_btn = document.querySelector('#friend_btn')
 const user_pk = document.querySelector('#user_pk')
-const friend_listDiv = document.querySelector('#friend_list')
 friend_btn.addEventListener('click', () => {
-  while (friend_listDiv.querySelector('table').hasChildNodes()) {
-    friend_listDiv
+  while (friend_list.querySelector('table').hasChildNodes()) {
+    friend_list
       .querySelector('table')
-      .removeChild(friend_listDiv.querySelector('table').firstChild)
+      .removeChild(friend_list.querySelector('table').firstChild)
   }
   getFriendListFunc()
 })
@@ -119,7 +103,7 @@ function getFriendListFunc() {
   let param = {
     user_pk: user_pk.value,
   }
-  fetch('/chat/getFriendList', {
+  fetch('/layout/getFriendList', {
     method: 'post',
     headers: {
       'Content-Type': 'application/json',
@@ -132,7 +116,7 @@ function getFriendListFunc() {
     })
 }
 
-const table = friend_listDiv.querySelector('table')
+const table = friend_list.querySelector('table')
 function getFriend_list(myJson) {
   if (myJson.length === 0) {
     let fList_div = document.createElement('div')
@@ -155,7 +139,6 @@ function getFriend_list(myJson) {
       friend_profileImg_td.innerHTML =
         '<img src="resources/img/common/basic_profile.png" alt="프로필사진">'
     } else {
-      // -> 친구의 프로필이 표시되도록 변경되어야하는 코드
       friend_profileImg_td.innerHTML = '<img src="" alt="프로필사진">'
     }
 
@@ -198,6 +181,159 @@ function getFriend_list(myJson) {
         friend_block[i].style.visibility = 'hidden'
       } else {
         friend_block[i].style.visibility = 'visible'
+      }
+    }
+  }
+}
+
+// 채팅 - 대화 목록 확인
+getFriendChatListFunc()
+
+function getFriendChatListFunc() {
+  let param = {
+    user_pk: user_pk.value,
+  }
+  fetch('/layout/getFriendChatList', {
+    method: 'post',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(param),
+  })
+    .then((res) => res.json())
+    .then((myJson) => {
+      getChat_List(myJson)
+    })
+}
+
+const chat_list_divSpan = document.querySelector('.chat_list span')
+
+function getChat_List(myJson) {
+  if (myJson.length === 0) {
+    let CList_div = document.createElement('div')
+    chat_list_divSpan.after(CList_div)
+    CList_div.innerText = '대화가 없습니다!'
+    return
+  } else {
+    for (let i = 0; i < myJson.length; i++) {
+      let CList_div = document.createElement('div')
+      chat_list_divSpan.after(CList_div)
+
+      let CList_span = document.createElement('span')
+      CList_div.appendChild(CList_span)
+      CList_span.innerText = `@${myJson[i].user_id}`
+
+      let CList_p = document.createElement('p')
+      CList_div.appendChild(CList_p)
+      CList_p.innerText = `${myJson[i].chatroom_lasttalk}`
+
+      let CList_small = document.createElement('small')
+      CList_div.appendChild(CList_small)
+      CList_small.innerText = `${myJson[i].chatroom_date}`
+    }
+
+    // 해당 대화 클릭 시 채팅방으로 슬라이드 이동
+    let CList_divAll = document.querySelectorAll('.chat_list div')
+    for (let i = 0; i < CList_divAll.length; i++) {
+      let CList_divEle = CList_divAll[i]
+      CList_divEle.addEventListener('click', function () {
+        chat_msg.style.right = '17px'
+        chat_msg.style.transition = '.5s'
+
+        chat_list.style.left = '-24em'
+      })
+    }
+  }
+}
+
+// 알 수도 있는 사람 목록(추천친구)
+getRecommandFriendListFunc()
+
+function getRecommandFriendListFunc() {
+  let param = {
+    user_pk: user_pk.value,
+  }
+  fetch('/layout/recommandFriend', {
+    method: 'post',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(param),
+  })
+    .then((res) => res.json())
+    .then((myJson) => {
+      getRecFriend_List(myJson)
+    })
+}
+
+const recFriendTable = document.querySelector("table[name='recommand_friend']")
+
+getFriendListFunc()
+function getRecFriend_List(myJson) {
+  for (let i = 0; i < myJson.length; i++) {
+    let recFriendTr = document.createElement('tr')
+    recFriendTable.appendChild(recFriendTr)
+
+    let recFriend_profile_td = document.createElement('td')
+    let recFriend_profile = document.createElement('img')
+    recFriendTr.appendChild(recFriend_profile_td)
+
+    recFriend_profile_td.appendChild(recFriend_profile)
+    if (myJson[i].user_profileimg === null) {
+      recFriend_profile_td.innerHTML =
+        '<img src="resources/img/common/basic_profile.png" alt="프로필사진">'
+    } else {
+      recFriend_profile_td.innerHTML = '<img src="" alt="프로필사진">'
+    }
+
+    let recFriendTd = document.createElement('td')
+    recFriend_profile_td.after(recFriendTd)
+    recFriendTd.innerHTML = `<span><a href="#">${myJson[i].user_id}</a></span>`
+
+    let addRecFriendTd = document.createElement('td')
+    recFriendTd.after(addRecFriendTd)
+    addRecFriendTd.innerHTML = '<i class="fas fa-plus"></i>'
+
+    // 각 친구 pk 값
+    let hiddenFriendPk = document.createElement('input')
+    hiddenFriendPk.type = 'hidden'
+    hiddenFriendPk.className = 'friend_pk'
+    hiddenFriendPk.value = `${myJson[i].friend_pk}`
+    addRecFriendTd.appendChild(hiddenFriendPk)
+
+    let addNewFriendBtn_i = document.querySelectorAll('#recommand_div i')
+    for (let j = 0; j < addNewFriendBtn_i.length; j++) {
+      addNewFriendBtn = addNewFriendBtn_i[j].onclick = function () {
+        let addFriendConfirmMsg = confirm(
+          `${myJson[j].user_id}` + ' 님을 친구 추가하시겠습니까?'
+        )
+
+        if (addFriendConfirmMsg == true) {
+          addFriendFunc()
+          history.go(0)
+        } else {
+          return
+        }
+
+        function addFriendFunc() {
+          let addFriendParam = {
+            user_pk: user_pk.value,
+            friend_pk: `${myJson[j].friend_pk}`,
+          }
+          console.log('추가한 친구 번호 - ' + addFriendParam.friend_pk)
+
+          fetch('/layout/addNewFriend', {
+            method: 'post',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(addFriendParam),
+          })
+            .then((res) => res.json())
+            .then((addFriend) => {
+              console.log(addFriend)
+            })
+        }
       }
     }
   }

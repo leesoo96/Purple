@@ -5,10 +5,11 @@
 <!DOCTYPE html>
 <link rel="stylesheet" href="resources/css/common/temp.css" />
 <link rel="stylesheet" href="resources/css/cs/cs_write.css" />
-<script defer src="resources/js/cs/cs_write.js"></script>
+<script defer src="resources/js/cs/question_write.js"></script>
 
 <div id="cs_write_title">${questionUpd == null ? '문의사항 등록' : '문의사항 수정'}</div>
 <form id="question_write_form">
+
 	<div>
 		<sec:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_USER')">
 			<sec:authentication property="principal" var="userInfo" />
@@ -30,8 +31,14 @@
 			</select></td>
 		</tr>
 		<tr>
+			<th>첨부파일</th>
+			<td><input type="file" name="question_img" accept="img/**"></td>
+		</tr>
+		<tr>
 			<th>문의내용</th>
-			<td><textarea id="text" cols="60" rows="15" name="question_ctnt" 
+			<td>
+				<img class="ctnt_img">
+				<textarea id="text" cols="60" rows="15" name="question_ctnt" 
 					placeholder="내용을 입력하세요">${questionUpd.question_ctnt}</textarea></td>
 		</tr>
 	</table>

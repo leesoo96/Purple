@@ -53,10 +53,20 @@
 				<div class="cs_modal_close">
 					<a href="question">close</a>
 				</div>
+				<span>
+					<fmt:parseDate value="${item.answer_writedate}" var="dateValue" pattern="yyyy-MM-dd HH:mm:ss"/>
+					<fmt:formatDate value="${dateValue}" pattern="yyyy.MM.dd"/>
+					<c:out value="${today}"/>
+				</span>
 				${item.answer_ctnt}
 				<sec:authorize access="hasAnyRole('ROLE_ADMIN')">
-					<button onclick="cs_cmt_reg(${item.question_pk})">댓글달기</button>
-					<textarea></textarea>
+					<c:if test="${item.answer_pk != 0}">
+						<button onclick="answer_del_btn(${item.answer_pk})">삭제</button>
+					</c:if>
+					<c:if test="${item.answer_pk == 0}">
+						<div class="cs_cmt_reg" data-pk="${item.question_pk}">댓글달기</div>
+						<textarea></textarea>
+					</c:if>
 				</sec:authorize>
 			</div>
 		</div>

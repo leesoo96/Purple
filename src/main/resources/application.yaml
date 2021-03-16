@@ -21,10 +21,6 @@ mybatis:
   mapper-locations: mybatis-mapper/**/*.xml
   type-aliases-package: com.purple.demo.model
 
-handlebars:
-  suffix: .html
-  expose-session-attributes: true
-
 #Tomcat
 server:
   port: 8090
@@ -37,3 +33,4 @@ server:
     key-password: 'purple'
     trust-store: purpletrust
     trust-store-password: 'purple'
+#이미지
