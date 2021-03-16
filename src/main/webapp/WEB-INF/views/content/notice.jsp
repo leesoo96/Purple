@@ -34,6 +34,7 @@
 				</div>
 			</div>
 			<div class="cs_notice_detail">
+				<img src="/src/main/webapp/resources/img/cs/notice/${item.notice_img}">
 				<p>${item.notice_ctnt}</p>
 
 				<span>눈누2.0 베타 서비스 바로가기<br /> 제보 메일: projectnoonnu@gmail.com
