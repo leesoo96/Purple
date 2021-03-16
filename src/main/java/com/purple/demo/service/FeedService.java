@@ -8,8 +8,6 @@ import com.purple.demo.model.CommentEntity;
 import com.purple.demo.model.FavoriteEntity;
 import com.purple.demo.model.FeedDomain;
 import com.purple.demo.model.FeedEntity;
-import com.purple.demo.model.HashtagEntity;
-import com.purple.demo.model.MediaEntity;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

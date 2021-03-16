@@ -18,7 +18,7 @@
   	<div id="write_container">
 	  	<button id="write_btn" onclick="off()"><img src="resources/img/common/close_icon.png"></button>
 	  	<div id="write_title">Upload Post</div>
-	  		<form action="uploadfeed" method="post" id="write_content" onsubmit="return false" enctype="multipart/form-data">
+	  		<form id="write_content" onsubmit="return false" enctype="multipart/form-data">
           <div class='write_preview' >
             <div id="add_image">사진을 추가해 주세요</div>
             <!-- 미리보기 공간 -->  	

@@ -12,4 +12,6 @@ public class FeedEntity {
     private int feed_userpk; //작성자
     private String feed_update; //수정날짜
     private String feed_state; //삭제여부
+    private int feed_report; //신고횟수
+
 }
