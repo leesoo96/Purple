@@ -31,7 +31,6 @@ public class FeedController {
 	@PostMapping("/uploadfeed")
 	public Map<String, Object> uploadfeed(@RequestBody FeedEntity p) {
 		Map<String, Object> feedResult = new HashMap<String, Object>();
-		feedResult.put("result", service.regFeed(p));
 		return feedResult;
 	}
 }

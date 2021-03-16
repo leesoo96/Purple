@@ -25,17 +25,13 @@ for (let i = 0; i < cs_question_titlebar.length; i++) {
             question_view.innerHTML = myJson.question_view
           }
         })
-      for (let i = 0; i <= 25; i++) {
-        cs_question_detail.style.height = `${i}em`
-      }
+      cs_question_detail.style.height = `25em`
       cs_question_titlebarEle.style.backgroundColor = 'rgb(82, 0, 121)'
       cs_question_titlebarEle.style.color = 'rgb(255, 255, 255)'
       cs_question_detail.style.paddingTop = '1em'
       cs_question_detail.style.paddingBottom = '1em'
     } else if (cs_question_detail.style.height > '100px') {
-      for (let i = 25; i >= 0; i--) {
-        cs_question_detail.style.height = `${i}em`
-      }
+      cs_question_detail.style.height = `0em`
       cs_question_titlebarEle.style.backgroundColor = 'rgb(255, 255, 255)'
       cs_question_titlebarEle.style.color = 'rgb(0, 0, 0)'
       cs_question_detail.style.padding = '0px'
