@@ -203,3 +203,8 @@
   background: url(https://img.icons8.com/metro/26/000000/close-window.png);
   text-indent: -9999px;
 }
+.cs_cmt_textarea {
+  width: 570px;
+  height: 130px;
+  resize: none;
+}

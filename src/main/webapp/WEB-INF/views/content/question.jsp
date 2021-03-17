@@ -56,12 +56,6 @@
 					<a href="question_upd?question_pk=${item.question_pk}">수정</a>
 					<button onclick="cs_del_btn(${item.question_pk})">삭제</button>
 				</div>
-				<button class="cs_cmt_btn">답글</button>
-			</div>
-			<div class="cs_cmt_vlew">
-				<div class="cs_modal_close">
-					<a href="question">close</a>
-				</div>
 				<P>${item.answer_ctnt}</P>
 				<span>
 					<fmt:parseDate value="${item.answer_writedate}" var="dateValue" pattern="yyyy-MM-dd HH:mm:ss"/>
@@ -69,13 +63,13 @@
 					<c:out value="${today}"/>
 				</span>
 				<sec:authorize access="hasAnyRole('ROLE_ADMIN')">
-					<c:if test="${item.answer_pk != 0}">
-						<button onclick="answer_del_btn(${item.answer_pk})">삭제</button>
-					</c:if>
 					<c:if test="${item.answer_pk == 0}">
 						<div class="cs_cmt_reg" data-pk="${item.question_pk}">입력</div>
-						<textarea></textarea>
-
+						<textarea class="cs_cmt_textarea"></textarea>
+					</c:if>
+					<div></div>
+					<c:if test="${item.answer_pk != 0}">
+						<button onclick="answer_del_btn(${item.answer_pk})">삭제</button>
 					</c:if>
 				</sec:authorize>
 			</div>

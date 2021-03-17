@@ -46,7 +46,7 @@ for (let i = 0; i < cs_notice_titlebar.length; i++) {
 
 //공지사항 삭제\
 function cs_del_btn(notice_pk) {
-  if (alert('삭제 하시겠습니까?')) {
+  if (!confirm('삭제 하시겠습니까?')) {
     return
   }
   console.log(notice_pk)
@@ -57,7 +57,6 @@ function cs_del_btn(notice_pk) {
       return res.json()
     })
     .then(function (myJson) {
-      console.log(myJson)
       if (myJson.result === 1) {
         //삭제 완료
         location.href = `notice`
