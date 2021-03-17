@@ -43,6 +43,8 @@
 		</tr>
 	</table>
 
-	<button id="cs_write_submit_btn" onclick="question_write_submit_btn()">${questionUpd == null ? '등록' : '수정'}</button>
-	<button id="cs_write_return_btn" type="button" onclick="return_page()">돌아가기</button>
+	<div id="write_btns">
+		<button id="cs_write_submit_btn" onclick="question_write_submit_btn()">${questionUpd == null ? '등록' : '수정'}</button>
+		<button id="cs_write_return_btn" type="button" onclick="return_page()">돌아가기</button>
+	</div>
 </form>

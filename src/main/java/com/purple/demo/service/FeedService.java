@@ -28,7 +28,7 @@ public class FeedService {
         return mapper.selFeed(param);
     }
 
-    // 피드 1개 당 미디어 리스트(이미지, 동영상)
+    /* 피드 1개 당 미디어 리스트(이미지, 동영상)
     public List<MediaEntity>selMediaList(FeedEntity param){
         return mapper.selMediaList(param);
     }
@@ -37,7 +37,7 @@ public class FeedService {
     public List<HashtagEntity> selHashtagList(FeedEntity param){
         return mapper.selHashtagList(param);
     }
-
+    */
     // 좋아요 갯수
     public int FavoriteCnt(FavoriteEntity param){
         return mapper.FavoriteCnt(param);
