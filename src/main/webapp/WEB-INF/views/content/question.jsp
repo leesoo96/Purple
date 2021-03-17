@@ -10,10 +10,17 @@
 <link rel="stylesheet" href="resources/css/common/temp.css" />
 <link rel="stylesheet" href="resources/css/cs/question.css" />
 <script defer src="resources/js/cs/question.js"></script>
+
 <div id="cs_question_container">
+
 	<div id="cs_question_write">
-		<a href="question_write"><button>+</button></a>
+		<a href="question_write">문의사항 등록</a>
 	</div>
+
+	<div id="question_title">
+		<span>문의사항</span>
+	</div>
+
 	<c:forEach items="${requestScope.questionData.list}" var="item">
 		<div class="cs_question_content">
 			<div class="cs_question_titlebar" data-pk="${item.question_pk}">
@@ -41,31 +48,34 @@
 				</div>
 			</div>
 			<div class="cs_question_detail">
-				<p>${item.question_ctnt}</p>
+				<div class="question_detailPlus">
+					<p>${item.question_ctnt}</p>
+				</div>
 
-				<span>눈누2.0 베타 서비스 바로가기<br /> 제보 메일: projectnoonnu@gmail.com
-				</span>
-				<button onclick="cs_del_btn(${item.question_pk})">삭제</button>
-				<a href="question_upd?question_pk=${item.question_pk}">수정</a>
-				<button class="cs_cmt_btn">댓글</button>
+				<div class="question_use">
+					<a href="question_upd?question_pk=${item.question_pk}">수정</a>
+					<button onclick="cs_del_btn(${item.question_pk})">삭제</button>
+				</div>
+				<button class="cs_cmt_btn">답글</button>
 			</div>
 			<div class="cs_cmt_vlew">
 				<div class="cs_modal_close">
 					<a href="question">close</a>
 				</div>
+				<P>${item.answer_ctnt}</P>
 				<span>
 					<fmt:parseDate value="${item.answer_writedate}" var="dateValue" pattern="yyyy-MM-dd HH:mm:ss"/>
 					<fmt:formatDate value="${dateValue}" pattern="yyyy.MM.dd"/>
 					<c:out value="${today}"/>
 				</span>
-				${item.answer_ctnt}
 				<sec:authorize access="hasAnyRole('ROLE_ADMIN')">
 					<c:if test="${item.answer_pk != 0}">
 						<button onclick="answer_del_btn(${item.answer_pk})">삭제</button>
 					</c:if>
 					<c:if test="${item.answer_pk == 0}">
-						<div class="cs_cmt_reg" data-pk="${item.question_pk}">댓글달기</div>
+						<div class="cs_cmt_reg" data-pk="${item.question_pk}">입력</div>
 						<textarea></textarea>
+
 					</c:if>
 				</sec:authorize>
 			</div>
@@ -79,17 +89,23 @@
 </form>
 
 <c:if test="${requestScope.questionData.SPage > 1}">
-	<span class="page" onclick="pageClick(1)">1</span>
-	<span>...</span>
+	<div id="pagingLocation">
+		<span class="page" onclick="pageClick(1)">1</span>
+		<span>...</span>
+	</div>
 </c:if>	
 		
 <c:forEach begin="${requestScope.questionData.SPage}" end="${requestScope.questionData.EPage}" var="i">			
-	<span class="page ${requestScope.questionData.page == i ? 'selected' : ''}" onclick="pageClick(${i})">${i}</span>
+	<div id="pagingLocation">
+		<span class="page ${requestScope.questionData.page == i ? 'selected' : ''}" onclick="pageClick(${i})">${i}</span>
+	</div>
 </c:forEach>
 		
 <c:if test="${requestScope.questionData.EPage < requestScope.questionData.maxPageNum}">
-	<span>...</span>
-	<span class="page" onclick="pageClick(${requestScope.questionData.maxPageNum})">${requestScope.questionData.maxPageNum}</span>
+	<div id="pagingLocation">
+		<span>...</span>
+		<span class="page" onclick="pageClick(${requestScope.questionData.maxPageNum})">${requestScope.questionData.maxPageNum}</span>
+	</div>
 </c:if>
 
 
