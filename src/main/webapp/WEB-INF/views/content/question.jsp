@@ -56,7 +56,7 @@
 					<a href="question_upd?question_pk=${item.question_pk}">수정</a>
 					<button onclick="cs_del_btn(${item.question_pk})">삭제</button>
 				</div>
-				<P>${item.answer_ctnt}</P>
+				<P class="answer_ctnt_detail">${item.answer_ctnt}</P>
 				<span>
 					<fmt:parseDate value="${item.answer_writedate}" var="dateValue" pattern="yyyy-MM-dd HH:mm:ss"/>
 					<fmt:formatDate value="${dateValue}" pattern="yyyy.MM.dd"/>
@@ -67,9 +67,9 @@
 						<div class="cs_cmt_reg" data-pk="${item.question_pk}">입력</div>
 						<textarea class="cs_cmt_textarea"></textarea>
 					</c:if>
-					<div></div>
+					<div></div> <!-- ★this로 찾은 입력과 삭제의 위치를 분간하기위해 만든 div★ -->
 					<c:if test="${item.answer_pk != 0}">
-						<button onclick="answer_del_btn(${item.answer_pk})">삭제</button>
+						<button class="cs_cmt_del" onclick="answer_del_btn(${item.answer_pk})">삭제</button>
 					</c:if>
 				</sec:authorize>
 			</div>
