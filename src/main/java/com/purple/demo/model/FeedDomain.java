@@ -7,6 +7,6 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class FeedDomain extends FeedDTO{
-    private List<FeedDTO> feedList;          // 피드 리스트
+public class FeedDomain extends FeedListDTO{
+    private List<FeedEntity> feedList;          // 피드 리스트
 }
