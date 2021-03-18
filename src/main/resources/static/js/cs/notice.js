@@ -29,17 +29,13 @@ for (let i = 0; i < cs_notice_titlebar.length; i++) {
             notice_view.innerHTML = myJson.notice_view
           }
         })
-      for (let i = 0; i <= 25; i++) {
-        cs_notice_detail.style.height = `${i}em`
-      }
+      cs_notice_detail.style.height = `25em`
       cs_notice_titlebarEle.style.backgroundColor = 'rgb(82, 0, 121)'
       cs_notice_titlebarEle.style.color = 'rgb(255, 255, 255)'
       cs_notice_detail.style.paddingTop = '1em'
       cs_notice_detail.style.paddingBottom = '1em'
     } else if (cs_notice_detail.style.height > '100px') {
-      for (let i = 25; i >= 0; i--) {
-        cs_notice_detail.style.height = `${i}em`
-      }
+      cs_notice_detail.style.height = `0em`
       cs_notice_titlebarEle.style.backgroundColor = 'rgb(255, 255, 255)'
       cs_notice_titlebarEle.style.color = 'rgb(0, 0, 0)'
       cs_notice_detail.style.padding = '0px'
@@ -50,7 +46,7 @@ for (let i = 0; i < cs_notice_titlebar.length; i++) {
 
 //공지사항 삭제\
 function cs_del_btn(notice_pk) {
-  if (alert('삭제 하시겠습니까?')) {
+  if (!confirm('삭제 하시겠습니까?')) {
     return
   }
   console.log(notice_pk)
@@ -61,7 +57,6 @@ function cs_del_btn(notice_pk) {
       return res.json()
     })
     .then(function (myJson) {
-      console.log(myJson)
       if (myJson.result === 1) {
         //삭제 완료
         location.href = `notice`

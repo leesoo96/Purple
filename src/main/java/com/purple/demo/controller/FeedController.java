@@ -1,31 +1,35 @@
 package com.purple.demo.controller;
 
-
-import java.util.List;
-
-import com.purple.demo.model.FeedEntity;
-import com.purple.demo.model.FeedImgDTO;
-import com.purple.demo.model.FeedWriteDTO;
 import com.purple.demo.service.FeedService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
+
+import java.util.*;
+
+import com.purple.demo.model.FeedImgDTO;
+import com.purple.demo.model.FeedListDTO;
+import com.purple.demo.model.FeedWriteDTO;
 
 @Controller
 @RequestMapping("/feed")
 public class FeedController {
 
 	@Autowired
-	private FeedService service;
-
-//	로그인
+	private FeedService feedService;
+	
+	// Feed List
 	@RequestMapping(value="")
-	public String login() {
+	public String feedList(Model model, FeedListDTO param){
+		List<FeedListDTO> list = new ArrayList<FeedListDTO>();
+		list = feedService.selFeedList(param);
+		model.addAttribute("feedListData", list);
+		
 		return "/feed";
 	}
 

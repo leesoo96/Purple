@@ -1,12 +1,16 @@
 @charset "UTF-8";
 
+* {
+  font-family: 'paybooc-Bold';
+}
 #main {
   margin-top: 6em;
 }
 
 #cs_write_title {
-  font-weight: 400;
-  font-size: 30px;
+  position: relative;
+  top: -2.3em;
+  font-size: 1.5rem;
   text-align: center;
 }
 
@@ -15,6 +19,8 @@
 }
 
 #cs_write_table {
+  position: relative;
+  top: -2em;
   border-collapse: separate;
   border-spacing: 1px;
   text-align: left;
@@ -26,9 +32,10 @@
   width: 100px;
   padding: 10px;
   font-weight: bold;
-  border-bottom: 1px solid #ccc;
-  background: #efefef;
-  font-size: 15px;
+  border-bottom: 1px solid #fff;
+  background: rgb(82, 0, 121);
+  font-size: 1.1rem;
+  color: #fff;
 }
 
 #cs_write_table td {
@@ -37,27 +44,35 @@
   vertical-align: top;
   border-bottom: 1px solid #ccc;
 }
-
+#category select {
+  outline: none;
+  width: 7em;
+}
 #title {
   border: none;
   outline: none;
   font-size: 15px;
+  width: 34em;
 }
-
 #text {
   border: none;
   resize: none;
   outline: none;
-  height: 500px;
+  height: 30em;
   font-size: 14px;
 }
 
+#write_btns {
+  position: relative;
+  top: -2em;
+  left: 33.7em;
+}
 #cs_write_submit_btn {
-  background: #9400d3;
-  border-color: #9400d3;
+  cursor: pointer;
+  background: rgb(82, 0, 121);
   color: #fff;
+  border: none;
   border-radius: 3px;
-  border-style: solid;
   font-size: 14px;
   font-weight: 600;
   line-height: 28px;
@@ -65,16 +80,15 @@
 }
 
 #cs_write_return_btn {
-  background: #9400d3;
-  border-color: #9400d3;
+  cursor: pointer;
+  background: rgb(82, 0, 121);
   color: #fff;
+  border: none;
   border-radius: 3px;
-  border-style: solid;
   font-size: 14px;
   font-weight: 600;
   line-height: 28px;
   outline: none;
-  margin-left: 450px;
 }
 
 .ctnt_img {
