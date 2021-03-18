@@ -70,10 +70,17 @@
         WHERE favorite_userpk = #{favorite_userpk}
     </select>
 
-    <insert id="regFeed">
+    <insert id="insfeed">
 		INSERT INTO feed
 		( feed_pk, feed_ctnt, feed_userpk )
 		VALUES
 		( #{feed_pk}, #{feed_ctnt}, 1 )
 	</insert>
+
+    <insert id="inshastag">
+        INSERT INTO hashtag
+        ( hashtag_pk, hashtag_ctnt )
+        VALUES
+        ( #{hashtag_pk}, #{hashtag_ctnt} )
+    </insert>
 </mapper>

@@ -7,6 +7,7 @@ import com.purple.demo.model.CommentEntity;
 import com.purple.demo.model.FavoriteEntity;
 import com.purple.demo.model.FeedDomain;
 import com.purple.demo.model.FeedEntity;
+import com.purple.demo.model.FeedWriteDTO;
 import com.purple.demo.model.HashtagEntity;
 import com.purple.demo.model.MediaEntity;
 
@@ -22,4 +23,7 @@ public interface FeedMapper {
    int CommentCnt(CommentEntity param);                  // 댓글 갯수
    int BookmarkState(BookmarkEntity param);              // 북마크 여부
    int FavoriteState(FavoriteEntity param);              // 좋아요 여부
+   int insfeed(FeedWriteDTO dto);
+   int insfeedimg(List<MediaEntity> p);
+   
 }

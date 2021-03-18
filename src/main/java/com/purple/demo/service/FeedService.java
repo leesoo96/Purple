@@ -1,22 +1,31 @@
 package com.purple.demo.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import com.purple.demo.common.MyFileUtils;
 import com.purple.demo.mapper.FeedMapper;
 import com.purple.demo.model.BookmarkEntity;
 import com.purple.demo.model.CommentEntity;
 import com.purple.demo.model.FavoriteEntity;
 import com.purple.demo.model.FeedDomain;
 import com.purple.demo.model.FeedEntity;
+import com.purple.demo.model.FeedImgDTO;
+import com.purple.demo.model.FeedWriteDTO;
+import com.purple.demo.model.HashtagEntity;
+import com.purple.demo.model.MediaEntity;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
 
 @Service
 public class FeedService {
     
     @Autowired
     private FeedMapper mapper;
+    private MyFileUtils fileUtils;
 
     // 피드 리스트
     public List<FeedDomain> selFeedList(FeedDomain param) {
@@ -57,4 +66,28 @@ public class FeedService {
     public int FavoriteState(FavoriteEntity param){
         return mapper.FavoriteState(param);
     }
+    /*
+    public int insfeed(FeedWriteDTO dto, FeedImgDTO imgdto){
+        List<MediaEntity> insList = new ArrayList();
+		int result = 0;
+		try {
+			MediaEntity rme = null;
+			for(MultipartFile file : imgdto.getImgs()) {				
+				String fileNm = fileUtils.transferTo(file, path);
+				
+				rme = new MediaEntity();					
+				rme.setMedia_url(fileNm);
+				
+				insList.add(rme);
+			}
+			
+			result = mapper.insfeedimg(insList);
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		System.out.println("path : " + path)
+        return mapper.insfeed(dto);
+    }
+    */
 }
