@@ -98,7 +98,6 @@
   max-width: 630px;
   position: relative;
   margin: auto;
-  background-color: red;
 }
 
 .previous,
@@ -120,6 +119,7 @@
 }
 
 .feed_img img {
+  width: 100%;
   display: none;
 }
 .next {
