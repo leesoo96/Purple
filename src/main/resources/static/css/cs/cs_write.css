@@ -33,7 +33,7 @@
   padding: 10px;
   font-weight: bold;
   border-bottom: 1px solid #fff;
-  background: #ad00e2;
+  background: rgb(82, 0, 121);
   font-size: 1.1rem;
   color: #fff;
 }
@@ -52,8 +52,8 @@
   border: none;
   outline: none;
   font-size: 15px;
+  width: 34em;
 }
-
 #text {
   border: none;
   resize: none;
@@ -68,11 +68,11 @@
   left: 33.7em;
 }
 #cs_write_submit_btn {
-  background: #9400d3;
-  border-color: #9400d3;
+  cursor: pointer;
+  background: rgb(82, 0, 121);
   color: #fff;
+  border: none;
   border-radius: 3px;
-  border-style: solid;
   font-size: 14px;
   font-weight: 600;
   line-height: 28px;
@@ -80,11 +80,11 @@
 }
 
 #cs_write_return_btn {
-  background: #9400d3;
-  border-color: #9400d3;
+  cursor: pointer;
+  background: rgb(82, 0, 121);
   color: #fff;
+  border: none;
   border-radius: 3px;
-  border-style: solid;
   font-size: 14px;
   font-weight: 600;
   line-height: 28px;
