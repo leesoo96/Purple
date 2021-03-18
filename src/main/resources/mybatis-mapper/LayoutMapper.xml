@@ -4,6 +4,13 @@
 <mapper namespace="com.purple.demo.mapper.LayoutMapper">
 
 <!-- RightLayout only //////////////////////////// -->
+    <!-- 친구 추가 -->
+    <insert id="addNewFriend">
+        INSERT INTO friend 
+        (user_pk, friend_pk)
+        VALUES (#{user_pk}, #{friend_pk})
+    </insert>
+
     <!-- 알 수도 있는 사람 목록 가져오기 -->
     <select id="getRecommandFriendList" resultType="FriendDTO">
         SELECT DISTINCT B.friend_pk, C.user_id, C.user_profileimg

@@ -31,6 +31,9 @@
 			</td>
 		</tr>
 	</table>
-	<button id="cs_write_return_btn" type="button" onclick="return_page()">돌아가기</button>
-	<button id="cs_write_submit_btn" onclick="notice_write_submit_btn()">${noticeUpd == null ? '등록' : '수정'}</button>
+
+	<div id="write_btns">
+		<button id="cs_write_submit_btn" onclick="notice_write_submit_btn()">${noticeUpd == null ? '등록' : '수정'}</button>
+		<button id="cs_write_return_btn" type="button" onclick="return_page()">돌아가기</button>
+	</div>
 </form>

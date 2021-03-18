@@ -322,17 +322,18 @@ a {
 #recommand_div td {
   cursor: pointer;
 }
-#recommand_div td:hover {
-  color: #a952d4;
-}
 #recommand_div td:nth-of-type(2) {
   position: relative;
   left: -2em;
   top: 1.5em;
   padding-bottom: 1.7em;
 }
+#recommand_div a:hover {
+  color: #a952d4;
+}
 #recommand_div span {
   font-size: 1.25rem;
+  margin-left: 1em;
 }
 
 /* footer */

@@ -1,6 +1,6 @@
 const input_ht = document.querySelector('.text_hashtag')
 const ht = document.querySelector('#write_hashtag')
-
+const write_contentEle = document.querySelector('#write_content')
 // 클릭 이벤트
 function on() {
   document.querySelector('#overlay').style.display = 'block'
@@ -113,21 +113,47 @@ function setThumbnail(event) {
     }
   }
 }
-
+/*
 const writer_containerBtn = document.querySelector('#submit_btn')
-const inputImgElem = document.querySelector('#file_video')
+//const inputImgEle = document.querySelector('#file_video')
+let user_pkEle = document.querySelector('#user_pk')
+let feed_ctnt = write_contentEle.feed_ctnt
+let hashtag_ctntVals = document.querySelectorAll('.span_ht')
 writer_containerBtn.addEventListener('click', () => {
-  let formData = new FormData()
-  for (var i = 0; i < inputImgElem.files.length; i++) {
-    formData.append('imgs', inputImgElem.files[i])
-  }
-  console.log(formData)
-
-  let feed_ctntVal = document.querySelector('#write_text').value
-  console.log('feed_ctnt: ' + feed_ctntVal)
-
-  let hashtag_ctntVals = document.querySelectorAll('.span_ht')
-  for (let i = 0; i < hashtag_ctntVals.length; i++) {
-    console.log(hashtag_ctntVals[i].innerText.slice(0, -1))
-  }
+  uploadFunc()
 })
+
+function uploadFunc() {
+  ajax()
+
+  function ajax() {
+    //let formData = new FormData()
+    //for (var i = 0; i < inputImgEle.files.length; i++) {
+    //  formData.append('imgs', inputImgEle.files[i])
+    //}
+    //console.log(formData)
+
+    let formData = new FormData()
+    for (let i = 0; i < hashtag_ctntVals.length; i++) {
+      formData.append(hashtag_ctntVals[i].innerText.slice(0, -1))
+    }
+    let param = {
+      feed_ctnt: feed_ctnt.value,
+      hashtag_ctnt: formData,
+      //user_pk: user_pkEle.value,
+    }
+    fetch('feed/uploadfeed', {
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(param),
+    })
+      .then((res) => res.json())
+      .then(function (myJson) {
+        console.log(myJson)
+        location.href = `/feed`
+      })
+  }
+}
+*/

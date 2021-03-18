@@ -1,7 +1,10 @@
 package com.purple.demo.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import com.purple.demo.common.Const;
 import com.purple.demo.mapper.LayoutMapper;
 import com.purple.demo.model.ChatRoomDTO;
 import com.purple.demo.model.FriendDTO;
@@ -47,4 +50,12 @@ public class LayoutController {
     public List<ChatRoomDTO> getFriendChatList(@RequestBody ChatRoomDTO dto) {
         return mapper.getFriendChatList(dto);
     }
+
+    @ResponseBody
+	@PostMapping("/addNewFriend")
+	public Map<String, Object> addNewFriend(@RequestBody FriendDTO dto) {
+		Map<String, Object> addNewFriend = new HashMap<String, Object>();
+		addNewFriend.put(Const.KEY_REUSLT, service.addNewFriend(dto));
+		return addNewFriend;
+	}
 }

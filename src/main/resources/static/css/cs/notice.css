@@ -7,15 +7,20 @@
 }
 
 /* 게시판 전체 */
+#notice_title {
+  position: relative;
+  top: 2.5em;
+  text-align: center;
+  font-size: 1.5rem;
+}
+
 #cs_notice_container {
   position: relative;
-  /* box-shadow: 10px 10px 30px #ab54ee; */
+  top: 5.5em;
   width: auto;
   height: auto;
   overflow: scroll;
   -ms-overflow-style: none;
-  /* border: solid; */
-  /* border-color: rgb(139, 118, 118); */
   border-radius: 15px;
 }
 
@@ -26,6 +31,8 @@
 #cs_reg {
   position: relative;
   left: 30em;
+  top: 1em;
+  font-size: 1.1rem;
 }
 
 /* 글 1개당 양식 */
@@ -96,25 +103,51 @@
 .cs_notice_detail::-webkit-scrollbar-track {
   background-color: rgb(255, 255, 255);
 }
-/* detail요소 안에서 글씨체 조정 부분 */
-.cs_notice_detail p {
+.detail_img {
+  position: relative;
+  left: 6.5em;
+}
+.detail_img img {
+  width: 28em;
+  height: 16em;
+}
+.detail_detail {
+  position: relative;
+  left: 1em;
+  top: 1em;
+  width: 38em;
+  height: auto;
+}
+.detail_detail p {
   position: relative;
   padding-left: 10px;
   padding-right: 10px;
-  font-size: 18px;
+  font-size: 19px;
   white-space: pre-line;
 }
-.cs_notice_detail span {
+.bottomAdmin_Use {
+  text-align: right;
   position: relative;
-  padding-left: 10px;
-  padding-right: 10px;
+  bottom: -6em;
+}
+.bottomAdmin_Use a {
+  font-size: 1.09rem;
+}
+.bottomAdmin_Use button {
+  cursor: pointer;
+  background: #fff;
+  border: none;
+  font-size: 1.1rem;
+  font-family: 'paybooc-Bold';
 }
 
 /*페이징*/
-.cs_paging {
+#pagingLoaction {
   text-align: center;
-  font-size: 20px;
-  letter-spacing: 25px;
   position: relative;
-  top: 1em;
+  top: 5.3em;
+  font-size: 1.2rem;
+}
+#pagingLoaction span {
+  cursor: pointer;
 }

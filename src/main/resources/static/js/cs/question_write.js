@@ -30,6 +30,9 @@ function question_write_submit_btn() {
 }
 
 function questionReg() {
+  if (!confirm('등록 하시겠습니까?')) {
+    return
+  }
   ajax()
   function ajax() {
     let param = {

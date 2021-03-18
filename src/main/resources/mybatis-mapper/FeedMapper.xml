@@ -34,6 +34,11 @@
         ON (b.htrel_feedpk = c.feed_pk)
         WHERE c.feed_pk = #{feed_pk}
     </select>
-    
-    
+
+    <insert id="regFeed">
+		INSERT INTO feed
+		( feed_pk, feed_ctnt, feed_userpk )
+		VALUES
+		( #{feed_pk}, #{feed_ctnt}, 1 )
+	</insert>
 </mapper>
