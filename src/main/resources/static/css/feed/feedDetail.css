@@ -28,12 +28,15 @@
   min-height: 37em;
   margin: 9em auto;
 }
+.feed_detail_userImg {
+  margin-left: 1em;
+}
 .feedDetail_img {
   margin-left: 0em;
   min-height: 650px;
   width: 650px;
 }
-.feedDetail_img img {
+.detail_Img img {
   display: none;
   top: 50%;
   width: 100%;
@@ -82,7 +85,15 @@
   top: -0.3em;
 }
 .feedDetail_contents .feed_title i:nth-of-type(1) {
-  margin-right: 19em;
+  margin: 0 15em 0 1em;
+}
+.hashtag_p {
+  margin-top: 0.5em;
+}
+.feed_content_div {
+  width: 33em;
+  min-height: 3.4em;
+  max-height: 7em;
 }
 .feedDetail_contents .feed_content {
   margin-top: -2em;
@@ -98,10 +109,25 @@
 .feed_overlay_content input {
   font-family: 'paybooc-Bold';
 }
-
+.heart_div {
+  margin-right: 2em;
+}
+.heart_div span,
+.comment_div span {
+  margin-left: 0.3em;
+}
+.heart_div,
+.comment_div {
+  display: inline;
+}
+.feed_comment {
+  position: relative;
+  left: -1em;
+  margin-top: 3em;
+}
 .comment_input {
   position: relative;
-  left: 1em;
+  left: 0em;
 }
 .comment_input input:nth-of-type(1) {
   width: 27em;
@@ -111,13 +137,16 @@
   border-bottom: 1.5px solid black;
   font-size: 1.1rem;
 }
-.comment_input button {
+.comment_input input:nth-of-type(2) {
   width: 4em;
   height: 3.5em;
   background: #fff;
   border: none;
   outline-style: none;
   cursor: pointer;
+  position: relative;
+  left: 36em;
+  top: -3.5em;
 }
 .comment_read {
   border: 1px solid rgb(190, 190, 190);
