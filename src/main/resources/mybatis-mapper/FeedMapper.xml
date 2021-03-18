@@ -69,4 +69,11 @@
         SELECT favorite_feedpk FROM favorite
         WHERE favorite_userpk = #{favorite_userpk}
     </select>
+
+    <insert id="regFeed">
+		INSERT INTO feed
+		( feed_pk, feed_ctnt, feed_userpk )
+		VALUES
+		( #{feed_pk}, #{feed_ctnt}, 1 )
+	</insert>
 </mapper>

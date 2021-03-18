@@ -8,43 +8,38 @@
 
 /* 게시판 전체 */
 #cs_question_container {
-  position: relative;
-  /* box-shadow: 10px 10px 30px #ab54ee; */
+  /* position: relative; */
   width: auto;
   height: auto;
-  overflow: scroll;
   -ms-overflow-style: none;
-  /* border: solid; */
-  /* border-color: rgb(139, 118, 118); */
   border-radius: 15px;
 }
 #cs_question_container::-webkit-scrollbar {
   display: none;
 }
+#question_title {
+  position: relative;
+  top: 2.5em;
+  font-size: 1.5rem;
+  text-align: center;
+}
 
 #cs_question_write {
-  margin-top: 10px;
   position: relative;
-  height: 4em;
-  width: auto;
-  /* display: flex; */
-  /* align-items: center; */
-  text-align: center;
-  background-color: rgb(139, 139, 139);
+  left: 30em;
+  top: 1em;
+  font-size: 1.1rem;
 }
-#cs_question_write button {
-  align-items: center;
-}
+
 /* 글 1개당 양식 */
 .cs_question_content {
   width: 100%;
-  margin-top: 10px;
+  position: relative;
+  top: 6em;
 }
 
 /* 타이틀 바 */
 .cs_question_titlebar {
-  margin-top: 10px;
-  position: relative;
   height: 4em;
   width: 100%;
   display: flex;
@@ -58,23 +53,23 @@
 }
 
 .cs_question_title {
-  position: relative;
+  /* position: relative; */
   font-size: 20px;
 }
 
 .cs_question_extratitle {
-  position: relative;
+  /* position: relative; */
   margin-left: auto;
   font-size: 14px;
 }
 
 /* 내용 */
 .cs_question_detail {
-  overflow: scroll;
+  overflow-y: scroll;
   overflow-x: hidden;
   transition: all 1s;
   border-radius: 0px 0px 16px 16px;
-  position: relative;
+  top: 6em;
   height: 0px;
   width: auto;
   align-items: center;
@@ -95,30 +90,57 @@
 
 /* detail요소 안에서 글씨체 조정 부분 */
 .cs_question_detail p {
-  position: relative;
+  /* position: relative; */
   font-size: 18px;
   white-space: pre-line;
 }
+.question_use {
+  text-align: right;
+}
+.question_use button {
+  cursor: pointer;
+  font-family: 'paybooc-Bold';
+  background: #fff;
+  border: none;
+  font-size: 1rem;
+}
+.answer_ctnt_detail {
+  margin-top: 7em;
+}
+.cs_cmt_del {
+  background: #fff;
+  border: none;
+  font-size: 1.1rem;
+  margin-left: -0.4em;
+  font-family: 'paybooc-Bold';
+  outline: none;
+  cursor: pointer;
+}
 
 /*페이징*/
-#cs_paging {
+#pagingLocation {
   text-align: center;
-  font-size: 20px;
-  letter-spacing: 25px;
   position: relative;
-
-  top: 1em;
+  top: 6em;
+  font-size: 1.2rem;
+}
+#pagingLoaction span {
+  cursor: pointer;
 }
 
 /*모달찰*/
 .cs_cmt_btn {
   color: rgb(255, 255, 255);
   background-color: rgb(160, 89, 226);
-  width: 600px;
+  width: 5em;
   height: 30px;
   position: relative;
-  top: 1em;
+  top: 24em;
+  left: 0.5em;
   cursor: pointer;
+  border-radius: 3em;
+  border: none;
+  outline-color: #fff;
 }
 .cs_cmt_btn:hover {
   border-color: rgb(160, 89, 226);
@@ -126,34 +148,43 @@
   color: rgb(160, 89, 226);
   background-color: rgb(255, 255, 255);
 }
-.cs_cmt_vlew {
-  display: none;
-  width: 600px;
-  height: 400px;
-  border: solid;
-  border-color: rgb(160, 89, 226);
-  position: absolute;
-  bottom: 2em;
-  background: rgb(255, 255, 255);
-  z-index: 2;
+.cs_cmt_textarea {
+  font-family: 'paybooc-Bold';
+  width: 26em;
+  height: 6.2em;
+  font-size: 1.3rem;
+  outline: none;
+  resize: none;
+  border: 2px solid blueviolet;
+  margin-top: 3em;
 }
-.cs_black_bg {
-  display: none;
-  position: absolute;
-  content: "";
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  top: 0;
-  left: 0;
-  z-index: 1;
+.cs_cmt_textarea::-webkit-scrollbar {
+  width: 10px;
 }
-.cs_modal_close {
-  width: 26.2px;
-  height: 26.2px;
+.cs_cmt_textarea::-webkit-scrollbar-thumb {
+  background-color: rgb(82, 0, 121);
+  border-radius: 10px;
+  background-clip: padding-box;
+  border: 2px solid transparent;
+}
+.cs_cmt_textarea::-webkit-scrollbar-track {
+  background-color: rgb(255, 255, 255);
+}
+.cs_cmt_reg {
   position: relative;
-  top: -0.1em;
-  left: 36em;
+  top: 11.4em;
+  left: 32em;
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+
+.cs_modal_close {
+  width: 25.2px;
+  height: 25.2px;
+  position: relative;
+  top: 0.9em;
+  left: 37em;
+  color: blueviolet;
 }
 .cs_modal_close > a {
   display: block;

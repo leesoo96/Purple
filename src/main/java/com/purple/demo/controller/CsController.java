@@ -3,13 +3,16 @@ package com.purple.demo.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.purple.demo.model.AnswerEntity;
 import com.purple.demo.model.NoticeDTO;
 import com.purple.demo.model.NoticeEntity;
 import com.purple.demo.model.QuestionDTO;
 import com.purple.demo.model.QuestionEntity;
+import com.purple.demo.model.UserPrincipal;
 import com.purple.demo.service.CsService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -54,8 +57,15 @@ public class CsController {
 	@PostMapping("/notice_img")
 	public Map<String, Object> notice_img(MultipartFile[] img) {
 		Map<String, Object> noticeWriteResult = new HashMap<String, Object>();
-		noticeWriteResult.put("result", service.notice_img(img));
-		return noticeWriteResult;
+		try{
+			noticeWriteResult.put("result", service.notice_img(img));
+		} catch(Exception e) {
+			System.out.println(e);
+			noticeWriteResult.put("result", "resources/img/cs/basic_cs.jpg");
+			
+		}finally {
+			return noticeWriteResult;
+		}
 	}
 
 	 //공지사항 글 수정 (화면) 
@@ -96,9 +106,13 @@ public class CsController {
 	}
 
 	// 문의사항
-
+	
 	@GetMapping("/question")
 	public String question(Model model, QuestionDTO p) {
+		UserPrincipal principal = (UserPrincipal)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		p.setQuestion_userpk(principal.getUser_pk());   
+		p.setUser_auth(principal.getUser_auth());
+		// p.setQuestion_userpk(question_userpk);
 		model.addAttribute("questionData", service.selQuestionList(p));
 		return "/question";
 	}
@@ -147,6 +161,24 @@ public class CsController {
 	public Map<String, Object> question_del(QuestionEntity p) {
 		Map<String, Object> noticeWriteResult = new HashMap<String, Object>();
 		noticeWriteResult.put("result", service.question_del(p));
+		return noticeWriteResult;
+	}
+
+	//문의사항 댓글 등록
+	@ResponseBody
+	@PostMapping("/question_cmt_reg")
+	public Map<String, Object> question_cmt_reg(@RequestBody AnswerEntity p) {
+		Map<String, Object> noticeWriteResult = new HashMap<String, Object>();
+		noticeWriteResult.put("result", service.question_cmt_reg(p));
+		return noticeWriteResult;
+	}
+
+	// 문의사항 댓글 삭제
+	@ResponseBody
+	@DeleteMapping("/answer_del")
+	public Map<String, Object> answer_del(AnswerEntity p) {
+		Map<String, Object> noticeWriteResult = new HashMap<String, Object>();
+		noticeWriteResult.put("result", service.answer_del(p));
 		return noticeWriteResult;
 	}
 

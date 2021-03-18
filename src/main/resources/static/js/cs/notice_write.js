@@ -23,7 +23,6 @@ notice_img.addEventListener('change', function (event) {
 function notice_write_submit_btn() {
   if (!notice_write_form.notice_pk.value) {
     noticeReg()
-    console.log(notice_img.file)
     return
   }
   noticeUpd()
@@ -48,6 +47,9 @@ function noticeReg() {
   }
 
   async function ajax() {
+    if (!confirm('등록 하시겠습니까?')) {
+      return
+    }
     let img = await ajaxImg()
     let param = {
       notice_title: notice_write_form.notice_title.value,
@@ -55,7 +57,7 @@ function noticeReg() {
       notice_userpk: document.querySelector('#user_pk').value,
       notice_img: img,
     }
-
+    console.log(img)
     fetch('/notice_write', {
       method: 'post',
       headers: {
