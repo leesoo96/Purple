@@ -6,14 +6,12 @@
 <link rel="stylesheet" href="resources/css/feed/feedDetail.css">
 <script defer src="resources/js/feed/feed.js"></script>
 <script defer src="resources/js/feed/feedDetail.js"></script>
-
 <div id="selectBox">
-   <select name="feed">
-      <option value="" selected>최신순</option>
-      <option value="">인기순</option>
-   </select>
+  <select name="feed">
+    <option value="" selected>최신순</option>
+    <option value="">인기순</option>
+  </select>
 </div>
-
 <div id="feed">
    <%-- <c:forEach items="${feedListData}" var="item"> --%>
       <div class="feed_container">

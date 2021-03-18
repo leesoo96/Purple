@@ -40,6 +40,7 @@
   font-size: 0.9rem;
   margin-left: 0.6em;
 }
+
 .feed_title i {
   position: relative;
   margin-left: auto;
@@ -62,7 +63,7 @@
 }
 
 .feed_content {
-  padding-left: 20px;
+  padding: 30px;
   position: relative;
   font-size: 15px;
   white-space: pre-line;
@@ -79,8 +80,9 @@
   margin-left: 1em;
 }
 .feed_functionbar i {
-  margin-left: 0.3em;
-  font-size: 35;
+  width: 1em;
+  margin-left: 0.5em;
+  font-size: 2em;
   cursor: pointer;
 }
 .feed_functionbar span {
