@@ -14,7 +14,7 @@
    </select>
 </div>
 
-<div id="feed">
+<div id="feed" style="overflow-y:scroll;">
    <c:forEach items="${feedListData}" var="item">
       <div class="feed_container">
          <div class="feed_title">
@@ -23,7 +23,6 @@
             <i class="fas fa-ellipsis-h"></i>
          </div>
 
-         <%-- <div>${fn:length(item.media_url)}</div>   <!-- List 갯수 구하는 방법 --> --%>
          <c:if test="${!empty item.media_url}"> 
             <div class="feed_img">
                <div class="previous">
