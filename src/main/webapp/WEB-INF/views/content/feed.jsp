@@ -16,7 +16,7 @@
    <%-- <c:forEach items="${feedListData}" var="item"> --%>
       <div class="feed_container">
          <div class="feed_title">
-            <img src="resources/img/common/basic_profile.png" alt="기본프로필사진">
+            <img src="/resources/img/common/basic_profile.png" alt="기본프로필사진">
             <span>USER234</span><span>2021-01-23</span> 
             <i class="fas fa-ellipsis-h"></i>
          </div>
@@ -27,9 +27,9 @@
                   <i class="fas fa-chevron-left"></i>
                </div>
                <div class="feed_imgList">
-               <img src="resources/img/feed/demo1.jpg">
-               <img src="resources/img/feed/demo3.PNG">
-               <img src="resources/img/feed/demo4.PNG">
+               <img src="/resources/img/feed/demo1.jpg">
+               <img src="/resources/img/feed/demo3.PNG">
+               <img src="/resources/img/feed/demo4.PNG">
                </div>
                <div class="next" onclick="nextImg(this)">
                   <i class="fas fa-chevron-right"></i>
@@ -50,8 +50,8 @@
             </p>
          </div>
          <div class="feed_functionbar">
-            <i class="far fa-heart"></i><span>22</span>
             <i class="fal fa-comment"></i><span>11</span>
+            <i class="fas fa-heart" onclick="feedFavorite(this)"></i><span>22</span>
             <i class="far fa-bookmark"></i>
          </div>
       </div>
