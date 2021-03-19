@@ -6,28 +6,6 @@ for (let i = 0; i < cs_question_titlebar.length; i++) {
   let cs_cmt_regEle = cs_question_titlebarEle.nextSibling.nextSibling.childNodes.item(
     9
   )
-  //댓글 등록
-  cs_cmt_regEle.addEventListener('click', function () {
-    if (!confirm('등록 하시겠습니까?')) {
-      return
-    }
-    let param = {
-      answer_pk: this.dataset.pk,
-      answer_userpk: document.querySelector('#user_pk').value,
-      answer_ctnt: this.nextSibling.nextSibling.value,
-    }
-    fetch('/question_cmt_reg', {
-      method: 'post',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(param),
-    })
-      .then((res) => res.json())
-      .then(function (myJson) {
-        location.href = `/question`
-      })
-  })
 
   cs_question_titlebarEle.addEventListener('click', function () {
     let cs_question_detail = this.nextSibling.nextSibling
@@ -69,6 +47,33 @@ for (let i = 0; i < cs_question_titlebar.length; i++) {
       cs_question_detail.style.padding = '0px'
     }
     //슬라이드 끝
+    //댓글 등록
+    cs_cmt_regEle.addEventListener('click', function () {
+      if (!confirm('등록 하시겠습니까?')) {
+        return
+      }
+      if (this.nextSibling.nextSibling.value === '') {
+        alert('글을 입력하시오')
+        this.nextSibling.nextSibling.focus()
+        return
+      }
+      let param = {
+        answer_pk: this.dataset.pk,
+        answer_userpk: document.querySelector('#user_pk').value,
+        answer_ctnt: this.nextSibling.nextSibling.value,
+      }
+      fetch('/question_cmt_reg', {
+        method: 'post',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(param),
+      })
+        .then((res) => res.json())
+        .then(function (myJson) {
+          location.href = `/question`
+        })
+    })
   })
 }
 

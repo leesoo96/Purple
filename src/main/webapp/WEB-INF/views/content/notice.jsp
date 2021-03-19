@@ -44,7 +44,7 @@
 			</div>
 			<div class="cs_notice_detail">
 				<div class="detail_img">
-					<img src="/src/main/webapp/resources/img/cs/notice/${item.notice_img}">
+					<img src="/webapp/resources/img/cs/notice/15/${item.notice_img}">
 				</div>
 
 				<div class="detail_detail">
