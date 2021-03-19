@@ -90,11 +90,21 @@ pageEncoding="UTF-8"%>
       <td>
         <img
           id="profileImg"
-          src="resources/img/common/basic_profile.png"
+          src="/resources/img/common/basic_profile.png"
           alt="기본프로필사진"
         />
         <span id="writer">friends_one</span>
         <span id="content">안녕하세요 첫번째 목록입니다.</span>
+        <a href="#"><i class="fas fa-user-plus"></i></a>
+      </td>
+      <td>
+        <img
+          id="profileImg"
+          src="/resources/img/common/basic_profile.png"
+          alt="기본프로필사진"
+        />
+        <span id="writer">friends_two</span>
+        <span id="content">안녕하세요 두번째 목록입니다.</span>
         <a href="#"><i class="fas fa-user-plus"></i></a>
       </td>
     </tr>

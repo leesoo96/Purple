@@ -42,4 +42,8 @@ public class UserServiceImpl implements UserDetailsService {
 	public int overlap_Confirm(UserEntity entity) {
 		return mapper.overlap_Confirm(entity);
 	}
+
+	public UserEntity selUserInfo(String user_id) {
+		return mapper.selUserInfo(user_id);
+	}
 }

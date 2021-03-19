@@ -4,11 +4,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.purple.demo.model.UserEntity;
 import com.purple.demo.service.UserServiceImpl;
@@ -45,5 +48,16 @@ public class CommonController {
 		value.put("result", service.overlap_Confirm(entity));
 			
 		return value;
+	}
+
+	@ResponseBody
+	@RequestMapping("/userpage/{user_id}")
+	public ModelAndView userInfo(@PathVariable String user_id) {
+		ModelAndView model = new ModelAndView();
+		UserEntity dto = new UserEntity();
+		dto = service.selUserInfo(user_id);
+		model.addObject("userInfo", dto);
+		model.setViewName("/userpage");
+		return model;
 	}
 }

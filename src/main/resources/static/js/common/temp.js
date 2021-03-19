@@ -137,7 +137,7 @@ function getFriend_list(myJson) {
     if (myJson[i].user_profileimg === null) {
       // 기본 프로필 이미지 사용
       friend_profileImg_td.innerHTML =
-        '<img src="resources/img/common/basic_profile.png" alt="프로필사진">'
+        '<img src="/resources/img/common/basic_profile.png" alt="프로필사진">'
     } else {
       friend_profileImg_td.innerHTML = '<img src="" alt="프로필사진">'
     }
@@ -281,14 +281,14 @@ function getRecFriend_List(myJson) {
     recFriend_profile_td.appendChild(recFriend_profile)
     if (myJson[i].user_profileimg === null) {
       recFriend_profile_td.innerHTML =
-        '<img src="resources/img/common/basic_profile.png" alt="프로필사진">'
+        '<img src="/resources/img/common/basic_profile.png" alt="프로필사진">'
     } else {
       recFriend_profile_td.innerHTML = '<img src="" alt="프로필사진">'
     }
 
     let recFriendTd = document.createElement('td')
     recFriend_profile_td.after(recFriendTd)
-    recFriendTd.innerHTML = `<span><a href="#">${myJson[i].user_id}</a></span>`
+    recFriendTd.innerHTML = `<span><a href="/userpage/${myJson[i].user_id}">${myJson[i].user_id}</a></span>`
 
     let addRecFriendTd = document.createElement('td')
     recFriendTd.after(addRecFriendTd)
