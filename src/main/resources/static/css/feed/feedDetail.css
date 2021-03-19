@@ -19,24 +19,29 @@
     opacity: 1;
   }
 }
-.feedDetail_contents_container {
+.detailCtnt_container {
   position: relative;
 }
 .feedDetail {
   background-color: #fff;
-  width: 77em;
   min-height: 37em;
   margin: 9em auto;
+}
+.feed_detail_userImg {
+  margin-left: 1em;
 }
 .feedDetail_img {
   margin-left: 0em;
   min-height: 650px;
   width: 650px;
 }
-.feedDetail_img img {
+.detail_Img img {
   display: none;
   top: 50%;
   width: 100%;
+}
+.detail_Img > img:nth-child(1) {
+  display: block;
 }
 .detail_previous,
 .detail_next {
@@ -82,26 +87,55 @@
   top: -0.3em;
 }
 .feedDetail_contents .feed_title i:nth-of-type(1) {
-  margin-right: 19em;
+  margin-left: 18em;
 }
-.feedDetail_contents .feed_content {
-  margin-top: -2em;
+.detail_ctnt_container {
+  width: 31em;
+  margin: 0.6em 0 1em 1em;
+  font-size: 1.07rem;
+}
+..detail_ctnt_container div {
+  margin-top: 1em;
+}
+.hashtag_p {
+  margin-top: 0.5em;
+}
+.feedDetail_contents {
+  margin-left: 1.5em;
   width: 35em;
   height: auto;
 }
-.feedDetail_contents .feed_content p:nth-of-type(2) {
-  margin-top: -1em;
-}
+
 .feedDetail_contents .feed_functionbar {
   margin-top: -1em;
 }
 .feed_overlay_content input {
   font-family: 'paybooc-Bold';
 }
-
+.heart_div {
+  margin: 0 2em 0 1em;
+}
+.heart_div span,
+.comment_div span {
+  margin-left: 0.3em;
+}
+.heart_div,
+.comment_div {
+  display: inline;
+}
+.bookmark_div {
+  position: relative;
+  top: -1.2em;
+  left: 10em;
+}
+.feed_comment {
+  position: relative;
+  left: -1em;
+  margin-top: 3em;
+}
 .comment_input {
   position: relative;
-  left: 1em;
+  left: 0em;
 }
 .comment_input input:nth-of-type(1) {
   width: 27em;
@@ -111,13 +145,16 @@
   border-bottom: 1.5px solid black;
   font-size: 1.1rem;
 }
-.comment_input button {
+.comment_input input:nth-of-type(2) {
   width: 4em;
   height: 3.5em;
   background: #fff;
   border: none;
   outline-style: none;
   cursor: pointer;
+  position: relative;
+  left: 0.5em;
+  top: 0.5em;
 }
 .comment_read {
   border: 1px solid rgb(190, 190, 190);
@@ -163,4 +200,12 @@
   width: 22em;
   height: auto;
   margin-left: 2em;
+}
+
+/* 사진이 없을 경우의 detail css */
+.ctnt_div {
+  width: 30em;
+  margin-top: 1em;
+  min-height: 4em;
+  max-height: 7em;
 }
