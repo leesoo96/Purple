@@ -15,4 +15,6 @@ public interface UserMapper {
 	
 //	중복체크
 	int overlap_Confirm(UserEntity entity);
+
+	UserEntity selUserInfo(String user_id);
 }

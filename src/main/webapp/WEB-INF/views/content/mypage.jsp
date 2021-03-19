@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
-<link href="resources/css/mypage/mypage.css" rel="stylesheet">
+<link href="/resources/css/mypage/mypage.css" rel="stylesheet">
 <script defer src="resources/js/mypage/mypage.js"></script>
 <div id="modal_background"></div>
 <!-- modal_background -->
@@ -52,8 +52,8 @@
         <button name="pwModBtn" type="button">변경하기</button>
     </form>
 </div>
-<sec:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_USER')">
-    <sec:authentication property="principal" var="userInfo"/>
+<!-- <sec:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_USER')">
+    <sec:authentication property="principal" var="userInfo"/> -->
     <div id="mypage_userinfo_container">
         <div id="mypage_userinfo_backimg">
             <img src="resources/img/test/background.jpg">
@@ -63,32 +63,39 @@
         </div>
         <div id="mypage_userinfo_content">
             <div class="mypageuser_id">
-                <span>@${userInfo.user_id}</span>
+                <span>USERID</span>
             </div>
             <div class="mypageuser_nm">
-                <p>${userInfo.user_name}</p>
-            </div>
-            <div class="mypageuser_bio">
-                <span>${userInfo.user_bio}</span>
+                <p>USERNAME</p>
             </div>
             <div class="mypageuser_birth">
-                <span>${userInfo.user_birth}</span>
+                <span>1999년 01월 01일</span>
             </div>
+            <div class="mypageuser_location">
+                <span>대구광역시 북구</span>
+            </div>
+            <div class="mypageuser_email">
+                <span>abcd@naver.com</span>
+            </div>
+            <div class="mypageuser_bio">
+                <span>안녕하세요안녕하세요안녕하세요안</span>
+            </div>
+            
             <div class="mypageuser_following">
                 <a href="#">
-                    <span style="font-size: 15px;">0 Following</span>
+                    <span style="font-size: 15px;">0 Friends</span>
                 </a>
-                <a href="#">
-                    <span style="font-size: 15px;">0 Followers</span>
-                </a>
+        
             </div>
-        </form>
+        </div>
         <div id="mypage_userinfo_button">
             <button id="mypage_modcontent_btn" onclick="openCloseModal('#userMod_container', 'block')">프로필 수정</button>
+            <br>
+            <br>
             <button id="mypage_pw_btn" onclick="openCloseModal('#userPwMod_container', 'block')">비밀번호 변경</button>
         </div>
     </div>
-</sec:authorize>
+<!-- </sec:authorize> -->
 <div id="selectBox">
     <select name="myfeed">
         <option selected value="0">내 피드</option>

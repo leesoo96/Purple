@@ -1,27 +1,11 @@
 @charset "UTF-8";
 
-#title_bar {
-  width: auto;
-  height: 50px;
-  position: relative;
-}
-
-#title_bar .user_name {
-  font-size: 20px;
-}
-
-#title_bar .user_bulletin {
-  font-size: 15px;
-  display: block;
-  margin-top: 5px;
-}
-
 /* mypage userinfo */
 #mypage_userinfo_container {
   margin-top: 0.3em;
   position: relative;
   width: auto;
-  height: 28em;
+  height: 31em;
   border-bottom: 2px solid rgb(237, 217, 248);
   border-radius: 10px;
 }
@@ -64,9 +48,12 @@
   float: left;
   top: 4.5em;
   left: 1em;
+  height: 13em;
   line-height: 140%;
 }
-
+#mypage_userinfo_content div {
+  height: 1.6em;
+}
 #mypage_userinfo_content .mypageuser_nm {
   font-size: 14px;
 }
@@ -140,7 +127,6 @@
   padding: 10px 18px;
   cursor: pointer;
   font-weight: 700;
-  font-family: Y_Spotlight;
   background: #000;
   color: #fff;
   border-radius: 3em;
