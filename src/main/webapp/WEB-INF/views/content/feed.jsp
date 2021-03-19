@@ -52,8 +52,8 @@
             </div>
          </div>
          <div class="feed_functionbar">
-            <i class="far fa-heart"></i><span name="heartValue">22</span>
             <i class="fal fa-comment" onclick="feedDetail(this)"></i><span name="cmtValue">11</span>
+            <i class="far fa-heart"></i><span name="heartValue">22</span>
             <i class="far fa-bookmark"></i>
          </div>
       </div>
@@ -97,8 +97,8 @@
             </div>
          </div>
          <div class="feed_functionbar">
-            <i class="far fa-heart"></i><span name="heartValue">19</span>
             <i class="fal fa-comment" onclick="feedDetail(this)"></i><span name="cmtValue">7</span>
+            <i class="far fa-heart"></i><span name="heartValue">19</span>
             <i class="far fa-bookmark"></i>
          </div>
       </div>
@@ -142,8 +142,8 @@
             </div>
          </div>
          <div class="feed_functionbar">
-            <i class="far fa-heart"></i><span name="heartValue">22</span>
             <i class="fal fa-comment" onclick="feedDetail(this)"></i><span name="cmtValue">11</span>
+            <i class="far fa-heart"></i><span name="heartValue">22</span>
             <i class="far fa-bookmark"></i>
          </div>
       </div>
@@ -187,8 +187,8 @@
             </div>
          </div>
          <div class="feed_functionbar">
-            <i class="far fa-heart"></i><span name="heartValue">19</span>
             <i class="fal fa-comment" onclick="feedDetail(this)"></i><span name="cmtValue">7</span>
+            <i class="far fa-heart"></i><span name="heartValue">19</span>
             <i class="far fa-bookmark"></i>
          </div>
       </div>
