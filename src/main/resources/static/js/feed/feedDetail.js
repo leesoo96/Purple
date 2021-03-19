@@ -25,13 +25,11 @@ function feedDetail(e) {
 
   const feedDetail_title = document.querySelector('.feedDetail_title')
   let feedDetail_profileImg = document.createElement('img')
-  feedDetail_profileImg.innerHTML = (
-    <img
-      src="resources/img/common/basic_profile.png"
-      alt="기본프로필사진"
-    ></img>
-  )
+  feedDetail_profileImg.innerText =
+    'src="resources/img/common/basic_profile.png" alt="기본프로필사진"'
 
   const detailSpan = document.querySelector('span')
   detailSpan.innerText = feed_container.querySelector('span[name="user_id"]')
+
+  feedDetail_title.after(feedDetail_profileImg)
 }
