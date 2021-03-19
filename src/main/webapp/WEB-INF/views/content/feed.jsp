@@ -98,6 +98,52 @@
          </div>
       </div>
    <%-- </c:forEach> --%>
+
+   <%-- <c:forEach items="${feedListData}" var="item"> --%>
+      <div class="feed_container" >
+         <div class="feed_title">
+            <img src="resources/img/common/basic_profile.png" alt="기본프로필사진">
+            <span>USER234</span><span>2021-01-23</span> 
+            <i class="fas fa-ellipsis-h"></i>
+         </div>
+
+         <%-- <div>${fn:length(item.media_url)}</div>   <!-- List 갯수 구하는 방법 --> --%>
+         <%-- <c:if test="${!empty item.media_url}">  --%>
+            <div class="feed_img" onload="loadImg()">
+               <div class="previous" onclick="previousImg(this)">
+                  <i class="fas fa-chevron-left"></i>
+               </div>
+               <div class="feed_imgList">
+               <img src="resources/img/feed/demo1.jpg">
+               <img src="resources/img/feed/demo3.PNG">
+               <img src="resources/img/feed/demo4.PNG">
+               </div>
+               <div class="next" onclick="nextImg(this)">
+                  <i class="fas fa-chevron-right"></i>
+               </div>
+            </div>
+         <%-- </c:if> --%>
+
+
+         <div class="feed_content" onclick="feedDetail(this)">
+            <%-- <c:if test="${item.hashtag_ctnt != null || item.hashtag_ctnt !=''}">
+               <c:forEach items="${item.hashtag_ctnt}" var="hashtag_ctnt"> --%>
+                  <p>
+                     <a href="#">#해시태그</a>
+                  </p>
+               <%-- </c:forEach>
+            </c:if> --%>
+            <p>
+               본문입니다.
+            </p>
+         </div>
+         <div class="feed_functionbar">
+            <i class="far fa-heart"></i><span>22</span>
+            <i class="fal fa-comment"></i><span>11</span>
+            <i class="far fa-bookmark"></i>
+         </div>
+      </div>
+   <%-- </c:forEach> --%>
 </div>   <!-- feed -->
 
 <div class="feed_overlay">

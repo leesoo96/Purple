@@ -3,9 +3,9 @@
 <%@ taglib uri="http://www.springframework.org/security/tags"
 	prefix="sec"%>
 <!DOCTYPE html>
-<link rel="stylesheet" href="resources/css/common/temp.css" />
-<link rel="stylesheet" href="resources/css/cs/cs_write.css" />
-<script defer src="resources/js/cs/question_write.js"></script>
+<link rel="stylesheet" href="/resources/css/common/temp.css" />
+<link rel="stylesheet" href="/resources/css/cs/cs_write.css" />
+<script defer src="/resources/js/cs/question_write.js"></script>
 
 <div id="cs_write_title">${questionUpd == null ? '문의사항 등록' : '문의사항 수정'}</div>
 <form id="question_write_form">

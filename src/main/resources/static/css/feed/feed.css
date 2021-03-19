@@ -81,13 +81,12 @@
 }
 .feed_functionbar i {
   width: 1em;
-  margin-left: 0.5em;
   font-size: 2em;
   cursor: pointer;
 }
 .feed_functionbar span {
   margin-left: 0.1em;
-  margin-right: 0.5em;
+  margin-right: 2em;
 }
 
 .slideshow-container {

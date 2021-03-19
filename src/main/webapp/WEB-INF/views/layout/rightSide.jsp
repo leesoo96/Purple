@@ -12,7 +12,7 @@
   <div id="footer">
     <div id="footer_content">
       <a href="">
-        <img src="resources/img/common/github.png" alt="깃허브">
+        <img src="/resources/img/common/github.png" alt="깃허브">
       </a>
     <p>개발자 : 최홍석, 이수진<br>
       김가영, 이동건<br>

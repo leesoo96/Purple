@@ -4,7 +4,7 @@
 <div id="menus">
           <div id="logo">
             <a href="/feed">
-              <img src="resources/img/common/logo1.png" alt="로고">
+              <img src="/resources/img/common/logo1.png" alt="로고">
             </a>
           </div>
           <div id="home">
@@ -46,7 +46,7 @@
           <button id="userWrite_btn" onclick="on()"><span>글쓰기</span></button>
 
           <div id="temp_user">
-            <img src="resources/img/common/basic_profile.png" alt="기본프로필사진">
+            <img src="/resources/img/common/basic_profile.png" alt="기본프로필사진">
             
           <sec:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_USER')">
   				<sec:authentication property="principal" var="userInfo"/>
@@ -57,7 +57,7 @@
           </div>
           <div class="only_modalClose"></div> <!-- user_modal창을 닫기위한 도구적 클래스 -->
           <div id="temp_user_modal">
-            <img src="resources/img/common/basic_profile.png" alt="기본프로필사진">
+            <img src="/resources/img/common/basic_profile.png" alt="기본프로필사진">
             
           <p>${userInfo.user_name }</p>
          
