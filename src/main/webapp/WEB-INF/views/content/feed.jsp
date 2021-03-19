@@ -14,92 +14,6 @@
 </div>
 <div id="feed" >
    <%-- <c:forEach items="${feedListData}" var="item"> --%>
-      <div class="feed_container">
-         <div class="feed_title">
-            <img src="resources/img/common/basic_profile.png" alt="기본프로필사진">
-            <span>USER234</span><span>2021-01-23</span> 
-            <i class="fas fa-ellipsis-h"></i>
-         </div>
-
-         <%-- <c:if test="${!empty item.media_url}">  --%>
-            <div class="feed_img">
-               <div class="previous" onclick="previousImg(this)">
-                  <i class="fas fa-chevron-left"></i>
-               </div>
-               <div class="feed_imgList">
-               <img src="resources/img/feed/demo1.jpg">
-               <img src="resources/img/feed/demo3.PNG">
-               <img src="resources/img/feed/demo4.PNG">
-               </div>
-               <div class="next" onclick="nextImg(this)">
-                  <i class="fas fa-chevron-right"></i>
-               </div>
-            </div>
-         <%-- </c:if> --%>
-
-         <div class="feed_content" onclick="feedDetail(this)">
-            <%-- <c:if test="${item.hashtag_ctnt != null || item.hashtag_ctnt !=''}">
-               <c:forEach items="${item.hashtag_ctnt}" var="hashtag_ctnt"> --%>
-                  <p>
-                     <a href="#">#해시태그</a>
-                  </p>
-               <%-- </c:forEach>
-            </c:if> --%>
-            <p>
-               본문입니다.
-            </p>
-         </div>
-         <div class="feed_functionbar">
-            <i class="far fa-heart"></i><span>22</span>
-            <i class="fal fa-comment"></i><span>11</span>
-            <i class="far fa-bookmark"></i>
-         </div>
-      </div>
-      
-      <div class="feed_container" >
-         <div class="feed_title">
-            <img src="resources/img/common/basic_profile.png" alt="기본프로필사진">
-            <span>USER234</span><span>2021-01-23</span> 
-            <i class="fas fa-ellipsis-h"></i>
-         </div>
-
-         <%-- <c:if test="${!empty item.media_url}">  --%>
-            <div class="feed_img">
-               <div class="previous" onclick="previousImg(this)">
-                  <i class="fas fa-chevron-left"></i>
-               </div>
-               <div class="feed_imgList">
-               <img src="resources/img/feed/demo1.jpg">
-               <img src="resources/img/feed/demo3.PNG">
-               <img src="resources/img/feed/demo4.PNG">
-               </div>
-               <div class="next" onclick="nextImg(this)">
-                  <i class="fas fa-chevron-right"></i>
-               </div>
-            </div>
-         <%-- </c:if> --%>
-
-         <div class="feed_content" onclick="feedDetail(this)">
-            <%-- <c:if test="${item.hashtag_ctnt != null || item.hashtag_ctnt !=''}">
-               <c:forEach items="${item.hashtag_ctnt}" var="hashtag_ctnt"> --%>
-                  <p>
-                     <a href="#">#해시태그</a>
-                  </p>
-               <%-- </c:forEach>
-            </c:if> --%>
-            <p>
-               본문입니다.
-            </p>
-         </div>
-         <div class="feed_functionbar">
-            <i class="far fa-heart"></i><span>22</span>
-            <i class="fal fa-comment"></i><span>11</span>
-            <i class="far fa-bookmark"></i>
-         </div>
-      </div>
-   <%-- </c:forEach> --%>
-
-   <%-- <c:forEach items="${feedListData}" var="item"> --%>
       <div class="feed_container" >
          <div class="feed_title">
             <img class="title_img" src="resources/img/common/basic_profile.png" alt="기본프로필사진">
@@ -128,7 +42,7 @@
          <div class="feed_content">
             <%-- <c:if test="${item.hashtag_ctnt != null || item.hashtag_ctnt !=''}">
                <c:forEach items="${item.hashtag_ctnt}" var="hashtag_ctnt"> --%>
-                  <a name="detailCtnt_hashtag" href="#">#해시태그</a>
+                  <a name="detailCtnt_hashtag" href="#">#해시태그1</a>
   
                <%-- </c:forEach>
             </c:if> --%>
@@ -148,7 +62,7 @@
    <div class="feed_container" >
          <div class="feed_title">
             <img class="title_img" src="resources/img/common/basic_profile.png" alt="기본프로필사진">
-            <span name="user_id">USER2222</span><span name="feed_writedate">2021-03-19</span> 
+            <span name="user_id">USER22232</span><span name="feed_writedate">2021-03-19</span> 
             <i class="fas fa-ellipsis-h"></i>
          </div>
 
@@ -173,7 +87,97 @@
          <div class="feed_content">
             <%-- <c:if test="${item.hashtag_ctnt != null || item.hashtag_ctnt !=''}">
                <c:forEach items="${item.hashtag_ctnt}" var="hashtag_ctnt"> --%>
-                  <a class="detailCtnt_hashtag" href="#">#해시태그22</a>
+                  <a name="detailCtnt_hashtag" href="#">#해시태그29</a>
+  
+               <%-- </c:forEach>
+            </c:if> --%>
+            <div onclick="feedDetail(this)">
+               <p name="feed_content">
+                  본문입니다.2333333안녕2하세22222요안녕2하2세요22안녕2222하세요2</p>
+            </div>
+         </div>
+         <div class="feed_functionbar">
+            <i class="far fa-heart"></i><span name="heartValue">19</span>
+            <i class="fal fa-comment" onclick="feedDetail(this)"></i><span name="cmtValue">7</span>
+            <i class="far fa-bookmark"></i>
+         </div>
+      </div>
+
+   <%-- <c:forEach items="${feedListData}" var="item"> --%>
+      <div class="feed_container" >
+         <div class="feed_title">
+            <img class="title_img" src="resources/img/common/basic_profile.png" alt="기본프로필사진">
+            <span name="user_id">USER2341234</span><span name="feed_writedate">2021-01-23</span> 
+            <i class="fas fa-ellipsis-h"></i>
+         </div>
+
+         <%-- <div>${fn:length(item.media_url)}</div>   <!-- List 갯수 구하는 방법 --> --%>
+         <%-- <c:if test="${!empty item.media_url}">  --%>
+            <div class="feed_img">
+               <div class="previous" onclick="previousImg(this)">
+                  <i class="fas fa-chevron-left"></i>
+               </div>
+               <div class="feed_imgList">
+               <img src="resources/img/feed/demo1.jpg">
+               <img src="resources/img/feed/demo3.PNG">
+               <img src="resources/img/feed/demo4.PNG">
+               </div>
+               <div class="next" onclick="nextImg(this)">
+                  <i class="fas fa-chevron-right"></i>
+               </div>
+            </div>
+         <%-- </c:if> --%>
+
+
+         <div class="feed_content">
+            <%-- <c:if test="${item.hashtag_ctnt != null || item.hashtag_ctnt !=''}">
+               <c:forEach items="${item.hashtag_ctnt}" var="hashtag_ctnt"> --%>
+                  <a name="detailCtnt_hashtag" href="#">#해시태그31</a>
+  
+               <%-- </c:forEach>
+            </c:if> --%>
+            <div onclick="feedDetail(this)">
+               <p name="feed_content">
+                  본문입니다.안녕하세요안녕하세요안녕하세요</p>
+            </div>
+         </div>
+         <div class="feed_functionbar">
+            <i class="far fa-heart"></i><span name="heartValue">22</span>
+            <i class="fal fa-comment" onclick="feedDetail(this)"></i><span name="cmtValue">11</span>
+            <i class="far fa-bookmark"></i>
+         </div>
+      </div>
+   <%-- </c:forEach> --%>
+
+   <div class="feed_container" >
+         <div class="feed_title">
+            <img class="title_img" src="resources/img/common/basic_profile.png" alt="기본프로필사진">
+            <span name="user_id">USER222442</span><span name="feed_writedate">2021-03-19</span> 
+            <i class="fas fa-ellipsis-h"></i>
+         </div>
+
+         <%-- <div>${fn:length(item.media_url)}</div>   <!-- List 갯수 구하는 방법 --> --%>
+         <%-- <c:if test="${!empty item.media_url}">  --%>
+            <div class="feed_img" onload="loadImg()">
+               <%-- <div class="previous" onclick="previousImg(this)">
+                  <i class="fas fa-chevron-left"></i>
+               </div> --%>
+               <div class="feed_imgList">
+               <%-- <img src="resources/img/feed/demo1.jpg">
+               <img src="resources/img/feed/demo3.PNG">
+               <img src="resources/img/feed/demo4.PNG"> --%>
+               </div>
+               <%-- <div class="next" onclick="nextImg(this)">
+                  <i class="fas fa-chevron-right"></i>
+               </div> --%>
+            </div>
+         <%-- </c:if> --%>
+
+
+         <div class="feed_content">
+            <%-- <c:if test="${item.hashtag_ctnt != null || item.hashtag_ctnt !=''}">
+               <c:forEach items="${item.hashtag_ctnt}" var="hashtag_ctnt"> --%>
+                  <a name="detailCtnt_hashtag" href="#">#해시태그22</a>
   
                <%-- </c:forEach>
             </c:if> --%>

@@ -6,7 +6,7 @@ function feedDetail(e) {
   feed_DetailOverlay.style.display = 'block' // feedDetail show
 
   const feed_container = e.parentNode.parentNode
-
+  console.log(feed_container)
   let feedImg = feed_container.querySelectorAll('.feed_imgList img')
 
   let writer_img = feed_container.querySelector('.title_img') // 작성자 프로필사진
