@@ -46,4 +46,9 @@ public class CommonController {
 			
 		return value;
 	}
+
+	@RequestMapping("/userpage")
+	public String userInfo() {
+		return "/userpage";
+	}
 }

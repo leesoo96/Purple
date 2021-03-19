@@ -61,7 +61,7 @@
         <div id="mypage_userinfo_img">
             <img alt="기본프로필사진" src="resources/img/common/basic_profile.png">
         </div>
-        <form action="" id="mypage_userinfo_content" method="post">
+        <div id="mypage_userinfo_content">
             <div class="mypageuser_id">
                 <span>@${userInfo.user_id}</span>
             </div>
@@ -85,8 +85,6 @@
         </form>
         <div id="mypage_userinfo_button">
             <button id="mypage_modcontent_btn" onclick="openCloseModal('#userMod_container', 'block')">프로필 수정</button>
-            <br>
-            <br>
             <button id="mypage_pw_btn" onclick="openCloseModal('#userPwMod_container', 'block')">비밀번호 변경</button>
         </div>
     </div>
