@@ -1,0 +1,20 @@
+package com.purple.demo.service;
+
+import java.util.List;
+
+import com.purple.demo.mapper.SearchMapper;
+import com.purple.demo.model.UserEntity;
+import com.purple.demo.model.DTO.SearchUserDTO;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
+public class SearchService {
+    @Autowired
+    private SearchMapper mapper;
+
+    public List<UserEntity> selUserSearch(SearchUserDTO p){
+        return mapper.selUserSearch(p);
+    }
+}

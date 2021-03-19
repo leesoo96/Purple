@@ -7,7 +7,7 @@ pageEncoding="UTF-8"%>
   crossorigin="anonymous"
 />
 <link rel="stylesheet" href="resources/css/search/search.css" />
-<script defer src="resources/js/temp/search.js"></script>
+<script defer src="resources/js/search/search.js"></script>
 
 <form class="search-form">
   <input type="search" value="" placeholder="Search" class="search-input" />
@@ -95,16 +95,6 @@ pageEncoding="UTF-8"%>
         />
         <span id="writer">friends_one</span>
         <span id="content">안녕하세요 첫번째 목록입니다.</span>
-        <a href="#"><i class="fas fa-user-plus"></i></a>
-      </td>
-      <td>
-        <img
-          id="profileImg"
-          src="resources/img/common/basic_profile.png"
-          alt="기본프로필사진"
-        />
-        <span id="writer">friends_two</span>
-        <span id="content">안녕하세요 두번째 목록입니다.</span>
         <a href="#"><i class="fas fa-user-plus"></i></a>
       </td>
     </tr>
