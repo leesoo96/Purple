@@ -137,7 +137,7 @@ function getFriend_list(myJson) {
     if (myJson[i].user_profileimg === null) {
       // 기본 프로필 이미지 사용
       friend_profileImg_td.innerHTML =
-        '<img src="resources/img/common/basic_profile.png" alt="프로필사진">'
+        '<img src="/resources/img/common/basic_profile.png" alt="프로필사진">'
     } else {
       friend_profileImg_td.innerHTML = '<img src="" alt="프로필사진">'
     }

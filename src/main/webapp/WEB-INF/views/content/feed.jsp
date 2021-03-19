@@ -23,7 +23,7 @@
 
          <%-- <div>${fn:length(item.media_url)}</div>   <!-- List 갯수 구하는 방법 --> --%>
          <%-- <c:if test="${!empty item.media_url}">  --%>
-            <div class="feed_img" onload="loadImg()">
+            <div class="feed_img">
                <div class="previous" onclick="previousImg(this)">
                   <i class="fas fa-chevron-left"></i>
                </div>
@@ -69,7 +69,7 @@
 
          <%-- <div>${fn:length(item.media_url)}</div>   <!-- List 갯수 구하는 방법 --> --%>
          <%-- <c:if test="${!empty item.media_url}">  --%>
-            <div class="feed_img" onload="loadImg()">
+            <div class="feed_img">
                <div class="previous" onclick="previousImg(this)">
                   <i class="fas fa-chevron-left"></i>
                </div>

@@ -23,7 +23,7 @@
         </div>
         <div id="mod_userimg">
             <label for="mod_img">
-                <img src="resources/img/common/basic_profile.png"/>
+                <img src="/resources/img/common/basic_profile.png"/>
             </label>
             <input accept="image/jpeg, image/jpg, image/png" id="mod_img" type="file"/>
         </div>

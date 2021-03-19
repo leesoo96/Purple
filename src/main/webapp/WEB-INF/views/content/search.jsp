@@ -90,7 +90,7 @@ pageEncoding="UTF-8"%>
       <td>
         <img
           id="profileImg"
-          src="resources/img/common/basic_profile.png"
+          src="/resources/img/common/basic_profile.png"
           alt="기본프로필사진"
         />
         <span id="writer">friends_one</span>
@@ -100,7 +100,7 @@ pageEncoding="UTF-8"%>
       <td>
         <img
           id="profileImg"
-          src="resources/img/common/basic_profile.png"
+          src="/resources/img/common/basic_profile.png"
           alt="기본프로필사진"
         />
         <span id="writer">friends_two</span>
