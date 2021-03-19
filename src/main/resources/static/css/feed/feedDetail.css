@@ -19,12 +19,11 @@
     opacity: 1;
   }
 }
-.feedDetail_contents_container {
+.detailCtnt_container {
   position: relative;
 }
 .feedDetail {
   background-color: #fff;
-  width: 77em;
   min-height: 37em;
   margin: 9em auto;
 }
@@ -40,6 +39,9 @@
   display: none;
   top: 50%;
   width: 100%;
+}
+.detail_Img > img:nth-child(1) {
+  display: block;
 }
 .detail_previous,
 .detail_next {
@@ -85,24 +87,25 @@
   top: -0.3em;
 }
 .feedDetail_contents .feed_title i:nth-of-type(1) {
-  margin: 0 15em 0 1em;
+  margin-left: 18em;
+}
+.detail_ctnt_container {
+  width: 31em;
+  margin: 0.6em 0 1em 1em;
+  font-size: 1.07rem;
+}
+..detail_ctnt_container div {
+  margin-top: 1em;
 }
 .hashtag_p {
   margin-top: 0.5em;
 }
-.feed_content_div {
-  width: 33em;
-  min-height: 3.4em;
-  max-height: 7em;
-}
-.feedDetail_contents .feed_content {
-  margin-top: -2em;
+.feedDetail_contents {
+  margin-left: 1.5em;
   width: 35em;
   height: auto;
 }
-.feedDetail_contents .feed_content p:nth-of-type(2) {
-  margin-top: -1em;
-}
+
 .feedDetail_contents .feed_functionbar {
   margin-top: -1em;
 }
@@ -110,7 +113,7 @@
   font-family: 'paybooc-Bold';
 }
 .heart_div {
-  margin-right: 2em;
+  margin: 0 2em 0 1em;
 }
 .heart_div span,
 .comment_div span {
@@ -119,6 +122,11 @@
 .heart_div,
 .comment_div {
   display: inline;
+}
+.bookmark_div {
+  position: relative;
+  top: -1.2em;
+  left: 10em;
 }
 .feed_comment {
   position: relative;
@@ -145,8 +153,8 @@
   outline-style: none;
   cursor: pointer;
   position: relative;
-  left: 36em;
-  top: -3.5em;
+  left: 0.5em;
+  top: 0.5em;
 }
 .comment_read {
   border: 1px solid rgb(190, 190, 190);
@@ -192,4 +200,12 @@
   width: 22em;
   height: auto;
   margin-left: 2em;
+}
+
+/* 사진이 없을 경우의 detail css */
+.ctnt_div {
+  width: 30em;
+  margin-top: 1em;
+  min-height: 4em;
+  max-height: 7em;
 }

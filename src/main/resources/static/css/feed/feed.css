@@ -63,7 +63,7 @@
 }
 
 .feed_content {
-  padding: 30px;
+  padding: 10px;
   position: relative;
   font-size: 15px;
   white-space: pre-line;
@@ -102,6 +102,15 @@
   margin: auto;
 }
 
+.feed_imgList > img:nth-child(1) {
+  display: block;
+}
+
+.feed_imgList img {
+  width: 100%;
+  display: none;
+}
+
 .previous,
 .next {
   background-color: purple;
@@ -120,10 +129,6 @@
   z-index: 1;
 }
 
-.feed_img img {
-  width: 100%;
-  display: none;
-}
 .next {
   right: 0;
   border-radius: 3px 0 0 3px;
