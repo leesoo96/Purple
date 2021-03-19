@@ -23,16 +23,25 @@ question_img.addEventListener('change', function (event) {
 
 function question_write_submit_btn() {
   if (!question_write_form.question_pk.value) {
-    questionReg()
-    return
+    if (confirm('등록 하시겠습니까?')) {
+      if (question_write_form.question_title.value === '') {
+        alert('제목을 입력하시오')
+        question_write_form.question_title.focus()
+        return false
+      } else if (question_write_form.question_ctnt.value === '') {
+        alert('내용을 입력하시오')
+        question_write_form.question_ctnt.focus()
+        return false
+      }
+      questionReg()
+      return true
+    }
+    return false
   }
   questionUpd()
 }
 
 function questionReg() {
-  if (!confirm('등록 하시겠습니까?')) {
-    return
-  }
   ajax()
   function ajax() {
     let param = {

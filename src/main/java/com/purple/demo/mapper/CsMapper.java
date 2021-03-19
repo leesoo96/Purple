@@ -6,7 +6,7 @@ import java.util.List;
 import com.purple.demo.model.AnswerEntity;
 import com.purple.demo.model.NoticeDTO;
 import com.purple.demo.model.NoticeEntity;
-import com.purple.demo.model.QuestionDTO;
+import com.purple.demo.model.QuestionDTO;  
 import com.purple.demo.model.QuestionEntity;
 
 import org.apache.ibatis.annotations.Mapper;

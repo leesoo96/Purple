@@ -22,8 +22,20 @@ notice_img.addEventListener('change', function (event) {
 //공지사항 등록
 function notice_write_submit_btn() {
   if (!notice_write_form.notice_pk.value) {
-    noticeReg()
-    return
+    if (confirm('등록 하시겠습니까?')) {
+      if (notice_write_form.notice_title.value === '') {
+        alert('제목을 입력하시오')
+        notice_write_form.notice_title.focus()
+        return false
+      } else if (notice_write_form.notice_ctnt.value === '') {
+        alert('내용을 입력하시오')
+        notice_write_form.notice_ctnt.focus()
+        return false
+      }
+      noticeReg()
+      return true
+    }
+    return false
   }
   noticeUpd()
 }
@@ -47,9 +59,6 @@ function noticeReg() {
   }
 
   async function ajax() {
-    if (!confirm('등록 하시겠습니까?')) {
-      return
-    }
     let img = await ajaxImg()
     let param = {
       notice_title: notice_write_form.notice_title.value,

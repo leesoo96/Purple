@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
-<link href="resources/css/mypage/mypage.css" rel="stylesheet">
+<link href="/resources/css/mypage/mypage.css" rel="stylesheet">
 <script defer src="resources/js/mypage/mypage.js"></script>
 <div id="modal_background"></div>
 <!-- modal_background -->
@@ -23,7 +23,7 @@
         </div>
         <div id="mod_userimg">
             <label for="mod_img">
-                <img src="resources/img/common/basic_profile.png"/>
+                <img src="/resources/img/common/basic_profile.png"/>
             </label>
             <input accept="image/jpeg, image/jpg, image/png" id="mod_img" type="file"/>
         </div>
@@ -61,32 +61,36 @@
         <div id="mypage_userinfo_img">
             <img alt="기본프로필사진" src="resources/img/common/basic_profile.png">
         </div>
-        <form action="" id="mypage_userinfo_content" method="post">
+        <div id="mypage_userinfo_content">
             <div class="mypageuser_id">
-                <span>@${userInfo.user_id}</span>
+                <span>${userInfo.user_id}</span>
             </div>
             <div class="mypageuser_nm">
                 <p>${userInfo.user_name}</p>
             </div>
-            <div class="mypageuser_bio">
-                <span>${userInfo.user_bio}</span>
-            </div>
             <div class="mypageuser_birth">
                 <span>${userInfo.user_birth}</span>
             </div>
+            <div class="mypageuser_location">
+                <span>${userInfo.user_location}</span>
+            </div>
+            <div class="mypageuser_email">
+                <span>${userInfo.user_email}</span>
+            </div>
+            <div class="mypageuser_bio">
+                <span>${userInfo.user_bio}</span>
+            </div>
+            
             <div class="mypageuser_following">
                 <a href="#">
-                    <span style="font-size: 15px;">0 Following</span>
+                    <span style="font-size: 15px;">0 Friends</span>
                 </a>
-                <a href="#">
-                    <span style="font-size: 15px;">0 Followers</span>
-                </a>
+        
             </div>
-        </form>
+        </div>
         <div id="mypage_userinfo_button">
             <button id="mypage_modcontent_btn" onclick="openCloseModal('#userMod_container', 'block')">프로필 수정</button>
-            <br>
-            <br>
+         
             <button id="mypage_pw_btn" onclick="openCloseModal('#userPwMod_container', 'block')">비밀번호 변경</button>
         </div>
     </div>

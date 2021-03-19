@@ -5,6 +5,8 @@ function openCloseModal(modalname, state) {
 
   modalElem.style.display = `${state}`
   blackBgElem.style.display = `${state}`
+
+  check_state = 0
 }
 
 // 프로필 이미지 업로드 & 미리보기
@@ -72,7 +74,6 @@ saveBtn.addEventListener('click', () => {
       alert('아이디 중복체크를 해주세요')
       return
     }
-    return
   }
 
   if (confirm('정보를 변경하시겠습니까?')) {
