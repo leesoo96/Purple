@@ -60,13 +60,15 @@ function noticeReg() {
 
   async function ajax() {
     let img = await ajaxImg()
+    if (img == null) {
+      img = '/images/notice/basic_cs.jpg'
+    }
     let param = {
       notice_title: notice_write_form.notice_title.value,
       notice_ctnt: notice_write_form.notice_ctnt.value,
       notice_userpk: document.querySelector('#user_pk').value,
       notice_img: img,
     }
-    console.log(img)
     fetch('/notice_write', {
       method: 'post',
       headers: {

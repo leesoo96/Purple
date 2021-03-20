@@ -12,7 +12,7 @@ import com.purple.demo.model.QuestionDTO;
 import com.purple.demo.model.QuestionDomain;
 import com.purple.demo.model.QuestionEntity;
 import com.purple.demo.model.UserPrincipal;
-import com.purple.demo.utils.FileUtils;
+import com.purple.demo.utils.PurpleFileUtils;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -26,7 +26,7 @@ public class CsService {
 	private CsMapper mapper; 
 
 	@Autowired
-	private FileUtils fUtils;
+	private PurpleFileUtils fUtils;
 
 
 	public 	NoticeDomain selNoticeList(NoticeDTO p){
@@ -83,14 +83,19 @@ public class CsService {
 	public int regNotice(NoticeEntity p) {
 		return mapper.regNotice(p);
 	}
-	public String notice_img(MultipartFile[] img) {
+
+	public String notice_img(MultipartFile img) {
+		//유저 pk 값
 		UserPrincipal principal = (UserPrincipal)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		int user_pk = principal.getUser_pk();  
-		String folder = "/resources/img/cs/notice/"+user_pk;
-		MultipartFile file = img[0];
-		String fileNm = fUtils.saveFile(file, folder);
-		System.out.println("fileNm" + fileNm);
-		return fileNm;
+		//업로드 할 파일 경로
+		String folder = "/images/notice/"+user_pk;
+		try {
+			String fileNm = fUtils.transferTo(img, folder);
+			return folder + "/" + fileNm;
+		} catch(Exception e) {
+			return null;
+		}
 	}
 	
 	public int notice_upd(NoticeEntity p) {
@@ -161,6 +166,20 @@ public class CsService {
 	
 	public int regQuestion(QuestionEntity p) {
 		return mapper.regQuestion(p);
+	}
+
+	public String question_img(MultipartFile img) {
+		//유저 pk 값
+		UserPrincipal principal = (UserPrincipal)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		int user_pk = principal.getUser_pk();  
+		//업로드 할 파일 경로
+		String folder = "/images/question/"+user_pk;
+		try {
+			String fileNm = fUtils.transferTo(img, folder);
+			return folder + "/" + fileNm;
+		} catch(Exception e) {
+			return null;
+		}
 	}
 	
 	public int question_upd(QuestionEntity p) {

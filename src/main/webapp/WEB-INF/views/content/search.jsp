@@ -10,7 +10,7 @@ pageEncoding="UTF-8"%>
 <script defer src="resources/js/search/search.js"></script>
 
 <form class="search-form">
-  <input type="search" value="" placeholder="Search" class="search-input" />
+  <input type="search" onKeyDown="enterkey();" name="search_input" placeholder="Search" class="search-input" />
 
   <div class="search-option">
     <button type="submit" class="search-button">
@@ -84,29 +84,6 @@ pageEncoding="UTF-8"%>
   </symbol>
 </svg>
 
-<div class="search_content">
-  <table>
-    <tr>
-      <td>
-        <img
-          id="profileImg"
-          src="/resources/img/common/basic_profile.png"
-          alt="기본프로필사진"
-        />
-        <span id="writer">friends_one</span>
-        <span id="content">안녕하세요 첫번째 목록입니다.</span>
-        <a href="#"><i class="fas fa-user-plus"></i></a>
-      </td>
-      <td>
-        <img
-          id="profileImg"
-          src="/resources/img/common/basic_profile.png"
-          alt="기본프로필사진"
-        />
-        <span id="writer">friends_two</span>
-        <span id="content">안녕하세요 두번째 목록입니다.</span>
-        <a href="#"><i class="fas fa-user-plus"></i></a>
-      </td>
-    </tr>
-  </table>
+<div class="search_content" name="search_content">
+
 </div>
