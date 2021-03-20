@@ -3,21 +3,19 @@
 
 <mapper namespace="com.purple.demo.mapper.FeedMapper">
     <select id="selFeedList" resultType="FeedListDTO">
-        SELECT a.feed_pk, a.feed_ctnt, a.feed_writedate, 
+        SELECT a.feed_pk, a.feed_ctnt, a.feed_writedate, a.feed_userpk,
         b.user_id, b.user_profileimg,
         (SELECT COUNT(comment_pk) FROM comment WHERE comment_feedpk = a.feed_pk) AS "comment_count",
         (SELECT COUNT(favorite_feedpk) FROM favorite WHERE favorite_feedpk= a.feed_pk) AS "favorite_count"
         FROM feed AS a
         LEFT OUTER JOIN user AS b
         ON (a.feed_userpk = b.user_pk)
-        LEFT OUTER JOIN comment AS c
-        ON (a.feed_pk = c.comment_feedpk)
-        WHERE a.feed_state = #{feed_state}
+        WHERE a.feed_state = 1
         ORDER BY a.feed_writedate DESC
-        LIMIT 0, 5
+        LIMIT 0, 5;
     </select>
 
-    <select id="selMediaList" resultType="String">
+    <select id="selMediaList" resultType="MediaEntity">
         SELECT b.media_url
         FROM feed AS a
         INNER JOIN media AS b
@@ -25,7 +23,7 @@
         WHERE a.feed_pk = #{feed_pk}
     </select>
 
-    <select id="selHashtagList" resultType="String">
+    <select id="selHashtagList" resultType="HashtagEntity">
         SELECT a.hashtag_ctnt
         FROM hashtag AS a
         INNER JOIN hashtag_relation AS b
@@ -35,6 +33,19 @@
         WHERE c.feed_pk = #{feed_pk}
     </select>
 
+    <select id="isFavorite" resultType="int">
+        SELECT count(bookmark_feedpk)
+        FROM bookmark
+        WHERE bookmark_feedpk=#{feed_pk} AND bookmark_userpk=#{user_pk};
+    </select>
+
+    <select id="isBookmark" resultType="_int">
+        SELECT count(favorite_feedpk)
+        FROM favorite
+        WHERE favorite_feedpk=#{feed_pk} AND favorite_userpk=#{user_pk};
+    </select>
+
+    <!-- 글 쓰기 -->
     <insert id="insfeed">
 		INSERT INTO feed
 		( feed_pk, feed_ctnt, feed_userpk )

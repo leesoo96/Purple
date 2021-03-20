@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.*;
 
@@ -25,13 +26,15 @@ public class FeedController {
 	private FeedService feedService;
 	
 	// Feed List
+	@ResponseBody
 	@RequestMapping(value="")
-	public String feedList(Model model, FeedListDTO param){
+	public ModelAndView feedList(Model model, FeedListDTO param){
+		ModelAndView mv = new ModelAndView(); 
 		List<FeedListDTO> list = new ArrayList<FeedListDTO>();
 		list = feedService.selFeedList(param);
 		model.addAttribute("feedListData", list);
-		
-		return "/feed";
+		mv.setViewName("/feed");
+		return mv;
 	}
 
 //@RequestMapping("/feed_write")
