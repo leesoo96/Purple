@@ -7,7 +7,7 @@ pageEncoding="UTF-8"%>
   crossorigin="anonymous"
 />
 <link rel="stylesheet" href="resources/css/search/search.css" />
-<script defer src="resources/js/temp/search.js"></script>
+<script defer src="resources/js/search/search.js"></script>
 
 <form class="search-form">
   <input type="search" value="" placeholder="Search" class="search-input" />
@@ -90,7 +90,7 @@ pageEncoding="UTF-8"%>
       <td>
         <img
           id="profileImg"
-          src="resources/img/common/basic_profile.png"
+          src="/resources/img/common/basic_profile.png"
           alt="기본프로필사진"
         />
         <span id="writer">friends_one</span>
@@ -100,7 +100,7 @@ pageEncoding="UTF-8"%>
       <td>
         <img
           id="profileImg"
-          src="resources/img/common/basic_profile.png"
+          src="/resources/img/common/basic_profile.png"
           alt="기본프로필사진"
         />
         <span id="writer">friends_two</span>

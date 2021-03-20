@@ -23,7 +23,7 @@
         </div>
         <div id="mod_userimg">
             <label for="mod_img">
-                <img src="resources/img/common/basic_profile.png"/>
+                <img src="/resources/img/common/basic_profile.png"/>
             </label>
             <input accept="image/jpeg, image/jpg, image/png" id="mod_img" type="file"/>
         </div>
@@ -52,8 +52,8 @@
         <button name="pwModBtn" type="button">변경하기</button>
     </form>
 </div>
-<!-- <sec:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_USER')">
-    <sec:authentication property="principal" var="userInfo"/> -->
+<sec:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_USER')">
+    <sec:authentication property="principal" var="userInfo"/>
     <div id="mypage_userinfo_container">
         <div id="mypage_userinfo_backimg">
             <img src="resources/img/test/background.jpg">
@@ -63,22 +63,22 @@
         </div>
         <div id="mypage_userinfo_content">
             <div class="mypageuser_id">
-                <span>USERID</span>
+                <span>${userInfo.user_id}</span>
             </div>
             <div class="mypageuser_nm">
-                <p>USERNAME</p>
+                <p>${userInfo.user_name}</p>
             </div>
             <div class="mypageuser_birth">
-                <span>1999년 01월 01일</span>
+                <span>${userInfo.user_birth}</span>
             </div>
             <div class="mypageuser_location">
-                <span>대구광역시 북구</span>
+                <span>${userInfo.user_location}</span>
             </div>
             <div class="mypageuser_email">
-                <span>abcd@naver.com</span>
+                <span>${userInfo.user_email}</span>
             </div>
             <div class="mypageuser_bio">
-                <span>안녕하세요안녕하세요안녕하세요안</span>
+                <span>${userInfo.user_bio}</span>
             </div>
             
             <div class="mypageuser_following">
@@ -90,12 +90,11 @@
         </div>
         <div id="mypage_userinfo_button">
             <button id="mypage_modcontent_btn" onclick="openCloseModal('#userMod_container', 'block')">프로필 수정</button>
-            <br>
-            <br>
+         
             <button id="mypage_pw_btn" onclick="openCloseModal('#userPwMod_container', 'block')">비밀번호 변경</button>
         </div>
     </div>
-<!-- </sec:authorize> -->
+</sec:authorize>
 <div id="selectBox">
     <select name="myfeed">
         <option selected value="0">내 피드</option>

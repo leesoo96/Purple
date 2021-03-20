@@ -5,6 +5,8 @@ import java.util.*;
 import com.purple.demo.common.MyFileUtils;
 import com.purple.demo.mapper.FeedMapper;
 import com.purple.demo.model.FeedListDTO;
+import com.purple.demo.model.HashtagEntity;
+import com.purple.demo.model.MediaEntity;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,22 +22,22 @@ public class FeedService {
 
     // Feed List
     public List<FeedListDTO> selFeedList(FeedListDTO param) {
-        List<FeedListDTO> result_list = new ArrayList<FeedListDTO>();
+        List<FeedListDTO> feed_list = new ArrayList<FeedListDTO>();
         param.setFeed_state(1);
-        result_list = mapper.selFeedList(param);
+        feed_list = mapper.selFeedList(param);
         
-        for (int i = 0; i < result_list.size(); i++ ) {
-            int feed_pk = result_list.get(i).getFeed_pk();
+        for (int i = 0; i < feed_list.size(); i++ ) {
+            int feed_pk = feed_list.get(i).getFeed_pk();
 
-            List<String> hashtag_list = new ArrayList<String>();
+            List<HashtagEntity> hashtag_list = new ArrayList<HashtagEntity>();
             hashtag_list = mapper.selHashtagList(feed_pk);
-            List<String> media_list = new ArrayList<String>();
+            List<MediaEntity> media_list = new ArrayList<MediaEntity>();
             media_list = mapper.selMediaList(feed_pk);
             
-            result_list.get(i).setMedia_url(media_list);
-            result_list.get(i).setHashtag_ctnt(hashtag_list);
+            feed_list.get(i).setMedia_url(media_list);
+            feed_list.get(i).setHashtag_ctnt(hashtag_list);
         }
-        return result_list;
+        return feed_list;
     }
     /*
     public int insfeed(FeedWriteDTO dto, FeedImgDTO imgdto){

@@ -25,9 +25,11 @@ add_friend_btn.addEventListener('click', () =>{
             .then((myJson) => {
                 if(myJson.result === 1) {
                     alert('친구 등록이 완료되었습니다.')
+                    location.reload()
                     return
                 }
-                alert('이미 친구입니다.')
+                alert('이미 등록된 친구입니다.')
+                location.reload()
             })
             
     }
