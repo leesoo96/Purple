@@ -15,7 +15,7 @@ public interface FeedMapper {
    List<FeedListDTO> selFeedList(FeedListDTO param);
    List<MediaEntity> selMediaList(FeedListDTO param);
    List<HashtagEntity> selHashtagList(FeedListDTO param);
-   int isFavorite(FeedListDTO param);
+   int isFavorite(int feed_pk, int user_pk);
    int isBookmark(FeedListDTO param);
 
    // 북마크
@@ -24,5 +24,5 @@ public interface FeedMapper {
    int deleteBookmark(FeedBookmarkDTO bmd);
 
    int insfeed(FeedWriteDTO dto);
-   int insfeedimg(List<MediaEntity> p);
+   int insfeedimg(MediaEntity dto);
 }

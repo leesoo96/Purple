@@ -2,18 +2,17 @@ package com.purple.demo.service;
 
 import java.util.*;
 
-import com.purple.demo.common.MyFileUtils;
 import com.purple.demo.mapper.FeedMapper;
 import com.purple.demo.model.FeedListDTO;
 import com.purple.demo.model.HashtagEntity;
 import com.purple.demo.model.MediaEntity;
 import com.purple.demo.model.UserPrincipal;
 import com.purple.demo.model.DTO.FeedBookmarkDTO;
+import com.purple.demo.utils.PurpleFileUtils;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 
 @Service
@@ -21,7 +20,7 @@ public class FeedService {
     
     @Autowired
     private FeedMapper mapper;
-    private MyFileUtils fileUtils;
+    private PurpleFileUtils fUtils;
 
     // Feed List
     public List<FeedListDTO> selFeedList(FeedListDTO param) {
@@ -42,8 +41,7 @@ public class FeedService {
             media_list = mapper.selMediaList(feed_list.get(i));
             feed_list.get(i).setMedia_url(media_list);
             feed_list.get(i).setHashtag_ctnt(hashtag_list);
-            System.out.println(feed_list.get(i).getUser_pk());
-            feed_list.get(i).setFavorite_state(mapper.isFavorite(feed_list.get(i)));
+            feed_list.get(i).setFavorite_state(mapper.isFavorite(feed_list.get(i).getFeed_pk(), principal.getUser_pk()));
             feed_list.get(i).setBookmark_state(mapper.isBookmark(feed_list.get(i)));
         }
         return feed_list;
@@ -80,11 +78,11 @@ public class FeedService {
 			
 			result = mapper.insfeedimg(insList);
 		} catch(Exception e) {
-			e.printStackTrace();
+			System.out.println("에러");
 		}
-		
-		System.out.println("path : " + path)
-        return mapper.insfeed(dto);
+        System.out.println(folder);
+    
+        return "";
     }
     */
 }

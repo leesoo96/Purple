@@ -196,13 +196,13 @@ function makeFeed(myJson){
     feed_functionbarEle.appendChild(commentI)
 
     let favoriteI = document.createElement('i')
-
     if(myJson.result[i].favorite_state === 1) {
       favoriteI.className = 'fas fa-heart'
-    } else {
+    }else {
       favoriteI.className = 'far fa-heart'
     }
     favoriteI.innerHTML = `${myJson.result[i].favorite_count}`
+    favoriteI.setAttribute('onclick', `feedFavorite(this, ${myJson.result[i].feed_pk})`)
     feed_functionbarEle.appendChild(favoriteI)
 
     let bookmarkI = document.createElement('i')

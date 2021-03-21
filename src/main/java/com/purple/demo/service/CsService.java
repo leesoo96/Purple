@@ -84,18 +84,32 @@ public class CsService {
 		return mapper.regNotice(p);
 	}
 
-	public String notice_img(MultipartFile img) {
+	public String notice_img(MultipartFile img, int notice_pk) {
+
 		//유저 pk 값
 		UserPrincipal principal = (UserPrincipal)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		int user_pk = principal.getUser_pk();  
+		
 		//업로드 할 파일 경로
-		String folder = "/images/notice/"+user_pk;
+		String folder = "/images/notice/"+user_pk+"/"+notice_pk;
 		try {
+			//삭제
+			fUtils.delFolder(fUtils.getRealPath(folder));
+			
 			String fileNm = fUtils.transferTo(img, folder);
-			return folder + "/" + fileNm;
+
+			String DbFileName = folder + "/" + fileNm;
+
+			NoticeEntity noticeEntity = new NoticeEntity();
+			noticeEntity.setNotice_img(DbFileName);
+			noticeEntity.setNotice_pk(notice_pk);
+
+			mapper.notice_img_upd(noticeEntity);
+			return DbFileName;
 		} catch(Exception e) {
 			return null;
 		}
+		
 	}
 	
 	public int notice_upd(NoticeEntity p) {
@@ -107,8 +121,10 @@ public class CsService {
 	}
 	
 	public int Notice_del(NoticeEntity p) {
-		String path = "#";
-		fUtils.delFile(path);
+		UserPrincipal principal = (UserPrincipal)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		int user_pk = principal.getUser_pk(); 
+		String folder = "/images/notice/"+user_pk+"/"+p.getNotice_pk();
+		fUtils.delFolder(fUtils.getRealPath(folder));
 		return mapper.notice_del(p);
 	}
 
@@ -168,15 +184,23 @@ public class CsService {
 		return mapper.regQuestion(p);
 	}
 
-	public String question_img(MultipartFile img) {
+	public String question_img(MultipartFile img, int question_pk) {
 		//유저 pk 값
 		UserPrincipal principal = (UserPrincipal)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		int user_pk = principal.getUser_pk();  
 		//업로드 할 파일 경로
-		String folder = "/images/question/"+user_pk;
+		String folder = "/images/question/"+user_pk+"/" + question_pk;
 		try {
+			fUtils.delFolder(fUtils.getRealPath(folder));
 			String fileNm = fUtils.transferTo(img, folder);
-			return folder + "/" + fileNm;
+			String DbFileName = folder + "/" + fileNm;
+
+			QuestionEntity QuestionEntity = new QuestionEntity();
+			QuestionEntity.setQuestion_img(DbFileName);
+			QuestionEntity.setQuestion_pk(question_pk);
+
+			mapper.question_img_upd(QuestionEntity);
+			return DbFileName;
 		} catch(Exception e) {
 			return null;
 		}
@@ -191,6 +215,10 @@ public class CsService {
 	}
 	
 	public int question_del(QuestionEntity p) {
+		UserPrincipal principal = (UserPrincipal)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		int user_pk = principal.getUser_pk(); 
+		String folder = "/images/question/"+user_pk+"/"+p.getQuestion_pk();
+		fUtils.delFolder(fUtils.getRealPath(folder));
 		return mapper.question_del(p);
 	}
 
