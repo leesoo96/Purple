@@ -44,11 +44,23 @@
         WHERE c.feed_pk = #{feed_pk}
     </select>
 
+    <!-- 북마크 -->
     <select id="isBookmark" resultType="_int">
         SELECT count(bookmark_feedpk)
         FROM bookmark
         WHERE bookmark_feedpk=#{feed_pk} AND bookmark_userpk=#{user_pk};
     </select>
+
+    <insert id="insertBookmark">
+        INSERT INTO bookmark(bookmark_feedpk, bookmark_userpk)
+        VALUES(#{bookmark_feedpk}, #{bookmark_userpk})
+    </insert>
+
+    <delete id="deleteBookmark">
+        DELETE FROM bookmark
+        WHERE bookmark_feedpk = #{bookmark_feedpk}
+        AND bookmark_userpk = #{bookmark_userpk}
+    </delete>
 
     <select id="isFavorite" resultType="_int">
         SELECT count(favorite_feedpk)

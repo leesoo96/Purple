@@ -8,6 +8,7 @@ import com.purple.demo.model.FeedListDTO;
 import com.purple.demo.model.HashtagEntity;
 import com.purple.demo.model.MediaEntity;
 import com.purple.demo.model.UserPrincipal;
+import com.purple.demo.model.DTO.FeedBookmarkDTO;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -47,6 +48,21 @@ public class FeedService {
         }
         return feed_list;
     }
+
+    public FeedBookmarkDTO feedBookmark(FeedBookmarkDTO bmd) {
+        UserPrincipal principal = (UserPrincipal)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        bmd.setBookmark_userpk(principal.getUser_pk());
+
+        if(bmd.getBookmark_state() ==  0) {
+            int result = mapper.insertBookmark(bmd);
+            bmd.setBookmark_state(result);
+        } else {
+            mapper.deleteBookmark(bmd);
+            bmd.setBookmark_state(0);
+        }
+        return bmd;
+    }
+
     /*
     public int insfeed(FeedWriteDTO dto, FeedImgDTO imgdto){
         List<MediaEntity> insList = new ArrayList();

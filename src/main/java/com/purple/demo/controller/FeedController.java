@@ -3,23 +3,20 @@ package com.purple.demo.controller;
 import com.purple.demo.service.FeedService;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.util.*;
 
 import com.purple.demo.model.FeedImgDTO;
 import com.purple.demo.model.FeedListDTO;
 import com.purple.demo.model.FeedWriteDTO;
-import com.purple.demo.model.UserPrincipal;
+import com.purple.demo.model.DTO.FeedBookmarkDTO;
 
 @Controller
 @RequestMapping("/feed")
@@ -63,4 +60,14 @@ public class FeedController {
 			
 			return null;
 		}
+
+	// Bookmark
+	@ResponseBody
+	@PostMapping("/bookmark")
+	public Map<String, Object> feedBookmark(@RequestBody FeedBookmarkDTO bmd) {
+		Map<String, Object> feedBookmarkResult = new HashMap<String, Object>();
+		feedBookmarkResult.put("result", feedService.feedBookmark(bmd));
+
+		return feedBookmarkResult;
+	}
 }
