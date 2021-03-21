@@ -8,6 +8,7 @@ import com.purple.demo.model.HashtagEntity;
 import com.purple.demo.model.MediaEntity;
 import com.purple.demo.model.UserPrincipal;
 import com.purple.demo.model.DTO.FeedBookmarkDTO;
+import com.purple.demo.model.DTO.FeedFavoriteDTO;
 import com.purple.demo.utils.PurpleFileUtils;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +46,20 @@ public class FeedService {
             feed_list.get(i).setBookmark_state(mapper.isBookmark(feed_list.get(i)));
         }
         return feed_list;
+    }
+
+    public FeedFavoriteDTO feedFavorite(FeedFavoriteDTO dto) {
+        UserPrincipal principal = (UserPrincipal)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        dto.setFavorite_userpk(principal.getUser_pk());
+        if(dto.getFavorite_state() ==  0) {
+            int result = mapper.insFavorite(dto);
+            dto.setFavorite_state(result);
+        } else {
+            mapper.delFavorite(dto);
+            dto.setFavorite_state(0);
+        }
+        dto.setFavorite_count(mapper.favoriteCount(dto));
+        return dto;
     }
 
     public FeedBookmarkDTO feedBookmark(FeedBookmarkDTO bmd) {

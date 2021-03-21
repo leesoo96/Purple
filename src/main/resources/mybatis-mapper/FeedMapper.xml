@@ -50,12 +50,6 @@
         FROM bookmark
         WHERE bookmark_feedpk=#{feed_pk} AND bookmark_userpk=#{user_pk}
     </select>
-    <!-- favorite 부분 -->
-    <select id="favoriteCount" resultType="_int">
-        SELECT COUNT(favorite_feedpk) AS "favorite_count"
-        FROM favorite 
-        WHERE favorite_feedpk= #{favorite_feedpk} 
-    </select>
 
     <insert id="insertBookmark">
         INSERT INTO bookmark(bookmark_feedpk, bookmark_userpk)
@@ -67,6 +61,13 @@
         WHERE bookmark_feedpk = #{bookmark_feedpk}
         AND bookmark_userpk = #{bookmark_userpk}
     </delete>
+
+    <!-- favorite 부분 -->
+    <select id="favoriteCount" resultType="_int">
+        SELECT COUNT(favorite_feedpk) AS "favorite_count"
+        FROM favorite 
+        WHERE favorite_feedpk= #{favorite_feedpk} 
+    </select>
 
     <select id="isFavorite" resultType="_int">
         SELECT count(favorite_feedpk)
@@ -86,6 +87,7 @@
         WHERE favorite_feedpk = #{favorite_feedpk}
         AND favorite_userpk = #{favorite_userpk}
     </delete>
+    
     <!-- 글 쓰기 -->
     <insert id="insfeed" useGeneratedKeys="true" keyProperty="feed_pk">
 		INSERT INTO feed

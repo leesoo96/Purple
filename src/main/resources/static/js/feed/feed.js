@@ -221,6 +221,37 @@ function makeFeed(myJson){
   }
 }
 
+function feedFavorite(e,feed_pk) {
+  let favorite_state = 0
+  const function_bar = e.parentNode
+  let favoriteI = function_bar.querySelector('.fa-heart')
+  if(favoriteI.className === 'fas fa-heart'){
+    favorite_state = 1
+  }else {
+    favorite_state = 0
+  }
+  let params = {
+    favorite_feedpk : feed_pk,
+    favorite_state
+  }
+  fetch('/feed/favorite', {
+    method: 'post',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(params), 
+  }).then((res) => res.json()
+  ).then((myJson) => {
+
+    if(myJson.result.favorite_state == 0) {
+      favoriteI.className = 'far fa-heart'
+    }else {
+      favoriteI.className = 'fas fa-heart'
+    }
+    favoriteI.innerHTML = myJson.result.favorite_count
+  })
+}
+
 // Feed Bookmark
 function feedBookmark(e, feed_pk) {
   let bookmark_state = 0
@@ -249,8 +280,4 @@ function feedBookmark(e, feed_pk) {
       bookmarkI.className = 'fas fa-bookmark'
     }
   })
-}
-
-function feedFavorite(feed_pk) {
-  console.log('연결')
 }

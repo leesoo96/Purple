@@ -56,7 +56,7 @@ public class FeedController {
 			for(int i=0; i < files.size(); i++) {
 				System.out.println(files.get(i));
 			}
-			feedService.insfeed(dto, files);			
+			// feedService.insfeed(dto, files);		
 			return "redirect:/feed";
 		}
 	
