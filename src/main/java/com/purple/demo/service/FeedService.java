@@ -2,13 +2,18 @@ package com.purple.demo.service;
 
 import java.util.*;
 
-import com.purple.demo.common.MyFileUtils;
+import com.github.jknack.handlebars.internal.Files;
 import com.purple.demo.mapper.FeedMapper;
+import com.purple.demo.model.FeedImgDTO;
 import com.purple.demo.model.FeedListDTO;
+import com.purple.demo.model.FeedWriteDTO;
 import com.purple.demo.model.HashtagEntity;
 import com.purple.demo.model.MediaEntity;
+import com.purple.demo.model.UserPrincipal;
+import com.purple.demo.utils.PurpleFileUtils;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -18,7 +23,7 @@ public class FeedService {
     
     @Autowired
     private FeedMapper mapper;
-    private MyFileUtils fileUtils;
+    private PurpleFileUtils fUtils;
 
     // Feed List
     public List<FeedListDTO> selFeedList(FeedListDTO param) {
@@ -39,28 +44,32 @@ public class FeedService {
         }
         return feed_list;
     }
-    /*
-    public int insfeed(FeedWriteDTO dto, FeedImgDTO imgdto){
-        List<MediaEntity> insList = new ArrayList();
-		int result = 0;
-		try {
-			MediaEntity rme = null;
-			for(MultipartFile file : imgdto.getImgs()) {				
-				String fileNm = fileUtils.transferTo(file, path);
-				
-				rme = new MediaEntity();					
-				rme.setMedia_url(fileNm);
-				
-				insList.add(rme);
-			}
-			
-			result = mapper.insfeedimg(insList);
+    
+    public String insfeed(FeedWriteDTO dto, List<MultipartFile> files){
+        //유저 pk 값
+		UserPrincipal principal = (UserPrincipal)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        dto.setFeed_userpk(principal.getUser_pk());
+        int feed_pk = dto.getFeed_pk();
+        mapper.insfeed(dto);
+ 
+        //업로드 할 파일 경로
+		String folder = "/images/write/"+feed_pk;
+		try {	
+            for(int i =0; i< files.size(); i++) {
+			    String fileNm = fUtils.transferTo(files.get(i), folder);
+                MediaEntity med = new MediaEntity();
+                med.setMedia_feedpk(dto.getFeed_pk());
+                med.setMedia_url(folder + "/" + fileNm);
+                System.out.println(med.getMedia_url());
+				mapper.insfeedimg(med);
+            }
+  
 		} catch(Exception e) {
-			e.printStackTrace();
+			System.out.println("에러");
 		}
-		
-		System.out.println("path : " + path)
-        return mapper.insfeed(dto);
+        System.out.println(folder);
+    
+        return "";
     }
-    */
+    
 }

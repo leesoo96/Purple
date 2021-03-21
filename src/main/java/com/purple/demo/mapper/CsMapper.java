@@ -22,8 +22,6 @@ public interface CsMapper {
 	int selNoticeMaxPage(NoticeDTO p);
 	
 	int regNotice(NoticeEntity p);
-
-	void saveUploadFiles(List<MultipartFile> files) throws IOException;
 	
 	int notice_upd(NoticeEntity p);
 	

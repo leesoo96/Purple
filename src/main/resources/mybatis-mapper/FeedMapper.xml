@@ -46,11 +46,11 @@
     </select>
 
     <!-- 글 쓰기 -->
-    <insert id="insfeed">
+    <insert id="insfeed" useGeneratedKeys="true" keyProperty="feed_pk">
 		INSERT INTO feed
-		( feed_pk, feed_ctnt, feed_userpk )
+		( feed_ctnt, feed_userpk )
 		VALUES
-		( #{feed_pk}, #{feed_ctnt}, 1 )
+		( #{feed_ctnt}, #{feed_userpk} )
 	</insert>
 
     <insert id="inshastag">
@@ -59,4 +59,12 @@
         VALUES
         ( #{hashtag_pk}, #{hashtag_ctnt} )
     </insert>
+
+    <insert id="insfeedimg">
+		INSERT INTO media
+		( media_feedpk, media_url )
+		VALUES
+		( #{item.media_feedpk}, #{item.media_url} )
+	</insert>
+
 </mapper>

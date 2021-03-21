@@ -6,10 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.SystemPropertyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.*;
@@ -43,12 +46,14 @@ public class FeedController {
 //}
 	
 	@PostMapping("/feed_write")
-		public String feed_write(FeedWriteDTO dto, FeedImgDTO imgdto) {
-			System.out.println(imgdto.getImgs());
-			System.out.println(dto.getFeed_ctnt());
-			System.out.println(dto.getHashtag());
-			//service.insfeed(dto,imgdto);
-			
+		public String feed_write(FeedWriteDTO dto, @RequestParam("imgs") List<MultipartFile> files) {
+			// System.out.println(imgs);
+			// System.out.println(files[0]);
+			// System.out.println(files);
+			for(int i=0; i < files.size(); i++) {
+				System.out.println(files.get(i));
+			}
+			feedService.insfeed(dto, files);			
 			return "redirect:/feed";
 		}
 	

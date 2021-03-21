@@ -15,5 +15,5 @@ public interface FeedMapper {
    List<MediaEntity> selMediaList(int feed_pk);
    List<HashtagEntity> selHashtagList(int feed_pk);
    int insfeed(FeedWriteDTO dto);
-   int insfeedimg(List<MediaEntity> p);
+   int insfeedimg(MediaEntity dto);
 }

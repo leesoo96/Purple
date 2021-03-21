@@ -24,7 +24,7 @@
             <!-- 미리보기 공간 -->  	
         	</div>
             <img src="/resources/img/common/close_icon.png" id="write_icon" onclick="document.getElementById('file').click();" />
-            <input type="file" id="file" name="imgs" accept="image/*" onchange="setThumbnail(event);"  onchange="document.getElementById('txt').value=this.value;" multiple />	  			
+            <input type="file" id="file" name="imgs" accept="image/**" onchange="setThumbnail(event);"  onchange="document.getElementById('txt').value=this.value;" multiple="multiple" />	  			
             <textarea id="write_text" name="feed_ctnt" rows="7" placeholder="내용을 입력하세요"></textarea>
             <div id="write_hashtag">
               <input type="text" onkeyup="enterkey();" name = "hashtag_ctnt" class="text_hashtag" placeholder="#해시태그(최대10개)"  />
