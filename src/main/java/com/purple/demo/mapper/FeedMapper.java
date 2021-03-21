@@ -24,5 +24,5 @@ public interface FeedMapper {
    int favoriteCount(FeedFavoriteDTO dto);
 
    int insfeed(FeedWriteDTO dto);
-   int insfeedimg(List<MediaEntity> p);
+   int insfeedimg(MediaEntity dto);
 }
