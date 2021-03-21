@@ -13,4 +13,5 @@ public class QuestionEntity extends AnswerEntity{
 		private int question_view;
 		private int question_type;
 		private int question_userpk;
+		private String question_img;
 }

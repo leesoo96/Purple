@@ -116,6 +116,43 @@
   outline: none;
   cursor: pointer;
 }
+.detail_img {
+  position: relative;
+  left: 6.5em;
+}
+.detail_img img {
+  width: 28em;
+  height: 16em;
+}
+.detail_detail {
+  position: relative;
+  left: 1em;
+  top: 1em;
+  width: 38em;
+  height: auto;
+}
+.detail_detail p {
+  position: relative;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-size: 19px;
+  white-space: pre-line;
+}
+.bottomAdmin_Use {
+  text-align: right;
+  position: relative;
+  bottom: -6em;
+}
+.bottomAdmin_Use a {
+  font-size: 1.09rem;
+}
+.bottomAdmin_Use button {
+  cursor: pointer;
+  background: #fff;
+  border: none;
+  font-size: 1.1rem;
+  font-family: 'paybooc-Bold';
+}
 
 /*페이징*/
 #pagingLocation {

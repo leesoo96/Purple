@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 @RequestMapping("/mypage")
@@ -49,5 +50,25 @@ public class MypageController {
 		Map<String, Object> modUserPwResult = new HashMap<String, Object>();
 		modUserPwResult.put(Const.KEY_REUSLT, service.modUserPw(userEntity));
 		return modUserPwResult;
+	}
+
+	//마이페이지 이미지 등록
+	@ResponseBody
+	@PostMapping("/profile_img")
+	public Map<String, Object> profile_img(MultipartFile img) {
+		Map<String, Object> Result = new HashMap<String, Object>();
+			Result.put("result", service.profile_img(img));
+			return Result;
+	
+	}
+
+	//마이페이지 이미지 등록
+	@ResponseBody
+	@PostMapping("/background_img")
+	public Map<String, Object> background_img(MultipartFile img) {
+		Map<String, Object> Result = new HashMap<String, Object>();
+			Result.put("result", service.background_img(img));
+			return Result;
+	
 	}
 }

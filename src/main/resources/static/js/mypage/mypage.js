@@ -67,6 +67,9 @@ id_chekBtn.addEventListener('click', () => {
 const userMod_contentEle = document.querySelector('#userMod_content')
 const saveBtn = document.querySelector('#save_userModBtn')
 const user_pkInput = document.querySelector('#user_pk')
+const user_profileimg = document.querySelector('#mod_img')
+const user_backgroundimg = document.querySelector('#mod_background')
+
 saveBtn.addEventListener('click', () => {
   // 아이디 변경을 할 때 중복검사 여부 확인
   if (userModFrm.mod_id.value) {
@@ -79,11 +82,42 @@ saveBtn.addEventListener('click', () => {
   if (confirm('정보를 변경하시겠습니까?')) {
     ajax()
   }
+  function ajaxProfileImg() {
+    return new Promise(function (resolve) {
+      var formData = new FormData()
+      formData.append('img', user_profileimg.files[0])
+      fetch('/mypage/profile_img', {
+        method: 'post',
+        body: formData,
+      })
+        .then((res) => res.json())
+        .then((myJson) => {
+          resolve(myJson.result)
+        })
+    })
+  }
+  function ajaxBackgroundImg() {
+    return new Promise(function (resolve) {
+      var formData = new FormData()
+      formData.append('img', user_backgroundimg.files[0])
+      fetch('/mypage/background_img', {
+        method: 'post',
+        body: formData,
+      })
+        .then((res) => res.json())
+        .then((myJson) => {
+          resolve(myJson.result)
+        })
+    })
+  }
 
-  function ajax() {
+  async function ajax() {
+    let profile_img = await ajaxProfileImg()
+    let background_img = await ajaxBackgroundImg()
     let params = {
       user_pk: user_pkInput.value,
-      // TODO: 사진 변경할 때
+      user_profileimg: profile_img,
+      user_backgroundimg: background_img,
       user_id: userModFrm.mod_id.value,
       user_name: userModFrm.mod_name.value,
       user_bio: userModFrm.mod_bio.value,
