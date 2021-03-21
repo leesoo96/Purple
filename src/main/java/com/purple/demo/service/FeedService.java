@@ -8,6 +8,7 @@ import com.purple.demo.model.FeedListDTO;
 import com.purple.demo.model.HashtagEntity;
 import com.purple.demo.model.MediaEntity;
 import com.purple.demo.model.UserPrincipal;
+import com.purple.demo.model.DTO.FeedFavoriteDTO;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -41,11 +42,24 @@ public class FeedService {
             media_list = mapper.selMediaList(feed_list.get(i));
             feed_list.get(i).setMedia_url(media_list);
             feed_list.get(i).setHashtag_ctnt(hashtag_list);
-            System.out.println(feed_list.get(i).getUser_pk());
-            feed_list.get(i).setFavorite_state(mapper.isFavorite(feed_list.get(i)));
+            feed_list.get(i).setFavorite_state(mapper.isFavorite(feed_list.get(i).getFeed_pk(), principal.getUser_pk()));
             feed_list.get(i).setBookmark_state(mapper.isBookmark(feed_list.get(i)));
         }
         return feed_list;
+    }
+
+    public FeedFavoriteDTO feedFavorite(FeedFavoriteDTO dto) {
+        UserPrincipal principal = (UserPrincipal)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        dto.setFavorite_userpk(principal.getUser_pk());
+        if(dto.getFavorite_state() ==  0) {
+            int result = mapper.insFavorite(dto);
+            dto.setFavorite_state(result);
+        } else {
+            mapper.delFavorite(dto);
+            dto.setFavorite_state(0);
+        }
+        dto.setFavorite_count(mapper.favoriteCount(dto));
+        return dto;
     }
     /*
     public int insfeed(FeedWriteDTO dto, FeedImgDTO imgdto){

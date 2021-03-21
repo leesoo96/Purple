@@ -198,16 +198,24 @@ function makeFeed(myJson){
     feed_functionbarEle.appendChild(commentI)
 
     let favoriteI = document.createElement('i')
+    
     if(myJson.result[i].favorite_state === 1) {
       favoriteI.className = 'fas fa-heart'
-    } else {
+    }else {
       favoriteI.className = 'far fa-heart'
     }
     favoriteI.innerHTML = `${myJson.result[i].favorite_count}`
+    favoriteI.setAttribute('onclick', `feedFavorite(this, ${myJson.result[i].feed_pk})`)
     feed_functionbarEle.appendChild(favoriteI)
 
     let bookmarkI = document.createElement('i')
-    bookmarkI.className = 'far fa-bookmark'
+    
+    if(myJson.result[i].bookmark_state === 1){
+      bookmarkI.className ='fas fa-bookmark'
+    } else {
+      bookmarkI.className = 'far fa-bookmark'
+    }
+    
     feed_functionbarEle.appendChild(bookmarkI)
 
     feed_containerEle.appendChild(feed_functionbarEle)
@@ -216,6 +224,33 @@ function makeFeed(myJson){
   }
 }
 
-function feedFavorite(feed_pk) {
-  console.log('연결')
+function feedFavorite(e,feed_pk) {
+  let favorite_state = 0
+  const function_bar = e.parentNode
+  let favoriteI = function_bar.querySelector('.fa-heart')
+  if(favoriteI.className === 'fas fa-heart'){
+    favorite_state = 1
+  }else {
+    favorite_state = 0
+  }
+  let params = {
+    favorite_feedpk : feed_pk,
+    favorite_state
+  }
+  fetch('/feed/favorite', {
+    method: 'post',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(params), 
+  }).then((res) => res.json()
+  ).then((myJson) => {
+    
+    if(myJson.result.favorite_state == 0) {
+      favoriteI.className = 'far fa-heart'
+    }else {
+      favoriteI.className = 'fas fa-heart'
+    }
+    favoriteI.innerHTML = myJson.result.favorite_count
+  })
 }

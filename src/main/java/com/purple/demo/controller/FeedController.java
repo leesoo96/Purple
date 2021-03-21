@@ -16,10 +16,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.*;
 
+import com.purple.demo.common.Const;
 import com.purple.demo.model.FeedImgDTO;
 import com.purple.demo.model.FeedListDTO;
 import com.purple.demo.model.FeedWriteDTO;
 import com.purple.demo.model.UserPrincipal;
+import com.purple.demo.model.DTO.FeedFavoriteDTO;
 
 @Controller
 @RequestMapping("/feed")
@@ -49,18 +51,19 @@ public class FeedController {
 	
 	@PostMapping("/feed_write")
 		public String feed_write(FeedWriteDTO dto, FeedImgDTO imgdto) {
-			System.out.println(imgdto.getImgs());
-			System.out.println(dto.getFeed_ctnt());
-			System.out.println(dto.getHashtag());
+			// System.out.println(imgdto.getImgs());
+			// System.out.println(dto.getFeed_ctnt());
+			// System.out.println(dto.getHashtag());
 			//service.insfeed(dto,imgdto);
 			
 			return "redirect:/feed";
 		}
 	
 	@ResponseBody
-	@GetMapping("/favorite/{user_pk}/{feed_pk}")
-		public Map<String, Object> feedFavorite() {
-			
-			return null;
+	@PostMapping("/favorite")
+		public Map<String, Object> feedFavorite(@RequestBody FeedFavoriteDTO dto) {
+			Map<String, Object> feedFavoriteResult = new HashMap<String, Object>();
+			feedFavoriteResult.put("result", feedService.feedFavorite(dto));
+			return feedFavoriteResult;
 		}
 }

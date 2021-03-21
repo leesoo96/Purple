@@ -10,7 +10,6 @@
   <select name="feed">
     <option value="1" selected>최신순</option>
     <option value="2">인기순</option>
-    <option value="3">친구</option>
   </select>
 </div>
 <div id="feed">
