@@ -44,7 +44,7 @@
 			</div>
 			<div class="cs_notice_detail">
 				<div class="detail_img">
-					<img src="${item.notice_img}">
+					<img src="${item.notice_img}"  onerror="this.src='/images/notice/basic_notice.jpg'">
 				</div>
 
 				<div class="detail_detail">

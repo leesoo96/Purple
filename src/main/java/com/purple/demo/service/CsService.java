@@ -93,8 +93,11 @@ public class CsService {
 		//업로드 할 파일 경로
 		String folder = "/images/notice/"+user_pk+"/"+notice_pk;
 		try {
+			//삭제
 			fUtils.delFolder(fUtils.getRealPath(folder));
+			
 			String fileNm = fUtils.transferTo(img, folder);
+
 			String DbFileName = folder + "/" + fileNm;
 
 			NoticeEntity noticeEntity = new NoticeEntity();
