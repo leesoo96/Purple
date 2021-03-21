@@ -20,7 +20,7 @@
 		</tr>
 		<tr>
 			<th>첨부파일</th>
-			<td><input type="file" name="notice_img" enctype="multipart/form-data" accept="img/**"></td>
+			<td><input type="file" name="notice_img" enctype="multipart/form-data" accept="img/**" ></td>
 		</tr>
 		<tr>
 			<th>내용</th>

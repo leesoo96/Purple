@@ -10,9 +10,20 @@
         FROM feed AS a
         LEFT OUTER JOIN user AS b
         ON (a.feed_userpk = b.user_pk)
-        WHERE a.feed_state = 1
-        ORDER BY a.feed_writedate DESC
-        LIMIT 0, 5;
+        WHERE a.feed_state = #{feed_state}
+        ORDER BY 
+        <choose>
+            <when test="category == 1">
+                a.feed_writedate DESC
+            </when>
+            <when test="category == 2">
+                favorite_count DESC
+            </when>
+            <otherwise>
+                a.feed_writedate DESC
+            </otherwise>
+        </choose> 
+        LIMIT #{first_page}, #{end_page};
     </select>
 
     <select id="selMediaList" resultType="MediaEntity">
@@ -33,18 +44,35 @@
         WHERE c.feed_pk = #{feed_pk}
     </select>
 
-    <select id="isFavorite" resultType="int">
+    <select id="isBookmark" resultType="_int">
         SELECT count(bookmark_feedpk)
         FROM bookmark
-        WHERE bookmark_feedpk=#{feed_pk} AND bookmark_userpk=#{user_pk};
+        WHERE bookmark_feedpk=#{feed_pk} AND bookmark_userpk=#{user_pk}
     </select>
-
-    <select id="isBookmark" resultType="_int">
+    <!-- favorite 부분 -->
+    <select id="favoriteCount" resultType="_int">
+        SELECT COUNT(favorite_feedpk) AS "favorite_count"
+        FROM favorite 
+        WHERE favorite_feedpk= #{favorite_feedpk} 
+    </select>
+    <select id="isFavorite" resultType="_int">
         SELECT count(favorite_feedpk)
         FROM favorite
-        WHERE favorite_feedpk=#{feed_pk} AND favorite_userpk=#{user_pk};
+        WHERE favorite_feedpk=#{feed_pk} AND favorite_userpk=#{user_pk}
     </select>
 
+    <insert id="insFavorite">
+        INSERT INTO favorite
+        (favorite_feedpk, favorite_userpk)
+        VALUES
+        (#{favorite_feedpk}, #{favorite_userpk})
+    </insert>
+
+    <delete id="delFavorite">
+        DELETE FROM favorite
+        WHERE favorite_feedpk = #{favorite_feedpk}
+        AND favorite_userpk = #{favorite_userpk}
+    </delete>
     <!-- 글 쓰기 -->
     <insert id="insfeed" useGeneratedKeys="true" keyProperty="feed_pk">
 		INSERT INTO feed

@@ -24,6 +24,8 @@ public interface CsMapper {
 	int regNotice(NoticeEntity p);
 	
 	int notice_upd(NoticeEntity p);
+
+	int notice_img_upd(NoticeEntity p);
 	
 	int updNoticevieView(NoticeEntity p);
 	
@@ -36,6 +38,8 @@ public interface CsMapper {
 	int selQuestionMaxPage(QuestionDTO p);
 	
 	int regQuestion(QuestionEntity p) ;
+
+	int question_img_upd(QuestionEntity p) ;
 	
 	int question_upd(QuestionEntity p);
 

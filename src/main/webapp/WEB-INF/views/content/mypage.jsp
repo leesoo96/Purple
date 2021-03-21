@@ -56,10 +56,10 @@
     <sec:authentication property="principal" var="userInfo"/>
     <div id="mypage_userinfo_container">
         <div id="mypage_userinfo_backimg">
-            <img onerror="this.style.display='none'" src="">
+            <img onerror="this.style.display='none'" src="${userInfo.user_backgroundimg}">
         </div>
         <div id="mypage_userinfo_img">
-            <img alt="기본프로필사진" src="">
+            <img alt="기본프로필사진" src="${userInfo.user_profileimg}">
         </div>
         <div id="mypage_userinfo_content">
             <div class="mypageuser_id">
