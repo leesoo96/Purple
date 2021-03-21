@@ -1,12 +1,13 @@
 let search_contentEle = document.querySelector('.search-form')
 const search_content = document.querySelector('.search_content')
+const search_input = search_contentEle.search_input
+
 //유저 검색 리스트
 function enterkey() {
   if (window.event.keyCode === 13) {
     let param = {
       search_user_id: search_contentEle.search_input.value,
     }
-    console.log(param)
     fetch('/search/searchUser', {
       method: 'post',
       headers: {

@@ -125,7 +125,6 @@ saveBtn.addEventListener('click', () => {
       user_website: userModFrm.mod_website.value,
       user_birth: userModFrm.mod_birth.value,
     }
-    console.log(params.user_bio)
     fetch(`/mypage/mod_userinfo`, {
       method: 'put',
       headers: {
@@ -138,6 +137,9 @@ saveBtn.addEventListener('click', () => {
         if (myJson.result === 1) {
           alert('회원정보 수정이 완료되었습니다.')
           location.href = `/logout`
+        } else {
+          alert('회원정보 수정이 실패했습니다.')
+          openCloseModal('#userMod_container', 'none')
         }
       })
   }

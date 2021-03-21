@@ -47,7 +47,7 @@ public class MypageService {
 		UserPrincipal principal = (UserPrincipal)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		int user_pk = principal.getUser_pk();  
 		//업로드 할 파일 경로
-		String folder = "/images/Mypage/profileimg/"+user_pk;
+		String folder = "/images/user/" + user_pk +"/profileimg";
 		try {
             String delFolder = fUtils.getRealPath(folder);
             fUtils.delFolder(delFolder);
@@ -64,7 +64,7 @@ public class MypageService {
 		UserPrincipal principal = (UserPrincipal)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		int user_pk = principal.getUser_pk();  
 		//업로드 할 파일 경로
-		String folder = "/images/Mypage/backgrounimg/"+user_pk;
+		String folder = "/images/user/" + user_pk +"/backgroundimg";
 		try {
             String delFolder = fUtils.getRealPath(folder);
             fUtils.delFolder(delFolder);

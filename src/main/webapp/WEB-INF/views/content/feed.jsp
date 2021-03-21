@@ -60,7 +60,7 @@
       </div>
    <%-- </c:forEach> --%>
       
-   <%-- <c:forEach items="${feedListData}" var="item"> --%>
+   <%-- <c:forEach items="${feedListData}" var="item"> --%> 
       <div class="feed_container" >
          <div class="feed_title">
             <img class="title_img" src="resources/img/common/basic_profile.png" alt="기본프로필사진">
