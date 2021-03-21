@@ -23,6 +23,12 @@
             <if test="user_birth != null and user_birth != ''">
                 user_birth = #{user_birth},
             </if>
+            <if test="user_profileimg != null and user_profileimg != ''">
+                user_profileimg = #{user_profileimg},
+            </if>
+            <if test="user_backgroundimg  != null and user_backgroundimg  != ''">
+                user_backgroundimg  = #{user_backgroundimg }
+            </if>
         </set>
         WHERE user_pk = #{user_pk}
     </update>

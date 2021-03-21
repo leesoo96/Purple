@@ -55,14 +55,12 @@ public class CsController {
 	//공지사항 이미지 등록
 	@ResponseBody
 	@PostMapping("/notice_img")
-	public Map<String, Object> notice_img(MultipartFile[] img) {
+	public Map<String, Object> notice_img(MultipartFile img) {
 		Map<String, Object> noticeWriteResult = new HashMap<String, Object>();
 		try{
 			noticeWriteResult.put("result", service.notice_img(img));
 		} catch(Exception e) {
-			System.out.println(e);
-			noticeWriteResult.put("result", "resources/img/cs/basic_cs.jpg");
-			
+			noticeWriteResult.put("result", "/img/notice/basic_cs.jpg");
 		}finally {
 			return noticeWriteResult;
 		}
@@ -128,6 +126,19 @@ public class CsController {
 		Map<String, Object> noticeWriteResult = new HashMap<String, Object>();
 		noticeWriteResult.put("result", service.regQuestion(p));
 		return noticeWriteResult;
+	}
+
+	@ResponseBody
+	@PostMapping("/question_img")
+	public Map<String, Object> question_img(MultipartFile img) {
+		Map<String, Object> questionWriteResult = new HashMap<String, Object>();
+		try{
+			questionWriteResult.put("result", service.question_img(img));
+		} catch(Exception e) {
+			questionWriteResult.put("result", "/images/question/basic_cs.jpg");
+		}finally {
+			return questionWriteResult;
+		}
 	}
 
 	@GetMapping("/question_upd")

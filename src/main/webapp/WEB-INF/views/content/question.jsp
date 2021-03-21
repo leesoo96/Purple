@@ -48,11 +48,16 @@
 				</div>
 			</div>
 			<div class="cs_question_detail">
-				<div class="question_detailPlus">
+
+				<div class="detail_img">
+					<img src="${item.question_img}">
+				</div>
+
+				<div class="question_detail">
 					<p>${item.question_ctnt}</p>
 				</div>
 
-				<div class="question_use">
+				<div class="bottomAdmin_Use">
 					<a href="question_upd?question_pk=${item.question_pk}">수정</a>
 					<button onclick="cs_del_btn(${item.question_pk})">삭제</button>
 				</div>
