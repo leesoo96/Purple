@@ -12,8 +12,12 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface FeedMapper {
    List<FeedListDTO> selFeedList(FeedListDTO param);
-   List<MediaEntity> selMediaList(int feed_pk);
-   List<HashtagEntity> selHashtagList(int feed_pk);
+   List<MediaEntity> selMediaList(FeedListDTO param);
+   List<HashtagEntity> selHashtagList(FeedListDTO param);
+   int isFavorite(FeedListDTO param);
+   int isBookmark(FeedListDTO param);
+
+   
    int insfeed(FeedWriteDTO dto);
    int insfeedimg(List<MediaEntity> p);
 }

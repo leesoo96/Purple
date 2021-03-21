@@ -20,5 +20,7 @@ public class FeedListDTO extends FeedEntity{
     //feedList 만들기 위해 필요한 값
     private int category;
     private int page_count;
+    private int first_page;
+    private int end_page;
     private int user_pk;
 }
