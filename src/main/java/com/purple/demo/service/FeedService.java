@@ -2,21 +2,19 @@ package com.purple.demo.service;
 
 import java.util.*;
 
-import com.github.jknack.handlebars.internal.Files;
 import com.purple.demo.mapper.FeedMapper;
-import com.purple.demo.model.FeedImgDTO;
 import com.purple.demo.model.FeedListDTO;
-import com.purple.demo.model.FeedWriteDTO;
 import com.purple.demo.model.HashtagEntity;
 import com.purple.demo.model.MediaEntity;
 import com.purple.demo.model.UserPrincipal;
-import com.purple.demo.utils.PurpleFileUtils;
+import com.purple.demo.model.DTO.FeedBookmarkDTO;
+import com.purple.demo.model.DTO.FeedDetailDTO;
 import com.purple.demo.model.DTO.FeedFavoriteDTO;
+import com.purple.demo.utils.PurpleFileUtils;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 
 @Service
@@ -50,34 +48,6 @@ public class FeedService {
         }
         return feed_list;
     }
-    
-    public String insfeed(FeedWriteDTO dto, List<MultipartFile> files){
-        //유저 pk 값
-		UserPrincipal principal = (UserPrincipal)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        dto.setFeed_userpk(principal.getUser_pk());
-        int feed_pk = dto.getFeed_pk();
-        mapper.insfeed(dto);
- 
-        //업로드 할 파일 경로
-		String folder = "/images/write/"+feed_pk;
-		try {	
-            for(int i =0; i< files.size(); i++) {
-			    String fileNm = fUtils.transferTo(files.get(i), folder);
-                MediaEntity med = new MediaEntity();
-                med.setMedia_feedpk(dto.getFeed_pk());
-                med.setMedia_url(folder + "/" + fileNm);
-                System.out.println(med.getMedia_url());
-				mapper.insfeedimg(med);
-            }
-  
-		} catch(Exception e) {
-			System.out.println("에러");
-		}
-        System.out.println(folder);
-    
-        return "";
-    }
-  
 
     public FeedFavoriteDTO feedFavorite(FeedFavoriteDTO dto) {
         UserPrincipal principal = (UserPrincipal)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -93,6 +63,32 @@ public class FeedService {
         return dto;
     }
 
+    public FeedBookmarkDTO feedBookmark(FeedBookmarkDTO bmd) {
+        UserPrincipal principal = (UserPrincipal)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        bmd.setBookmark_userpk(principal.getUser_pk());
+
+        if(bmd.getBookmark_state() ==  0) {
+            int result = mapper.insertBookmark(bmd);
+            bmd.setBookmark_state(result);
+        } else {
+            mapper.deleteBookmark(bmd);
+            bmd.setBookmark_state(0);
+        }
+        return bmd;
+    }
+
+    public FeedDetailDTO feedDetail(FeedDetailDTO dto) {
+        UserPrincipal principal = (UserPrincipal)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        dto.setUser_pk(principal.getUser_pk());
+        dto.setFeed_state(1);
+        dto = mapper.selFeedDetail(dto);
+        dto.setFavorite_state(mapper.isFavorite(dto.getFeed_pk(), dto.getUser_pk()));
+        dto.setBookmark_state(mapper.isBookmark((FeedListDTO)dto));
+        dto.setMedia_url(mapper.selMediaList((FeedListDTO)dto));
+        dto.setHashtag_ctnt(mapper.selHashtagList((FeedListDTO)dto));
+        System.out.println(dto.getFeed_pk());
+        return dto;
+    }
     /*
     public int insfeed(FeedWriteDTO dto, FeedImgDTO imgdto){
         List<MediaEntity> insList = new ArrayList();

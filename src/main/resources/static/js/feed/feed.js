@@ -176,7 +176,7 @@ function makeFeed(myJson){
       }
     }
     let detailDiv = document.createElement('div')
-    detailDiv.setAttribute('onclick', `feedDetail(${myJson.result[i].feed_pk})`)
+    detailDiv.setAttribute('onclick', `feedDetail(this, ${myJson.result[i].feed_pk})`)
     feed_contentDiv.appendChild(detailDiv)
 
     let feed_ctntP = document.createElement('p')
@@ -189,8 +189,6 @@ function makeFeed(myJson){
     let feed_functionbarEle = document.createElement('div')
     feed_functionbarEle.className = 'feed_functionbar'
 
-    
-
     let commentI = document.createElement('i')
     commentI.setAttribute('onclick', `feedDetail(${myJson.result[i].feed_pk})`)
     commentI.className = 'fal fa-comment'
@@ -198,7 +196,6 @@ function makeFeed(myJson){
     feed_functionbarEle.appendChild(commentI)
 
     let favoriteI = document.createElement('i')
-    
     if(myJson.result[i].favorite_state === 1) {
       favoriteI.className = 'fas fa-heart'
     }else {
@@ -209,13 +206,13 @@ function makeFeed(myJson){
     feed_functionbarEle.appendChild(favoriteI)
 
     let bookmarkI = document.createElement('i')
-    
+
     if(myJson.result[i].bookmark_state === 1){
-      bookmarkI.className ='fas fa-bookmark'
-    } else {
+      bookmarkI.className = 'fas fa-bookmark'
+    }else{
       bookmarkI.className = 'far fa-bookmark'
     }
-    
+    bookmarkI.setAttribute('onclick', `feedBookmark(this, ${myJson.result[i].feed_pk})`)
     feed_functionbarEle.appendChild(bookmarkI)
 
     feed_containerEle.appendChild(feed_functionbarEle)
@@ -245,12 +242,42 @@ function feedFavorite(e,feed_pk) {
     body: JSON.stringify(params), 
   }).then((res) => res.json()
   ).then((myJson) => {
-    
+
     if(myJson.result.favorite_state == 0) {
       favoriteI.className = 'far fa-heart'
     }else {
       favoriteI.className = 'fas fa-heart'
     }
     favoriteI.innerHTML = myJson.result.favorite_count
+  })
+}
+
+// Feed Bookmark
+function feedBookmark(e, feed_pk) {
+  let bookmark_state = 0
+  const function_bar = e.parentNode
+  let bookmarkI = function_bar.querySelector('.fa-bookmark')
+  if(bookmarkI.className === 'fas fa-bookmark'){
+    bookmark_state = 1
+  }else {
+    bookmark_state = 0
+  }
+  let params = {
+    bookmark_feedpk : feed_pk,
+    bookmark_state
+  }
+  fetch('/feed/bookmark', {
+    method: 'post',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(params), 
+  }).then((res) => res.json()
+  ).then((myJson) => {
+    if(myJson.result.bookmark_state == 0) {
+      bookmarkI.className = 'far fa-bookmark'
+    }else {
+      bookmarkI.className = 'fas fa-bookmark'
+    }
   })
 }
