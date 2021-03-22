@@ -7,6 +7,7 @@ import com.purple.demo.model.FeedWriteDTO;
 import com.purple.demo.model.HashtagEntity;
 import com.purple.demo.model.MediaEntity;
 import com.purple.demo.model.DTO.FeedBookmarkDTO;
+import com.purple.demo.model.DTO.FeedDetailDTO;
 import com.purple.demo.model.DTO.FeedFavoriteDTO;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -18,6 +19,8 @@ public interface FeedMapper {
    List<HashtagEntity> selHashtagList(FeedListDTO param);
    int isFavorite(int feed_pk, int user_pk);
    int isBookmark(FeedListDTO param);
+
+   FeedDetailDTO selFeedDetail(FeedDetailDTO dto);
 
    FeedFavoriteDTO feedFavorite(FeedFavoriteDTO dto);
    int insFavorite(FeedFavoriteDTO dto);

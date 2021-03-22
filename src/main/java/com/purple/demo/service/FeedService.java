@@ -8,6 +8,7 @@ import com.purple.demo.model.HashtagEntity;
 import com.purple.demo.model.MediaEntity;
 import com.purple.demo.model.UserPrincipal;
 import com.purple.demo.model.DTO.FeedBookmarkDTO;
+import com.purple.demo.model.DTO.FeedDetailDTO;
 import com.purple.demo.model.DTO.FeedFavoriteDTO;
 import com.purple.demo.utils.PurpleFileUtils;
 
@@ -76,6 +77,18 @@ public class FeedService {
         return bmd;
     }
 
+    public FeedDetailDTO feedDetail(FeedDetailDTO dto) {
+        UserPrincipal principal = (UserPrincipal)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        dto.setUser_pk(principal.getUser_pk());
+        dto.setFeed_state(1);
+        dto = mapper.selFeedDetail(dto);
+        dto.setFavorite_state(mapper.isFavorite(dto.getFeed_pk(), dto.getUser_pk()));
+        dto.setBookmark_state(mapper.isBookmark((FeedListDTO)dto));
+        dto.setMedia_url(mapper.selMediaList((FeedListDTO)dto));
+        dto.setHashtag_ctnt(mapper.selHashtagList((FeedListDTO)dto));
+        System.out.println(dto.getFeed_pk());
+        return dto;
+    }
     /*
     public int insfeed(FeedWriteDTO dto, FeedImgDTO imgdto){
         List<MediaEntity> insList = new ArrayList();

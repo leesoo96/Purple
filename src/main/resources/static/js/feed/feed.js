@@ -176,7 +176,7 @@ function makeFeed(myJson){
       }
     }
     let detailDiv = document.createElement('div')
-    detailDiv.setAttribute('onclick', `feedDetail(${myJson.result[i].feed_pk})`)
+    detailDiv.setAttribute('onclick', `feedDetail(this, ${myJson.result[i].feed_pk})`)
     feed_contentDiv.appendChild(detailDiv)
 
     let feed_ctntP = document.createElement('p')
