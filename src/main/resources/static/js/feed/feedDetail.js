@@ -3,12 +3,12 @@ let feed_DetailOverlay = document.querySelector('.feed_overlay')
 const feedDetailClass = document.querySelector('.feedDetail')
 
 function feedDetail(e, feed_pk) {
-  return new Promise(function(resolve) {
-  fetch(`/feed/detail/`+feed_pk,
-  ).then((res) => res.json())
-  .then((myJson)=>{
-    resolve(myJson.result)
-  })
+  return new Promise(function (resolve) {
+    fetch(`/feed/detail/` + feed_pk)
+      .then((res) => res.json())
+      .then((myJson) => {
+        resolve(myJson.result)
+      })
   }).then((myJson) => {
     makeFeedDetail(e, myJson)
   })
@@ -356,7 +356,9 @@ function makeFeedDetail(e, myJson) {
   // feedDetail close only
   const feed_overlay_close = document.querySelector('.fa-times')
   feed_overlay_close.onclick = function () {
-    feedDetailClass.querySelectorAll('*').forEach((test) => test.remove())
+    feedDetailClass
+      .querySelectorAll('*')
+      .forEach((allTagRemove) => allTagRemove.remove())
 
     feed_DetailOverlay.style.display = 'none'
   }
