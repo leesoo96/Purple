@@ -41,32 +41,21 @@ function notice_write_submit_btn() {
 }
 
 function noticeReg() {
-  ajax()
+  Regajax().then((notice_pk) => {
+    if (notice_img) {
+      RegajaxImg(notice_pk)
+    }
+    location.href = `/notice`
+  })
+}
 
-  function ajaxImg() {
-    return new Promise(function (resolve) {
-      var formData = new FormData()
-      formData.append('img', notice_img.files[0])
-      fetch('/notice_img', {
-        method: 'post',
-        body: formData,
-      })
-        .then((res) => res.json())
-        .then((myJson) => {
-          resolve(myJson.result)
-        })
-    })
-  }
-
-  async function ajax() {
-    let img = await ajaxImg()
+function Regajax() {
+  return new Promise(function (resolve) {
     let param = {
       notice_title: notice_write_form.notice_title.value,
       notice_ctnt: notice_write_form.notice_ctnt.value,
       notice_userpk: document.querySelector('#user_pk').value,
-      notice_img: img,
     }
-    console.log(img)
     fetch('/notice_write', {
       method: 'post',
       headers: {
@@ -76,31 +65,60 @@ function noticeReg() {
     })
       .then((res) => res.json())
       .then(function (myJson) {
-        location.href = `/notice`
+        resolve(myJson.result)
       })
-  }
+  })
+}
+
+async function RegajaxImg(notice_pk) {
+  var formData = new FormData()
+  formData.append('img', notice_img.files[0])
+  formData.append('notice_pk', notice_pk)
+  fetch('/notice_img', {
+    method: 'post',
+    body: formData,
+  })
+    .then((res) => res.json())
+    .then((myJson) => {})
 }
 
 //공지사항 수정
 function noticeUpd() {
-  ajax()
-  function ajax() {
-    let param = {
-      notice_title: notice_write_form.notice_title.value,
-      notice_ctnt: notice_write_form.notice_ctnt.value,
-      notice_pk: notice_write_form.notice_pk.value,
-    }
-    console.log(param)
-    fetch('/notice_upd', {
+  Updajax().then(() => {
+    location.href = `/notice`
+  })
+}
+async function Updajax() {
+  let img = await UpdajaxImg()
+  let param = {
+    notice_title: notice_write_form.notice_title.value,
+    notice_ctnt: notice_write_form.notice_ctnt.value,
+    notice_pk: notice_write_form.notice_pk.value,
+    notice_img: img,
+  }
+  console.log(param)
+  fetch('/notice_upd', {
+    method: 'post',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(param),
+  })
+    .then((res) => res.json())
+    .then(function (myJson) {})
+}
+function UpdajaxImg() {
+  return new Promise(function (resolve) {
+    var formData = new FormData()
+    formData.append('img', notice_img.files[0])
+    formData.append('notice_pk', notice_write_form.notice_pk.value)
+    fetch('/notice_img', {
       method: 'post',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(param),
+      body: formData,
     })
       .then((res) => res.json())
-      .then(function (myJson) {
-        location.href = `/notice`
+      .then((myJson) => {
+        resolve(myJson.result)
       })
-  }
+  })
 }

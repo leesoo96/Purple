@@ -48,6 +48,11 @@
   margin-right: 1em;
 }
 
+.fa-heart {
+  color: red;
+}
+
+
 .leftposition {
   width: 4em;
   float: left;
@@ -79,23 +84,17 @@
   margin-bottom: 0.5em;
   margin-left: 1em;
 }
-.feed_functionbar i {
+.feed_functionbar i{
   width: 1em;
   font-size: 2em;
   cursor: pointer;
-}
-.feed_functionbar span {
   margin-left: 0.1em;
-  margin-right: 2em;
+  margin-right: 1em;
 }
 
-.slideshow-container {
-  max-width: 1000px;
-  position: relative;
-  margin: auto;
-}
 
 .feed_img {
+  min-height: 10em;
   max-width: 630px;
   position: relative;
   margin: auto;

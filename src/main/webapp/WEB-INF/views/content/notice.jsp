@@ -14,11 +14,6 @@
 		<a href="notice_write">공지사항 등록</a>
 	</div>
 </sec:authorize>
-		
-<c:if test="${requestScope.noticeData.EPage < requestScope.noticeData.maxPageNum}">
-	<span>...</span>
-	<span class="page" onclick="pageClick(${requestScope.noticeData.maxPageNum})">${requestScope.noticeData.maxPageNum}</span>
-</c:if>
 
 	<div id="notice_title">
 		<span>공지사항</span>
@@ -44,7 +39,7 @@
 			</div>
 			<div class="cs_notice_detail">
 				<div class="detail_img">
-					<img src="/webapp/resources/img/cs/notice/15/${item.notice_img}">
+					<img src="${item.notice_img}"  onerror="this.src='/images/notice/basic_notice.jpg'">
 				</div>
 
 				<div class="detail_detail">
@@ -66,16 +61,16 @@
 <form id="pageFrm" action="/notice" method="get">
 	<input type="hidden" name="page" value="1">
 </form>
-
-<c:if test="${requestScope.noticeData.SPage > 1}">
-	<div id="pagingLoaction">
+<div id="pagingLoaction">
+	<c:if test="${requestScope.noticeData.SPage > 1}">
 		<span class="page" onclick="pageClick(1)">1</span>
 		<span>...</span>
-	</div>
-</c:if>	
-		
-<c:forEach begin="${requestScope.noticeData.SPage}" end="${requestScope.noticeData.EPage}" var="i">			
-	<div id="pagingLoaction">
+	</c:if>			
+	<c:forEach begin="${requestScope.noticeData.SPage}" end="${requestScope.noticeData.EPage}" var="i">			
 		<span class="page ${requestScope.noticeData.page == i ? 'selected' : ''}" onclick="pageClick(${i})">${i}</span>
-	</div>
-</c:forEach>
+	</c:forEach>
+	<c:if test="${requestScope.noticeData.EPage < requestScope.noticeData.maxPageNum}">
+		<span>...</span>
+		<span class="page" onclick="pageClick(${requestScope.noticeData.maxPageNum})">${requestScope.noticeData.maxPageNum}</span>
+	</c:if>
+</div>

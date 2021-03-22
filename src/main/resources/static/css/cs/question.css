@@ -67,7 +67,7 @@
 .cs_question_detail {
   overflow-y: scroll;
   overflow-x: hidden;
-  transition: all 1s;
+  transition: all 0.5s;
   border-radius: 0px 0px 16px 16px;
   top: 6em;
   height: 0px;
@@ -116,16 +116,61 @@
   outline: none;
   cursor: pointer;
 }
+.detail_img {
+  position: relative;
+  left: 6.5em;
+}
+.detail_img img {
+  width: 28em;
+  height: 16em;
+}
+.detail_detail {
+  position: relative;
+  left: 1em;
+  top: 1em;
+  width: 38em;
+  height: auto;
+}
+.detail_detail p {
+  position: relative;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-size: 19px;
+  white-space: pre-line;
+}
+.bottomAdmin_Use {
+  text-align: right;
+  position: relative;
+  bottom: -6em;
+}
+.bottomAdmin_Use a {
+  font-size: 1.09rem;
+}
+.bottomAdmin_Use button {
+  cursor: pointer;
+  background: #fff;
+  border: none;
+  font-size: 1.1rem;
+  font-family: 'paybooc-Bold';
+}
 
 /*페이징*/
 #pagingLocation {
   text-align: center;
+  float: left;
   position: relative;
+  left: 3.5em;
   top: 6em;
   font-size: 1.2rem;
 }
-#pagingLoaction span {
+#pagingLocation span {
+  padding: 20px;
   cursor: pointer;
+}
+.page.selected {
+  font-size: 1.8rem;
+  color: rgb(178, 85, 221);
+  font-weight: bold;
 }
 
 /*모달찰*/

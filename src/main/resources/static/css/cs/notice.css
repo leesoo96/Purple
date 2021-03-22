@@ -144,10 +144,19 @@
 /*페이징*/
 #pagingLoaction {
   text-align: center;
+  float: left;
   position: relative;
+  left: 3.5em;
   top: 5.3em;
   font-size: 1.2rem;
 }
 #pagingLoaction span {
+  padding: 15px;
   cursor: pointer;
+}
+
+.page.selected {
+  font-size: 1.5rem;
+  color: rgb(178, 85, 221);
+  font-weight: bold;
 }

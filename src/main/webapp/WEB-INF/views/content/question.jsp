@@ -48,11 +48,16 @@
 				</div>
 			</div>
 			<div class="cs_question_detail">
-				<div class="question_detailPlus">
+
+				<div class="detail_img">
+					<img src="${item.question_img}" onerror="this.src='/images/question/basic_question.jpg'">
+				</div>
+
+				<div class="question_detail">
 					<p>${item.question_ctnt}</p>
 				</div>
 
-				<div class="question_use">
+				<div class="bottomAdmin_Use">
 					<a href="question_upd?question_pk=${item.question_pk}">수정</a>
 					<button onclick="cs_del_btn(${item.question_pk})">삭제</button>
 				</div>
@@ -81,29 +86,20 @@
 <form id="pageFrm" action="/question" method="get">
 	<input type="hidden" name="page" value="1">
 </form>
-
-<c:if test="${requestScope.questionData.SPage > 1}">
-	<div id="pagingLocation">
+<div id="pagingLocation">
+	<c:if test="${requestScope.questionData.SPage > 1}">	
 		<span class="page" onclick="pageClick(1)">1</span>
 		<span>...</span>
-	</div>
-</c:if>	
-		
-<c:forEach begin="${requestScope.questionData.SPage}" end="${requestScope.questionData.EPage}" var="i">			
-	<div id="pagingLocation">
+	</c:if>		
+	<c:forEach begin="${requestScope.questionData.SPage}" end="${requestScope.questionData.EPage}" var="i">			
 		<span class="page ${requestScope.questionData.page == i ? 'selected' : ''}" onclick="pageClick(${i})">${i}</span>
-	</div>
-</c:forEach>
-		
-<c:if test="${requestScope.questionData.EPage < requestScope.questionData.maxPageNum}">
-	<div id="pagingLocation">
+	</c:forEach>
+	<c:if test="${requestScope.questionData.EPage < requestScope.questionData.maxPageNum}">
 		<span>...</span>
 		<span class="page" onclick="pageClick(${requestScope.questionData.maxPageNum})">${requestScope.questionData.maxPageNum}</span>
-	</div>
-</c:if>
+	</c:if>
+</div>
 
-
-<div class="cs_black_bg"></div>
 
 
 

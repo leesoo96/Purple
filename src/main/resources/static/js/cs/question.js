@@ -4,7 +4,7 @@ let cs_question_detail_close = document.querySelectorAll('.cs_question_detail')
 for (let i = 0; i < cs_question_titlebar.length; i++) {
   let cs_question_titlebarEle = cs_question_titlebar[i]
   let cs_cmt_regEle = cs_question_titlebarEle.nextSibling.nextSibling.childNodes.item(
-    9
+    11
   )
 
   cs_question_titlebarEle.addEventListener('click', function () {
@@ -18,8 +18,6 @@ for (let i = 0; i < cs_question_titlebar.length; i++) {
         cs_question_titlebar[j].style.color = 'rgb(0, 0, 0)'
         cs_question_detail_close[j].style.height = '0em'
         cs_question_detail_close[j].style.padding = '0px'
-        // cs_question_detail_close[j].nextSibling.nextSibling.style.display =
-        ;('none')
       }
 
       let question_pk = cs_question_titlebarEle.dataset.pk

@@ -20,12 +20,12 @@
 		</tr>
 		<tr>
 			<th>첨부파일</th>
-			<td><input type="file" name="notice_img" enctype="multipart/form-data" accept="img/**"></td>
+			<td><input type="file" name="notice_img" enctype="multipart/form-data" accept="img/**" ></td>
 		</tr>
 		<tr>
 			<th>내용</th>
 			<td>
-				<img class="ctnt_img">
+				<img class="ctnt_img" src="${noticeUpd.notice_img}" onerror="this.src='/images/notice/basic_notice.jpg'">
 				<textarea  id="text" cols="60" rows="15" name="notice_ctnt"
 					placeholder="내용을 입력하세요">${noticeUpd.notice_ctnt}</textarea>
 			</td>

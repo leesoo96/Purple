@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -48,24 +49,19 @@ public class CsController {
 	@PostMapping("/notice_write")
 	public Map<String, Object> notice_write(@RequestBody NoticeEntity p) {
 		Map<String, Object> noticeWriteResult = new HashMap<String, Object>();
-		noticeWriteResult.put("result", service.regNotice(p));
+		service.regNotice(p);
+		noticeWriteResult.put("result", p.getNotice_pk());
 		return noticeWriteResult;
 	}
 
 	//공지사항 이미지 등록
 	@ResponseBody
 	@PostMapping("/notice_img")
-	public Map<String, Object> notice_img(MultipartFile[] img) {
+	public Map<String, Object> notice_img(MultipartFile img, @RequestParam("notice_pk") int notice_pk) {
 		Map<String, Object> noticeWriteResult = new HashMap<String, Object>();
-		try{
-			noticeWriteResult.put("result", service.notice_img(img));
-		} catch(Exception e) {
-			System.out.println(e);
-			noticeWriteResult.put("result", "resources/img/cs/basic_cs.jpg");
-			
-		}finally {
-			return noticeWriteResult;
-		}
+		noticeWriteResult.put("result", service.notice_img(img, notice_pk));
+		// System.out.println(service.notice_img(img, notice_pk));
+		return noticeWriteResult;
 	}
 
 	 //공지사항 글 수정 (화면) 
@@ -126,8 +122,22 @@ public class CsController {
 	@PostMapping("/question_write")
 	public Map<String, Object> regQuestion(@RequestBody QuestionEntity p) {
 		Map<String, Object> noticeWriteResult = new HashMap<String, Object>();
-		noticeWriteResult.put("result", service.regQuestion(p));
+		service.regQuestion(p);
+		noticeWriteResult.put("result", p.getQuestion_pk());
 		return noticeWriteResult;
+	}
+
+	@ResponseBody
+	@PostMapping("/question_img")
+	public Map<String, Object> question_img(MultipartFile img, @RequestParam("question_pk") int question_pk) {
+		Map<String, Object> questionWriteResult = new HashMap<String, Object>();
+		try{
+			questionWriteResult.put("result", service.question_img(img, question_pk));
+		} catch(Exception e) {
+			questionWriteResult.put("result", "/images/question/basic_cs.jpg");
+		}finally {
+			return questionWriteResult;
+		}
 	}
 
 	@GetMapping("/question_upd")

@@ -1,73 +1,14 @@
-// const feed_imgs = document.querySelectorAll('.feed_img')
-// const feedDetail_imgs = document.querySelectorAll('.feedDetail_img')
-// for (let i = 0; i < feed_imgs.length; i++) {
-//   // 처음 사진을 띄워주는 부분
-//   let present_img = feed_imgs[i].querySelector('img')
-//   present_img.style.display = 'block'
+'use strict'
 
-//   feed_imgs[i].querySelector('.next').addEventListener('click', () => {
-//     if (present_img.nextElementSibling.src) {
-//       console.log(present_img.nextElementSibling)
-//       present_img.style.display = 'none'
-//       present_img = present_img.nextElementSibling
-//       present_img.style.display = 'block'
-//     }
-//     return
-//   })
-//   feed_imgs[i].querySelector('.previous').addEventListener('click', () => {
-//     if (present_img.previousElementSibling.src) {
-//       console.log(present_img.previousElementSibling)
-//       present_img.style.display = 'none'
-//       present_img = present_img.previousElementSibling
-//       present_img.style.display = 'block'
-//     }
-//     return
-//   })
-// }
-
-// var eleI = document.createElement('i')
-
-// eleI.classList.add('fas')
-// eleI.classList.add('fa-chevron-left')
-
-// eleI.addEventListener('click', function () {})
-
-// for (let i = 0; i < feedDetail_imgs.length; i++) {
-//   // 처음 사진을 띄워주는 부분
-//   let present_detailimg = feedDetail_imgs[i].querySelector('img')
-//   present_detailimg.style.display = 'block'
-
-//   feedDetail_imgs[i]
-//     .querySelector('.detail_next')
-//     .addEventListener('click', () => {
-//       if (present_detailimg.nextElementSibling.src) {
-//         console.log(present_detailimg.nextElementSibling)
-//         present_detailimg.style.display = 'none'
-//         present_detailimg = present_detailimg.nextElementSibling
-//         present_detailimg.style.display = 'block'
-//       }
-//       return
-//     })
-//   feedDetail_imgs[i]
-//     .querySelector('.detail_previous')
-//     .addEventListener('click', () => {
-//       if (present_detailimg.previousElementSibling.src) {
-//         console.log(present_detailimg.previousElementSibling)
-//         present_detailimg.style.display = 'none'
-//         present_detailimg = present_detailimg.previousElementSibling
-//         present_detailimg.style.display = 'block'
-//       }
-//       return
-//     })
-// }
+let page_count = 0
 
 function previousImg(e) {
   const feed_imgListDiv = e.parentNode.querySelector('.feed_imgList')
-  let first_img = feed_imgListDiv.firstChild.nextSibling
+  let first_img = feed_imgListDiv.firstChild
   while (first_img.nodeType !== 1) {
     first_img = first_img.nextSibling
   }
-  let last_img = feed_imgListDiv.lastChild.previousSibling
+  let last_img = feed_imgListDiv.lastChild
   while (last_img.nodeType !== 1) {
     last_img = last_img.previousSibling
   }
@@ -76,45 +17,267 @@ function previousImg(e) {
 
 function nextImg(e) {
   const feed_imgListDiv = e.parentNode.querySelector('.feed_imgList')
-  let first_img = feed_imgListDiv.firstChild.nextSibling
+  let first_img = feed_imgListDiv.firstChild
   while (first_img.nodeType !== 1) {
     first_img = first_img.nextSibling
   }
-  let last_img = feed_imgListDiv.lastChild.previousSibling
+  let last_img = feed_imgListDiv.lastChild
   while (last_img.nodeType !== 1) {
     last_img = last_img.previousSibling
   }
   last_img.after(first_img)
 }
 
-// const feed_containerEle = document.querySelector('.feed_container')
+// feed scroll
+const windowHeight = window.innerHeight // 현재 보이는 창 높이
 
-// document.querySelector('#feed').addEventListener('scroll', () => {
-//   let scrollLocation = document.documentElement.scrollTop  // 현재 스크롤바 위치
-// 	let windowHeight = window.innerHeight                    // 스크린 창
-// 	let fullHeight = document.body.scrollHeight              //  margin 값은 포함 x
+document.addEventListener('DOMContentLoaded', async function () { // HTML과 script가 로드된 시점에 발생하는 이벤트.
+    await makeFeedAjax(document.querySelector('select[name="feed"]').value, page_count).then((myJson) => {
+      makeFeed(myJson)
+    })
+    page_count++
+    await ajax()
+function ajax() {
+    if(document.body.scrollHeight <= windowHeight) {
+    makeFeedAjax(document.querySelector('select[name="feed"]').value, page_count).then((myJson) => {
+      makeFeed(myJson)
+    })
+    page_count++
+  }
+}
+})
 
-// 	if(scrollLocation + windowHeight >= fullHeight){
-// 		let feed_titleEle = document.createElement('div')
-//     feed_titleEle.className = 'feed_title'
-//     feed_containerEle.appendChild(feed_titleEle)
-//     let imgEle = document.createElement('img')
-//     imgEle.src = "/resources/img/common/basic_profile.png"
-//     imgEle.alt = "기본프로필사진"
-//     feed_titleEle.appendChild(img)
-//     let spanEle = document.createElement('span')
-//     spanEle.innerText = 'USER234'
-//     spanEle.innerText = '2021-01-23'
-//     feed_titleEle.appendChild(spanEle)
-//     let iEle = document.createElement('i')
-//     iEle.className = 'fas fa-ellipsis-h'
-//     feed_titleEle.appendChild(iEle)
+document.querySelector('select[name="feed"]').addEventListener('change', () => {
+  page_count = 0
 
-//     feed_titleEle.className = 'feed_img'
-//     feed_titleEle.onload = "loadImg()"
-//     feed_containerEle.appendChild(feed_titleEle)
-//     feed_titleEle.className = 'previous'
-//     feed_titleEle.onclick = "previousImg(this)"
+  document.querySelector('#feed').querySelectorAll('*').forEach((test) => test.remove())
 
-// 	}
-// })
+  makeFeedAjax(document.querySelector('select[name="feed"]').value, page_count).then((myJson) => {
+    makeFeed(myJson)
+  })
+  page_count++
+})
+
+document.addEventListener('scroll', () => {
+  let scrollLocation = document.documentElement.scrollTop // 현재 스크롤바 위치
+  let fullHeight = document.body.scrollHeight // 스크롤 포함 전체 길이
+
+  if (scrollLocation + windowHeight >= fullHeight) {
+    console.log(fullHeight)
+    console.log(scrollLocation + windowHeight)
+    
+    makeFeedAjax(document.querySelector('select[name="feed"]').value, page_count).then((myJson) => {
+      makeFeed(myJson)
+    })
+    page_count++
+  }
+})
+
+// const category = document.querySelector('select[name="feed"]')
+function makeFeedAjax(category, page_count) {
+    return new Promise(function (resolve) {
+      let params = {
+        category: category,
+        page_count: page_count
+      }
+      console.log(params.category)
+      console.log(params.page_count)
+      fetch('/feed', {
+        method: 'post',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(params), 
+      }).then((res) => 
+        res.json()
+      ).then(function (myJson) {
+        resolve(myJson)
+      })
+    })
+}
+const feedEle = document.querySelector('#feed')
+function makeFeed(myJson){
+    for(let i = 0; i < myJson.result.length; i++){
+      console.log(myJson.result[i])
+    // feed_container 생성
+    let feed_containerEle = document.createElement('div')
+    feed_containerEle.className = 'feed_container'
+    
+    // feedtitle 생성
+    let feed_titleEle = document.createElement('div')
+    feed_titleEle.className = 'feed_title'
+    feed_containerEle.appendChild(feed_titleEle)
+    let imgEle = document.createElement('img')
+    if(myJson.result[i].user_profileimg !== null) {
+      imgEle.src = `${myJson.result[i].user_profileimg}`
+    }
+    imgEle.src = `/resources/img/common/basic_profile.png`
+    feed_titleEle.appendChild(imgEle)
+
+    let user_idSpan = document.createElement('span')
+    user_idSpan.innerText = `${myJson.result[i].user_id}`
+    let user_idA = document.createElement('a')
+    user_idA.setAttribute('href', `/userpage/${myJson.result[i].user_id}`)
+    user_idA.appendChild(user_idSpan)
+    feed_titleEle.appendChild(user_idA)
+
+    let feed_writedateSpan = document.createElement('span')
+    feed_writedateSpan.innerText = `${myJson.result[i].feed_writedate}`
+    feed_titleEle.appendChild(feed_writedateSpan)
+
+    let feedMenuI = document.createElement('i')
+    feedMenuI.className = 'fas fa-ellipsis-h'
+    feed_titleEle.appendChild(feedMenuI)
+    
+    console.log(myJson.result[i].media_url.length)
+    // 이미지
+    if(myJson.result[i].media_url.length > 0) {
+      let feed_imgDiv = document.createElement('div')
+      feed_imgDiv.className = 'feed_img'
+      feed_containerEle.appendChild(feed_imgDiv)
+
+      let previousDiv = document.createElement('div')
+      previousDiv.className = 'previous'
+      previousDiv.setAttribute('onclick', 'previousImg(this)')
+      feed_imgDiv.appendChild(previousDiv)
+
+      let previousI = document.createElement('i')
+      previousI.className = 'fas fa-chevron-left'
+      previousDiv.appendChild(previousI)
+
+      let feed_imgListDiv = document.createElement('div')
+      feed_imgListDiv.className = 'feed_imgList'
+      for(let j =0; j < myJson.result[i].media_url.length; j++) {
+        let img = document.createElement('img')
+        img.src = `${myJson.result[i].media_url[j].media_url}`
+        feed_imgListDiv.appendChild(img)
+      }
+      feed_imgDiv.appendChild(feed_imgListDiv)
+
+      let nextDiv = document.createElement('div')
+      nextDiv.className = 'next'
+      nextDiv.setAttribute('onclick', 'nextImg(this)')
+      feed_imgDiv.appendChild(nextDiv)
+
+      let nextI = document.createElement('i')
+      nextI.className = 'fas fa-chevron-right'
+      nextDiv.appendChild(nextI)
+    }
+    
+    let feed_contentDiv = document.createElement('div')
+    feed_contentDiv.className = 'feed_content'
+    feed_containerEle.appendChild(feed_contentDiv)
+    if(myJson.result[i].hashtag_ctnt.length > 0) {
+      for(let k=0; k < myJson.result[i].hashtag_ctnt.length; k++) {
+        let hashtagA = document.createElement('a')
+        hashtagA.setAttribute('href','#')
+        hashtagA.innerText = myJson.result[i].hashtag_ctnt[k].hashtag_ctnt
+        feed_contentDiv.appendChild(hashtagA)
+      }
+    }
+    let detailDiv = document.createElement('div')
+    detailDiv.setAttribute('onclick', `feedDetail(this, ${myJson.result[i].feed_pk})`)
+    feed_contentDiv.appendChild(detailDiv)
+
+    let feed_ctntP = document.createElement('p')
+    feed_ctntP.innerText = `${myJson.result[i].feed_ctnt}`
+    detailDiv.appendChild(feed_ctntP)
+    
+    
+    feed_containerEle.appendChild(feed_contentDiv)
+    
+    let feed_functionbarEle = document.createElement('div')
+    feed_functionbarEle.className = 'feed_functionbar'
+
+    let commentI = document.createElement('i')
+    commentI.setAttribute('onclick', `feedDetail(${myJson.result[i].feed_pk})`)
+    commentI.className = 'fal fa-comment'
+    commentI.innerHTML = `${myJson.result[i].comment_count}`
+    feed_functionbarEle.appendChild(commentI)
+
+    let favoriteI = document.createElement('i')
+    if(myJson.result[i].favorite_state === 1) {
+      favoriteI.className = 'fas fa-heart'
+    }else {
+      favoriteI.className = 'far fa-heart'
+    }
+    favoriteI.innerHTML = `${myJson.result[i].favorite_count}`
+    favoriteI.setAttribute('onclick', `feedFavorite(this, ${myJson.result[i].feed_pk})`)
+    feed_functionbarEle.appendChild(favoriteI)
+
+    let bookmarkI = document.createElement('i')
+
+    if(myJson.result[i].bookmark_state === 1){
+      bookmarkI.className = 'fas fa-bookmark'
+    }else{
+      bookmarkI.className = 'far fa-bookmark'
+    }
+    bookmarkI.setAttribute('onclick', `feedBookmark(this, ${myJson.result[i].feed_pk})`)
+    feed_functionbarEle.appendChild(bookmarkI)
+
+    feed_containerEle.appendChild(feed_functionbarEle)
+
+    feedEle.appendChild(feed_containerEle)
+  }
+}
+
+function feedFavorite(e,feed_pk) {
+  let favorite_state = 0
+  const function_bar = e.parentNode
+  let favoriteI = function_bar.querySelector('.fa-heart')
+  if(favoriteI.className === 'fas fa-heart'){
+    favorite_state = 1
+  }else {
+    favorite_state = 0
+  }
+  let params = {
+    favorite_feedpk : feed_pk,
+    favorite_state
+  }
+  fetch('/feed/favorite', {
+    method: 'post',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(params), 
+  }).then((res) => res.json()
+  ).then((myJson) => {
+
+    if(myJson.result.favorite_state == 0) {
+      favoriteI.className = 'far fa-heart'
+    }else {
+      favoriteI.className = 'fas fa-heart'
+    }
+    favoriteI.innerHTML = myJson.result.favorite_count
+  })
+}
+
+// Feed Bookmark
+function feedBookmark(e, feed_pk) {
+  let bookmark_state = 0
+  const function_bar = e.parentNode
+  let bookmarkI = function_bar.querySelector('.fa-bookmark')
+  if(bookmarkI.className === 'fas fa-bookmark'){
+    bookmark_state = 1
+  }else {
+    bookmark_state = 0
+  }
+  let params = {
+    bookmark_feedpk : feed_pk,
+    bookmark_state
+  }
+  fetch('/feed/bookmark', {
+    method: 'post',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(params), 
+  }).then((res) => res.json()
+  ).then((myJson) => {
+    if(myJson.result.bookmark_state == 0) {
+      bookmarkI.className = 'far fa-bookmark'
+    }else {
+      bookmarkI.className = 'fas fa-bookmark'
+    }
+  })
+}

@@ -4,13 +4,13 @@
 <mapper namespace="com.purple.demo.mapper.CsMapper">
 	<!-- 공지사항 -->
 	<!-- 공지사항 글 등록 -->
-	<insert id="regNotice">
+	<insert id="regNotice" useGeneratedKeys="true" keyProperty="notice_pk">
 		INSERT INTO notice
 		( notice_title, notice_ctnt,
-		notice_userpk, notice_img )
+		notice_userpk )
 		VALUES
 		( #{notice_title}, #{notice_ctnt},
-		#{notice_userpk}, #{notice_img} )
+		#{notice_userpk} )
 	</insert>
 
 	<!-- 공지사항 글 리스트 -->
@@ -40,6 +40,13 @@
 		WHERE notice_pk = #{notice_pk}
 	</update>
 
+	<!-- 공지사항 이미지 수정 -->
+	<update id="notice_img_upd">
+		UPDATE notice
+		SET notice_img = #{notice_img}
+		WHERE notice_pk = #{notice_pk}
+	</update>
+
 	<!-- 공지사항 조회수 -->
 	<update id="updNoticevieView">
 		UPDATE notice
@@ -62,15 +69,15 @@
 
 	<!-- 문의사항 -->
 
-	<insert id="regQuestion">
+	<insert id="regQuestion" useGeneratedKeys="true" keyProperty="question_pk">
 		INSERT INTO question
 		( question_title,
 		question_ctnt,
-		question_userpk, question_type )
+		question_userpk, question_type, question_img )
 		VALUES
 		(
 		#{question_title}, #{question_ctnt}, #{question_userpk},
-		#{question_type} )
+		#{question_type}, #{question_img} )
 	</insert>
 
 	<!-- 문의사항 글 리스트 -->
@@ -79,7 +86,7 @@
 		,a.question_title, a.question_ctnt,
 		a.question_writedate,
 		a.question_view, a.question_userpk,
-		a.question_type , b.answer_ctnt, b.answer_writedate,
+		a.question_type , a.question_img, b.answer_ctnt, b.answer_writedate,
 		b.answer_pk
 		FROM
 		question AS a LEFT JOIN answer AS b
@@ -109,6 +116,13 @@
 		#{question_title} ,question_ctnt = #{question_ctnt}
 		WHERE question_pk =
 		#{question_pk}
+	</update>
+
+	<!-- 문의사항 이미지 수정 -->
+	<update id="question_img_upd">
+		UPDATE question
+		SET question_img = #{question_img}
+		WHERE question_pk = #{question_pk}
 	</update>
 
 	<!-- 문의사항 조회수 -->
