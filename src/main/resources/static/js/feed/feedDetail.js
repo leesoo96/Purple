@@ -2,15 +2,28 @@
 let feed_DetailOverlay = document.querySelector('.feed_overlay')
 const feedDetailClass = document.querySelector('.feedDetail')
 
-function feedDetail(e) {
+function feedDetail(e, feed_pk) {
+  return new Promise(function(resolve) {
+  fetch(`/feed/detail/`+feed_pk,
+  ).then((res) => res.json())
+  .then((myJson)=>{
+    resolve(myJson.result)
+  })
+  }).then((myJson) => {
+    makeFeedDetail(e, myJson)
+  })
+}
+function makeFeedDetail(e, myJson) {
+  console.log(e)
+  console.log(myJson)
   feed_DetailOverlay.style.display = 'block' // feedDetail show
 
-  const feed_container = e.parentNode.parentNode
-  console.log(feed_container)
-  let feedImg = feed_container.querySelectorAll('.feed_imgList img')
+  // const feed_container = e.parentNode.parentNode
+  // console.log(feed_container)
+  // let feedImg = feed_container.querySelectorAll('.feed_imgList img')
 
-  let writer_img = feed_container.querySelector('.title_img') // 작성자 프로필사진
-  let writer_imgClone = writer_img.cloneNode(false)
+  // let writer_img = feed_container.querySelector('.title_img') // 작성자 프로필사진
+  // let writer_imgClone = writer_img.cloneNode(false)
 
   let writer_id = feed_container.querySelector('span[name="user_id"]') // 글 작성자
 
