@@ -6,6 +6,7 @@ import com.purple.demo.model.FeedListDTO;
 import com.purple.demo.model.FeedWriteDTO;
 import com.purple.demo.model.HashtagEntity;
 import com.purple.demo.model.MediaEntity;
+import com.purple.demo.model.DTO.CommentListDTO;
 import com.purple.demo.model.DTO.FeedBookmarkDTO;
 import com.purple.demo.model.DTO.FeedDetailDTO;
 import com.purple.demo.model.DTO.FeedFavoriteDTO;
@@ -27,6 +28,7 @@ public interface FeedMapper {
    int delFavorite(FeedFavoriteDTO dto);
    int favoriteCount(FeedFavoriteDTO dto);
 
+   List<CommentListDTO> selCommentList(FeedDetailDTO dto);
    // 북마크
    FeedBookmarkDTO feedBookmark(FeedBookmarkDTO bmd);
    int insertBookmark(FeedBookmarkDTO bmd);

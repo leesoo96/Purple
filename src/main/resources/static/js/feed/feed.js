@@ -63,9 +63,6 @@ document.addEventListener('scroll', () => {
   let fullHeight = document.body.scrollHeight // 스크롤 포함 전체 길이
 
   if (scrollLocation + windowHeight >= fullHeight) {
-    console.log(fullHeight)
-    console.log(scrollLocation + windowHeight)
-    
     makeFeedAjax(document.querySelector('select[name="feed"]').value, page_count).then((myJson) => {
       makeFeed(myJson)
     })
@@ -80,8 +77,6 @@ function makeFeedAjax(category, page_count) {
         category: category,
         page_count: page_count
       }
-      console.log(params.category)
-      console.log(params.page_count)
       fetch('/feed', {
         method: 'post',
         headers: {
@@ -97,8 +92,12 @@ function makeFeedAjax(category, page_count) {
 }
 const feedEle = document.querySelector('#feed')
 function makeFeed(myJson){
+  if(myJson.result.length === 0) {
+    page_count--
+    console.log(page_count)
+    return
+  }
     for(let i = 0; i < myJson.result.length; i++){
-      console.log(myJson.result[i])
     // feed_container 생성
     let feed_containerEle = document.createElement('div')
     feed_containerEle.className = 'feed_container'
@@ -129,7 +128,6 @@ function makeFeed(myJson){
     feedMenuI.className = 'fas fa-ellipsis-h'
     feed_titleEle.appendChild(feedMenuI)
     
-    console.log(myJson.result[i].media_url.length)
     // 이미지
     if(myJson.result[i].media_url.length > 0) {
       let feed_imgDiv = document.createElement('div')

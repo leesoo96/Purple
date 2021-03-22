@@ -86,6 +86,7 @@ public class FeedService {
         dto.setBookmark_state(mapper.isBookmark((FeedListDTO)dto));
         dto.setMedia_url(mapper.selMediaList((FeedListDTO)dto));
         dto.setHashtag_ctnt(mapper.selHashtagList((FeedListDTO)dto));
+        dto.setComment_list(mapper.selCommentList(dto));
         System.out.println(dto.getFeed_pk());
         return dto;
     }

@@ -24,10 +24,160 @@
 }
 .feedDetail {
   background-color: #fff;
-  min-height: 37em;
-  margin: 9em auto;
+  height: 45em;
+  min-width: 40em;
+  position: absolute;
+  z-index:4;
+  top: 10%;
+  left: 34%;
+  display:none;
+  border-radius: 2em;
+  padding: 2px;
 }
-.feed_detail_userImg {
+
+.detail_close {
+  position:relative;
+  padding: 10px;
+  float: right;
+  cursor: pointer;
+  display: block;
+}
+
+.detail_close i {
+  font-size: 1.5em;
+}
+
+.detail_img_container {
+  position: relative;
+  width: 40em;
+  height: 100%;
+  float: left;
+}
+
+.detail_ctnt_container {
+  position:relative;
+  width: 40em;
+  height:100%;
+  float: right;
+}
+
+.detail_titlebar{
+  height: 40px;
+  padding: 8px;
+  position: relative;
+  display: flex;
+  align-items: center;
+
+}
+
+.detail_titlebar img {
+  width: 3em;
+  border-radius: 2em;
+  height: auto;
+}
+
+.detail_titlebar span {
+  position: relative;
+  font-size: 0.9rem;
+  margin-left: 0.6em;
+}
+
+.detail_titlebar i {
+  position: relative;
+  margin-left: auto;
+  cursor: pointer;
+  margin-right: 1em;
+}
+
+.detail_ctnt {
+  position: relative;
+  width:40em;
+  height: auto;
+
+}
+
+.hashtag_container {
+  padding: 20px;
+  position: relative;
+
+}
+
+.hashtag_container a {
+  margin-right: 20px;
+  font-size: 1.3em;
+}
+
+.ctnt_container{
+  padding:20px;
+  position: relative;
+  width:40em;
+  font-size: 1.4em;
+}
+.ctnt_container p {
+
+  display: block;
+}
+.detail_functionbar {
+  position: relative;
+  width: 40em;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5em;
+  margin-left: 1em;
+}
+
+.detail_functionbar i{
+  width: 1em;
+  font-size: 2em;
+  cursor: pointer;
+  margin-left: 0.1em;
+  margin-right: 1em;
+}
+
+.detail_comment_container {
+  position: relative;
+  height:65%;
+  width:40em;
+}
+
+.comment_list {
+  position: relative;
+  border: 2px solid black;
+  border-radius: 2em;
+  width: 37.3em;
+  left:0.2em;
+  height: 20em;
+  padding: 0.4em;
+  overflow-y: scroll;
+  -ms-overflow-style: none;
+}
+
+.comment_list::-webkit-scrollbar{ display:none; }
+
+.commentbar {
+  margin-left: 0.4em;
+  margin-top: 0.3em;
+  position: relative;
+  height: 3.3em;
+  width: 36em;
+
+  display: flex;
+  align-items: center;
+}
+
+.commentbar img {
+  margin-right: 0.5em;
+  width: 3em;
+  border-radius: 2em;
+  height: auto;
+}
+.commentbar span {
+  margin-right: 2em;
+  font-size: 1em;
+}
+
+/* .feed_detail_userImg {
   margin-left: 1em;
 }
 .feedDetail_img {
@@ -67,7 +217,7 @@
 .feedDetail_contents {
   position: fixed;
   top: 3em;
-  left: 62em;
+  left: 40.7em;
 }
 .feedDetail_contents .feed_title {
   display: flex;
@@ -208,4 +358,4 @@
   margin-top: 1em;
   min-height: 4em;
   max-height: 7em;
-}
+} */
