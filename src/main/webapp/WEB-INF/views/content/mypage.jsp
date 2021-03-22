@@ -2,6 +2,7 @@
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
 <link href="/resources/css/mypage/mypage.css" rel="stylesheet">
 <script defer src="resources/js/mypage/mypage.js"></script>
+<script defer src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <div id="modal_background"></div>
 <!-- modal_background -->
 <div id="userMod_container">
@@ -33,11 +34,13 @@
             <input maxlength="5" name="mod_name" placeholder="Name" type="text">
             <input maxlength="20" name="mod_bio" placeholder="Bio" type="text">
             <input maxlength="30" name="mod_location" placeholder="Location" type="text">
+            <input name="find_Address" type="button" onclick="postCode()" value="주소 찾기">
             <input maxlength="30" name="mod_website" placeholder="Website" type="text">
             <input data-placeholder="생년월일을 선택해주세요" name="mod_birth" type="date">
         </form>
     </div>
 </div>
+
 <div id="userPwMod_container">
     <div id="userPwMod_top">
         <span>비밀번호 변경</span>

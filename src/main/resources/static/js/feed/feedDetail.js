@@ -147,6 +147,7 @@ function feedDetail(e) {
     const heart_div = document.createElement('div')
     heart_div.classList.add('heart_div')
     heart_div.innerHTML = '<i class="far fa-heart">'
+    // heart_div.onclick = feedFavorite(this)
 
     const heart_span = document.createElement('span')
     heart_div.append(heart_span)
@@ -168,6 +169,7 @@ function feedDetail(e) {
     bookmark_div.classList.add('bookmark_div')
     bookmark_div.innerHTML = '<i class="far fa-bookmark"></i>'
     comment_div.after(bookmark_div)
+    // bookmark_div.onclick = feedBookmark(this)
 
     // 댓글창 ////////////////////////////////////////
     const feed_comment = document.createElement('div')
