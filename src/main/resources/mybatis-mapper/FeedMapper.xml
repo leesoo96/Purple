@@ -26,6 +26,18 @@
         LIMIT #{first_page}, #{end_page};
     </select>
 
+
+    <select id="selFeedDetail" resultType="FeedDetailDTO">
+        SELECT a.feed_pk, a.feed_ctnt, a.feed_writedate, a.feed_userpk,
+        b.user_id, b.user_profileimg,
+        (SELECT COUNT(comment_pk) FROM comment WHERE comment_feedpk = a.feed_pk) AS "comment_count",
+        (SELECT COUNT(favorite_feedpk) FROM favorite WHERE favorite_feedpk= a.feed_pk) AS "favorite_count"
+        FROM feed AS a
+        LEFT OUTER JOIN user AS b
+        ON (a.feed_userpk = b.user_pk)
+        WHERE a.feed_pk = #{feed_pk}
+    </select>
+
     <select id="selMediaList" resultType="MediaEntity">
         SELECT b.media_url
         FROM feed AS a

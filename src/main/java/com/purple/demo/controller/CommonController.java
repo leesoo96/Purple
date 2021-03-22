@@ -3,6 +3,8 @@ package com.purple.demo.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.purple.demo.common.Const;
 import com.purple.demo.model.UserEntity;
 import com.purple.demo.service.UserServiceImpl;
 
@@ -35,7 +38,7 @@ public class CommonController {
 	@PostMapping("/join")
 	public Map<String, Object> join(@RequestBody UserEntity entity) {
 		Map<String, Object> joinResult = new HashMap<String, Object>();
-		joinResult.put("result", service.join(entity));
+		joinResult.put(Const.KEY_REUSLT, service.join(entity));
 			
 		return joinResult;
 	}
@@ -45,8 +48,17 @@ public class CommonController {
 	@GetMapping("/join/{user_id}")
 	public Map<String, Object> overlap_Confirm(UserEntity entity) {
 		Map<String, Object> value = new HashMap<String, Object>();
-		value.put("result", service.overlap_Confirm(entity));
+		value.put(Const.KEY_REUSLT, service.overlap_Confirm(entity));
 			
+		return value;
+	}
+
+//	비밀번호 찾기	
+	@ResponseBody
+	@RequestMapping("/findpw")
+	public  Map<String, Object> findPw(@RequestBody UserEntity entity, HttpServletResponse res, Model model) {
+		Map<String, Object> value = new HashMap<String, Object>();
+		value.put(Const.KEY_REUSLT, service.findPw(res, entity));
 		return value;
 	}
 

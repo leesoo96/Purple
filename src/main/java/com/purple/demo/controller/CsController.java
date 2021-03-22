@@ -60,6 +60,7 @@ public class CsController {
 	public Map<String, Object> notice_img(MultipartFile img, @RequestParam("notice_pk") int notice_pk) {
 		Map<String, Object> noticeWriteResult = new HashMap<String, Object>();
 		noticeWriteResult.put("result", service.notice_img(img, notice_pk));
+		// System.out.println(service.notice_img(img, notice_pk));
 		return noticeWriteResult;
 	}
 
