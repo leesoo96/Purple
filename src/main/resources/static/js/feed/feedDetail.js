@@ -3,12 +3,12 @@ let feed_DetailOverlay = document.querySelector('.feed_overlay')
 const feedDetailClass = document.querySelector('.feedDetail')
 
 function feedDetail(e, feed_pk) {
-  return new Promise(function(resolve) {
-  fetch(`/feed/detail/`+feed_pk,
-  ).then((res) => res.json())
-  .then((myJson)=>{
-    resolve(myJson.result)
-  })
+  return new Promise(function (resolve) {
+    fetch(`/feed/detail/` + feed_pk)
+      .then((res) => res.json())
+      .then((myJson) => {
+        resolve(myJson.result)
+      })
   }).then((myJson) => {
     makeFeedDetail(e, myJson)
   })

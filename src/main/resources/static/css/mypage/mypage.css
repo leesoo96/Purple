@@ -1,5 +1,8 @@
 @charset "UTF-8";
 
+* {
+  font-family: 'paybooc-Bold';
+}
 /* mypage userinfo */
 #mypage_userinfo_container {
   margin-top: 0.3em;
@@ -55,7 +58,7 @@
   height: 1.6em;
 }
 #mypage_userinfo_content .mypageuser_nm {
-  font-size: 14px;
+  font-size: 17px;
 }
 
 #mypage_userinfo_content .mypageuser_id {
@@ -72,17 +75,16 @@
 }
 
 #mypage_userinfo_content .mypageuser_birth {
-  font-size: 16px;
+  font-size: 16.5px;
   margin-top: 0.2em;
 }
-
+#mypage_userinfo_content .mypageuser_location {
+  font-size: 16.5px;
+}
 #mypage_userinfo_content .mypageuser_following {
-  font-size: 16px;
+  font-size: 16.5px;
   margin-top: 0.4em;
 }
-
-
-
 
 #mypage_userinfo_button {
   top: 1em;
@@ -93,7 +95,7 @@
 
 #mypage_modcontent_btn {
   position: relative;
-  right : -8em;
+  right: -8em;
   top: 2em;
   bottom: 1.2em;
   padding: 10px 18px;
@@ -274,7 +276,8 @@ input[name='mod_id'] {
   margin-bottom: 0.5em;
 }
 
-button[name='id_check'] {
+button[name='id_check'],
+input[name='find_Address'] {
   text-align: center;
   padding: 8px;
   background: #ad00e2;
@@ -387,3 +390,8 @@ button[name='pwModBtn'] {
   margin-left: 38%;
 }
 /* userPwMod_modal창 종료 */
+
+/* 주소 찾기 버튼 css */
+input[name='mod_location'] {
+  width: 85%;
+}

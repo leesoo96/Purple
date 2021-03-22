@@ -6,6 +6,7 @@ const registerFrmEle = document.querySelector('#registerFrm')
 const btn_wrapEle = document.querySelector('#btn-wrap')
 const togglebtn_span = document.querySelectorAll('.togglebtn span')
 const errMSG = document.querySelector('#errMSG')
+let findpw_open = document.querySelector('.findpw_btn')
 
 function login() {
   togglebtn_span[0].style.color = '#fff'
@@ -13,6 +14,7 @@ function login() {
   loginFrmEle.style.left = '50px'
   registerFrmEle.style.left = '480px'
   btn_wrapEle.style.left = '0'
+  findpw_open.style.left = '15.9em'
 }
 
 function register() {
@@ -21,6 +23,7 @@ function register() {
   loginFrmEle.style.left = '-400px'
   registerFrmEle.style.left = '50px'
   btn_wrapEle.style.left = '147px'
+  findpw_open.style.left = '-6.1em'
   errMSG.style.left = '-400px'
 }
 
@@ -171,3 +174,63 @@ overlap_idBtn.addEventListener('click', () => {
       })
   }
 })
+
+// 비밀번호 찾기 modal 창 열고 닫기
+let findpw_modal = document.querySelector('.findpw_modal')
+
+findpw_open.onclick = function () {
+  findpw_modal.style.display = 'block'
+}
+
+const findpw_close = document.querySelector('.findpw_quit')
+findpw_close.onclick = function () {
+  findpw_modal.style.display = 'none'
+}
+
+// 비밀번호 찾기
+const find_btn = document.querySelector('.find_btn')
+let find_pw_id = document.querySelector('.findpw_id')
+let find_pw_mail = document.querySelector('.findpw_email')
+
+find_btn.onclick = function () {
+  if (find_pw_id.value == '' || find_pw_mail.value == '') {
+    return false
+  }
+  let param = {
+    user_id: find_pw_id.value,
+    user_email: find_pw_mail.value,
+  }
+  fetch('/findpw', {
+    method: 'post',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(param),
+  })
+    .then((res) => res.json())
+    .then((myJson) => {
+      findpw_proc(myJson.result)
+    })
+}
+
+function findpw_proc(result) {
+  switch (result) {
+    case 1:
+      alert('아이디가 없거나 잘못 입력하셨습니다.다시 확인해주세요.')
+      find_pw_id.focus()
+      break
+
+    case 2:
+      alert('메일 주소가 맞는지 다시 확인해주세요.')
+      find_pw_mail.focus()
+      break
+
+    case 3:
+      alert('메일이 발송되었습니다.메일함을 확인해주세요.')
+      break
+
+    case 4:
+      alert('메일 형식이 올바르지 않습니다.다시 확인해주세요.')
+      break
+  }
+}

@@ -11,12 +11,6 @@
 	<script defer type="text/javascript" src="resources/js/common/welcome.js"></script>
 </head>
 <body>
-	<div>
-		<div>
-			<a href="/admin_login">관리자로그인</a>
-		</div>
-	</div>
-
 	<div id="form-wrap">
 		<div id="logo">
       		<img src="resources/img/common/logo2.png" alt="로고">
@@ -42,11 +36,34 @@
         		</c:otherwise>
         	</c:choose>
         	<span>아이디 기억하기</span>  	
-        	    	
+
+					
         	<input type="submit" id="login_Btn" class="input_submit" value="로그인">
         	<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }">
      	</form>
-		 
+
+		<!-- 비밀번호 찾기 -->
+		 <div id="findpw">
+			<span class="findpw_btn">비밀번호 찾기</span>
+			
+			<div class="findpw_modal">
+				<div class="findpw_use">
+					<h2>비밀번호 찾기</h2>
+					<span>
+						<input class="findpw_id" type="text" name="user_id" placeholder="회원가입한 아이디를 입력해주세요">
+					</span>
+					<span>
+						<input class="findpw_email" type="email" name="user_email" placeholder="회원가입한 이메일 주소를 입력해주세요">
+					</span>
+					<span>
+						<input class="find_btn" type="button" value="찾기">
+					</span>
+					<span class="findpw_quit">닫기</span>
+				</div>
+			</div>
+		</div>
+		<!-- 비밀번호 찾기 -->
+
 		<c:if test="${not empty loginFailMsg}">
            <p id="errMSG">${requestScope.loginFailMsg}</p>
         </c:if>

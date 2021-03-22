@@ -1,25 +1,25 @@
 let search_contentEle = document.querySelector('.search-form')
 const search_content = document.querySelector('.search_content')
-const search_input = search_contentEle.search_input
+const search_input = document.querySelector('.search-input')
 
 //유저 검색 리스트
 function enterkey() {
-  if (window.event.keyCode === 13) {
-    let param = {
-      search_user_id: search_contentEle.search_input.value,
-    }
-    fetch('/search/searchUser', {
-      method: 'post',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(param),
-    })
-      .then((res) => res.json())
-      .then((myJson) => {
-        user_list(myJson)
-      })
+  const form = document.querySelector('.search-form')
+  let param = {
+    search_user_id: form.search_input.value,
   }
+  fetch('/search/searchUser', {
+    method: 'post',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(param),
+  })
+    .then((res) => res.json())
+    .then((myJson) => {
+      search_content.querySelectorAll('*').forEach((test) => test.remove())
+      user_list(myJson)
+    })
 
   function user_list(myJson) {
     for (let i = 0; i < myJson.length; i++) {
@@ -32,13 +32,13 @@ function enterkey() {
       search_tr.appendChild(search_td)
 
       let user_img = document.createElement('img')
-      user_img.src = `/resources/img/common/basic_profile.png`
+      user_img.src = `${myJson[i].user_profileimg}`
       user_img.id = 'profileImg'
       user_img.alt = '기본프로필사진'
       search_td.appendChild(user_img)
 
       let user_id = document.createElement('a')
-      user_id.href = '/userpage/zxc'
+      user_id.href = `/userpage/${myJson[i].user_id}`
       search_td.appendChild(user_id)
 
       let user_id_span = document.createElement('span')
@@ -51,15 +51,36 @@ function enterkey() {
       user_bio.innerHTML = `@${myJson[i].user_bio}`
       search_td.appendChild(user_bio)
 
-      let user_teg = document.createElement('a')
-      user_teg.href = '#'
-      search_td.appendChild(user_teg)
+      let user_tag = document.createElement('div')
+      user_tag.setAttribute('onclick', `addFriendFunc(${myJson[i].user_pk})`)
+      search_td.appendChild(user_tag)
 
       let user_teg_i = document.createElement('i')
       user_teg_i.className = 'fas fa-user-plus'
-      user_teg.appendChild(user_teg_i)
+      user_tag.appendChild(user_teg_i)
 
       search_content.appendChild(search_table)
     }
   }
+}
+function addFriendFunc(friend_pk) {
+  let addFriendParam = {
+    user_pk: document.querySelector('#user_pk').value,
+    friend_pk: friend_pk,
+  }
+  fetch('/layout/addNewFriend', {
+    method: 'post',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(addFriendParam),
+  })
+    .then((res) => res.json())
+    .then((myJson) => {
+      if (myJson.result === 1) {
+        alert('친구 등록이 완료되었습니다.')
+        return
+      }
+      alert('이미 등록된 친구입니다.')
+    })
 }

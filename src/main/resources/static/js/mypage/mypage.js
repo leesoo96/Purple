@@ -206,7 +206,7 @@ pwModBtn.addEventListener('click', () => {
     }
 
     if (mod_chkpw.value === '' || mod_chkpw.value === null) {
-      alert('비밀번호를 확인란을 입력해 주세요')
+      alert('비밀번호 확인란을 입력해 주세요')
       mod_chkpw.focus()
       return
     }
@@ -231,3 +231,26 @@ pwModBtn.addEventListener('click', () => {
       })
   }
 })
+
+// 프로필 수정 - 주소 (다음 주소 API 사용)
+function postCode() {
+  new daum.Postcode({
+    oncomplete: function (data) {
+      // 주소 변수
+      var addr = ''
+
+      // 사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다
+      if (data.userSelectedType === 'R') {
+        // 도로명 주소 선택
+        addr = data.roadAddress
+      } else {
+        // 지번 주소 선택
+        addr = data.jibunAddress
+      }
+
+      userMod_contentEle.querySelector(
+        'input[name="mod_location"]'
+      ).value = addr
+    },
+  }).open()
+}
