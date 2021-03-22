@@ -42,7 +42,12 @@ function question_write_submit_btn() {
 }
 
 function questionReg() {
-  RegajaxImg()
+  ajax().then((question_pk) => {
+    if (question_img) {
+      RegajaxImg(question_pk)
+    }
+    location.href = `/question`
+  })
 
   function ajax() {
     return new Promise(function (resolve) {
@@ -65,8 +70,7 @@ function questionReg() {
         })
     })
   }
-  async function RegajaxImg() {
-    let question_pk = await ajax()
+  async function RegajaxImg(question_pk) {
     var formData = new FormData()
     formData.append('img', question_img.files[0])
     formData.append('question_pk', question_pk)
@@ -75,14 +79,14 @@ function questionReg() {
       body: formData,
     })
       .then((res) => res.json())
-      .then((myJson) => {
-        location.href = `/question`
-      })
+      .then((myJson) => {})
   }
 }
 //문의사항 수정
 function questionUpd() {
-  Updajax()
+  Updajax().then(() => {
+    location.href = `/question`
+  })
 
   async function Updajax() {
     let img = await UpdajaxImg()
@@ -101,9 +105,7 @@ function questionUpd() {
       body: JSON.stringify(param),
     })
       .then((res) => res.json())
-      .then(function (myJson) {
-        location.href = `/question`
-      })
+      .then(function (myJson) {})
   }
   function UpdajaxImg() {
     return new Promise(function (resolve) {
