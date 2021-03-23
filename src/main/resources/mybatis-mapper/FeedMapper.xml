@@ -28,7 +28,7 @@
 
 
     <select id="selFeedDetail" resultType="FeedDetailDTO">
-        SELECT a.feed_pk, a.feed_ctnt, a.feed_writedate, a.feed_userpk, a.feed_state, b.user_pk,
+        SELECT a.feed_pk, a.feed_ctnt, a.feed_writedate, a.feed_userpk, a.feed_state,
         b.user_id, b.user_profileimg,
         (SELECT COUNT(comment_pk) FROM comment WHERE comment_feedpk = a.feed_pk) AS "comment_count",
         (SELECT COUNT(favorite_feedpk) FROM favorite WHERE favorite_feedpk= a.feed_pk) AS "favorite_count"

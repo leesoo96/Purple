@@ -79,9 +79,10 @@ public class FeedService {
 
     public FeedDetailDTO feedDetail(FeedDetailDTO dto) {
         UserPrincipal principal = (UserPrincipal)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        dto.setUser_pk(principal.getUser_pk());
-        dto.setFeed_state(1);
+        System.out.println(principal.getUser_pk());
         dto = mapper.selFeedDetail(dto);
+        dto.setFeed_state(1);
+        dto.setUser_pk(principal.getUser_pk());  
         dto.setFavorite_state(mapper.isFavorite(dto.getFeed_pk(), dto.getUser_pk()));
         dto.setBookmark_state(mapper.isBookmark((FeedListDTO)dto));
         dto.setMedia_url(mapper.selMediaList((FeedListDTO)dto));
@@ -90,6 +91,7 @@ public class FeedService {
         System.out.println(dto.getFeed_pk());
         System.out.println(dto.getUser_pk());
         System.out.println(mapper.isBookmark((FeedListDTO)dto));
+        
         return dto;
     }
     /*
