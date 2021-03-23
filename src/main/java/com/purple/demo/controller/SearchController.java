@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.purple.demo.model.FeedListDTO;
 import com.purple.demo.model.DTO.SearchUserDTO;
 import com.purple.demo.service.SearchService;
 
@@ -28,9 +29,13 @@ public class SearchController {
 	
     @ResponseBody
     @PostMapping("/searchUser")
-    public List<SearchUserDTO> getRecommandFriendList(@RequestBody SearchUserDTO dto){
-
-	System.out.println("asd"+dto.getSearch_user_id());
+    public List<SearchUserDTO> selUserSearch(@RequestBody SearchUserDTO dto){
         return service.selUserSearch(dto);
+    }
+
+    @ResponseBody
+    @PostMapping("/searchFeed")
+    public List<FeedListDTO> selFeedSearch(@RequestBody FeedListDTO dto){
+        return service.selFeedSearch(dto);
     }
 }

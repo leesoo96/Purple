@@ -8,8 +8,15 @@
     <insert id="addNewFriend">
         INSERT INTO friend 
         (user_pk, friend_pk)
-        VALUES (#{user_pk}, #{friend_pk})
+        VALUES 
+        (#{user_pk}, #{friend_pk})
     </insert>
+
+    <!-- 이미 친구인지 확인 -->
+    <select id="friendCheck" resultType="FriendDTO">
+        SELECT user_pk, friend_pk from friend 
+        WHERE user_pk = #{user_pk};
+    </select>
 
     <!-- 알 수도 있는 사람 목록 가져오기 -->
     <select id="getRecommandFriendList" resultType="FriendDTO">
