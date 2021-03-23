@@ -52,7 +52,11 @@ function enterkey() {
       search_tr.appendChild(search_td)
 
       let user_img = document.createElement('img')
-      user_img.src = `${myJson[i].user_profileimg}`
+      if (myJson[i].user_profileimg == null) {
+        user_img.src = '/resources/img/common/basic_profile.png'
+      } else {
+        user_img.src = `${myJson[i].user_profileimg}`
+      }
       user_img.id = 'profileImg'
       user_img.alt = '기본프로필사진'
       search_td.appendChild(user_img)
