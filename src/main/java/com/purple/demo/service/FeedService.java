@@ -4,6 +4,7 @@ import java.util.*;
 
 import com.purple.demo.mapper.FeedMapper;
 import com.purple.demo.model.FeedListDTO;
+import com.purple.demo.model.FeedWriteDTO;
 import com.purple.demo.model.HashtagEntity;
 import com.purple.demo.model.MediaEntity;
 import com.purple.demo.model.UserPrincipal;
@@ -15,6 +16,7 @@ import com.purple.demo.utils.PurpleFileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 
 @Service
@@ -22,6 +24,8 @@ public class FeedService {
     
     @Autowired
     private FeedMapper mapper;
+
+    @Autowired
     private PurpleFileUtils fUtils;
 
     // Feed List
@@ -48,6 +52,36 @@ public class FeedService {
         }
         return feed_list;
     }
+    
+    public void insFeed(FeedWriteDTO dto, MultipartFile[] files, String[] hashtag){
+        //유저 pk 값
+		UserPrincipal principal = (UserPrincipal)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        dto.setFeed_userpk(principal.getUser_pk());
+        mapper.insFeed(dto);
+ 
+        //업로드 할 파일 경로
+		String folder = "/images/feed/"+dto.getFeed_pk();
+        fUtils.makeFolders(fUtils.getRealPath(folder));
+		try {	
+            for(MultipartFile file : files) {
+                MediaEntity entity = new MediaEntity();
+			    String fileNm = fUtils.transferTo(file, folder);
+                entity.setMedia_url(folder + "/" + fileNm);
+                entity.setMedia_feedpk(dto.getFeed_pk());
+                mapper.insFeedImg(entity);
+            }
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+        //해시 태그
+        for(int i=0; i < hashtag.length; i++){
+            HashtagEntity htentity = new HashtagEntity();
+            System.out.println(hashtag[i]);
+            htentity.setHashtag_ctnt(hashtag[i]);
+            mapper.insHashtag(htentity);
+        }
+    }
+  
 
     public FeedFavoriteDTO feedFavorite(FeedFavoriteDTO dto) {
         UserPrincipal principal = (UserPrincipal)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
