@@ -527,7 +527,7 @@ a {
 }
 #friend_list .friend_info {
   position: relative;
-  left: -2em;
+  left: 0em;
   top: 0.3em;
 }
 #friend_list .friend_info span {
@@ -560,6 +560,8 @@ a {
   position: relative;
   visibility: hidden;
   width: 6em;
+  left: 0.5em;
+  top: 0.3em;
 }
 #friend_list .friend_block span {
   color: #8d8d8d;
@@ -573,6 +575,7 @@ a {
 }
 #friend_list .friend_block span:nth-of-type(2) {
   font-size: 1.1rem;
+  display: inherit;
 }
 #friend_list .friend_block a:hover {
   color: #d800de;

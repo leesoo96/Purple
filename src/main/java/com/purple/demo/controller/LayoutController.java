@@ -64,7 +64,6 @@ public class LayoutController {
 	@PostMapping("/delFriend")
 	public Map<String, Object> delFriend(@RequestBody FriendDTO dto) {
 		Map<String, Object> delFriend = new HashMap<String, Object>();
-        System.out.println(dto.getFriend_pk());
 		delFriend.put(Const.KEY_REUSLT, service.delFriend(dto));
 		return delFriend;
 	}
