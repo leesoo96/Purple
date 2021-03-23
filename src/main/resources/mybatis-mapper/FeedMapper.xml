@@ -117,11 +117,13 @@
 		( #{feed_ctnt}, #{feed_userpk} )
 	</insert>
 
-    <insert id="insHashtag">
-        INSERT INTO hashtag
-        ( hashtag_ctnt )
-        VALUES
-        ( #{hashtag_ctnt} )
+    <insert id="insHashtag" useGeneratedKeys="true" keyProperty="hashtag_pk">
+        INSERT INTO hashtag(hashtag_ctnt)
+        SELECT ( #{hashtag_ctnt}) FROM DUAL
+        WHERE NOT EXISTS (
+        SELECT hashtag_ctnt
+        FROM hashtag
+        WHERE hashtag_ctnt = ( #{hashtag_ctnt}))
     </insert>
 
     <insert id="insFeedImg">
@@ -131,4 +133,15 @@
 		( #{media_feedpk}, #{media_url} )
 	</insert>
 
+    <select id="selHashtag_pk" resultType="int">
+        SELECT hashtag_pk
+        FROM hashtag
+        WHERE hashtag_ctnt=#{hashtag_ctnt} 
+    </select>
+
+    <insert id="insHashtagRel">
+        INSERT INTO hashtag_relation
+        VALUES
+        (#{htrel_hashtagpk}, #{htrel_feedpk})
+    </insert>
 </mapper>
