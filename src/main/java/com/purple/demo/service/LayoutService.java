@@ -37,4 +37,17 @@ public class LayoutService {
         dto.setUser_pk(principal.getUser_pk());
         return mapper.delFriend(dto);
     }
+
+     //이미 친구인지 확인
+     public int friendCheck(FriendDTO dto) {
+
+        List<FriendDTO> friendPkList = mapper.friendCheck(dto);
+
+        for (FriendDTO friendDTO : friendPkList) {
+            if (friendDTO.getFriend_pk() == dto.getFriend_pk()) {
+                return 0;
+            }
+        }
+         return 1;
+     }
  }

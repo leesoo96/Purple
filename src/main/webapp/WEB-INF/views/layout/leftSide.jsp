@@ -20,7 +20,7 @@
             </a>
           </div>
           <div id="news">
-            <a href="#">
+            <a href="/alarm">
               <i class="far fa-bell menu_icons"></i>
               <span>알림</span>
             </a>
