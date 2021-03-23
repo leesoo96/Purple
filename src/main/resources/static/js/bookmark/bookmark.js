@@ -83,7 +83,6 @@ const feedEle = document.querySelector('#bookmark_container')
 function makeFeed(myJson){
   if(myJson.result.length === 0) {
     page_count--
-    alert('마지막 페이지 입니다!')
     return
   }
     for(let i = 0; i < myJson.result.length; i++){

@@ -1,5 +1,8 @@
 package com.purple.demo.mapper;
 
+import java.util.List;
+
+import com.purple.demo.model.FeedListDTO;
 import com.purple.demo.model.UserEntity;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -11,4 +14,6 @@ public interface MypageMapper {
     String checkUserpw(int user_pk);
 
     int modUserPw(UserEntity entity);
+
+    List<FeedListDTO> selMypageFeedList(FeedListDTO param);
 }

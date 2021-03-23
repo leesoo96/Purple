@@ -1,7 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <link rel="stylesheet" href="/resources/css/mypage/userpage.css" />
+<link rel="stylesheet" href="/resources/css/feed/feed.css">
+<link rel="stylesheet" href="/resources/css/feed/feedDetail.css">
+
 <script defer src="/resources/js/mypage/userpage.js"></script>
+<script defer src="/resources/js/feed/feedDetail.js"></script>
+
 <input type="hidden" id="friend_pk" value=${userInfo.user_pk} />
 <div id="userpage_userinfo_container">
   <div id="userpage_userinfo_backimg">
@@ -29,21 +35,16 @@ pageEncoding="UTF-8"%>
       <div class="userpageuser_bio">
           <span>${userInfo.user_bio}</span>
       </div>
-      
-      <div class="userpageuser_friend">
-          <a href="#">
-              <span style="font-size: 15px;">0 Friends</span>
-          </a>
-      </div>
   </div>
   <div id="userpage_userinfo_button">
     <button id="add_friend_btn">친구 추가</button>
   </div>
 </div>
 
-<div id="selectBox">
-<select name="userfeed">
-  <option selected value="0">내 피드</option>
-  <option value="1">좋아요</option>
-</select>
+<div id="feed">
 </div>
+<div class="feed_overlay">
+    <div class="feedDetail">
+             
+    </div> 
+ </div>

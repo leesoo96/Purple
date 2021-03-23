@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.purple.demo.common.Const;
+import com.purple.demo.model.FeedListDTO;
 import com.purple.demo.model.UserEntity;
 import com.purple.demo.service.MypageService;
 
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -28,6 +30,13 @@ public class MypageController {
 		return "/mypage";
 	}
 
+	@ResponseBody
+	@RequestMapping(value="", method = RequestMethod.POST)
+	public Map<String, Object> mypageFeedList(@RequestBody FeedListDTO param){
+		Map<String, Object> mypageFeedListResult = new HashMap<String, Object>();
+		mypageFeedListResult.put("result", service.selMypageFeedList(param));
+		return mypageFeedListResult;
+	}
 	@ResponseBody
 	@PutMapping("/mod_userinfo")
 	public Map<String, Object> mod_userinfo(@RequestBody UserEntity userEntity) {
