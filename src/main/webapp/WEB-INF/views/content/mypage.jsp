@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <link href="/resources/css/mypage/mypage.css" rel="stylesheet">
 <script defer src="resources/js/mypage/mypage.js"></script>
 <script defer src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -62,7 +63,12 @@
             <img onerror="this.style.display='none'" src="${userInfo.user_backgroundimg}">
         </div>
         <div id="mypage_userinfo_img">
-            <img alt="기본프로필사진" src="${userInfo.user_profileimg}">
+            <c:if test="${not empty userInfo.user_profileimg}">
+                <img alt="기본프로필사진" src="${userInfo.user_profileimg}">
+            </c:if>
+            <c:if test="${empty userInfo.user_profileimg}">
+                <img alt="기본프로필사진" src="/resources/img/common/basic_profile.png">
+            </c:if>
         </div>
         <div id="mypage_userinfo_content">
             <div class="mypageuser_id">

@@ -30,7 +30,7 @@ public class FeedController {
 
 	@Autowired
 	private FeedService feedService;
-	
+
 	// Feed
 	@RequestMapping(value="")
 	public String feed(){
