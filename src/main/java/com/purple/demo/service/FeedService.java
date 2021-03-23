@@ -24,6 +24,8 @@ public class FeedService {
     
     @Autowired
     private FeedMapper mapper;
+
+    @Autowired
     private PurpleFileUtils fUtils;
 
     // Feed List
@@ -51,31 +53,33 @@ public class FeedService {
         return feed_list;
     }
     
-    public String insfeed(FeedWriteDTO dto, List<MultipartFile> files){
+    public void insFeed(FeedWriteDTO dto, MultipartFile[] files, String[] hashtag){
         //유저 pk 값
 		UserPrincipal principal = (UserPrincipal)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         dto.setFeed_userpk(principal.getUser_pk());
-        int feed_pk = dto.getFeed_pk();
-        mapper.insfeed(dto);
+        mapper.insFeed(dto);
  
         //업로드 할 파일 경로
-		String folder = "/images/write/"+feed_pk;
+		String folder = "/images/feed/"+dto.getFeed_pk();
+        fUtils.makeFolders(fUtils.getRealPath(folder));
 		try {	
-            for(int i =0; i< files.size(); i++) {
-			    String fileNm = fUtils.transferTo(files.get(i), folder);
-                MediaEntity med = new MediaEntity();
-                med.setMedia_feedpk(dto.getFeed_pk());
-                med.setMedia_url(folder + "/" + fileNm);
-                System.out.println(med.getMedia_url());
-				mapper.insfeedimg(med);
+            for(MultipartFile file : files) {
+                MediaEntity entity = new MediaEntity();
+			    String fileNm = fUtils.transferTo(file, folder);
+                entity.setMedia_url(folder + "/" + fileNm);
+                entity.setMedia_feedpk(dto.getFeed_pk());
+                mapper.insFeedImg(entity);
             }
-  
 		} catch(Exception e) {
-			System.out.println("에러");
+			e.printStackTrace();
 		}
-        System.out.println(folder);
-    
-        return "";
+        //해시 태그
+        for(int i=0; i < hashtag.length; i++){
+            HashtagEntity htentity = new HashtagEntity();
+            System.out.println(hashtag[i]);
+            htentity.setHashtag_ctnt(hashtag[i]);
+            mapper.insHashtag(htentity);
+        }
     }
   
 

@@ -23,6 +23,7 @@ public interface FeedMapper {
    int delFavorite(FeedFavoriteDTO dto);
    int favoriteCount(FeedFavoriteDTO dto);
 
-   int insfeed(FeedWriteDTO dto);
-   int insfeedimg(MediaEntity dto);
+   int insFeed(FeedWriteDTO dto);
+   int insFeedImg(MediaEntity p);
+   int insHashtag(HashtagEntity p);
 }

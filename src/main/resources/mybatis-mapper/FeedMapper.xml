@@ -74,25 +74,25 @@
         AND favorite_userpk = #{favorite_userpk}
     </delete>
     <!-- 글 쓰기 -->
-    <insert id="insfeed" useGeneratedKeys="true" keyProperty="feed_pk">
+    <insert id="insFeed" useGeneratedKeys="true" keyProperty="feed_pk">
 		INSERT INTO feed
 		( feed_ctnt, feed_userpk )
 		VALUES
 		( #{feed_ctnt}, #{feed_userpk} )
 	</insert>
 
-    <insert id="inshastag">
+    <insert id="insHashtag">
         INSERT INTO hashtag
-        ( hashtag_pk, hashtag_ctnt )
+        ( hashtag_ctnt )
         VALUES
-        ( #{hashtag_pk}, #{hashtag_ctnt} )
+        ( #{hashtag_ctnt} )
     </insert>
 
-    <insert id="insfeedimg">
+    <insert id="insFeedImg">
 		INSERT INTO media
 		( media_feedpk, media_url )
 		VALUES
-		( #{item.media_feedpk}, #{item.media_url} )
+		( #{media_feedpk}, #{media_url} )
 	</insert>
 
 </mapper>
