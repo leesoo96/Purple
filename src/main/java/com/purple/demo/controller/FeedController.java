@@ -42,11 +42,6 @@ public class FeedController {
 		feedListResult.put("result", feedService.selFeedList(param));
 		return feedListResult;
 	}
-
-//@RequestMapping("/feed_write")
-//public void feed_write(@RequestParam("")List test) {
-//	System.out.println(test);
-//}
 	
 	@ResponseBody
 	@RequestMapping(value="/detail/{feed_pk}", method = RequestMethod.GET)
@@ -60,9 +55,8 @@ public class FeedController {
 
 	@PostMapping("/feed_write")
 		public String feed_write(FeedWriteDTO dto
-		, @RequestParam("imgs") MultipartFile[] files
-		, @RequestParam String[] hashtag) {
-			feedService.insFeed(dto, files, hashtag);	
+		, @RequestParam(value = "imgs") MultipartFile[] files) {
+			feedService.insFeed(dto, files);	
 			return "redirect:/feed";
 		}
 	

@@ -5,6 +5,7 @@ import java.util.List;
 import com.purple.demo.model.FeedListDTO;
 import com.purple.demo.model.FeedWriteDTO;
 import com.purple.demo.model.HashtagEntity;
+import com.purple.demo.model.HashtagRelationEntity;
 import com.purple.demo.model.MediaEntity;
 import com.purple.demo.model.DTO.CommentListDTO;
 import com.purple.demo.model.DTO.FeedBookmarkDTO;
@@ -36,4 +37,8 @@ public interface FeedMapper {
    FeedBookmarkDTO feedBookmark(FeedBookmarkDTO bmd);
    int insertBookmark(FeedBookmarkDTO bmd);
    int deleteBookmark(FeedBookmarkDTO bmd);
+
+   //hashtag
+   int selHashtag_pk(HashtagEntity p);
+   int insHashtagRel(HashtagRelationEntity p);
 }

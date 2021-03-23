@@ -6,6 +6,7 @@ import com.purple.demo.mapper.FeedMapper;
 import com.purple.demo.model.FeedListDTO;
 import com.purple.demo.model.FeedWriteDTO;
 import com.purple.demo.model.HashtagEntity;
+import com.purple.demo.model.HashtagRelationEntity;
 import com.purple.demo.model.MediaEntity;
 import com.purple.demo.model.UserPrincipal;
 import com.purple.demo.model.DTO.FeedBookmarkDTO;
@@ -53,13 +54,14 @@ public class FeedService {
         return feed_list;
     }
     
-    public void insFeed(FeedWriteDTO dto, MultipartFile[] files, String[] hashtag){
+    public void insFeed(FeedWriteDTO dto, MultipartFile[] files){
         //유저 pk 값
 		UserPrincipal principal = (UserPrincipal)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         dto.setFeed_userpk(principal.getUser_pk());
         mapper.insFeed(dto);
  
         //업로드 할 파일 경로
+        if(!files[0].isEmpty()) {
 		String folder = "/images/feed/"+dto.getFeed_pk();
         fUtils.makeFolders(fUtils.getRealPath(folder));
 		try {	
@@ -73,13 +75,26 @@ public class FeedService {
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
+    }
         //해시 태그
-        for(int i=0; i < hashtag.length; i++){
+        if(dto.getHashtag() != null) {
+        for(int i=0; i < dto.getHashtag().size(); i++){
+            System.out.println(dto.getHashtag().get(i));
+            HashtagRelationEntity hrel = new HashtagRelationEntity();
             HashtagEntity htentity = new HashtagEntity();
-            System.out.println(hashtag[i]);
-            htentity.setHashtag_ctnt(hashtag[i]);
-            mapper.insHashtag(htentity);
+            System.out.println(dto.getHashtag().get(i));
+            htentity.setHashtag_ctnt((String)dto.getHashtag().get(i));
+            int state = mapper.insHashtag(htentity);
+            hrel.setHtrel_feedpk(dto.getFeed_pk());
+            if(state == 0) {
+               int hashtag_pk = mapper.selHashtag_pk(htentity);
+               hrel.setHtrel_hashtagpk(hashtag_pk);
+            }else {
+                hrel.setHtrel_hashtagpk(htentity.getHashtag_pk());
+            }
+            mapper.insHashtagRel(hrel);
         }
+    }
     }
   
 
@@ -123,28 +138,4 @@ public class FeedService {
         dto.setComment_list(mapper.selCommentList(dto));
         return dto;
     }
-    /*
-    public int insfeed(FeedWriteDTO dto, FeedImgDTO imgdto){
-        List<MediaEntity> insList = new ArrayList();
-		int result = 0;
-		try {
-			MediaEntity rme = null;
-			for(MultipartFile file : imgdto.getImgs()) {				
-				String fileNm = fileUtils.transferTo(file, path);
-				
-				rme = new MediaEntity();					
-				rme.setMedia_url(fileNm);
-				
-				insList.add(rme);
-			}
-			
-			result = mapper.insfeedimg(insList);
-		} catch(Exception e) {
-			System.out.println("에러");
-		}
-        System.out.println(folder);
-    
-        return "";
-    }
-    */
 }

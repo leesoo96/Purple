@@ -1,0 +1,34 @@
+#alarmContainer {
+  height: auto;
+  margin-top: 4em;
+}
+.alarmTable {
+  margin-bottom: 1em;
+  width: 40em;
+}
+.alarmTable:not(:last-child) {
+  border-bottom: 1px dashed gray;
+}
+.alarmTable img {
+  width: 4em;
+  border-radius: 2em;
+  margin-bottom: 1em;
+}
+.alarmTable td:nth-of-type(2) {
+  position: relative;
+  top: -0.5em;
+  left: -1em;
+  width: 29em;
+  cursor: pointer;
+}
+.alarmTable td:nth-of-type(2):hover {
+  color: rgb(139, 0, 204);
+}
+.alarmTable span {
+  font-size: 1.1rem;
+}
+.alarmTable td:nth-of-type(3) {
+  position: relative;
+  top: -0.9em;
+  width: 5em;
+}
