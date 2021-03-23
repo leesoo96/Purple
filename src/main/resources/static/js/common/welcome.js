@@ -64,7 +64,6 @@ function loginFunc() {
 }
 
 // 회원가입
-// 변수 선언
 const joinBtn = document.querySelector('#join_btn')
 
 let overlap_state = 0
