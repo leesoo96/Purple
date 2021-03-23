@@ -88,6 +88,8 @@ public class FeedService {
         dto.setHashtag_ctnt(mapper.selHashtagList((FeedListDTO)dto));
         dto.setComment_list(mapper.selCommentList(dto));
         System.out.println(dto.getFeed_pk());
+        System.out.println(dto.getUser_pk());
+        System.out.println(mapper.isBookmark((FeedListDTO)dto));
         return dto;
     }
     /*

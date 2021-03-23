@@ -29,10 +29,10 @@
   position: absolute;
   z-index:4;
   top: 10%;
-  left: 34%;
-  display:none;
+  left: 33.9%;
   border-radius: 2em;
   padding: 2px;
+  overflow: hidden;
 }
 
 .detail_close {
@@ -52,13 +52,51 @@
   width: 40em;
   height: 100%;
   float: left;
+  display: flex;
+  align-items: center;
 }
 
+.detail_Img{
+  position: relative;
+  padding: 0.1em;
+  width: 100%;
+}
+
+.detail_Img > img:nth-child(1) {
+  display: block;
+}
+.detail_Img img {
+  border-radius: 2em;
+  display: none;
+  width: 100%;
+}
 .detail_ctnt_container {
   position:relative;
   width: 40em;
-  height:100%;
+  height: 100%;
   float: right;
+}
+
+.detail_previous,
+.detail_next {
+  background-color: purple;
+  cursor: pointer;
+  position: absolute;
+  width: auto;
+  margin-top: -22px;
+  padding: 16px;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+  z-index: 1;
+}
+
+.detail_next {
+  right: 0;
+  border-radius: 3px 0 0 3px;
 }
 
 .detail_titlebar{
@@ -93,30 +131,28 @@
   position: relative;
   width:40em;
   height: auto;
-
 }
 
 .hashtag_container {
-  padding: 20px;
+  padding-left: 20px;
+  padding-top: 20px;
+  width: 35.5em;
   position: relative;
-
 }
 
 .hashtag_container a {
   margin-right: 20px;
-  font-size: 1.3em;
+  font-size: 1.1em;
 }
 
 .ctnt_container{
-  padding:20px;
+  width: 27em;
+  margin: 0.5em 0.5em;
   position: relative;
-  width:40em;
   font-size: 1.4em;
+  height: auto;
 }
-.ctnt_container p {
 
-  display: block;
-}
 .detail_functionbar {
   position: relative;
   width: 40em;
@@ -146,7 +182,7 @@
   border: 2px solid black;
   border-radius: 2em;
   width: 37.3em;
-  left:0.2em;
+  left: 0.8em;
   height: 20em;
   padding: 0.4em;
   overflow-y: scroll;
@@ -161,9 +197,32 @@
   position: relative;
   height: 3.3em;
   width: 36em;
-
   display: flex;
   align-items: center;
+}
+
+.commentFunctionbar {
+  position : relative;
+  width: 6em;
+  height: auto;
+  margin-bottom: 0.3em;
+}
+
+.commentFunctionbar button {
+  margin-bottom: 0.5em;
+  position: relative;
+  cursor: pointer;
+  background: #ad00e2;
+  color: #fff;
+  border: 1em;
+  border-radius: 3em;
+  white-space: nowrap;
+}
+
+.commentFunctionbar button:hover {
+  background-color: #fff;
+  color: #ad00e2;
+  border: 1px solid #ad00e2;
 }
 
 .commentbar img {
@@ -177,185 +236,31 @@
   font-size: 1em;
 }
 
-/* .feed_detail_userImg {
-  margin-left: 1em;
-}
-.feedDetail_img {
-  margin-left: 0em;
-  min-height: 650px;
-  width: 650px;
-}
-.detail_Img img {
-  display: none;
-  top: 50%;
-  width: 100%;
-}
-.detail_Img > img:nth-child(1) {
-  display: block;
-}
-.detail_previous,
-.detail_next {
-  background-color: purple;
-  cursor: pointer;
-  position: absolute;
-  top: 50%;
-  width: auto;
-  margin-top: -22px;
-  padding: 16px;
-  color: white;
-  font-weight: bold;
-  font-size: 18px;
-  transition: 0.6s ease;
-  border-radius: 0 3px 3px 0;
-  user-select: none;
-  z-index: 1;
-}
-.detail_next {
-  right: 51em;
-  border-radius: 3px 0 0 3px;
-}
-.feedDetail_contents {
-  position: fixed;
-  top: 3em;
-  left: 40.7em;
-}
-.feedDetail_contents .feed_title {
-  display: flex;
-  position: relative;
-  margin-top: 7em;
-}
-.feedDetail_contents .feed_title span:nth-of-type(1) {
-  position: relative;
-  top: -0.3em;
-  font-size: 1.1rem;
-}
-.feedDetail_contents .feed_title span:nth-of-type(2) {
-  margin-left: 0.6em;
-  top: -0.3em;
-}
-.feedDetail_contents .feed_title i {
-  top: -0.3em;
-}
-.feedDetail_contents .feed_title i:nth-of-type(1) {
-  margin-left: 18em;
-}
-.detail_ctnt_container {
-  width: 31em;
-  margin: 0.6em 0 1em 1em;
-  font-size: 1.07rem;
-}
-.detail_ctnt_container div {
-  margin-top: 1em;
-}
-.hashtag_p {
-  margin-top: 0.5em;
-}
-.feedDetail_contents {
-  margin-left: 1.5em;
-  width: 35em;
-  height: auto;
-}
-
-.feedDetail_contents .feed_functionbar {
-  margin-top: -1em;
-}
-.feed_overlay_content input {
-  font-family: 'paybooc-Bold';
-}
-.heart_div {
-  margin: 0 2em 0 1em;
-}
-.heart_div span,
-.comment_div span {
-  margin-left: 0.3em;
-}
-.heart_div,
-.comment_div {
-  display: inline;
-}
-.bookmark_div {
-  position: relative;
-  top: -1.2em;
-  left: 10em;
-}
-.feed_comment {
-  position: relative;
-  left: -1em;
-  margin-top: 3em;
-}
 .comment_input {
   position: relative;
-  left: 0em;
-}
-.comment_input input:nth-of-type(1) {
-  width: 27em;
+  width: 40em;
   height: 3em;
-  outline-style: none;
-  border: none;
-  border-bottom: 1.5px solid black;
-  font-size: 1.1rem;
-}
-.comment_input input:nth-of-type(2) {
-  width: 4em;
-  height: 3.5em;
-  background: #fff;
-  border: none;
-  outline-style: none;
-  cursor: pointer;
-  position: relative;
-  left: 0.5em;
-  top: 0.5em;
-}
-.comment_read {
-  border: 1px solid rgb(190, 190, 190);
-  width: 33em;
-  height: 19.3em;
-  margin: -0.5em 0 0 1em;
-  overflow-y: scroll;
-  overflow-x: hidden;
-}
-.comment_read::-webkit-scrollbar {
-  width: 5px;
-}
-.comment_read::-webkit-scrollbar-track {
-  background: #ffffff;
-}
-.comment_read::-webkit-scrollbar-thumb {
-  background: #d9c0ee;
-}
-.comment_read::-webkit-scrollbar-button {
-  display: none;
-}
-.comment_read img {
-  width: 3em;
-  border-radius: 2em;
-}
-.cmtReadDetail {
-  margin: 1em 0 1em 1em;
-  width: 30em;
-  height: auto;
-  border-bottom: 1px solid rgb(175, 173, 173);
-}
-.cmtReadDetail span {
-  position: relative;
-  top: -2.5em;
-  color: gray;
-}
-.cmtReadDetail p {
-  font-size: 1.1rem;
-  margin: -1.6em 0 1em 3.3em;
-  cursor: pointer;
-}
-.cmt_reply {
-  width: 22em;
-  height: auto;
-  margin-left: 2em;
 }
 
-/* 사진이 없을 경우의 detail css */
-/* .ctnt_div {
-  width: 30em;
-  margin-top: 1em;
-  min-height: 4em;
-  max-height: 7em;
-} */ */
+.comment_input input[name='comment_ctnt'] {
+  width: 80%;
+  padding: 10px 0;
+  margin: 5px 19px;
+  border: none;
+  border-bottom: 2px solid #8b11b1;
+  outline: none;
+  background: transparent;
+}
+
+.comment_input input[type='button'] {
+  margin-top: 0.5em;
+  position: relative;
+  cursor: pointer;
+  width: 5em;
+  background: #ad00e2;
+  color: #fff;
+  border: 1em;
+  padding: 1em;
+  border-radius: 1em;
+  white-space: nowrap;
+}
