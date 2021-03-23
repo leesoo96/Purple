@@ -25,7 +25,7 @@ public interface LayoutMapper {
    
    // 친구 추가
    int addNewFriend(FriendDTO dto);
-   
-   //이미 친구인지 확인 
-   List<FriendDTO> friendCheck(FriendDTO dto);
+
+   // 친구 삭제
+   int delFriend(FriendDTO dto);
 }

@@ -568,10 +568,13 @@ a {
   margin-left: 0.1em;
   position: relative;
 }
+#friend_list .friend_block a {
+  color: #8d8d8d;
+}
 #friend_list .friend_block span:nth-of-type(2) {
   font-size: 1.1rem;
 }
-#friend_list .friend_block span:nth-of-type(1):hover {
+#friend_list .friend_block a:hover {
   color: #d800de;
 }
 #friend_list .friend_block span:nth-of-type(2):hover {

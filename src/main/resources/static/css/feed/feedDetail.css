@@ -24,31 +24,64 @@
 }
 .feedDetail {
   background-color: #fff;
-  min-height: 37em;
-  margin: 9em auto;
+  height: 45em;
+  min-width: 40em;
+  position: absolute;
+  z-index:4;
+  top: 10%;
+  left: 33.9%;
+  border-radius: 2em;
+  padding: 2px;
+  overflow: hidden;
 }
-.feed_detail_userImg {
-  margin-left: 1em;
+
+.detail_close {
+  position:relative;
+  padding: 10px;
+  float: right;
+  cursor: pointer;
+  display: block;
 }
-.feedDetail_img {
-  margin-left: 0em;
-  min-height: 650px;
-  width: 650px;
+
+.detail_close i {
+  font-size: 1.5em;
 }
-.detail_Img img {
-  display: none;
-  top: 50%;
+
+.detail_img_container {
+  position: relative;
+  width: 40em;
+  height: 100%;
+  float: left;
+  display: flex;
+  align-items: center;
+}
+
+.detail_Img{
+  position: relative;
+  padding: 0.1em;
   width: 100%;
 }
+
 .detail_Img > img:nth-child(1) {
   display: block;
 }
+.detail_Img img {
+  border-radius: 2em;
+  display: none;
+  width: 100%;
+}
+.detail_ctnt_container {
+  position:relative;
+  width: 40em;
+  height: 100%;
+  float: right;
+}
+
 .detail_previous,
 .detail_next {
   background-color: purple;
   cursor: pointer;
   position: absolute;
-  top: 50%;
   width: auto;
   margin-top: -22px;
   padding: 16px;
@@ -60,152 +93,174 @@
   user-select: none;
   z-index: 1;
 }
+
 .detail_next {
-  right: 51em;
+  right: 0;
   border-radius: 3px 0 0 3px;
 }
-.feedDetail_contents {
-  position: fixed;
-  top: 3em;
-  left: 62em;
-}
-.feedDetail_contents .feed_title {
+
+.detail_titlebar{
+  height: 40px;
+  padding: 8px;
+  position: relative;
   display: flex;
-  position: relative;
-  margin-top: 7em;
-}
-.feedDetail_contents .feed_title span:nth-of-type(1) {
-  position: relative;
-  top: -0.3em;
-  font-size: 1.1rem;
-}
-.feedDetail_contents .feed_title span:nth-of-type(2) {
-  margin-left: 0.6em;
-  top: -0.3em;
-}
-.feedDetail_contents .feed_title i {
-  top: -0.3em;
-}
-.feedDetail_contents .feed_title i:nth-of-type(1) {
-  margin-left: 18em;
-}
-.detail_ctnt_container {
-  width: 31em;
-  margin: 0.6em 0 1em 1em;
-  font-size: 1.07rem;
-}
-.detail_ctnt_container div {
-  margin-top: 1em;
-}
-.hashtag_p {
-  margin-top: 0.5em;
-}
-.feedDetail_contents {
-  margin-left: 1.5em;
-  width: 35em;
-  height: auto;
+  align-items: center;
+
 }
 
-.feedDetail_contents .feed_functionbar {
-  margin-top: -1em;
-}
-.feed_overlay_content input {
-  font-family: 'paybooc-Bold';
-}
-.heart_div {
-  margin: 0 2em 0 1em;
-}
-.heart_div span,
-.comment_div span {
-  margin-left: 0.3em;
-}
-.heart_div,
-.comment_div {
-  display: inline;
-}
-.bookmark_div {
-  position: relative;
-  top: -1.2em;
-  left: 10em;
-}
-.feed_comment {
-  position: relative;
-  left: -1em;
-  margin-top: 3em;
-}
-.comment_input {
-  position: relative;
-  left: 0em;
-}
-.comment_input input:nth-of-type(1) {
-  width: 27em;
-  height: 3em;
-  outline-style: none;
-  border: none;
-  border-bottom: 1.5px solid black;
-  font-size: 1.1rem;
-}
-.comment_input input:nth-of-type(2) {
-  width: 4em;
-  height: 3.5em;
-  background: #fff;
-  border: none;
-  outline-style: none;
-  cursor: pointer;
-  position: relative;
-  left: 0.5em;
-  top: 0.5em;
-}
-.comment_read {
-  border: 1px solid rgb(190, 190, 190);
-  width: 33em;
-  height: 19.3em;
-  margin: -0.5em 0 0 1em;
-  overflow-y: scroll;
-  overflow-x: hidden;
-}
-.comment_read::-webkit-scrollbar {
-  width: 5px;
-}
-.comment_read::-webkit-scrollbar-track {
-  background: #ffffff;
-}
-.comment_read::-webkit-scrollbar-thumb {
-  background: #d9c0ee;
-}
-.comment_read::-webkit-scrollbar-button {
-  display: none;
-}
-.comment_read img {
+.detail_titlebar img {
   width: 3em;
   border-radius: 2em;
-}
-.cmtReadDetail {
-  margin: 1em 0 1em 1em;
-  width: 30em;
   height: auto;
-  border-bottom: 1px solid rgb(175, 173, 173);
-}
-.cmtReadDetail span {
-  position: relative;
-  top: -2.5em;
-  color: gray;
-}
-.cmtReadDetail p {
-  font-size: 1.1rem;
-  margin: -1.6em 0 1em 3.3em;
-  cursor: pointer;
-}
-.cmt_reply {
-  width: 22em;
-  height: auto;
-  margin-left: 2em;
 }
 
-/* 사진이 없을 경우의 detail css */
-.ctnt_div {
-  width: 30em;
-  margin-top: 1em;
-  min-height: 4em;
-  max-height: 7em;
+.detail_titlebar span {
+  position: relative;
+  font-size: 0.9rem;
+  margin-left: 0.6em;
+}
+
+.detail_titlebar i {
+  position: relative;
+  margin-left: auto;
+  cursor: pointer;
+  margin-right: 1em;
+}
+
+.detail_ctnt {
+  position: relative;
+  width:40em;
+  height: auto;
+}
+
+.hashtag_container {
+  padding-left: 20px;
+  padding-top: 20px;
+  width: 35.5em;
+  position: relative;
+}
+
+.hashtag_container a {
+  margin-right: 20px;
+  font-size: 1.1em;
+}
+
+.ctnt_container{
+  width: 27em;
+  margin: 0.5em 0.5em;
+  position: relative;
+  font-size: 1.4em;
+  height: auto;
+}
+
+.detail_functionbar {
+  position: relative;
+  width: 40em;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5em;
+  margin-left: 1em;
+}
+
+.detail_functionbar i{
+  width: 1em;
+  font-size: 2em;
+  cursor: pointer;
+  margin-left: 0.1em;
+  margin-right: 1em;
+}
+
+.detail_comment_container {
+  position: relative;
+  height:65%;
+  width:40em;
+}
+
+.comment_list {
+  position: relative;
+  border: 2px solid black;
+  border-radius: 2em;
+  width: 37.3em;
+  left: 0.8em;
+  height: 20em;
+  padding: 0.4em;
+  overflow-y: scroll;
+  -ms-overflow-style: none;
+}
+
+.comment_list::-webkit-scrollbar{ display:none; }
+
+.commentbar {
+  margin-left: 0.4em;
+  margin-top: 0.3em;
+  position: relative;
+  height: 3.3em;
+  width: 36em;
+  display: flex;
+  align-items: center;
+}
+
+.commentFunctionbar {
+  position : relative;
+  width: 6em;
+  height: auto;
+  margin-bottom: 0.3em;
+}
+
+.commentFunctionbar button {
+  margin-bottom: 0.5em;
+  position: relative;
+  cursor: pointer;
+  background: #ad00e2;
+  color: #fff;
+  border: 1em;
+  border-radius: 3em;
+  white-space: nowrap;
+}
+
+.commentFunctionbar button:hover {
+  background-color: #fff;
+  color: #ad00e2;
+  border: 1px solid #ad00e2;
+}
+
+.commentbar img {
+  margin-right: 0.5em;
+  width: 3em;
+  border-radius: 2em;
+  height: auto;
+}
+.commentbar span {
+  margin-right: 2em;
+  font-size: 1em;
+}
+
+.comment_input {
+  position: relative;
+  width: 40em;
+  height: 3em;
+}
+
+.comment_input input[name='comment_ctnt'] {
+  width: 80%;
+  padding: 10px 0;
+  margin: 5px 19px;
+  border: none;
+  border-bottom: 2px solid #8b11b1;
+  outline: none;
+  background: transparent;
+}
+
+.comment_input input[type='button'] {
+  margin-top: 0.5em;
+  position: relative;
+  cursor: pointer;
+  width: 5em;
+  background: #ad00e2;
+  color: #fff;
+  border: 1em;
+  padding: 1em;
+  border-radius: 1em;
+  white-space: nowrap;
 }

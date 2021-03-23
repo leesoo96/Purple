@@ -11,4 +11,15 @@
             LIKE '%null%';
         </if>
     </select>
+
+    <select id="selFeedSearch" resultType="FeedListDTO">
+        SELECT * FROM feed
+        WHERE feed_ctnt 
+        <if test="feed_ctnt != ''">
+            LIKE '%${feed_ctnt}%' ;
+        </if>
+        <if test="feed_ctnt == ''">
+            LIKE '%null%' ;
+        </if>
+    </select>
 </mapper>

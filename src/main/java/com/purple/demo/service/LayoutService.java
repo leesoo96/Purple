@@ -32,11 +32,9 @@ public class LayoutService {
         return mapper.addNewFriend(dto);
     }
 
-    public List<FriendDTO> friendCheck(FriendDTO dto) {
+    public int delFriend(FriendDTO dto) {
         UserPrincipal principal = (UserPrincipal)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		int user_pk = principal.getUser_pk();  
-        dto.setUser_pk(user_pk);
-        
-        return mapper.friendCheck(dto);
+        dto.setUser_pk(principal.getUser_pk());
+        return mapper.delFriend(dto);
     }
-}
+ }

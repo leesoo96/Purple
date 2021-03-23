@@ -1,7 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <link href="/resources/css/mypage/mypage.css" rel="stylesheet">
 <script defer src="resources/js/mypage/mypage.js"></script>
+<script defer src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<link rel="stylesheet" href="resources/css/feed/feed.css">
+<link rel="stylesheet" href="resources/css/feed/feedDetail.css">
+<script defer src="resources/js/feed/feedDetail.js"></script>
 <div id="modal_background"></div>
 <!-- modal_background -->
 <div id="userMod_container">
@@ -33,11 +38,13 @@
             <input maxlength="5" name="mod_name" placeholder="Name" type="text">
             <input maxlength="20" name="mod_bio" placeholder="Bio" type="text">
             <input maxlength="30" name="mod_location" placeholder="Location" type="text">
+            <input name="find_Address" type="button" onclick="postCode()" value="주소 찾기">
             <input maxlength="30" name="mod_website" placeholder="Website" type="text">
             <input data-placeholder="생년월일을 선택해주세요" name="mod_birth" type="date">
         </form>
     </div>
 </div>
+
 <div id="userPwMod_container">
     <div id="userPwMod_top">
         <span>비밀번호 변경</span>
@@ -59,7 +66,12 @@
             <img onerror="this.style.display='none'" src="${userInfo.user_backgroundimg}">
         </div>
         <div id="mypage_userinfo_img">
-            <img alt="기본프로필사진" src="${userInfo.user_profileimg}">
+            <c:if test="${not empty userInfo.user_profileimg}">
+                <img alt="기본프로필사진" src="${userInfo.user_profileimg}">
+            </c:if>
+            <c:if test="${empty userInfo.user_profileimg}">
+                <img alt="기본프로필사진" src="/resources/img/common/basic_profile.png">
+            </c:if>
         </div>
         <div id="mypage_userinfo_content">
             <div class="mypageuser_id">
@@ -80,13 +92,6 @@
             <div class="mypageuser_bio">
                 <span>${userInfo.user_bio}</span>
             </div>
-            
-            <div class="mypageuser_following">
-                <a href="#">
-                    <span style="font-size: 15px;">0 Friends</span>
-                </a>
-        
-            </div>
         </div>
         <div id="mypage_userinfo_button">
             <button id="mypage_modcontent_btn" onclick="openCloseModal('#userMod_container', 'block')">프로필 수정</button>
@@ -95,9 +100,11 @@
         </div>
     </div>
 </sec:authorize>
-<div id="selectBox">
-    <select name="myfeed">
-        <option selected value="0">내 피드</option>
-        <option value="1">좋아요</option>
-    </select>
+<div id="feed">
+
 </div>
+<div class="feed_overlay">
+    <div class="feedDetail">
+             
+    </div> 
+ </div>

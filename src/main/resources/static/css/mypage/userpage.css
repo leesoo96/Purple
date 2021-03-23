@@ -119,3 +119,7 @@
     color: #ad00e2;
     border: 1px solid #ad00e2;
   }
+
+  #feed {
+    position: relative;
+  }
