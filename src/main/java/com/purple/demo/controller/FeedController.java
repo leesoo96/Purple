@@ -4,7 +4,7 @@ import com.purple.demo.service.FeedService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
+
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,8 +16,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.*;
 
-import com.purple.demo.common.Const;
-import com.purple.demo.model.FeedImgDTO;
 import com.purple.demo.model.FeedListDTO;
 import com.purple.demo.model.FeedWriteDTO;
 import com.purple.demo.model.DTO.FeedBookmarkDTO;
@@ -30,7 +28,7 @@ public class FeedController {
 
 	@Autowired
 	private FeedService feedService;
-	
+
 	// Feed
 	@RequestMapping(value="")
 	public String feed(){
@@ -61,14 +59,10 @@ public class FeedController {
 	}
 
 	@PostMapping("/feed_write")
-		public String feed_write(FeedWriteDTO dto, @RequestParam("imgs") List<MultipartFile> files) {
-			// System.out.println(imgs);
-			// System.out.println(files[0]);
-			// System.out.println(files);
-			for(int i=0; i < files.size(); i++) {
-				System.out.println(files.get(i));
-			}
-			// feedService.insfeed(dto, files);		
+		public String feed_write(FeedWriteDTO dto
+		, @RequestParam("imgs") MultipartFile[] files
+		, @RequestParam String[] hashtag) {
+			feedService.insFeed(dto, files, hashtag);	
 			return "redirect:/feed";
 		}
 	

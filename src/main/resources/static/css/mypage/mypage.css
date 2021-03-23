@@ -395,3 +395,7 @@ button[name='pwModBtn'] {
 input[name='mod_location'] {
   width: 85%;
 }
+
+#feed {
+  position: relative;
+}

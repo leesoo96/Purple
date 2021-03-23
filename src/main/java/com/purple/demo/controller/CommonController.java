@@ -5,6 +5,8 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,11 +14,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.purple.demo.common.Const;
+import com.purple.demo.model.FeedListDTO;
 import com.purple.demo.model.UserEntity;
+import com.purple.demo.model.UserPrincipal;
+import com.purple.demo.service.CommonService;
 import com.purple.demo.service.UserServiceImpl;
 
 import lombok.RequiredArgsConstructor;
@@ -26,7 +32,10 @@ import lombok.RequiredArgsConstructor;
 public class CommonController {
 
 	final UserServiceImpl service;
-		
+	
+	@Autowired
+	private CommonService commonService;
+
 //	첫화면 
 	@RequestMapping({"/", "/welcome"})
 	public String first() {
@@ -66,10 +75,24 @@ public class CommonController {
 	@RequestMapping("/userpage/{user_id}")
 	public ModelAndView userInfo(@PathVariable String user_id) {
 		ModelAndView model = new ModelAndView();
+		UserPrincipal principal = (UserPrincipal)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		if(user_id.equals(principal.getUser_id())) {
+			model.setViewName("/mypage");
+			return model;
+		}
 		UserEntity dto = new UserEntity();
 		dto = service.selUserInfo(user_id);
 		model.addObject("userInfo", dto);
 		model.setViewName("/userpage");
 		return model;
 	}
+
+	@ResponseBody
+	@RequestMapping(value = "/userpage/{user_id}", method= RequestMethod.POST)
+	public Map<String, Object> userpageFeedList(@RequestBody FeedListDTO param){
+		Map<String, Object> userpageFeedListResult = new HashMap<String, Object>();
+		userpageFeedListResult.put("result", commonService.selUserpageFeedList(param));
+		return userpageFeedListResult;
+	}
+
 }

@@ -135,11 +135,10 @@ function getFriend_list(myJson) {
     let friend_profileImg = document.createElement('img')
     friend_profileImg_td.appendChild(friend_profileImg)
     if (myJson[i].user_profileimg === null) {
-      // 기본 프로필 이미지 사용
       friend_profileImg_td.innerHTML =
         '<img src="/resources/img/common/basic_profile.png" alt="프로필사진">'
     } else {
-      friend_profileImg_td.innerHTML = '<img src="" alt="프로필사진">'
+      friend_profileImg_td.innerHTML = `<img src="${myJson[i].user_profileimg}" alt="프로필사진">`
     }
 
     // 친구 아이디 + 친구 상태 메시지
@@ -150,17 +149,28 @@ function getFriend_list(myJson) {
     freind_Id_span.innerText = `${myJson[i].user_id}`
 
     let friend_bio_small = document.createElement('small')
-    friend_bio_small.innerText = `${myJson[i].user_bio}`
+    if (myJson[i].user_bio === null) {
+      friend_bio_small.innerText = '아직 상태메시지가 없습니다.'
+    } else {
+      friend_bio_small.innerText = `${myJson[i].user_bio}`
+    }
 
     friend_info_td.appendChild(freind_Id_span)
     friend_info_td.appendChild(friend_bio_small)
 
-    // 친구 정보 보기 + 차단하기
+    // 친구 정보 보기 + 삭제하기 태그
     let friend_block_td = document.createElement('td')
     friend_block_td.classList.add('friend_block')
 
-    friend_block_td.innerHTML =
-      '<span>친구정보보기</span> <span>차단하기</span>'
+    const moveFriendpage = document.createElement('span')
+    moveFriendpage.innerHTML = `<a href="/userpage/${myJson[i].user_id}">친구정보보기</a>`
+    friend_block_td.appendChild(moveFriendpage)
+
+    const delFriendBtn = document.createElement('span')
+    delFriendBtn.innerText = '친구삭제'
+    delFriendBtn.classList.add('delFriend')
+    delFriendBtn.setAttribute('onclick', `delFriendFunc(${myJson[i].user_pk})`)
+    moveFriendpage.after(delFriendBtn)
 
     // 대화
     let friend_Chat_td = document.createElement('td')
@@ -172,6 +182,7 @@ function getFriend_list(myJson) {
     table_tr.appendChild(friend_block_td)
     table_tr.appendChild(friend_Chat_td)
   }
+
   // 친구 아이디 클릭 시 친구정보 보기 + 차단하기 표시 & 숨김
   let friend_info = document.querySelectorAll('.friend_info')
   let friend_block = document.querySelectorAll('.friend_block')
@@ -183,6 +194,41 @@ function getFriend_list(myJson) {
         friend_block[i].style.visibility = 'visible'
       }
     }
+  }
+}
+
+// 친구 삭제
+function delFriendFunc(friend_pk) {
+  let delFriendConfirm = confirm('정말 삭제하시겠습니까?')
+
+  if (delFriendConfirm == true) {
+    delFriend()
+  } else {
+    return
+  }
+
+  function delFriend() {
+    let delFriendParam = {
+      friend_pk: friend_pk,
+    }
+    console.log('삭제한 친구 번호 - ' + delFriendParam.friend_pk)
+    fetch('/layout/delFriend', {
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(delFriendParam),
+    })
+      .then((res) => res.json())
+      .then((delFriend) => {
+        if (delFriend.result == 0) {
+          alert('삭제에 실패하였습니다.')
+          return
+        } else {
+          alert('삭제되었습니다.')
+          history.go(0)
+        }
+      })
   }
 }
 
@@ -268,7 +314,6 @@ function getRecommandFriendListFunc() {
 
 const recFriendTable = document.querySelector("table[name='recommand_friend']")
 
-getFriendListFunc()
 function getRecFriend_List(myJson) {
   for (let i = 0; i < myJson.length; i++) {
     let recFriendTr = document.createElement('tr')
@@ -310,7 +355,6 @@ function getRecFriend_List(myJson) {
 
         if (addFriendConfirmMsg == true) {
           addFriendFunc()
-          history.go(0)
         } else {
           return
         }
@@ -331,7 +375,13 @@ function getRecFriend_List(myJson) {
           })
             .then((res) => res.json())
             .then((addFriend) => {
-              console.log(addFriend)
+              if (addFriend.result == 0) {
+                alert('친구 추가에 실패하였습니다.')
+                return
+              } else {
+                alert(`${myJson[j].user_id}` + ' 님을 친구 추가하였습니다.')
+                history.go(0)
+              }
             })
         }
       }

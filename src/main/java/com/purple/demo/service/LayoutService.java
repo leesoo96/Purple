@@ -5,8 +5,10 @@ import java.util.List;
 
 import com.purple.demo.mapper.LayoutMapper;
 import com.purple.demo.model.FriendDTO;
+import com.purple.demo.model.UserPrincipal;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -29,4 +31,10 @@ public class LayoutService {
     public int addNewFriend(FriendDTO dto) {
         return mapper.addNewFriend(dto);
     }
-}
+
+    public int delFriend(FriendDTO dto) {
+        UserPrincipal principal = (UserPrincipal)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        dto.setUser_pk(principal.getUser_pk());
+        return mapper.delFriend(dto);
+    }
+ }
