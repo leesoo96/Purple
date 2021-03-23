@@ -29,7 +29,7 @@
             </div>
           </div>
           <div id="bookmark">
-            <a href="#">
+            <a href="/bookmark">
               <i class="far fa-bookmark menu_icons"></i>
               <span>북마크</span>
             </a>

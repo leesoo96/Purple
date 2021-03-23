@@ -42,7 +42,7 @@
 
     <!-- 친구목록 가져오기 -->
     <select id="getFriendList" resultType="userEntity">
-        SELECT A.user_id, A.user_bio, A.user_profileImg 
+        SELECT A.user_id, A.user_bio, A.user_profileImg, B.friend_pk as "user_pk"
         FROM user AS A
         JOIN friend AS B
         ON (A.user_pk = B.friend_pk)
@@ -60,4 +60,11 @@
         ON (C.chatroom_pk = B.chatroom_pk)
         WHERE B.chatroom_userpk = #{user_pk}
     </select>
+
+    <!-- 친구 삭제 -->
+    <delete id="delFriend">
+        DELETE FROM friend
+        WHERE friend_pk = #{friend_pk}
+        AND user_pk = #{user_pk}
+    </delete>
 </mapper>

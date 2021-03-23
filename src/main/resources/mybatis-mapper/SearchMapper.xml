@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.purple.demo.mapper.SearchMapper">
     <select id="selUserSearch" resultType="SearchUserDTO">
-        SELECT user_id, user_profileimg, user_bio FROM user
+        SELECT user_id, user_profileimg, user_bio, user_pk FROM user
         WHERE  user_id LIKE '%${search_user_id}%' or user_name LIKE '%${search_user_id}%';
     </select>
 

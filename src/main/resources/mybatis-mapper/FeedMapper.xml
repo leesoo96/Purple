@@ -26,6 +26,18 @@
         LIMIT #{first_page}, #{end_page};
     </select>
 
+
+    <select id="selFeedDetail" resultType="FeedDetailDTO">
+        SELECT a.feed_pk, a.feed_ctnt, a.feed_writedate, a.feed_userpk, a.feed_state,
+        b.user_id, b.user_profileimg,
+        (SELECT COUNT(comment_pk) FROM comment WHERE comment_feedpk = a.feed_pk) AS "comment_count",
+        (SELECT COUNT(favorite_feedpk) FROM favorite WHERE favorite_feedpk= a.feed_pk) AS "favorite_count"
+        FROM feed AS a
+        LEFT OUTER JOIN user AS b
+        ON (a.feed_userpk = b.user_pk)
+        WHERE a.feed_pk = #{feed_pk}
+    </select>
+
     <select id="selMediaList" resultType="MediaEntity">
         SELECT b.media_url
         FROM feed AS a
@@ -44,17 +56,31 @@
         WHERE c.feed_pk = #{feed_pk}
     </select>
 
+    <!-- 북마크 -->
     <select id="isBookmark" resultType="_int">
         SELECT count(bookmark_feedpk)
         FROM bookmark
         WHERE bookmark_feedpk=#{feed_pk} AND bookmark_userpk=#{user_pk}
     </select>
+
+    <insert id="insertBookmark">
+        INSERT INTO bookmark(bookmark_feedpk, bookmark_userpk)
+        VALUES(#{bookmark_feedpk}, #{bookmark_userpk})
+    </insert>
+
+    <delete id="deleteBookmark">
+        DELETE FROM bookmark
+        WHERE bookmark_feedpk = #{bookmark_feedpk}
+        AND bookmark_userpk = #{bookmark_userpk}
+    </delete>
+
     <!-- favorite 부분 -->
     <select id="favoriteCount" resultType="_int">
         SELECT COUNT(favorite_feedpk) AS "favorite_count"
         FROM favorite 
         WHERE favorite_feedpk= #{favorite_feedpk} 
     </select>
+
     <select id="isFavorite" resultType="_int">
         SELECT count(favorite_feedpk)
         FROM favorite
@@ -73,6 +99,16 @@
         WHERE favorite_feedpk = #{favorite_feedpk}
         AND favorite_userpk = #{favorite_userpk}
     </delete>
+    
+    <select id="selCommentList" resultType="CommentListDTO">
+        SELECT A.comment_pk, A.comment_ctnt, A.comment_userpk, A.comment_writedate, A.comment_state, B.user_id, B.user_profileimg
+        FROM comment AS A
+        LEFT OUTER JOIN user AS B
+        ON (A.comment_userpk = B.user_pk)
+        WHERE A.comment_feedpk = #{feed_pk} AND A.comment_state = 1
+        AND A.comment_parentpk = A.comment_pk
+        ORDER BY A.comment_writedate DESC;
+    </select>
     <!-- 글 쓰기 -->
     <insert id="insFeed" useGeneratedKeys="true" keyProperty="feed_pk">
 		INSERT INTO feed

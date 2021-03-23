@@ -2,16 +2,16 @@ package com.purple.demo.service;
 
 import java.util.*;
 
-import com.github.jknack.handlebars.internal.Files;
 import com.purple.demo.mapper.FeedMapper;
-import com.purple.demo.model.FeedImgDTO;
 import com.purple.demo.model.FeedListDTO;
 import com.purple.demo.model.FeedWriteDTO;
 import com.purple.demo.model.HashtagEntity;
 import com.purple.demo.model.MediaEntity;
 import com.purple.demo.model.UserPrincipal;
-import com.purple.demo.utils.PurpleFileUtils;
+import com.purple.demo.model.DTO.FeedBookmarkDTO;
+import com.purple.demo.model.DTO.FeedDetailDTO;
 import com.purple.demo.model.DTO.FeedFavoriteDTO;
+import com.purple.demo.utils.PurpleFileUtils;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -97,6 +97,32 @@ public class FeedService {
         return dto;
     }
 
+    public FeedBookmarkDTO feedBookmark(FeedBookmarkDTO bmd) {
+        UserPrincipal principal = (UserPrincipal)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        bmd.setBookmark_userpk(principal.getUser_pk());
+
+        if(bmd.getBookmark_state() ==  0) {
+            int result = mapper.insertBookmark(bmd);
+            bmd.setBookmark_state(result);
+        } else {
+            mapper.deleteBookmark(bmd);
+            bmd.setBookmark_state(0);
+        }
+        return bmd;
+    }
+
+    public FeedDetailDTO feedDetail(FeedDetailDTO dto) {
+        UserPrincipal principal = (UserPrincipal)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        dto = mapper.selFeedDetail(dto);
+        dto.setFeed_state(1);
+        dto.setUser_pk(principal.getUser_pk());  
+        dto.setFavorite_state(mapper.isFavorite(dto.getFeed_pk(), dto.getUser_pk()));
+        dto.setBookmark_state(mapper.isBookmark((FeedListDTO)dto));
+        dto.setMedia_url(mapper.selMediaList((FeedListDTO)dto));
+        dto.setHashtag_ctnt(mapper.selHashtagList((FeedListDTO)dto));
+        dto.setComment_list(mapper.selCommentList(dto));
+        return dto;
+    }
     /*
     public int insfeed(FeedWriteDTO dto, FeedImgDTO imgdto){
         List<MediaEntity> insList = new ArrayList();

@@ -3,7 +3,7 @@
 let page_count = 0
 
 function previousImg(e) {
-  const feed_imgListDiv = e.parentNode.querySelector('.feed_imgList')
+  const feed_imgListDiv = e.parentNode.firstChild.nextSibling
   let first_img = feed_imgListDiv.firstChild
   while (first_img.nodeType !== 1) {
     first_img = first_img.nextSibling
@@ -16,7 +16,7 @@ function previousImg(e) {
 }
 
 function nextImg(e) {
-  const feed_imgListDiv = e.parentNode.querySelector('.feed_imgList')
+  const feed_imgListDiv = e.parentNode.firstChild.nextSibling
   let first_img = feed_imgListDiv.firstChild
   while (first_img.nodeType !== 1) {
     first_img = first_img.nextSibling
@@ -54,8 +54,18 @@ document.querySelector('select[name="feed"]').addEventListener('change', () => {
 
   makeFeedAjax(document.querySelector('select[name="feed"]').value, page_count).then((myJson) => {
     makeFeed(myJson)
+    page_count++
+  }).then(() => {
+    let scrollLocation = document.documentElement.scrollTop // 현재 스크롤바 위치
+    let fullHeight = document.body.scrollHeight // 스크롤 포함 전체 길이
+    if (scrollLocation + windowHeight >= fullHeight) {
+      
+      makeFeedAjax(document.querySelector('select[name="feed"]').value, page_count).then((myJson) => {
+        makeFeed(myJson)
+      })
+      page_count++
+    }
   })
-  page_count++
 })
 
 document.addEventListener('scroll', () => {
@@ -63,9 +73,6 @@ document.addEventListener('scroll', () => {
   let fullHeight = document.body.scrollHeight // 스크롤 포함 전체 길이
 
   if (scrollLocation + windowHeight >= fullHeight) {
-    console.log(fullHeight)
-    console.log(scrollLocation + windowHeight)
-    
     makeFeedAjax(document.querySelector('select[name="feed"]').value, page_count).then((myJson) => {
       makeFeed(myJson)
     })
@@ -80,8 +87,6 @@ function makeFeedAjax(category, page_count) {
         category: category,
         page_count: page_count
       }
-      console.log(params.category)
-      console.log(params.page_count)
       fetch('/feed', {
         method: 'post',
         headers: {
@@ -97,8 +102,11 @@ function makeFeedAjax(category, page_count) {
 }
 const feedEle = document.querySelector('#feed')
 function makeFeed(myJson){
+  if(myJson.result.length === 0) {
+    page_count--
+    return
+  }
     for(let i = 0; i < myJson.result.length; i++){
-      console.log(myJson.result[i])
     // feed_container 생성
     let feed_containerEle = document.createElement('div')
     feed_containerEle.className = 'feed_container'
@@ -108,10 +116,10 @@ function makeFeed(myJson){
     feed_titleEle.className = 'feed_title'
     feed_containerEle.appendChild(feed_titleEle)
     let imgEle = document.createElement('img')
+    imgEle.src = `/resources/img/common/basic_profile.png`
     if(myJson.result[i].user_profileimg !== null) {
       imgEle.src = `${myJson.result[i].user_profileimg}`
     }
-    imgEle.src = `/resources/img/common/basic_profile.png`
     feed_titleEle.appendChild(imgEle)
 
     let user_idSpan = document.createElement('span')
@@ -129,7 +137,6 @@ function makeFeed(myJson){
     feedMenuI.className = 'fas fa-ellipsis-h'
     feed_titleEle.appendChild(feedMenuI)
     
-    console.log(myJson.result[i].media_url.length)
     // 이미지
     if(myJson.result[i].media_url.length > 0) {
       let feed_imgDiv = document.createElement('div')
@@ -176,7 +183,7 @@ function makeFeed(myJson){
       }
     }
     let detailDiv = document.createElement('div')
-    detailDiv.setAttribute('onclick', `feedDetail(${myJson.result[i].feed_pk})`)
+    detailDiv.setAttribute('onclick', `feedDetail(this, ${myJson.result[i].feed_pk})`)
     feed_contentDiv.appendChild(detailDiv)
 
     let feed_ctntP = document.createElement('p')
@@ -189,16 +196,13 @@ function makeFeed(myJson){
     let feed_functionbarEle = document.createElement('div')
     feed_functionbarEle.className = 'feed_functionbar'
 
-    
-
     let commentI = document.createElement('i')
-    commentI.setAttribute('onclick', `feedDetail(${myJson.result[i].feed_pk})`)
+    commentI.setAttribute('onclick', `feedDetail(this, ${myJson.result[i].feed_pk})`)
     commentI.className = 'fal fa-comment'
     commentI.innerHTML = `${myJson.result[i].comment_count}`
     feed_functionbarEle.appendChild(commentI)
 
     let favoriteI = document.createElement('i')
-    
     if(myJson.result[i].favorite_state === 1) {
       favoriteI.className = 'fas fa-heart'
     }else {
@@ -209,13 +213,13 @@ function makeFeed(myJson){
     feed_functionbarEle.appendChild(favoriteI)
 
     let bookmarkI = document.createElement('i')
-    
+
     if(myJson.result[i].bookmark_state === 1){
-      bookmarkI.className ='fas fa-bookmark'
-    } else {
+      bookmarkI.className = 'fas fa-bookmark'
+    }else{
       bookmarkI.className = 'far fa-bookmark'
     }
-    
+    bookmarkI.setAttribute('onclick', `feedBookmark(this, ${myJson.result[i].feed_pk})`)
     feed_functionbarEle.appendChild(bookmarkI)
 
     feed_containerEle.appendChild(feed_functionbarEle)
@@ -245,12 +249,42 @@ function feedFavorite(e,feed_pk) {
     body: JSON.stringify(params), 
   }).then((res) => res.json()
   ).then((myJson) => {
-    
+
     if(myJson.result.favorite_state == 0) {
       favoriteI.className = 'far fa-heart'
     }else {
       favoriteI.className = 'fas fa-heart'
     }
     favoriteI.innerHTML = myJson.result.favorite_count
+  })
+}
+
+// Feed Bookmark
+function feedBookmark(e, feed_pk) {
+  let bookmark_state = 0
+  const function_bar = e.parentNode
+  let bookmarkI = function_bar.querySelector('.fa-bookmark')
+  if(bookmarkI.className === 'fas fa-bookmark'){
+    bookmark_state = 1
+  }else {
+    bookmark_state = 0
+  }
+  let params = {
+    bookmark_feedpk : feed_pk,
+    bookmark_state
+  }
+  fetch('/feed/bookmark', {
+    method: 'post',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(params), 
+  }).then((res) => res.json()
+  ).then((myJson) => {
+    if(myJson.result.bookmark_state == 0) {
+      bookmarkI.className = 'far fa-bookmark'
+    }else {
+      bookmarkI.className = 'fas fa-bookmark'
+    }
   })
 }

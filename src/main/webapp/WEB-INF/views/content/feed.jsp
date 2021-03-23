@@ -16,12 +16,10 @@
 </div>   <!-- feed -->
 
 <div class="feed_overlay">
-   <div class="feed_overlay_content">
       <div class="feedDetail">
                
       </div> 
-   </div> 
-</div> 
+   </div>
 
 <!-- 댓글 html 코드 
 <div class="cmtReadDetail">

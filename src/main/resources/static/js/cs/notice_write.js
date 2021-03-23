@@ -41,7 +41,12 @@ function notice_write_submit_btn() {
 }
 
 function noticeReg() {
-  RegajaxImg()
+  Regajax().then((notice_pk) => {
+    if (notice_img) {
+      RegajaxImg(notice_pk)
+    }
+    location.href = `/notice`
+  })
 }
 
 function Regajax() {
@@ -65,8 +70,7 @@ function Regajax() {
   })
 }
 
-async function RegajaxImg() {
-  let notice_pk = await Regajax()
+async function RegajaxImg(notice_pk) {
   var formData = new FormData()
   formData.append('img', notice_img.files[0])
   formData.append('notice_pk', notice_pk)
@@ -75,14 +79,14 @@ async function RegajaxImg() {
     body: formData,
   })
     .then((res) => res.json())
-    .then((myJson) => {
-      location.href = `/notice`
-    })
+    .then((myJson) => {})
 }
 
 //공지사항 수정
 function noticeUpd() {
-  Updajax()
+  Updajax().then(() => {
+    location.href = `/notice`
+  })
 }
 async function Updajax() {
   let img = await UpdajaxImg()
@@ -101,9 +105,7 @@ async function Updajax() {
     body: JSON.stringify(param),
   })
     .then((res) => res.json())
-    .then(function (myJson) {
-      location.href = `/notice`
-    })
+    .then(function (myJson) {})
 }
 function UpdajaxImg() {
   return new Promise(function (resolve) {

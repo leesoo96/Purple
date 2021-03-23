@@ -25,4 +25,7 @@ public interface LayoutMapper {
    
    // 친구 추가
    int addNewFriend(FriendDTO dto);
+
+   // 친구 삭제
+   int delFriend(FriendDTO dto);
 }

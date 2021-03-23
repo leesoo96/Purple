@@ -59,13 +59,9 @@ public class CsController {
 	@PostMapping("/notice_img")
 	public Map<String, Object> notice_img(MultipartFile img, @RequestParam("notice_pk") int notice_pk) {
 		Map<String, Object> noticeWriteResult = new HashMap<String, Object>();
-		try{
-			noticeWriteResult.put("result", service.notice_img(img, notice_pk));
-		} catch(Exception e) {
-			noticeWriteResult.put("result", "/img/notice/basic_cs.jpg");
-		}finally {
-			return noticeWriteResult;
-		}
+		noticeWriteResult.put("result", service.notice_img(img, notice_pk));
+		// System.out.println(service.notice_img(img, notice_pk));
+		return noticeWriteResult;
 	}
 
 	 //공지사항 글 수정 (화면) 

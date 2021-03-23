@@ -27,6 +27,8 @@
   border: none;
   appearance: none;
   outline: none;
+  font-size: 1.1rem;
+  font-family: 'paybooc-Bold';
 }
 
 .search-input::-webkit-search-cancel-button {
@@ -142,15 +144,27 @@
   border-top-color: #e24040;
 }
 
+/* 검색결과 CSS */
 .search_content {
-  margin-top: 50px;
+  margin-top: 6em;
 }
-
-.search_content table tr td {
-  margin-left: 40px;
+.search_content table {
+  width: 40em;
+  margin-bottom: 1em;
+}
+.search_content table:hover {
+  background: #ddddfb;
+  border-radius: 1em;
+}
+.search_content table div {
+  margin-left: 1em;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+.search_content td {
   display: flex;
   align-items: center;
-  margin-left: 20px;
+  margin-left: 17px;
 }
 
 #profileImg {
@@ -164,5 +178,5 @@
 #content,
 #follow {
   margin-left: 30px;
-  font-size: 1rem;
+  font-size: 1.3rem;
 }
