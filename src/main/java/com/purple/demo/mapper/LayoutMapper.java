@@ -22,6 +22,9 @@ public interface LayoutMapper {
    List<FriendDTO> getRecommandFriendList(FriendDTO dto);
    // 추천친구 랜덤목록
    List<FriendDTO> getRandomRecommandFriendList(FriendDTO dto);
+
+   //이미 친구인지 확인
+   List<FriendDTO> friendCheck(FriendDTO dto);
    
    // 친구 추가
    int addNewFriend(FriendDTO dto);

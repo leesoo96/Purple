@@ -52,7 +52,11 @@ function enterkey() {
       search_tr.appendChild(search_td)
 
       let user_img = document.createElement('img')
-      user_img.src = `${myJson[i].user_profileimg}`
+      if (myJson[i].user_profileimg == null) {
+        user_img.src = '/resources/img/common/basic_profile.png'
+      } else {
+        user_img.src = `${myJson[i].user_profileimg}`
+      }
       user_img.id = 'profileImg'
       user_img.alt = '기본프로필사진'
       search_td.appendChild(user_img)
@@ -71,13 +75,31 @@ function enterkey() {
       user_bio.innerHTML = `@${myJson[i].user_bio}`
       search_td.appendChild(user_bio)
 
-      let user_tag = document.createElement('div')
-      user_tag.setAttribute('onclick', `addFriendFunc(${myJson[i].user_pk})`)
-      search_td.appendChild(user_tag)
+      let friend_pk = `${myJson[i].user_pk}`
+      let addFriendParam = {
+        user_pk: document.querySelector('#user_pk').value,
+        friend_pk: friend_pk,
+      }
+      console.log(addFriendParam.friend_pk)
+      fetch('/layout/friendCheck', {
+        method: 'post',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(addFriendParam),
+      })
+        .then((res) => res.json())
+        .then((myJson) => {
+          if (myJson.result == 1) {
+            let user_tag = document.createElement('div')
+            user_tag.setAttribute('onclick', `addFriendFunc(${friend_pk})`)
+            search_td.appendChild(user_tag)
 
-      let user_teg_i = document.createElement('i')
-      user_teg_i.className = 'fas fa-user-plus'
-      user_tag.appendChild(user_teg_i)
+            let user_teg_i = document.createElement('i')
+            user_teg_i.className = 'fas fa-user-plus'
+            user_tag.appendChild(user_teg_i)
+          }
+        })
 
       search_content.appendChild(search_table)
     }
@@ -105,6 +127,7 @@ function addFriendFunc(friend_pk) {
     })
 }
 
+/*
 let page_count = 0
 
 function previousImg(e) {
@@ -422,3 +445,4 @@ function feedBookmark(e, feed_pk) {
       }
     })
 }
+*/
