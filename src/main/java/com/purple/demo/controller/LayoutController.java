@@ -54,6 +54,9 @@ public class LayoutController {
     @ResponseBody
 	@PostMapping("/addNewFriend")
 	public Map<String, Object> addNewFriend(@RequestBody FriendDTO dto) {
+
+        
+        System.out.println(service.friendCheck(dto));
 		Map<String, Object> addNewFriend = new HashMap<String, Object>();
 		addNewFriend.put(Const.KEY_REUSLT, service.addNewFriend(dto));
 		return addNewFriend;

@@ -3,9 +3,6 @@ const search_content = document.querySelector('.search_content')
 const search_input = document.querySelector('.search-input')
 
 //유저 검색 리스트
-// search_input.addEventListener('onkeyup', () => {
-//   enterkey()
-// })
 function enterkey() {
   const form = document.querySelector('.search-form')
   let param = {

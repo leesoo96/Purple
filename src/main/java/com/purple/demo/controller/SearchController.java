@@ -29,8 +29,6 @@ public class SearchController {
     @ResponseBody
     @PostMapping("/searchUser")
     public List<SearchUserDTO> getRecommandFriendList(@RequestBody SearchUserDTO dto){
-
-	System.out.println("asd"+dto.getSearch_user_id());
         return service.selUserSearch(dto);
     }
 }
