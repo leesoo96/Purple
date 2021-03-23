@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-// LeftLayout & RightLayout only 
 @Controller
 @RequestMapping("/layout")
 public class LayoutController {
@@ -51,11 +50,22 @@ public class LayoutController {
         return mapper.getFriendChatList(dto);
     }
 
+    // 친구 추가
     @ResponseBody
 	@PostMapping("/addNewFriend")
 	public Map<String, Object> addNewFriend(@RequestBody FriendDTO dto) {
 		Map<String, Object> addNewFriend = new HashMap<String, Object>();
 		addNewFriend.put(Const.KEY_REUSLT, service.addNewFriend(dto));
 		return addNewFriend;
+	}
+
+    // 친구 삭제
+    @ResponseBody
+	@PostMapping("/delFriend")
+	public Map<String, Object> delFriend(@RequestBody FriendDTO dto) {
+		Map<String, Object> delFriend = new HashMap<String, Object>();
+        System.out.println(dto.getFriend_pk());
+		delFriend.put(Const.KEY_REUSLT, service.delFriend(dto));
+		return delFriend;
 	}
 }
