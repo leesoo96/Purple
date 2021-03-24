@@ -171,11 +171,12 @@ function makeFeedDetail(e, myJson) {
   detail_comment_containerDiv.appendChild(comment_listDiv)
 
   if(myJson.comment_list.length == 0) {
-
+    //댓글 없을 때 작성
   }
   for(let k =0; k < myJson.comment_list.length; k++) {
     let commentbarDiv = document.createElement('div')
     commentbarDiv.className = 'commentbar'
+    commentbarDiv.setAttribute('data-comment_pk', `${myJson.comment_list[k].comment_pk}`)
     comment_listDiv.appendChild(commentbarDiv)
 
     let commentUserImg = document.createElement('img')
@@ -206,6 +207,7 @@ function makeFeedDetail(e, myJson) {
     let commentViewMoreSpan = document.createElement('button')
     commentViewMoreSpan.className = 'commentViewMore'
     commentViewMoreSpan.innerText = '더 보기'
+    commentViewMoreSpan.setAttribute('onclick', `viewMore(this)`)
     commentFunctionbarDiv.appendChild(commentViewMoreSpan)
   }
 
@@ -223,6 +225,7 @@ function makeFeedDetail(e, myJson) {
   const input_submit = document.createElement('input')
   input_submit.type = 'button'
   input_submit.value = '입력'
+  input_submit.setAttribute('onclick', `comment_submit(this,${myJson.feed_pk})`)
   CommentInput.after(input_submit)
 
   // // feedDetail close only
@@ -244,6 +247,141 @@ function recomment(e) {
   const user_idSpan = document.createElement('span')
   user_idSpan.innerText = '@' + user_id
   user_idSpan.setAttribute('name', 'recomment_userid')
+  user_idSpan.setAttribute('data-comment_pk', commentbar.dataset.comment_pk)
   document.querySelector('input[name="comment_ctnt"]').before(user_idSpan)
+
+  const delete_recommentI = document.createElement('i')
+  delete_recommentI.className = 'fas fa-times'
+  delete_recommentI.onclick = (e) => {
+    e.target.parentNode.remove()
+  }
+  user_idSpan.appendChild(delete_recommentI)
 }
 
+function comment_submit(e,feed_pk) {
+  const comment_inputEle = e.parentNode
+  let comment_ctnt = comment_inputEle.querySelector('input[name="comment_ctnt"]').value
+  if(comment_inputEle.querySelector('span[name="recomment_userid"]') != null) {
+    let params = {
+      comment_feedpk: feed_pk,
+      comment_parentpk : comment_inputEle.querySelector('span[name="recomment_userid"]').dataset.comment_pk,
+      comment_ctnt
+    }
+    fetch('/feed/recomment',{
+      method: 'post',
+    headers: {
+      'Content-Type' : 'application/json',
+    },
+    body: JSON.stringify(params),
+  }).then((res) => res.json())
+  .then((myJson) => {
+    if(myJson.result === 1) {
+      comment_inputEle.querySelector('input[name="comment_ctnt"]').value = ''
+    }
+  })
+    return
+  }
+
+  let params = {
+    comment_feedpk: feed_pk,
+    comment_ctnt
+  }
+
+  fetch('/feed/comment',{
+    method: 'post',
+    headers: {
+      'Content-Type' : 'application/json',
+    },
+    body: JSON.stringify(params),
+  }).then((res) => res.json())
+  .then((myJson) =>{
+    if(myJson.result === 1) {
+      comment_inputEle.querySelector('input[name="comment_ctnt"]').value = ''
+      getCommentList(e, feed_pk)
+      return
+    }
+    alert('댓글 작성을 실패하였습니다.')
+  })
+}
+
+function getCommentList(e, feed_pk) {
+  fetch('/feed/getcomment/'+feed_pk)
+  .then(res => res.json())
+  .then((myJson) => {
+    e.parentNode.parentNode.firstChild.querySelectorAll('*').forEach((nodes) => nodes.remove())
+    for(let i=0; myJson.result.length; i++) {
+      console.log(`${myJson.result[i].comment_pk}`)
+      let commentbarDiv = document.createElement('div')
+      commentbarDiv.className = 'commentbar'
+      commentbarDiv.setAttribute('data-comment_pk', `${myJson.result[i].comment_pk}`)
+      e.parentNode.parentNode.firstChild.appendChild(commentbarDiv)
+
+      let commentUserImg = document.createElement('img')
+      commentUserImg.src = `${myJson.result[i].user_profileimg}`
+      if(myJson.result[i].user_profileimg == null) {
+        commentUserImg.src = '/resources/img/common/basic_profile.png'
+      }
+      commentbarDiv.appendChild(commentUserImg)
+
+      let commentUserIdSpan = document.createElement('span')
+      commentUserIdSpan.innerText = `${myJson.result[i].user_id}`
+      commentbarDiv.appendChild(commentUserIdSpan)
+
+      let commentCtntSpan = document.createElement('span')
+      commentCtntSpan.innerText = `${myJson.result[i].comment_ctnt}`
+      commentbarDiv.appendChild(commentCtntSpan)
+
+      let commentFunctionbarDiv = document.createElement('div')
+      commentFunctionbarDiv.className = 'commentFunctionbar'
+      commentbarDiv.append(commentFunctionbarDiv)
+
+      let recommentButton = document.createElement('button')
+      recommentButton.className = 'commentWriteSpan'
+      recommentButton.innerText = '답글 달기'
+      recommentButton.setAttribute('onclick', "recomment(this)")
+      commentFunctionbarDiv.appendChild(recommentButton)
+
+      let commentViewMoreSpan = document.createElement('button')
+      commentViewMoreSpan.className = 'commentViewMore'
+      commentViewMoreSpan.innerText = '더 보기'
+      commentFunctionbarDiv.appendChild(commentViewMoreSpan)
+    }
+  })
+}
+
+function viewMore(e) {
+  const commentBar = e.parentNode.parentNode
+  let comment_parentpk = e.parentNode.parentNode.dataset.comment_pk
+  e.parentNode.parentNode.parentNode.querySelectorAll('.recommentbar').forEach((test) => test.remove())
+
+
+  fetch('/feed/getrecomment/'+comment_parentpk)
+  .then((res) => res.json())
+  .then((myJson) => {
+    console.log(myJson)
+    if(myJson.result.length == 0) {
+      alert('댓글이 없습니다.')
+      return
+    }
+    for(let i =0; i < myJson.result.length; i++) {
+      let recommentbarDiv = document.createElement('div')
+      recommentbarDiv.className = 'recommentbar'
+      commentBar.after(recommentbarDiv)
+
+      let recommentUserImg = document.createElement('img')
+      recommentUserImg.src = `${myJson.result[i].user_profileimg}`
+      if(myJson.result[i].user_profileimg == null) {
+        recommentUserImg.src = '/resources/img/common/basic_profile.png'
+      }
+      recommentbarDiv.appendChild(recommentUserImg)
+
+      let recommentUserIdSpan = document.createElement('span')
+      recommentUserIdSpan.innerText = `${myJson.result[i].user_id}`
+      recommentbarDiv.appendChild(recommentUserIdSpan)
+
+      let recommentCtntSpan = document.createElement('span')
+      recommentCtntSpan.innerText = `${myJson.result[i].comment_ctnt}`
+      recommentbarDiv.appendChild(recommentCtntSpan)
+    }
+  })
+}
