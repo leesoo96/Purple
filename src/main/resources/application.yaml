@@ -24,6 +24,9 @@ mybatis:
 #Tomcat
 server:
   port: 8090
+  multipart:
+    max-file-size: 50MB
+    max-request-size: 50MB
 
   ssl:
     enabled: true

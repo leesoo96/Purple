@@ -110,25 +110,38 @@
         ORDER BY A.comment_writedate DESC;
     </select>
     <!-- 글 쓰기 -->
-    <insert id="insfeed" useGeneratedKeys="true" keyProperty="feed_pk">
+    <insert id="insFeed" useGeneratedKeys="true" keyProperty="feed_pk">
 		INSERT INTO feed
 		( feed_ctnt, feed_userpk )
 		VALUES
 		( #{feed_ctnt}, #{feed_userpk} )
 	</insert>
 
-    <insert id="inshastag">
-        INSERT INTO hashtag
-        ( hashtag_pk, hashtag_ctnt )
-        VALUES
-        ( #{hashtag_pk}, #{hashtag_ctnt} )
+    <insert id="insHashtag" useGeneratedKeys="true" keyProperty="hashtag_pk">
+        INSERT INTO hashtag(hashtag_ctnt)
+        SELECT ( #{hashtag_ctnt}) FROM DUAL
+        WHERE NOT EXISTS (
+        SELECT hashtag_ctnt
+        FROM hashtag
+        WHERE hashtag_ctnt = ( #{hashtag_ctnt}))
     </insert>
 
-    <insert id="insfeedimg">
+    <insert id="insFeedImg">
 		INSERT INTO media
 		( media_feedpk, media_url )
 		VALUES
-		( #{item.media_feedpk}, #{item.media_url} )
+		( #{media_feedpk}, #{media_url} )
 	</insert>
 
+    <select id="selHashtag_pk" resultType="int">
+        SELECT hashtag_pk
+        FROM hashtag
+        WHERE hashtag_ctnt=#{hashtag_ctnt} 
+    </select>
+
+    <insert id="insHashtagRel">
+        INSERT INTO hashtag_relation
+        VALUES
+        (#{htrel_hashtagpk}, #{htrel_feedpk})
+    </insert>
 </mapper>

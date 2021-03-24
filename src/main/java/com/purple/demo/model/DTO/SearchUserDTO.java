@@ -9,4 +9,6 @@ import lombok.Setter;
 @Setter
 public class SearchUserDTO extends UserEntity{
     private String search_user_id;
+
+    private int friend_pk;
 }

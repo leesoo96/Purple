@@ -149,7 +149,11 @@ function getFriend_list(myJson) {
     freind_Id_span.innerText = `${myJson[i].user_id}`
 
     let friend_bio_small = document.createElement('small')
-    friend_bio_small.innerText = `${myJson[i].user_bio}`
+    if (myJson[i].user_bio === null) {
+      friend_bio_small.innerText = '아직 상태메시지가 없습니다.'
+    } else {
+      friend_bio_small.innerText = `${myJson[i].user_bio}`
+    }
 
     friend_info_td.appendChild(freind_Id_span)
     friend_info_td.appendChild(friend_bio_small)
@@ -193,6 +197,7 @@ function getFriend_list(myJson) {
   }
 }
 
+// 친구 삭제
 function delFriendFunc(friend_pk) {
   let delFriendConfirm = confirm('정말 삭제하시겠습니까?')
 
@@ -226,6 +231,7 @@ function delFriendFunc(friend_pk) {
       })
   }
 }
+
 // 채팅 - 대화 목록 확인
 getFriendChatListFunc()
 
@@ -349,7 +355,6 @@ function getRecFriend_List(myJson) {
 
         if (addFriendConfirmMsg == true) {
           addFriendFunc()
-          history.go(0)
         } else {
           return
         }
@@ -370,7 +375,13 @@ function getRecFriend_List(myJson) {
           })
             .then((res) => res.json())
             .then((addFriend) => {
-              console.log(addFriend)
+              if (addFriend.result == 0) {
+                alert('친구 추가에 실패하였습니다.')
+                return
+              } else {
+                alert(`${myJson[j].user_id}` + ' 님을 친구 추가하였습니다.')
+                history.go(0)
+              }
             })
         }
       }

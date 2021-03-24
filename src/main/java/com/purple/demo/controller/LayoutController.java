@@ -9,9 +9,11 @@ import com.purple.demo.mapper.LayoutMapper;
 import com.purple.demo.model.ChatRoomDTO;
 import com.purple.demo.model.FriendDTO;
 import com.purple.demo.model.UserEntity;
+import com.purple.demo.model.UserPrincipal;
 import com.purple.demo.service.LayoutService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -54,17 +56,36 @@ public class LayoutController {
     @ResponseBody
 	@PostMapping("/addNewFriend")
 	public Map<String, Object> addNewFriend(@RequestBody FriendDTO dto) {
-		Map<String, Object> addNewFriend = new HashMap<String, Object>();
-		addNewFriend.put(Const.KEY_REUSLT, service.addNewFriend(dto));
-		return addNewFriend;
+        Map<String, Object> addNewFriend = new HashMap<String, Object>();
+        int result = service.friendCheck(dto);
+        if (result == 1) {
+            addNewFriend.put(Const.KEY_REUSLT, service.addNewFriend(dto));
+        }else if(result == 0){
+            addNewFriend.put(Const.KEY_REUSLT, "0");
+        }
+        return addNewFriend;
+
 	}
+
+    //이미 친구인지 확인
+    @ResponseBody
+	@PostMapping("/friendCheck")
+    public Map<String, Object> friendCheck(@RequestBody FriendDTO dto) {
+        Map<String, Object> friendCheck = new HashMap<String, Object>();
+        int result = service.friendCheck(dto);
+        if (result == 1) {
+            friendCheck.put(Const.KEY_REUSLT, "1");
+        }else if(result == 0){
+            friendCheck.put(Const.KEY_REUSLT, "0");
+        }
+        return friendCheck;
+    }
 
     // 친구 삭제
     @ResponseBody
 	@PostMapping("/delFriend")
 	public Map<String, Object> delFriend(@RequestBody FriendDTO dto) {
 		Map<String, Object> delFriend = new HashMap<String, Object>();
-        System.out.println(dto.getFriend_pk());
 		delFriend.put(Const.KEY_REUSLT, service.delFriend(dto));
 		return delFriend;
 	}

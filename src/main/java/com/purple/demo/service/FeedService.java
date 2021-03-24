@@ -4,7 +4,9 @@ import java.util.*;
 
 import com.purple.demo.mapper.FeedMapper;
 import com.purple.demo.model.FeedListDTO;
+import com.purple.demo.model.FeedWriteDTO;
 import com.purple.demo.model.HashtagEntity;
+import com.purple.demo.model.HashtagRelationEntity;
 import com.purple.demo.model.MediaEntity;
 import com.purple.demo.model.UserPrincipal;
 import com.purple.demo.model.DTO.FeedBookmarkDTO;
@@ -15,6 +17,7 @@ import com.purple.demo.utils.PurpleFileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 
 @Service
@@ -22,6 +25,8 @@ public class FeedService {
     
     @Autowired
     private FeedMapper mapper;
+
+    @Autowired
     private PurpleFileUtils fUtils;
 
     // Feed List
@@ -48,6 +53,50 @@ public class FeedService {
         }
         return feed_list;
     }
+    
+    public void insFeed(FeedWriteDTO dto, MultipartFile[] files){
+        //유저 pk 값
+		UserPrincipal principal = (UserPrincipal)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        dto.setFeed_userpk(principal.getUser_pk());
+        mapper.insFeed(dto);
+ 
+        //업로드 할 파일 경로
+        if(!files[0].isEmpty()) {
+		String folder = "/images/feed/"+dto.getFeed_pk();
+        fUtils.makeFolders(fUtils.getRealPath(folder));
+		try {	
+            for(MultipartFile file : files) {
+                MediaEntity entity = new MediaEntity();
+			    String fileNm = fUtils.transferTo(file, folder);
+                entity.setMedia_url(folder + "/" + fileNm);
+                entity.setMedia_feedpk(dto.getFeed_pk());
+                mapper.insFeedImg(entity);
+            }
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+    }
+        //해시 태그
+        if(dto.getHashtag() != null) {
+        for(int i=0; i < dto.getHashtag().size(); i++){
+            System.out.println(dto.getHashtag().get(i));
+            HashtagRelationEntity hrel = new HashtagRelationEntity();
+            HashtagEntity htentity = new HashtagEntity();
+            System.out.println(dto.getHashtag().get(i));
+            htentity.setHashtag_ctnt((String)dto.getHashtag().get(i));
+            int state = mapper.insHashtag(htentity);
+            hrel.setHtrel_feedpk(dto.getFeed_pk());
+            if(state == 0) {
+               int hashtag_pk = mapper.selHashtag_pk(htentity);
+               hrel.setHtrel_hashtagpk(hashtag_pk);
+            }else {
+                hrel.setHtrel_hashtagpk(htentity.getHashtag_pk());
+            }
+            mapper.insHashtagRel(hrel);
+        }
+    }
+    }
+  
 
     public FeedFavoriteDTO feedFavorite(FeedFavoriteDTO dto) {
         UserPrincipal principal = (UserPrincipal)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -89,28 +138,4 @@ public class FeedService {
         dto.setComment_list(mapper.selCommentList(dto));
         return dto;
     }
-    /*
-    public int insfeed(FeedWriteDTO dto, FeedImgDTO imgdto){
-        List<MediaEntity> insList = new ArrayList();
-		int result = 0;
-		try {
-			MediaEntity rme = null;
-			for(MultipartFile file : imgdto.getImgs()) {				
-				String fileNm = fileUtils.transferTo(file, path);
-				
-				rme = new MediaEntity();					
-				rme.setMedia_url(fileNm);
-				
-				insList.add(rme);
-			}
-			
-			result = mapper.insfeedimg(insList);
-		} catch(Exception e) {
-			System.out.println("에러");
-		}
-        System.out.println(folder);
-    
-        return "";
-    }
-    */
 }

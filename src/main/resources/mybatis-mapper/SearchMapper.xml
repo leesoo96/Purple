@@ -3,7 +3,23 @@
 <mapper namespace="com.purple.demo.mapper.SearchMapper">
     <select id="selUserSearch" resultType="SearchUserDTO">
         SELECT user_id, user_profileimg, user_bio, user_pk FROM user
-        WHERE  user_id LIKE '%${search_user_id}%' or user_name LIKE '%${search_user_id}%';
+        WHERE  user_id 
+        <if test="search_user_id != ''">
+            LIKE '%${search_user_id}%' or user_name LIKE '%${search_user_id}%';
+        </if>
+        <if test="search_user_id == ''">
+            LIKE '%null%';
+        </if>
     </select>
 
+    <select id="selFeedSearch" resultType="FeedListDTO">
+        SELECT * FROM feed
+        WHERE feed_ctnt 
+        <if test="feed_ctnt != ''">
+            LIKE '%${feed_ctnt}%' ;
+        </if>
+        <if test="feed_ctnt == ''">
+            LIKE '%null%' ;
+        </if>
+    </select>
 </mapper>

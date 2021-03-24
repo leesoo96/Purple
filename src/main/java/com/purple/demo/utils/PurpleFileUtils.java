@@ -96,7 +96,7 @@ public class PurpleFileUtils {
 		fileNm = getRandomFileNm(mf.getOriginalFilename());
 		File file = new File(basePath, fileNm); //파일이 저장되어야 할 위치정보!!!
 		mf.transferTo(file);
-		
+		System.out.println(basePath);
 		return fileNm;
 	}
 
