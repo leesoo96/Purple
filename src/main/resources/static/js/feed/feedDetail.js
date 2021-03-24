@@ -197,10 +197,11 @@ function makeFeedDetail(e, myJson) {
     commentFunctionbarDiv.className = 'commentFunctionbar'
     commentbarDiv.append(commentFunctionbarDiv)
 
-    let commentWriteSpan = document.createElement('button')
-    commentWriteSpan.className = 'commentWriteSpan'
-    commentWriteSpan.innerText = '답글 달기'
-    commentFunctionbarDiv.appendChild(commentWriteSpan)
+    let recommentButton = document.createElement('button')
+    recommentButton.className = 'commentWriteSpan'
+    recommentButton.innerText = '답글 달기'
+    recommentButton.setAttribute('onclick', "recomment(this)")
+    commentFunctionbarDiv.appendChild(recommentButton)
 
     let commentViewMoreSpan = document.createElement('button')
     commentViewMoreSpan.className = 'commentViewMore'
@@ -231,5 +232,18 @@ function makeFeedDetail(e, myJson) {
 
   feed_DetailOverlay.style.display = 'none'
   }
+}
+
+function recomment(e) {
+  if(document.querySelector('span[name=recomment_userid]')) {
+    document.querySelector('span[name=recomment_userid]').remove()
+  }
+  const commentbar = e.parentNode.parentNode
+  const user_id = commentbar.firstChild.nextSibling.innerText
+
+  const user_idSpan = document.createElement('span')
+  user_idSpan.innerText = '@' + user_id
+  user_idSpan.setAttribute('name', 'recomment_userid')
+  document.querySelector('input[name="comment_ctnt"]').before(user_idSpan)
 }
 

@@ -6,8 +6,8 @@ pageEncoding="UTF-8"%>
   integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
   crossorigin="anonymous"
 />
-<link rel="stylesheet" href="resources/css/search/search.css" />
-<script defer src="resources/js/search/search.js"></script>
+<link rel="stylesheet" href="/resources/css/search/search.css" />
+<script defer src="/resources/js/search/search.js"></script>
 
 <form class="search-form">
   <input type="text" name="search_input" onkeyup="enterkey()" placeholder="Search" class="search-input" />
