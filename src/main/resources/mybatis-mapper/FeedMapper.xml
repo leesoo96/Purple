@@ -100,15 +100,6 @@
         AND favorite_userpk = #{favorite_userpk}
     </delete>
     
-    <select id="selCommentList" resultType="CommentListDTO">
-        SELECT A.comment_pk, A.comment_ctnt, A.comment_userpk, A.comment_writedate, A.comment_state, B.user_id, B.user_profileimg
-        FROM comment AS A
-        LEFT OUTER JOIN user AS B
-        ON (A.comment_userpk = B.user_pk)
-        WHERE A.comment_feedpk = #{feed_pk} AND A.comment_state = 1
-        AND A.comment_parentpk = A.comment_pk
-        ORDER BY A.comment_writedate DESC;
-    </select>
     <!-- 글 쓰기 -->
     <insert id="insFeed" useGeneratedKeys="true" keyProperty="feed_pk">
 		INSERT INTO feed
@@ -144,4 +135,44 @@
         VALUES
         (#{htrel_hashtagpk}, #{htrel_feedpk})
     </insert>
+
+    <!-- Comment -->
+    <select id="selCommentList" resultType="CommentListDTO">
+        SELECT A.comment_pk, A.comment_ctnt, A.comment_userpk, A.comment_writedate, A.comment_state, B.user_id, B.user_profileimg
+        FROM comment AS A
+        LEFT OUTER JOIN user AS B
+        ON (A.comment_userpk = B.user_pk)
+        WHERE A.comment_feedpk = #{feed_pk} AND A.comment_state = 1
+        AND A.comment_parentpk = A.comment_pk
+        ORDER BY A.comment_writedate DESC;
+    </select>
+
+    <select id="selReCommentList" resultType="CommentListDTO">
+        SELECT A.comment_pk, A.comment_ctnt, A.comment_userpk, A.comment_writedate, A.comment_state, B.user_id, B.user_profileimg
+        FROM comment AS A
+        LEFT OUTER JOIN user AS B
+        ON (A.comment_userpk = B.user_pk)
+        WHERE A.comment_parentpk = #{comment_parentpk} AND A.comment_state = 1
+        AND A.comment_pk != #{comment_parentpk}
+        ORDER BY A.comment_writedate DESC;
+    </select>
+
+    <insert id="insReComment">
+        INSERT INTO comment
+        (comment_feedpk, comment_ctnt, comment_userpk, comment_state, comment_parentpk)
+        VALUES
+        (#{comment_feedpk}, #{comment_ctnt}, #{comment_userpk}, #{comment_state}, #{comment_parentpk})
+    </insert>
+    <insert id="insComment" useGeneratedKeys="true" keyProperty="comment_pk">
+        INSERT INTO comment
+        (comment_feedpk, comment_ctnt, comment_userpk, comment_state)
+        VALUES
+        (#{comment_feedpk}, #{comment_ctnt}, #{comment_userpk}, #{comment_state})
+    </insert>
+
+    <update id="updCommentParentPk">
+        UPDATE comment
+		SET comment_parentpk = #{comment_parentpk}
+		WHERE comment_pk = #{comment_pk}
+    </update>
 </mapper>

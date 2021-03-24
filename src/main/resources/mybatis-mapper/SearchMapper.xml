@@ -22,4 +22,15 @@
             LIKE '%null%' ;
         </if>
     </select>
+
+    <select id="searchHashtag" resultType="FeedListDTO">
+        SELECT A.feed_pk  from feed A
+        LEFT JOIN hashtag_relation B ON A.feed_pk = B.htrel_feedpk
+        LEFT JOIN hashtag C ON B.htrel_hashtagpk = C.hashtag_pk
+        WHERE C.hashtag_ctnt 
+        <if test="hashtag_ctnt != ''">
+            LIKE '%${hashtag_ctnt}%' ;
+        </if>
+
+    </select>
 </mapper>

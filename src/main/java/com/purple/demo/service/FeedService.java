@@ -9,6 +9,8 @@ import com.purple.demo.model.HashtagEntity;
 import com.purple.demo.model.HashtagRelationEntity;
 import com.purple.demo.model.MediaEntity;
 import com.purple.demo.model.UserPrincipal;
+import com.purple.demo.model.DTO.CommentListDTO;
+import com.purple.demo.model.DTO.CommentWriteDTO;
 import com.purple.demo.model.DTO.FeedBookmarkDTO;
 import com.purple.demo.model.DTO.FeedDetailDTO;
 import com.purple.demo.model.DTO.FeedFavoriteDTO;
@@ -135,7 +137,33 @@ public class FeedService {
         dto.setBookmark_state(mapper.isBookmark((FeedListDTO)dto));
         dto.setMedia_url(mapper.selMediaList((FeedListDTO)dto));
         dto.setHashtag_ctnt(mapper.selHashtagList((FeedListDTO)dto));
-        dto.setComment_list(mapper.selCommentList(dto));
+        dto.setComment_list(mapper.selCommentList(dto.getFeed_pk()));
         return dto;
+    }
+
+    public int insComment(CommentWriteDTO dto) {
+        UserPrincipal principal = (UserPrincipal)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        dto.setComment_userpk(principal.getUser_pk());
+        dto.setComment_state(1);
+
+        System.out.println(mapper.insComment(dto));
+        dto.setComment_parentpk(dto.getComment_pk());
+        return mapper.updCommentParentPk(dto);
+    }
+
+    public List<CommentListDTO> getCommentList(int feed_pk) {
+        return mapper.selCommentList(feed_pk);
+    }
+
+    public int insReComment(CommentWriteDTO dto) {
+        UserPrincipal principal = (UserPrincipal)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        dto.setComment_userpk(principal.getUser_pk());
+        dto.setComment_state(1);
+
+        return mapper.insReComment(dto);
+    }
+
+    public List<CommentListDTO> getReCommentList(int comment_parentpk) {
+        return mapper.selReCommentList(comment_parentpk);
     }
 }
