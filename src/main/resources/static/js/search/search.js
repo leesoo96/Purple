@@ -92,6 +92,7 @@ function enterkey() {
         .then((myJson) => {
           if (myJson.result == 1) {
             let user_tag = document.createElement('div')
+
             user_tag.setAttribute('onclick', `addFriendFunc(${friend_pk})`)
             search_td.appendChild(user_tag)
 
@@ -106,25 +107,27 @@ function enterkey() {
   }
 }
 function addFriendFunc(friend_pk) {
-  let addFriendParam = {
-    user_pk: document.querySelector('#user_pk').value,
-    friend_pk: friend_pk,
-  }
-  fetch('/layout/addNewFriend', {
-    method: 'post',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(addFriendParam),
-  })
-    .then((res) => res.json())
-    .then((myJson) => {
-      if (myJson.result === 1) {
-        alert('친구 등록이 완료되었습니다.')
-        return
-      }
-      alert('이미 등록된 친구입니다.')
+  if (confirm('친구 추가 하시겠습니까?')) {
+    let addFriendParam = {
+      user_pk: document.querySelector('#user_pk').value,
+      friend_pk: friend_pk,
+    }
+    fetch('/layout/addNewFriend', {
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(addFriendParam),
     })
+      .then((res) => res.json())
+      .then((myJson) => {
+        if (myJson.result === 1) {
+          alert('친구 등록이 완료되었습니다.')
+          return
+        }
+        alert('이미 등록된 친구입니다.')
+      })
+  }
 }
 
 /*
