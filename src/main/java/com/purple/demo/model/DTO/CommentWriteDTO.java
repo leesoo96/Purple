@@ -7,7 +7,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class CommentListDTO extends CommentEntity{
+public class CommentWriteDTO extends CommentEntity{
     /* CommentEntity
     private int comment_pk;
     private int comment_feedpk;
@@ -17,6 +17,5 @@ public class CommentListDTO extends CommentEntity{
     private int comment_parentpk;
     private int comment_state;
     */
-    private String user_id;
-    private String user_profileimg;
+    
 }
