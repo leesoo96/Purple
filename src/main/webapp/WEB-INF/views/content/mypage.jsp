@@ -2,17 +2,17 @@
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <link href="/resources/css/mypage/mypage.css" rel="stylesheet">
-<script defer src="resources/js/mypage/mypage.js"></script>
+<script defer src="/resources/js/mypage/mypage.js"></script>
 <script defer src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<link rel="stylesheet" href="resources/css/feed/feed.css">
-<link rel="stylesheet" href="resources/css/feed/feedDetail.css">
-<script defer src="resources/js/feed/feedDetail.js"></script>
+<link rel="stylesheet" href="/resources/css/feed/feed.css">
+<link rel="stylesheet" href="/resources/css/feed/feedDetail.css">
+<script defer src="/resources/js/feed/feedDetail.js"></script>
 <div id="modal_background"></div>
 <!-- modal_background -->
 <div id="userMod_container">
     <div id="userMod_top">
         <div id="close_userMod">
-            <img alt="닫기" onclick="openCloseModal('#userMod_container', 'none')" src="resources/img/common/close_icon.png">
+            <img alt="닫기" onclick="openCloseModal('#userMod_container', 'none')" src="/resources/img/common/close_icon.png">
         </div>
         <span>Edit Profile</span>
         <div id="save_userMod">
@@ -49,7 +49,7 @@
     <div id="userPwMod_top">
         <span>비밀번호 변경</span>
         <div id="close_userPwMod">
-            <img alt="닫기" onclick="openCloseModal('#userPwMod_container', 'none')" src="resources/img/common/close_icon.png">
+            <img alt="닫기" onclick="openCloseModal('#userPwMod_container', 'none')" src="/resources/img/common/close_icon.png">
         </div>
     </div>
     <form name="userPwModFrm">

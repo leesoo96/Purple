@@ -47,7 +47,7 @@ pageEncoding="UTF-8"%>
       </label>
     </div>
     <div>
-      <input name="type" type="radio" value="2" id="type-special" checked="" />
+      <input name="type" type="radio" value="2" id="type-special" />
       <label for="type-special">
         <svg class="edit-pen-title">
           <use
