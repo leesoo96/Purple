@@ -10,7 +10,7 @@ pageEncoding="UTF-8"%>
 <script defer src="/resources/js/search/search.js"></script>
 
 <form class="search-form">
-  <input type="text" name="search_input" onkeyup="enterkey()" placeholder="Search" class="search-input" />
+  <input type="text" name="search_input" onkeyup="enterkey()" placeholder="Search" class="search-input" value="${data}"/>
 
   <div class="search-option">
     <button type="submit" class="search-button">
