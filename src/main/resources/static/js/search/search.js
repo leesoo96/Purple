@@ -43,7 +43,7 @@ function radioClick() {
 }
 
 
-function enterkey() {
+function enterkey(event) {
   let search_check = document.querySelector('input[name="type"]:checked').value
   // 유저검색
   if (search_check === 0) {

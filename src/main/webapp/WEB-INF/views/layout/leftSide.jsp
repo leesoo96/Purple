@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %> 
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <div id="menus">
           <div id="logo">
             <a href="/feed">
@@ -44,12 +45,15 @@
           </div>
          
           <button id="userWrite_btn" onclick="on()"><span>글쓰기</span></button>
+          <sec:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_USER')">
+          <sec:authentication property="principal" var="userInfo"/>
 
           <div id="temp_user">
-            <img src="/resources/img/common/basic_profile.png" alt="기본프로필사진">
-            
-          <sec:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_USER')">
-  				<sec:authentication property="principal" var="userInfo"/>
+
+
+              <img src=`${userInfo.user_profileimg}`
+              onerror="this.src='/resources/img/common/basic_profile.png'" alt="기본프로필사진">
+
   				<p>${userInfo.user_id }</p>
          	</sec:authorize>
          	
