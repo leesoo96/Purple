@@ -13,14 +13,22 @@
     </select>
 
     <select id="selFeedSearch" resultType="FeedListDTO">
-        SELECT * FROM feed
-        WHERE feed_ctnt 
+        SELECT a.feed_pk, a.feed_ctnt, a.feed_writedate, a.feed_userpk,
+        b.user_id, b.user_profileimg,
+        (SELECT COUNT(comment_pk) FROM comment WHERE comment_feedpk = a.feed_pk) AS "comment_count",
+        (SELECT COUNT(favorite_feedpk) FROM favorite WHERE favorite_feedpk= a.feed_pk) AS "favorite_count"
+        FROM feed AS a
+        LEFT OUTER JOIN user AS b
+        ON (a.feed_userpk = b.user_pk)
+        WHERE a.feed_state = #{feed_state} AND a.feed_ctnt
         <if test="feed_ctnt != ''">
-            LIKE '%${feed_ctnt}%' ;
+            LIKE '%${feed_ctnt}%'
         </if>
         <if test="feed_ctnt == ''">
-            LIKE '%null%' ;
+            LIKE '%null%'
         </if>
+        ORDER BY a.feed_writedate DESC
+        LIMIT #{first_page}, #{end_page};
     </select>
 
     <select id="searchHashtag" resultType="FeedListDTO">
