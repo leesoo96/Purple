@@ -34,7 +34,7 @@ pageEncoding="UTF-8"%>
   <input type="text" name="search_input" onkeyup="enterkey()" placeholder="Search" class="search-input" value="${data}"/>
   <div class="search-option">
     <div>
-      <input name="type" type="radio" value="0" onclick="radioClick()" id="type-users" class="search_chack" checked=""/>
+      <input name="type" type="radio" value="0" onclick="radioClick()" id="type-users" class="search_chack" />
       <label for="type-users">
         <svg class="edit-pen-title">
           <use
@@ -59,7 +59,7 @@ pageEncoding="UTF-8"%>
       </label>
     </div>
     <div>
-      <input name="type" type="radio" value="2" onclick="radioClick()" id="type-special"  class="search_chack"/>
+      <input name="type" type="radio" value="2" onclick="radioClick()" id="type-special"  class="search_chack" checked=""/>
       <label for="type-special">
         <svg class="edit-pen-title">
           <use

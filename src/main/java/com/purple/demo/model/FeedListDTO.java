@@ -23,4 +23,7 @@ public class FeedListDTO extends FeedEntity{
     private int first_page;
     private int end_page;
     private int user_pk;
+
+    //search hashtag 위해 필요한 값
+    private String search_hashtag_ctnt; 
 }
