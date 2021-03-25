@@ -3,53 +3,53 @@ const search_content = document.querySelector('.search_content')
 const search_input = document.querySelector('.search-input')
 const form = document.querySelector('.search-form')
 
-
 const windowHeight = window.innerHeight // 현재 보이는 창 높이
 
-let page_count =0
+let page_count = 0
 
-// document.addEventListener('scroll', () => {
-//   console.log('test')
-//   let scrollLocation = document.documentElement.scrollTop // 현재 스크롤바 위치
-//   let fullHeight = document.body.scrollHeight // 스크롤 포함 전체 길이
+document.addEventListener('scroll', () => {
+  console.log('test')
+  let scrollLocation = document.documentElement.scrollTop // 현재 스크롤바 위치
+  let fullHeight = document.body.scrollHeight // 스크롤 포함 전체 길이
 
-//   if (scrollLocation + windowHeight >= fullHeight) {
-//     let search_check = document.querySelector('input[name="type"]:checked').value
-//   if (search_check == 1) {
-//     console.log(page_count)
-//     let param = {
-//       page_count,
-//       feed_ctnt : form.search_input.value
-//     }
-//     fetch('/search/searchFeed', {
-//       method: 'post',
-//       headers: {
-//         'Content-Type': 'application/json',
-//       },
-//       body: JSON.stringify(param),
-//     })
-//       .then((res) => res.json())
-//       .then((myJson) => {
-//         makeFeed(myJson)
-//       })
-//       page_count++
-//   }
-//   }
-// })
-
+  if (scrollLocation + windowHeight >= fullHeight) {
+    let search_check = document.querySelector('input[name="type"]:checked')
+      .value
+    if (search_check == 1) {
+      console.log(page_count)
+      let param = {
+        page_count,
+        feed_ctnt: form.search_input.value,
+      }
+      fetch('/search/searchFeed', {
+        method: 'post',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(param),
+      })
+        .then((res) => res.json())
+        .then((myJson) => {
+          makeFeed(myJson)
+        })
+      page_count++
+    }
+  }
+})
 
 function radioClick() {
-  form.search_input.value=''
+  form.search_input.value = ''
 }
 
-
-function enterkey(event) {
+function enterkey() {
   let search_check = document.querySelector('input[name="type"]:checked').value
+  console.log(search_check)
   // 유저검색
-  if (search_check === 0) {
+  if (search_check == 0) {
     let param = {
       search_user_id: form.search_input.value,
     }
+    console.log(param)
     fetch('/search/searchUser', {
       method: 'post',
       headers: {
@@ -60,7 +60,7 @@ function enterkey(event) {
       .then((res) => res.json())
       .then((myJson) => {
         search_content.querySelectorAll('*').forEach((test) => test.remove())
-        if(myJson.length == 0) {
+        if (myJson.length == 0) {
           let noSearchDiv = document.createElement('div')
           noSearchDiv.className = 'noSearch'
           noSearchDiv.innerHTML = '검색 결과가 없습니다.'
@@ -69,11 +69,11 @@ function enterkey(event) {
         }
         user_list(myJson)
       })
-      // 내용검색
-  } else if (search_check === 1) {
+    // 내용검색
+  } else if (search_check == 1) {
     let param = {
       page_count,
-      feed_ctnt : form.search_input.value
+      feed_ctnt: form.search_input.value,
     }
     fetch('/search/searchFeed', {
       method: 'post',
@@ -85,7 +85,7 @@ function enterkey(event) {
       .then((res) => res.json())
       .then((myJson) => {
         search_content.querySelectorAll('*').forEach((test) => test.remove())
-        if(myJson.result.length == 0) {
+        if (myJson.result.length == 0) {
           let noSearchDiv = document.createElement('div')
           noSearchDiv.className = 'noSearch'
           noSearchDiv.innerHTML = '검색 결과가 없습니다.'
@@ -97,8 +97,12 @@ function enterkey(event) {
       })
 
     // 해시태그 검색
-  } else if (search_check === 2) {
-    let param = {}
+  } else if (search_check == 2) {
+    let param = {
+      page_count,
+      search_hashtag_ctnt: form.search_input.value,
+    }
+
     fetch('/search/searchHashtag', {
       method: 'post',
       headers: {
@@ -108,12 +112,20 @@ function enterkey(event) {
     })
       .then((res) => res.json())
       .then((myJson) => {
+        console.log(myJson.result)
         search_content.querySelectorAll('*').forEach((test) => test.remove())
+        if (myJson.result.length == 0) {
+          let noSearchDiv = document.createElement('div')
+          noSearchDiv.className = 'noSearch'
+          noSearchDiv.innerHTML = '검색 결과가 없습니다.'
+          search_content.appendChild(noSearchDiv)
+          return
+        }
+        makeFeed(myJson)
+        page_count++
       })
-      .then((myJson) => {})
   }
 }
-
 
 function user_list(myJson) {
   let search_table = document.createElement('table')
@@ -147,9 +159,9 @@ function user_list(myJson) {
     let user_bio = document.createElement('span')
     user_bio.id = 'content'
     user_bio.innerHTML = `${myJson[i].user_bio}`
-    if(myJson[i].user_bio === null) {
+    if (myJson[i].user_bio === null) {
       user_bio.innerHTML = '상태 메세지가 없습니다.'
-    } 
+    }
     search_td.appendChild(user_bio)
     let friend_pk = `${myJson[i].user_pk}`
     let addFriendParam = {
@@ -181,8 +193,6 @@ function user_list(myJson) {
   }
 }
 
-
-
 function addFriendFunc(friend_pk) {
   if (confirm('친구 추가 하시겠습니까?')) {
     let addFriendParam = {
@@ -206,7 +216,6 @@ function addFriendFunc(friend_pk) {
       })
   }
 }
-
 
 function previousImg(e) {
   const feed_imgListDiv = e.parentNode.firstChild.nextSibling
@@ -234,7 +243,6 @@ function nextImg(e) {
   last_img.after(first_img)
 }
 
-  
 function makeFeed(myJson) {
   if (myJson.result.length === 0) {
     page_count--
@@ -434,4 +442,3 @@ function feedBookmark(e, feed_pk) {
       }
     })
 }
-
