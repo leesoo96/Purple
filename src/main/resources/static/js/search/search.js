@@ -20,6 +20,13 @@ function enterkey() {
     })
       .then((res) => res.json())
       .then((myJson) => {
+        if(myJson.length == 0) {
+          search_content.querySelectorAll('*').forEach((test) => test.remove())
+          let nosearchDiv = document.createElement('div')
+          nosearchDiv.innerHTML = '검색 결과가 없습니다.'
+          search_content.appendChild(nosearchDiv)
+          return
+        }
         search_content.querySelectorAll('*').forEach((test) => test.remove())
         user_list(myJson)
       })
@@ -34,6 +41,7 @@ function enterkey() {
     })
       .then((res) => res.json())
       .then((myJson) => {
+        console.log(myJson)
         search_content.querySelectorAll('*').forEach((test) => test.remove())
       })
       .then((myJson) => {
@@ -42,9 +50,8 @@ function enterkey() {
   }
 
   function user_list(myJson) {
+    let search_table = document.createElement('table')
     for (let i = 0; i < myJson.length; i++) {
-      let search_table = document.createElement('table')
-
       let search_tr = document.createElement('tr')
       search_table.appendChild(search_tr)
 
@@ -70,11 +77,14 @@ function enterkey() {
       user_id_span.innerHTML = `@${myJson[i].user_id}`
       user_id.appendChild(user_id_span)
 
+      console.log(`${myJson[i].user_bio}`)
       let user_bio = document.createElement('span')
       user_bio.id = 'content'
-      user_bio.innerHTML = `@${myJson[i].user_bio}`
+      user_bio.innerHTML = `${myJson[i].user_bio}`
+      if(myJson[i].user_bio === null) {
+        user_bio.innerHTML = '상태 메세지가 없습니다.'
+      } 
       search_td.appendChild(user_bio)
-
       let friend_pk = `${myJson[i].user_pk}`
       let addFriendParam = {
         user_pk: document.querySelector('#user_pk').value,
@@ -101,7 +111,6 @@ function enterkey() {
             user_tag.appendChild(user_teg_i)
           }
         })
-
       search_content.appendChild(search_table)
     }
   }

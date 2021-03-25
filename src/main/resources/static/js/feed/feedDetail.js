@@ -136,7 +136,6 @@ function makeFeedDetail(e, myJson) {
   // 댓글 수
   const commentI = document.createElement('i')
   commentI.className = 'fal fa-comment'
-  commentI.innerText = `${myJson.comment_count}`
   detail_functionbarDiv.appendChild(commentI)
 
   // 좋아요
@@ -171,7 +170,7 @@ function makeFeedDetail(e, myJson) {
   detail_comment_containerDiv.appendChild(comment_listDiv)
 
   if(myJson.comment_list.length == 0) {
-    //댓글 없을 때 작성
+    comment_listDiv.innerHTML = '댓글이 없습니다.'
   }
   for(let k =0; k < myJson.comment_list.length; k++) {
     let commentbarDiv = document.createElement('div')
@@ -234,6 +233,7 @@ function makeFeedDetail(e, myJson) {
   feedDetailClass.querySelectorAll('*').forEach((test) => test.remove())
 
   feed_DetailOverlay.style.display = 'none'
+  location.reload()
   }
 }
 
@@ -277,6 +277,7 @@ function comment_submit(e,feed_pk) {
   .then((myJson) => {
     if(myJson.result === 1) {
       comment_inputEle.querySelector('input[name="comment_ctnt"]').value = ''
+      comment_inputEle.querySelector('span[name="recomment_userid"]').remove()
     }
   })
     return

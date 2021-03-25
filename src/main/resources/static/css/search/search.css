@@ -152,7 +152,7 @@
   width: 40em;
   margin-bottom: 1em;
 }
-.search_content table:hover {
+.search_content td:hover {
   background: #ddddfb;
   border-radius: 1em;
 }

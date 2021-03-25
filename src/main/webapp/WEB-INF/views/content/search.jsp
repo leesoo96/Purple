@@ -22,7 +22,7 @@ pageEncoding="UTF-8"%>
       </svg>
     </button>
     <div>
-      <input name="type" type="radio" value="0" id="type-users" class="search_chack"/>
+      <input name="type" type="radio" value="0" id="type-users" class="search_chack" checked=""/>
       <label for="type-users">
         <svg class="edit-pen-title">
           <use
@@ -47,7 +47,7 @@ pageEncoding="UTF-8"%>
       </label>
     </div>
     <div>
-      <input name="type" type="radio" value="2" id="type-special" checked="" class="search_chack"/>
+      <input name="type" type="radio" value="2" id="type-special"  class="search_chack"/>
       <label for="type-special">
         <svg class="edit-pen-title">
           <use
