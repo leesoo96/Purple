@@ -28,12 +28,12 @@ server:
     max-file-size: 100MB
     max-request-size: 100MB
 
-  ssl:
-    enabled: true
-    key-alias: purplestore
-    key-store: purplestore
-    key-store-password: 'purple'
-    key-password: 'purple'
-    trust-store: purpletrust
-    trust-store-password: 'purple'
+  # ssl:
+  #   enabled: true
+  #   key-alias: purplestore
+  #   key-store: purplestore
+  #   key-store-password: 'purple'
+  #   key-password: 'purple'
+  #   trust-store: purpletrust
+  #   trust-store-password: 'purple'
 #이미지

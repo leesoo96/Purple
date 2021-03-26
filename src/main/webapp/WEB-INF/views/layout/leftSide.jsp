@@ -49,10 +49,12 @@
           <sec:authentication property="principal" var="userInfo"/>
 
           <div id="temp_user">
-
-
-              <img src=`${userInfo.user_profileimg}`
-              onerror="this.src='/resources/img/common/basic_profile.png'" alt="기본프로필사진">
+            <c:if test="${empty userInfo.user_profileimg}">
+              <img src="/resources/img/common/basic_profile.png" alt="기본프로필사진">
+            </c:if>
+            <c:if test="${not empty userInfo.user_profileimg}">
+              <img src=${userInfo.user_profileimg} alt="기본프로필사진">
+            </c:if>  
 
   				<p>${userInfo.user_id }</p>
          	</sec:authorize>
@@ -61,7 +63,12 @@
           </div>
           <div class="only_modalClose"></div> <!-- user_modal창을 닫기위한 도구적 클래스 -->
           <div id="temp_user_modal">
-            <img src="/resources/img/common/basic_profile.png" alt="기본프로필사진">
+            <c:if test="${empty userInfo.user_profileimg}">
+              <img src="/resources/img/common/basic_profile.png" alt="기본프로필사진">
+            </c:if>
+            <c:if test="${not empty userInfo.user_profileimg}">
+              <img src=${userInfo.user_profileimg} alt="기본프로필사진">
+            </c:if>  
             
           <p>${userInfo.user_name }</p>
          
