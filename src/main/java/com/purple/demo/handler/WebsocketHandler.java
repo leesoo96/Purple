@@ -1,4 +1,4 @@
-package com.purple.demo.service;
+package com.purple.demo.handler;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +10,7 @@ import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 @Component
-public class ChatService extends TextWebSocketHandler {
+public class WebsocketHandler extends TextWebSocketHandler {
     
     // 접속한 클라이언트 세션들을 저장하는 list 
     private static List<WebSocketSession> list = new ArrayList<>();

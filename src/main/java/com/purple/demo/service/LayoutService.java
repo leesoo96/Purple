@@ -2,8 +2,10 @@ package com.purple.demo.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import com.purple.demo.mapper.LayoutMapper;
+import com.purple.demo.model.ChatRoomDTO;
 import com.purple.demo.model.FriendDTO;
 import com.purple.demo.model.UserPrincipal;
 
@@ -38,8 +40,8 @@ public class LayoutService {
         return mapper.delFriend(dto);
     }
 
-     // 이미 친구인지 확인
-     public int friendCheck(FriendDTO dto) {
+    // 이미 친구인지 확인
+    public int friendCheck(FriendDTO dto) {
 
         List<FriendDTO> friendPkList = mapper.friendCheck(dto);
 
@@ -49,7 +51,30 @@ public class LayoutService {
             }
         }
          return 1;
-     }
+    }
 
+    // 채팅방 생성
+    public String getRoom(ChatRoomDTO dto) {
+        UserPrincipal principal = (UserPrincipal)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        dto.setChatroom_userpk(principal.getUser_pk());
+        String room_id = mapper.getRoom(dto);
 
+        if(room_id == null || room_id.equals("")){
+            room_id = UUID.randomUUID().toString();
+            dto.setChatroom_id(room_id);
+            ChatRoomDTO tempdto = new ChatRoomDTO();
+            tempdto.setChatroom_friendpk(dto.getChatroom_userpk());
+            tempdto.setChatroom_userpk(dto.getChatroom_friendpk());
+            tempdto.setChatroom_id(room_id);
+            
+            mapper.createRoom(tempdto);
+            mapper.createRoom(dto);
+        }
+        return room_id;
+    }
+
+    // 대화목록
+    public List<ChatRoomDTO> getChatList(ChatRoomDTO dto) {
+        return mapper.getChatList(dto);
+    }
  }
