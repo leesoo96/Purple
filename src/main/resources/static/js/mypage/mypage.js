@@ -122,7 +122,7 @@ saveBtn.addEventListener('click', () => {
       user_name: userModFrm.mod_name.value,
       user_bio: userModFrm.mod_bio.value,
       user_location: userModFrm.mod_location.value,
-      user_website: userModFrm.mod_website.value,
+      user_email: userModFrm.mod_email.value,
       user_birth: userModFrm.mod_birth.value,
     }
     fetch(`/mypage/mod_userinfo`, {

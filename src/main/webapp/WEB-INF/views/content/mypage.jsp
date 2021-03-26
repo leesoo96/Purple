@@ -39,7 +39,7 @@
             <input maxlength="20" name="mod_bio" placeholder="Bio" type="text">
             <input maxlength="30" name="mod_location" placeholder="Location" type="text">
             <input name="find_Address" type="button" onclick="postCode()" value="주소 찾기">
-            <input maxlength="30" name="mod_website" placeholder="Website" type="text">
+            <input maxlength="30" name="mod_email" placeholder="Email" type="text">
             <input data-placeholder="생년월일을 선택해주세요" name="mod_birth" type="date">
         </form>
     </div>
