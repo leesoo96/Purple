@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map;
 
 import com.purple.demo.model.FeedListDTO;
-import com.purple.demo.model.HashtagEntity;
 import com.purple.demo.model.DTO.SearchUserDTO;
 import com.purple.demo.service.SearchService;
 

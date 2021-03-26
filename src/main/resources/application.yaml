@@ -36,4 +36,3 @@ server:
     key-password: 'purple'
     trust-store: purpletrust
     trust-store-password: 'purple'
-#이미지
