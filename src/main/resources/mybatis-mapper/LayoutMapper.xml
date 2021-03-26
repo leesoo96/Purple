@@ -44,7 +44,11 @@
         SELECT user_pk AS friend_pk, user_id, user_profileimg
         FROM user
         WHERE user_pk != (#{user_pk}) 
-        AND user_pk NOT IN (select friend_pk from friend where user_pk = #{user_pk})
+        AND user_pk NOT IN (
+            SELECT friend_pk 
+            FROM friend 
+            WHERE user_pk = #{user_pk}
+            )
         ORDER BY RAND()
         LIMIT 20
     </select>
