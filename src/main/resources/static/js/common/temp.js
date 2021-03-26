@@ -405,6 +405,7 @@ function getRecFriend_List(myJson) {
             user_pk: user_pk.value,
             friend_pk: `${myJson[j].friend_pk}`,
           }
+          console.log(addFriendParam.friend_pk)
           console.log('추가한 친구 번호 - ' + addFriendParam.friend_pk)
 
           fetch('/layout/addNewFriend', {
