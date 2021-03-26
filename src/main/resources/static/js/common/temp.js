@@ -348,6 +348,7 @@ function getRecommandFriendListFunc() {
   })
     .then((res) => res.json())
     .then((myJson) => {
+      console.log(myJson)
       getRecFriend_List(myJson)
     })
 }

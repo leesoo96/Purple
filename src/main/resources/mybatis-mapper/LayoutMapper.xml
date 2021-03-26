@@ -34,7 +34,7 @@
             WHERE user_pk = #{user_pk}
         )
         AND b.friend_pk 
-        NOT IN ( #{user_pk})
+        NOT IN (#{user_pk})
         ORDER BY RAND()
         LIMIT 20
     </select>

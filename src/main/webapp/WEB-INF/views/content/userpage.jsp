@@ -11,10 +11,10 @@ pageEncoding="UTF-8"%>
 <input type="hidden" id="friend_pk" value=${userInfo.user_pk} />
 <div id="userpage_userinfo_container">
   <div id="userpage_userinfo_backimg">
-      <img src="/resources/img/test/background.jpg">
+    <img onerror="this.style.display='none'" src="${userInfo.user_backgroundimg}">
   </div>
   <div id="userpage_userinfo_img">
-      <img alt="기본프로필사진" src="/resources/img/common/basic_profile.png">
+    <img src=${userInfo.user_profileimg} onerror="this.src='/resources/img/common/basic_profile.png'" alt="기본프로필사진">
   </div>
   <div id="userpage_userinfo_content">
       <div class="userpageuser_id">
