@@ -18,7 +18,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.*;
 
 import com.purple.demo.common.Const;
-import com.purple.demo.model.CommentEntity;
 import com.purple.demo.model.FeedListDTO;
 import com.purple.demo.model.FeedWriteDTO;
 import com.purple.demo.model.DTO.CommentWriteDTO;
@@ -86,7 +85,6 @@ public class FeedController {
 	@PostMapping("/comment")
 	public Map<String, Object> insComment(@RequestBody CommentWriteDTO param) {
 		Map<String, Object> insCommentResult = new HashMap<String, Object>();
-		System.out.println(param.getComment_ctnt());
 		insCommentResult.put(Const.KEY_REUSLT, feedService.insComment(param));
 		return insCommentResult;
 	}
@@ -119,7 +117,6 @@ public class FeedController {
 	@PutMapping("/deleteFeed")
 	public Map<String, Object> deleteFeed(@RequestBody int feed_pk) {
 		Map<String, Object> deleteFeedResult = new HashMap<String, Object>();
-		System.out.println(feed_pk);
 		deleteFeedResult.put(Const.KEY_REUSLT, feedService.deleteFeed(feed_pk));
 		return deleteFeedResult;
 	}
