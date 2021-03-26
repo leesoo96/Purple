@@ -140,7 +140,13 @@
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-email</artifactId>
 			<version>1.5</version>
-		</dependency>	
+		</dependency>
+
+		<!-- 웹 소켓 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-websocket</artifactId>
+		</dependency>
 	
 		<!-- 웹소켓 -->
 		<!-- https://mvnrepository.com/artifact/org.springframework/spring-websocket -->
