@@ -194,7 +194,10 @@ function makeFeed(myJson) {
     if (myJson.result[i].hashtag_ctnt.length > 0) {
       for (let k = 0; k < myJson.result[i].hashtag_ctnt.length; k++) {
         let hashtagA = document.createElement('a')
-        hashtagA.setAttribute('href', '#')
+        let hashtag_ctnt = `${myJson.result[i].hashtag_ctnt[k].hashtag_ctnt}`
+        hashtag_ctnt = hashtag_ctnt.split('#')[1]
+        hashtagA.href = '/search/' + hashtag_ctnt
+
         hashtagA.innerText = myJson.result[i].hashtag_ctnt[k].hashtag_ctnt
         feed_contentDiv.appendChild(hashtagA)
       }

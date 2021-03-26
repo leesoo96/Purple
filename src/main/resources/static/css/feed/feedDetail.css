@@ -234,6 +234,7 @@
 .commentbar span {
   margin-right: 2em;
   font-size: 1em;
+  display: block;
 }
 
 .comment_input {
@@ -242,10 +243,21 @@
   height: 3em;
 }
 
+.comment_input span[name='recomment_userid'] {
+  font-size: 1.1em;
+  margin-left: 1em;
+}
+
+.comment_input i {
+  font-size: 1em;
+}
+
 .comment_input input[name='comment_ctnt'] {
-  width: 80%;
+  width: 64%;
   padding: 10px 0;
-  margin: 5px 19px;
+  margin-top: 1em;
+  margin-left:1em;
+  margin-right:19px;
   border: none;
   border-bottom: 2px solid #8b11b1;
   outline: none;
@@ -263,4 +275,26 @@
   padding: 1em;
   border-radius: 1em;
   white-space: nowrap;
+}
+
+.recommentbar {
+  margin-left: 3em;
+  position: relative;
+  height: 3.3em;
+  width: 36em;
+  display: flex;
+  align-items: center;
+}
+
+.recommentbar span {
+  margin-right: 2em;
+  font-size: 1em;
+  display: block;
+}
+
+.recommentbar img {
+  margin-right: 0.5em;
+  width: 3em;
+  border-radius: 2em;
+  height: auto;
 }

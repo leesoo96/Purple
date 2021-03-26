@@ -1,16 +1,55 @@
 let search_contentEle = document.querySelector('.search-form')
 const search_content = document.querySelector('.search_content')
 const search_input = document.querySelector('.search-input')
+const form = document.querySelector('.search-form')
 
-//유저 검색 리스트
+const windowHeight = window.innerHeight // 현재 보이는 창 높이
+
+let page_count = 0
+
+document.addEventListener('scroll', () => {
+  console.log('test')
+  let scrollLocation = document.documentElement.scrollTop // 현재 스크롤바 위치
+  let fullHeight = document.body.scrollHeight // 스크롤 포함 전체 길이
+
+  if (scrollLocation + windowHeight >= fullHeight) {
+    let search_check = document.querySelector('input[name="type"]:checked')
+      .value
+    if (search_check == 1) {
+      console.log(page_count)
+      let param = {
+        page_count,
+        feed_ctnt: form.search_input.value,
+      }
+      fetch('/search/searchFeed', {
+        method: 'post',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(param),
+      })
+        .then((res) => res.json())
+        .then((myJson) => {
+          makeFeed(myJson)
+        })
+      page_count++
+    }
+  }
+})
+
+function radioClick() {
+  form.search_input.value = ''
+}
 
 function enterkey() {
   let search_check = document.querySelector('input[name="type"]:checked').value
-  const form = document.querySelector('.search-form')
-  let param = {
-    search_user_id: form.search_input.value,
-  }
+  console.log(search_check)
+  // 유저검색
   if (search_check == 0) {
+    let param = {
+      search_user_id: form.search_input.value,
+    }
+    console.log(param)
     fetch('/search/searchUser', {
       method: 'post',
       headers: {
@@ -21,10 +60,21 @@ function enterkey() {
       .then((res) => res.json())
       .then((myJson) => {
         search_content.querySelectorAll('*').forEach((test) => test.remove())
+        if (myJson.length == 0) {
+          let noSearchDiv = document.createElement('div')
+          noSearchDiv.className = 'noSearch'
+          noSearchDiv.innerHTML = '검색 결과가 없습니다.'
+          search_content.appendChild(noSearchDiv)
+          return
+        }
         user_list(myJson)
       })
-  }
-  if (search_check == 1) {
+    // 내용검색
+  } else if (search_check == 1) {
+    let param = {
+      page_count,
+      feed_ctnt: form.search_input.value,
+    }
     fetch('/search/searchFeed', {
       method: 'post',
       headers: {
@@ -35,100 +85,137 @@ function enterkey() {
       .then((res) => res.json())
       .then((myJson) => {
         search_content.querySelectorAll('*').forEach((test) => test.remove())
-      })
-      .then((myJson) => {
+        if (myJson.result.length == 0) {
+          let noSearchDiv = document.createElement('div')
+          noSearchDiv.className = 'noSearch'
+          noSearchDiv.innerHTML = '검색 결과가 없습니다.'
+          search_content.appendChild(noSearchDiv)
+          return
+        }
         makeFeed(myJson)
+        page_count++
       })
-  }
 
-  function user_list(myJson) {
-    for (let i = 0; i < myJson.length; i++) {
-      let search_table = document.createElement('table')
-
-      let search_tr = document.createElement('tr')
-      search_table.appendChild(search_tr)
-
-      let search_td = document.createElement('td')
-      search_tr.appendChild(search_td)
-
-      let user_img = document.createElement('img')
-      if (myJson[i].user_profileimg == null) {
-        user_img.src = '/resources/img/common/basic_profile.png'
-      } else {
-        user_img.src = `${myJson[i].user_profileimg}`
-      }
-      user_img.id = 'profileImg'
-      user_img.alt = '기본프로필사진'
-      search_td.appendChild(user_img)
-
-      let user_id = document.createElement('a')
-      user_id.href = `/userpage/${myJson[i].user_id}`
-      search_td.appendChild(user_id)
-
-      let user_id_span = document.createElement('span')
-      user_id_span.id = 'writer'
-      user_id_span.innerHTML = `@${myJson[i].user_id}`
-      user_id.appendChild(user_id_span)
-
-      let user_bio = document.createElement('span')
-      user_bio.id = 'content'
-      user_bio.innerHTML = `@${myJson[i].user_bio}`
-      search_td.appendChild(user_bio)
-
-      let friend_pk = `${myJson[i].user_pk}`
-      let addFriendParam = {
-        user_pk: document.querySelector('#user_pk').value,
-        friend_pk: friend_pk,
-      }
-      console.log(addFriendParam.friend_pk)
-      fetch('/layout/friendCheck', {
-        method: 'post',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(addFriendParam),
-      })
-        .then((res) => res.json())
-        .then((myJson) => {
-          if (myJson.result == 1) {
-            let user_tag = document.createElement('div')
-            user_tag.setAttribute('onclick', `addFriendFunc(${friend_pk})`)
-            search_td.appendChild(user_tag)
-
-            let user_teg_i = document.createElement('i')
-            user_teg_i.className = 'fas fa-user-plus'
-            user_tag.appendChild(user_teg_i)
-          }
-        })
-
-      search_content.appendChild(search_table)
+    // 해시태그 검색
+  } else if (search_check == 2) {
+    let param = {
+      page_count,
+      search_hashtag_ctnt: form.search_input.value,
     }
-  }
-}
-function addFriendFunc(friend_pk) {
-  let addFriendParam = {
-    user_pk: document.querySelector('#user_pk').value,
-    friend_pk: friend_pk,
-  }
-  fetch('/layout/addNewFriend', {
-    method: 'post',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(addFriendParam),
-  })
-    .then((res) => res.json())
-    .then((myJson) => {
-      if (myJson.result === 1) {
-        alert('친구 등록이 완료되었습니다.')
-        return
-      }
-      alert('이미 등록된 친구입니다.')
+
+    fetch('/search/searchHashtag', {
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(param),
     })
+      .then((res) => res.json())
+      .then((myJson) => {
+        console.log(myJson.result)
+        search_content.querySelectorAll('*').forEach((test) => test.remove())
+        if (myJson.result.length == 0) {
+          let noSearchDiv = document.createElement('div')
+          noSearchDiv.className = 'noSearch'
+          noSearchDiv.innerHTML = '검색 결과가 없습니다.'
+          search_content.appendChild(noSearchDiv)
+          return
+        }
+        makeFeed(myJson)
+        page_count++
+      })
+  }
 }
 
-/*
-let page_count = 0
+function user_list(myJson) {
+  let search_table = document.createElement('table')
+  for (let i = 0; i < myJson.length; i++) {
+    let search_tr = document.createElement('tr')
+    search_table.appendChild(search_tr)
+
+    let search_td = document.createElement('td')
+    search_tr.appendChild(search_td)
+
+    let user_img = document.createElement('img')
+    if (myJson[i].user_profileimg == null) {
+      user_img.src = '/resources/img/common/basic_profile.png'
+    } else {
+      user_img.src = `${myJson[i].user_profileimg}`
+    }
+    user_img.id = 'profileImg'
+    user_img.alt = '기본프로필사진'
+    search_td.appendChild(user_img)
+
+    let user_id = document.createElement('a')
+    user_id.href = `/userpage/${myJson[i].user_id}`
+    search_td.appendChild(user_id)
+
+    let user_id_span = document.createElement('span')
+    user_id_span.id = 'writer'
+    user_id_span.innerHTML = `@${myJson[i].user_id}`
+    user_id.appendChild(user_id_span)
+
+    console.log(`${myJson[i].user_bio}`)
+    let user_bio = document.createElement('span')
+    user_bio.id = 'content'
+    user_bio.innerHTML = `${myJson[i].user_bio}`
+    if (myJson[i].user_bio === null) {
+      user_bio.innerHTML = '상태 메세지가 없습니다.'
+    }
+    search_td.appendChild(user_bio)
+    let friend_pk = `${myJson[i].user_pk}`
+    let addFriendParam = {
+      user_pk: document.querySelector('#user_pk').value,
+      friend_pk: friend_pk,
+    }
+    console.log(addFriendParam.friend_pk)
+    fetch('/layout/friendCheck', {
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(addFriendParam),
+    })
+      .then((res) => res.json())
+      .then((myJson) => {
+        if (myJson.result == 1) {
+          let user_tag = document.createElement('div')
+
+          user_tag.setAttribute('onclick', `addFriendFunc(${friend_pk})`)
+          search_td.appendChild(user_tag)
+
+          let user_teg_i = document.createElement('i')
+          user_teg_i.className = 'fas fa-user-plus'
+          user_tag.appendChild(user_teg_i)
+        }
+      })
+    search_content.appendChild(search_table)
+  }
+}
+
+function addFriendFunc(friend_pk) {
+  if (confirm('친구 추가 하시겠습니까?')) {
+    let addFriendParam = {
+      user_pk: document.querySelector('#user_pk').value,
+      friend_pk: friend_pk,
+    }
+    fetch('/layout/addNewFriend', {
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(addFriendParam),
+    })
+      .then((res) => res.json())
+      .then((myJson) => {
+        if (myJson.result === 1) {
+          alert('친구 등록이 완료되었습니다.')
+          return
+        }
+        alert('이미 등록된 친구입니다.')
+      })
+  }
+}
 
 function previousImg(e) {
   const feed_imgListDiv = e.parentNode.firstChild.nextSibling
@@ -156,96 +243,6 @@ function nextImg(e) {
   last_img.after(first_img)
 }
 
-// feed scroll
-const windowHeight = window.innerHeight // 현재 보이는 창 높이
-
-document.addEventListener('DOMContentLoaded', async function () {
-  // HTML과 script가 로드된 시점에 발생하는 이벤트.
-  await makeFeedAjax(
-    document.querySelector('select[name="feed"]').value,
-    page_count
-  ).then((myJson) => {
-    makeFeed(myJson)
-  })
-  page_count++
-  await ajax()
-  function ajax() {
-    if (document.body.scrollHeight <= windowHeight) {
-      makeFeedAjax(
-        document.querySelector('select[name="feed"]').value,
-        page_count
-      ).then((myJson) => {
-        makeFeed(myJson)
-      })
-      page_count++
-    }
-  }
-})
-
-document.querySelector('select[name="feed"]').addEventListener('change', () => {
-  page_count = 0
-
-  document
-    .querySelector('#feed')
-    .querySelectorAll('*')
-    .forEach((test) => test.remove())
-
-  makeFeedAjax(document.querySelector('select[name="feed"]').value, page_count)
-    .then((myJson) => {
-      makeFeed(myJson)
-      page_count++
-    })
-    .then(() => {
-      let scrollLocation = document.documentElement.scrollTop // 현재 스크롤바 위치
-      let fullHeight = document.body.scrollHeight // 스크롤 포함 전체 길이
-      if (scrollLocation + windowHeight >= fullHeight) {
-        makeFeedAjax(
-          document.querySelector('select[name="feed"]').value,
-          page_count
-        ).then((myJson) => {
-          makeFeed(myJson)
-        })
-        page_count++
-      }
-    })
-})
-
-document.addEventListener('scroll', () => {
-  let scrollLocation = document.documentElement.scrollTop // 현재 스크롤바 위치
-  let fullHeight = document.body.scrollHeight // 스크롤 포함 전체 길이
-
-  if (scrollLocation + windowHeight >= fullHeight) {
-    makeFeedAjax(
-      document.querySelector('select[name="feed"]').value,
-      page_count
-    ).then((myJson) => {
-      makeFeed(myJson)
-    })
-    page_count++
-  }
-})
-
-// const category = document.querySelector('select[name="feed"]')
-function makeFeedAjax(category, page_count) {
-  return new Promise(function (resolve) {
-    let params = {
-      category: category,
-      page_count: page_count,
-    }
-    fetch('/feed', {
-      method: 'post',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(params),
-    })
-      .then((res) => res.json())
-      .then(function (myJson) {
-        resolve(myJson)
-      })
-  })
-}
-const feedEle = document.querySelector('#feed')
 function makeFeed(myJson) {
   if (myJson.result.length === 0) {
     page_count--
@@ -380,7 +377,7 @@ function makeFeed(myJson) {
 
     feed_containerEle.appendChild(feed_functionbarEle)
 
-    feedEle.appendChild(feed_containerEle)
+    search_content.appendChild(feed_containerEle)
   }
 }
 
@@ -445,4 +442,3 @@ function feedBookmark(e, feed_pk) {
       }
     })
 }
-*/
