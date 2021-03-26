@@ -29,7 +29,11 @@ public class WebsocketHandler extends TextWebSocketHandler {
         // 전송된 메시지를 list의 모든 세션에 전송
         String msg = message.getPayload();
         for(WebSocketSession sock : list) {
-            sock.sendMessage(new TextMessage(msg));
+            try{
+                sock.sendMessage(new TextMessage(msg));
+            }catch(Exception e){
+                e.printStackTrace();
+            }
         }
     }
 
