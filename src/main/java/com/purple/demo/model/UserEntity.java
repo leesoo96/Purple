@@ -12,13 +12,10 @@ public class UserEntity {
 	private String user_name; // 이름
 	private String user_profileimg; // 프로필사진
 	private String user_backgroundimg; // 배경사진
-	private String user_website; // 사이트주소
 	private String user_email; // 이메일주소
 	private String user_location; // 주소
 	private String user_bio; // 자기소개
 	private String user_birth; // 생일
-	private String user_logintime; // 로그인시간
-	private String user_loginip; // 로그인아이피
 	private String user_joindate; // 가입날짜
 	private int user_state; // 회원상태
 	private String user_auth; // 회원권한
