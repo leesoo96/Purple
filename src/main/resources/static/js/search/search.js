@@ -239,11 +239,13 @@ function user_list(myJson) {
           let user_tag = document.createElement('div')
 
           user_tag.setAttribute('onclick', `addFriendFunc(${friend_pk})`)
-          search_td.appendChild(user_tag)
+          if (document.querySelector('#user_pk').value != `${friend_pk}`) {
+            search_td.appendChild(user_tag)
 
-          let user_teg_i = document.createElement('i')
-          user_teg_i.className = 'fas fa-user-plus'
-          user_tag.appendChild(user_teg_i)
+            let user_teg_i = document.createElement('i')
+            user_teg_i.className = 'fas fa-user-plus'
+            user_tag.appendChild(user_teg_i)
+          }
         }
       })
     search_content.appendChild(search_table)

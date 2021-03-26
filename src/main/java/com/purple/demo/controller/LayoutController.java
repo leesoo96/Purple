@@ -5,14 +5,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 import com.purple.demo.common.Const;
 import com.purple.demo.mapper.LayoutMapper;
 import com.purple.demo.model.ChatRoomDTO;
 import com.purple.demo.model.FriendDTO;
 import com.purple.demo.model.UserEntity;
-import com.purple.demo.service.ChatService;
 import com.purple.demo.service.LayoutService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,8 +32,8 @@ public class LayoutController {
     @Autowired
     private LayoutService layoutService;
 
-    @Autowired
-    private ChatService chatService;
+    // @Autowired
+    // private ChatService chatService;
 
     // RightLayout ONLY //////////////////////////////////////////////
     // 알 수도 있는 사람 목록 
@@ -50,13 +48,6 @@ public class LayoutController {
     @PostMapping("/getFriendList")
     public List<UserEntity> getFriendList(@RequestBody UserEntity entity) {
         return mapper.getFriendList(entity);
-    }
-
-    // 대화목록
-    @ResponseBody
-    @PostMapping("/getFriendChatList")
-    public List<ChatRoomDTO> getFriendChatList(@RequestBody ChatRoomDTO dto) {
-        return mapper.getFriendChatList(dto);
     }
 
     // 친구 추가
@@ -97,46 +88,28 @@ public class LayoutController {
 		return delFriend;
 	}
 
-    ///////////////////////////////////////////////////
-    List<ChatRoomDTO> roomList = new ArrayList<>();
-
     // 방 정보 가져오기 
-    @ResponseBody
-    @RequestMapping("/getRoom")
-	public List<ChatRoomDTO> getRoom(){
-        // chatService.getRoom();
-		return roomList;
-	}
+    // @ResponseBody
+    // @RequestMapping("/getRoom")
+	// public List<ChatRoomDTO> getRoom(){
+    //     // chatService.getRoom();
+	// 	return roomList;
+	// }
 
     // 채팅방 생성
-    // @ResponseBody
-    // @RequestMapping("/createRoom")
-    // public Map<String, Object> createRoom(){
-	// 	Map<String, Object> createRoom = new HashMap<String, Object>();
-        
-    //     String uuid = UUID.randomUUID().toString();
-    //     // uuid = uuid.replace("-", ""); // ' - ' <- 제거 
+    @ResponseBody
+    @PostMapping("/getRoom")
+    public Map<String, Object> getRoom(@RequestBody ChatRoomDTO dto){
+		Map<String, Object> getRoom = new HashMap<String, Object>();
+        getRoom.put(Const.KEY_REUSLT, layoutService.getRoom(dto));
 
-	// 	createRoom.put(Const.KEY_REUSLT, uuid);
-
-    //     return createRoom;
-    // }
-
-    // // 채팅방 
-    // @RequestMapping("/moveChatting")
-	// public ModelAndView chating(@RequestParam HashMap<Object, Object> params) {
-	// 	ModelAndView mv = new ModelAndView();
-		
-    //     // 방이 생성되었는지 검사 -> true : 해당 채팅방으로 이동 
-	// 	// List<ChatRoomDTO> new_list = roomList.stream().filter(o->o.getRoomNumber()==roomNumber).collect(Collectors.toList());
-	// 	// if(new_list != null && new_list.size() > 0) {
-	// 	// 	mv.addObject("roomName", params.get("roomName"));
-	// 	// 	mv.addObject("roomNumber", params.get("roomNumber"));
-	// 	// 	mv.setViewName("chat");
-	// 	// }else {
-	// 	// 	mv.setViewName("room");
-	// 	// }
-
-	// 	return mv;
-	// }
+        return getRoom;
+    }
+    
+    // 대화목록
+    @ResponseBody
+    @PostMapping("/getChatList")
+    public List<ChatRoomDTO> getFriendChatList(@RequestBody ChatRoomDTO dto) {
+        return mapper.getChatList(dto);
+    }
 }

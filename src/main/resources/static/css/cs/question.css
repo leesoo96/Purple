@@ -40,6 +40,10 @@
 
 /* 타이틀 바 */
 .cs_question_titlebar {
+  border-radius: 16px 16px 0px 0px;
+  transition: all 0.3s;
+  margin-top: 10px;
+  position: relative;
   height: 4em;
   width: 100%;
   display: flex;

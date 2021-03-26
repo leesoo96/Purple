@@ -62,22 +62,34 @@
         WHERE B.user_pk = #{user_pk}
     </select>
 
-    <!-- 대화목록 가져오기 
-    <select id="getFriendChatList" resultType="ChatRoomDTO">
-        SELECT A.user_id, C.chatroom_lasttalk, C.chatroom_date  
-        FROM user AS A
-        INNER JOIN chatting_relation AS B 
-        ON (A.user_pk = B.chatroom_friendpk)
-        
-        INNER JOIN chatroom AS C
-        ON (C.chatroom_pk = B.chatroom_pk)
-        WHERE B.chatroom_userpk = #{user_pk}
-    </select> -->
-
     <!-- 친구 삭제 -->
     <delete id="delFriend">
         DELETE FROM friend
         WHERE friend_pk = #{friend_pk}
         AND user_pk = #{user_pk}
     </delete>
+
+    <!-- 채팅방 생성과 채팅방 정보 가져오기 -->
+    <select id="getRoom" resultType="String">
+        SELECT chatroom_id
+        FROM chatroom
+        WHERE chatroom_userpk = #{chatroom_userpk}
+        AND chatroom_friendpk = #{chatroom_friendpk}
+    </select>
+
+    <insert id="createRoom">
+        INSERT INTO chatroom
+        (chatroom_id, chatroom_userpk, chatroom_friendpk)
+        VALUES
+        (#{chatroom_id}, #{chatroom_userpk}, #{chatroom_friendpk})
+    </insert>
+
+    <!-- 대화목록 -->
+    <select id="getChatList" resultType="ChatRoomDTO">
+        SELECT A.user_id, A.user_profileimg 
+        FROM user AS A
+        JOIN chatroom AS B 
+        ON A.user_pk = B.chatroom_friendpk
+        WHERE chatroom_userpk = #{chatroom_userpk}
+    </select>
 </mapper>

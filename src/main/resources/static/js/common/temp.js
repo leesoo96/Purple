@@ -184,7 +184,7 @@ function getFriend_list(myJson) {
 
     function commonChatFunc() {
       let chatParam = {
-        friend_pk: myJson[i].user_pk,
+        chatroom_friendpk: myJson[i].user_pk,
       }
       fetch('/layout/getRoom', {
         method: 'post',
@@ -195,10 +195,9 @@ function getFriend_list(myJson) {
       })
         .then((res) => res.json())
         .then((myJson) => {
-          console.log(myJson.result)
-          // if (myJson != null) {
-          //   location.href = '/layout/moveChatting'
-          // }
+          if (myJson.result != null) {
+            alert('채팅방 생성 성공')
+          }
         })
     }
   }
@@ -207,21 +206,9 @@ function getFriend_list(myJson) {
   let chat_tdClass = document.querySelectorAll('.friend_chat_func')
   for (let j = 0; j < chat_tdClass.length; j++) {
     chat_tdClass[j].onclick = function () {
-      createChatingRoom()
+      commonChatFunc()
     }
   }
-  function createChatingRoom() {
-    commonChatFunc()
-  }
-  // 친구PK값 가져와서 넘기고 채팅방 번호는 UUID로 부여하여 구분
-  // 채팅방에는 웹소켓X 채팅할 경우에만 웹소켓O
-  // function goRoom(res) {
-  //   commonChatFunc()
-  //   console.log(res)
-  //   if (res != null) {
-  //     location.href = '/layout/moveChatting'
-  //   }
-  // }
 
   // 친구 아이디 클릭 시 친구정보 보기 + 차단하기 표시 & 숨김
   let friend_info = document.querySelectorAll('.friend_info')
@@ -273,13 +260,13 @@ function delFriendFunc(friend_pk) {
 }
 
 // 채팅 - 대화 목록 확인
-// getFriendChatListFunc()
+getFriendChatListFunc()
 
 function getFriendChatListFunc() {
   let param = {
-    user_pk: user_pk.value,
+    chatroom_userpk: user_pk.value,
   }
-  fetch('/layout/getFriendChatList', {
+  fetch('/layout/getChatList', {
     method: 'post',
     headers: {
       'Content-Type': 'application/json',
@@ -296,26 +283,27 @@ const chat_list_divSpan = document.querySelector('.chat_list span')
 
 function getChat_List(myJson) {
   if (myJson.length === 0) {
-    let CList_div = document.createElement('div')
+    const CList_div = document.createElement('div')
     chat_list_divSpan.after(CList_div)
     CList_div.innerText = '대화가 없습니다!'
     return
   } else {
     for (let i = 0; i < myJson.length; i++) {
       let CList_div = document.createElement('div')
+      CList_div.classList.add('CList_div')
       chat_list_divSpan.after(CList_div)
 
+      let CList_img = document.createElement('img')
+      if (myJson[i].user_profileimg === null) {
+        CList_img.src = '/resources/img/common/basic_profile.png'
+      } else {
+        CList_img.src = `${myJson[i].user_profileimg}`
+      }
+      CList_div.appendChild(CList_img)
+
       let CList_span = document.createElement('span')
-      CList_div.appendChild(CList_span)
+      CList_img.after(CList_span)
       CList_span.innerText = `@${myJson[i].user_id}`
-
-      let CList_p = document.createElement('p')
-      CList_div.appendChild(CList_p)
-      CList_p.innerText = `${myJson[i].chatroom_lasttalk}`
-
-      let CList_small = document.createElement('small')
-      CList_div.appendChild(CList_small)
-      CList_small.innerText = `${myJson[i].chatroom_date}`
     }
 
     // 해당 대화 클릭 시 채팅방으로 슬라이드 이동
@@ -348,7 +336,6 @@ function getRecommandFriendListFunc() {
   })
     .then((res) => res.json())
     .then((myJson) => {
-      console.log(myJson)
       getRecFriend_List(myJson)
     })
 }
@@ -357,7 +344,6 @@ const recFriendTable = document.querySelector("table[name='recommand_friend']")
 
 function getRecFriend_List(myJson) {
   for (let i = 0; i < myJson.length; i++) {
-    console.log(myJson[i])
     let recFriendTr = document.createElement('tr')
     recFriendTable.appendChild(recFriendTr)
 
@@ -407,7 +393,6 @@ function getRecFriend_List(myJson) {
             user_pk: user_pk.value,
             friend_pk: `${myJson[j].friend_pk}`,
           }
-          console.log(addFriendParam.friend_pk)
           console.log('추가한 친구 번호 - ' + addFriendParam.friend_pk)
 
           fetch('/layout/addNewFriend', {
