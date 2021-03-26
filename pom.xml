@@ -13,6 +13,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>demo</name>
 	<description>Demo project for Spring Boot</description>
+	<packaging>jar</packaging>
 	<properties>
 		<java.version>1.8</java.version>
 	</properties>
@@ -127,13 +128,20 @@
 		    <version>2.8.0</version>
 		</dependency>
 
-		<!-- 메일 api -->
+		<!-- 메일 -->
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-email</artifactId>
 			<version>1.5</version>
 		</dependency>	
 	
+		<!-- 웹소켓 -->
+		<!-- https://mvnrepository.com/artifact/org.springframework/spring-websocket -->
+		<dependency>
+    		<groupId>org.springframework</groupId>
+    		<artifactId>spring-websocket</artifactId>
+    		<version>5.2.13.RELEASE</version>
+		</dependency>
 	</dependencies>
 
 	<build>
