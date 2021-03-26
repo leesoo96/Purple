@@ -22,7 +22,7 @@ public interface FeedMapper {
    List<HashtagEntity> selHashtagList(FeedListDTO param);
    int isFavorite(int feed_pk, int user_pk);
    int isBookmark(FeedListDTO param);
-
+   int deleteFeed(int feed_pk);
    FeedDetailDTO selFeedDetail(FeedDetailDTO dto);
 
    FeedFavoriteDTO feedFavorite(FeedFavoriteDTO dto);

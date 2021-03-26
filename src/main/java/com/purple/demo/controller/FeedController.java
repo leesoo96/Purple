@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -112,5 +113,14 @@ public class FeedController {
 		Map<String, Object> getReCommentListResult = new HashMap<String, Object>();
 		getReCommentListResult.put(Const.KEY_REUSLT, feedService.getReCommentList(comment_parentpk));
 		return getReCommentListResult;
+	}
+
+	@ResponseBody
+	@PutMapping("/deleteFeed")
+	public Map<String, Object> deleteFeed(@RequestBody int feed_pk) {
+		Map<String, Object> deleteFeedResult = new HashMap<String, Object>();
+		System.out.println(feed_pk);
+		deleteFeedResult.put(Const.KEY_REUSLT, feedService.deleteFeed(feed_pk));
+		return deleteFeedResult;
 	}
 }

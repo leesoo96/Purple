@@ -74,6 +74,11 @@
         AND bookmark_userpk = #{bookmark_userpk}
     </delete>
 
+    <update id="deleteFeed">
+        UPDATE feed
+        SET feed_state = 0
+        WHERE feed_pk= #{feed_pk}
+    </update>
     <!-- favorite 부분 -->
     <select id="favoriteCount" resultType="_int">
         SELECT COUNT(favorite_feedpk) AS "favorite_count"

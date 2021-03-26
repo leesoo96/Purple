@@ -166,4 +166,8 @@ public class FeedService {
     public List<CommentListDTO> getReCommentList(int comment_parentpk) {
         return mapper.selReCommentList(comment_parentpk);
     }
+
+    public int deleteFeed(int feed_pk) {
+        return mapper.deleteFeed(feed_pk);
+    }
 }
