@@ -56,10 +56,9 @@ public class SearchController {
     @ResponseBody
     @PostMapping("/searchHashtag")
     public Map<String, Object> searchHashtag(@RequestBody FeedListDTO dto){
-        System.out.println(dto.getSearch_hashtag_ctnt());
-        Map<String, Object> searchFeedListResult = new HashMap<String, Object>();
-        searchFeedListResult.put("result", service.searchHashtag(dto));
-        return searchFeedListResult;
+        Map<String, Object> searchHashtagListResult = new HashMap<String, Object>();
+        searchHashtagListResult.put("result", service.searchHashtag(dto));
+        return searchHashtagListResult;
     }
 
     

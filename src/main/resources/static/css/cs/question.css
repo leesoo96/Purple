@@ -132,6 +132,7 @@
   height: auto;
 }
 .detail_detail p {
+  word-wrap: break-word;
   position: relative;
   padding-left: 10px;
   padding-right: 10px;
