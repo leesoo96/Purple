@@ -284,6 +284,8 @@ input[name='find_Address'] {
   color: #fff;
   border-radius: 6px;
   vertical-align: middle;
+  cursor: pointer;
+  outline: none;
 }
 
 label[for='mod_background'] {
@@ -380,14 +382,14 @@ input[type='password'] {
 }
 
 button[name='pwModBtn'] {
-  margin-top: 0.4em;
+  margin: 0.4em 0 0 38%;
   text-align: center;
   padding: 8px;
   background: #d980fa;
   color: #fff;
   border-radius: 6px;
   vertical-align: middle;
-  margin-left: 38%;
+  cursor: pointer;
 }
 /* userPwMod_modal창 종료 */
 

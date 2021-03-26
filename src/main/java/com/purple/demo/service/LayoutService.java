@@ -24,6 +24,9 @@ public class LayoutService {
         // 친구가 없는 사용자에게 랜덤으로 목록을 출력합니다 
             friendList = mapper.getRandomRecommandFriendList(dto);
             return friendList;
+        } else {
+            friendList = mapper.getRecommandFriendList(dto);
+
         }
         return friendList;
     }
@@ -38,7 +41,7 @@ public class LayoutService {
         return mapper.delFriend(dto);
     }
 
-     //이미 친구인지 확인
+     // 이미 친구인지 확인
      public int friendCheck(FriendDTO dto) {
 
         List<FriendDTO> friendPkList = mapper.friendCheck(dto);
@@ -50,4 +53,6 @@ public class LayoutService {
         }
          return 1;
      }
+
+
  }

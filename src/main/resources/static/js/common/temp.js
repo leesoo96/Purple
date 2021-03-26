@@ -181,7 +181,47 @@ function getFriend_list(myJson) {
     table_tr.appendChild(friend_info_td)
     table_tr.appendChild(friend_block_td)
     table_tr.appendChild(friend_Chat_td)
+
+    function commonChatFunc() {
+      let chatParam = {
+        friend_pk: myJson[i].user_pk,
+      }
+      fetch('/layout/getRoom', {
+        method: 'post',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(chatParam),
+      })
+        .then((res) => res.json())
+        .then((myJson) => {
+          console.log(myJson.result)
+          // if (myJson != null) {
+          //   location.href = '/layout/moveChatting'
+          // }
+        })
+    }
   }
+
+  // 대화 클릭 이벤트
+  let chat_tdClass = document.querySelectorAll('.friend_chat_func')
+  for (let j = 0; j < chat_tdClass.length; j++) {
+    chat_tdClass[j].onclick = function () {
+      createChatingRoom()
+    }
+  }
+  function createChatingRoom() {
+    commonChatFunc()
+  }
+  // 친구PK값 가져와서 넘기고 채팅방 번호는 UUID로 부여하여 구분
+  // 채팅방에는 웹소켓X 채팅할 경우에만 웹소켓O
+  // function goRoom(res) {
+  //   commonChatFunc()
+  //   console.log(res)
+  //   if (res != null) {
+  //     location.href = '/layout/moveChatting'
+  //   }
+  // }
 
   // 친구 아이디 클릭 시 친구정보 보기 + 차단하기 표시 & 숨김
   let friend_info = document.querySelectorAll('.friend_info')
@@ -233,7 +273,7 @@ function delFriendFunc(friend_pk) {
 }
 
 // 채팅 - 대화 목록 확인
-getFriendChatListFunc()
+// getFriendChatListFunc()
 
 function getFriendChatListFunc() {
   let param = {
@@ -327,9 +367,10 @@ function getRecFriend_List(myJson) {
     recFriend_profile_td.appendChild(recFriend_profile)
     if (myJson[i].user_profileimg === null) {
       recFriend_profile_td.innerHTML =
-        '<img src="/resources/img/common/basic_profile.png" alt="프로필사진">'
+        '<img src="/resources/img/common/basic_profile.png" alt="기본프로필사진">'
     } else {
-      recFriend_profile_td.innerHTML = '<img src="" alt="프로필사진">'
+      recFriend_profile_td.innerHTML =
+        '<img src="' + myJson[i].user_profileimg + '" alt="프로필사진">'
     }
 
     let recFriendTd = document.createElement('td')
