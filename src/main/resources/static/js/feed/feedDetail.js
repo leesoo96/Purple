@@ -16,8 +16,6 @@ function feedDetail(e, feed_pk) {
 
 
 function makeFeedDetail(e, myJson) {
-  console.log(e)
-  console.log(myJson)
 
   feed_DetailOverlay.style.display = 'block' // feedDetail show
 
@@ -170,7 +168,10 @@ function makeFeedDetail(e, myJson) {
   detail_comment_containerDiv.appendChild(comment_listDiv)
 
   if(myJson.comment_list.length == 0) {
-    comment_listDiv.innerHTML = '댓글이 없습니다.'
+    let span = document.createElement('span')
+    span.innerHTML = '댓글이 없습니다.'
+    span.className = 'noComment'
+    comment_listDiv.appendChild(span)
   }
   for(let k =0; k < myJson.comment_list.length; k++) {
     let commentbarDiv = document.createElement('div')
@@ -311,7 +312,6 @@ function getCommentList(e, feed_pk) {
   .then((myJson) => {
     e.parentNode.parentNode.firstChild.querySelectorAll('*').forEach((nodes) => nodes.remove())
     for(let i=0; myJson.result.length; i++) {
-      console.log(`${myJson.result[i].comment_pk}`)
       let commentbarDiv = document.createElement('div')
       commentbarDiv.className = 'commentbar'
       commentbarDiv.setAttribute('data-comment_pk', `${myJson.result[i].comment_pk}`)
@@ -359,7 +359,6 @@ function viewMore(e) {
   fetch('/feed/getrecomment/'+comment_parentpk)
   .then((res) => res.json())
   .then((myJson) => {
-    console.log(myJson)
     if(myJson.result.length == 0) {
       alert('댓글이 없습니다.')
       return
