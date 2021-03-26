@@ -195,11 +195,6 @@ function makeFeed(myJson) {
       feedMenuLi1.innerHTML = '삭제'
       feedMenuLi1.setAttribute('onclick', `delFeed(${myJson.result[i].feed_pk})`)
       feedMenuUl.appendChild(feedMenuLi1)
-
-      let feedMenuLi2 = document.createElement('li')
-      feedMenuLi2.className = 'feedLi'
-      feedMenuLi2.innerHTML = '수정'
-      feedMenuUl.appendChild(feedMenuLi2)
     }
 
     // 이미지
@@ -245,7 +240,6 @@ function makeFeed(myJson) {
         let hashtag_ctnt = `${myJson.result[i].hashtag_ctnt[k].hashtag_ctnt}`
         hashtag_ctnt = hashtag_ctnt.split('#')[1]
         hashtagA.href = '/search/' + hashtag_ctnt
-
         hashtagA.innerText = myJson.result[i].hashtag_ctnt[k].hashtag_ctnt
         feed_contentDiv.appendChild(hashtagA)
       }
