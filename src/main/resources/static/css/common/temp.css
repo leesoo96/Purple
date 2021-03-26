@@ -186,11 +186,18 @@ a {
   float: left;
   margin: 0.5em 1em 0 -1em;
 }
-#temp_user img,
-#temp_user_modal img {
-  width: 3em;
-  border-radius: 2em;
+#temp_user img{
+  width: 4em;
+  height: 100%;
+  border-radius: 70%;
 }
+
+#temp_user_modal img {
+  width: 5em;
+  height: 5em;
+  border-radius: 70%;
+  margin: 0.4em;
+} 
 .only_modalClose {
   position: fixed;
   top: 0;
@@ -232,7 +239,6 @@ a {
 }
 #temp_user_modal img {
   float: left;
-  margin: 1.3em 1em 0 1.3em;
 }
 #temp_user_modal p {
   margin: 0.8em 0 0 0.5em;
@@ -288,8 +294,9 @@ a {
   color: #7901a1;
 }
 #followers img {
-  width: 2em;
-  border-radius: 3em;
+  width: 3em;
+  border-radius: 70%;
+  height: 3em
 }
 #followers span {
   position: relative;
@@ -348,8 +355,9 @@ a {
   margin: 0.5em 0 0.5em 0;
 }
 #footer img {
-  width: 2em;
-  margin-top: 1em;
+  width: 3em;
+  border-radius: 70%;
+  height: 3em
 }
 #footer button {
   height: 1.7em;

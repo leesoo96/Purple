@@ -170,7 +170,10 @@ function makeFeedDetail(e, myJson) {
   detail_comment_containerDiv.appendChild(comment_listDiv)
 
   if(myJson.comment_list.length == 0) {
-    comment_listDiv.innerHTML = '댓글이 없습니다.'
+    let span = document.createElement('span')
+    span.innerHTML = '댓글이 없습니다.'
+    span.className = 'noComment'
+    comment_listDiv.appendChild(span)
   }
   for(let k =0; k < myJson.comment_list.length; k++) {
     let commentbarDiv = document.createElement('div')
