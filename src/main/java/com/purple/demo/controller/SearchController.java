@@ -1,9 +1,10 @@
 package com.purple.demo.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.purple.demo.model.FeedListDTO;
-import com.purple.demo.model.HashtagEntity;
 import com.purple.demo.model.DTO.SearchUserDTO;
 import com.purple.demo.service.SearchService;
 
@@ -46,14 +47,18 @@ public class SearchController {
 
     @ResponseBody
     @PostMapping("/searchFeed")
-    public List<FeedListDTO> selFeedSearch(@RequestBody FeedListDTO dto){
-        return service.selFeedSearch(dto);
+    public Map<String, Object> selFeedSearch(@RequestBody FeedListDTO dto){
+        Map<String, Object> searchFeedListResult = new HashMap<String, Object>();
+		searchFeedListResult.put("result", service.selFeedSearch(dto));
+		return searchFeedListResult;
     }
 
     @ResponseBody
     @PostMapping("/searchHashtag")
-    public List<FeedListDTO> searchHashtag(@RequestBody HashtagEntity dto){
-        return service.searchHashtag(dto);
+    public Map<String, Object> searchHashtag(@RequestBody FeedListDTO dto){
+        Map<String, Object> searchHashtagListResult = new HashMap<String, Object>();
+        searchHashtagListResult.put("result", service.searchHashtag(dto));
+        return searchHashtagListResult;
     }
 
     

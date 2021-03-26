@@ -15,6 +15,11 @@
   box-shadow: 0 3px 4px rgba(0, 0, 0, 0.15);
 }
 
+.noSearch {
+  margin-left: 15em;
+  margin-top: 10em;
+}
+
 .search-input {
   position: absolute;
   top: 10px;
@@ -22,7 +27,7 @@
   font-size: 14px;
   background: none;
   color: #5a6674;
-  width: 195px;
+  width: 23em;
   height: 20px;
   border: none;
   appearance: none;
@@ -33,26 +38,6 @@
 
 .search-input::-webkit-search-cancel-button {
   appearance: none;
-}
-
-.search-button {
-  position: absolute;
-  top: 2px;
-  left: -450px;
-  height: 20px;
-  width: 20px;
-  padding: 0;
-  margin: 0;
-  border: none;
-  background: none;
-  outline: none !important;
-  cursor: pointer;
-}
-
-.search-button svg {
-  width: 20px;
-  height: 20px;
-  fill: #5a6674;
 }
 
 .search-option {
@@ -146,13 +131,13 @@
 
 /* 검색결과 CSS */
 .search_content {
-  margin-top: 6em;
+  margin-top: 9em;
 }
 .search_content table {
   width: 40em;
   margin-bottom: 1em;
 }
-.search_content table:hover {
+.search_content td:hover {
   background: #ddddfb;
   border-radius: 1em;
 }

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <link
   rel="stylesheet"
   href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
@@ -8,65 +9,11 @@ pageEncoding="UTF-8"%>
 />
 <link rel="stylesheet" href="/resources/css/search/search.css" />
 <script defer src="/resources/js/search/search.js"></script>
-
-<form class="search-form">
-  <input type="text" name="search_input" onkeyup="enterkey()" placeholder="Search" class="search-input" value="${data}"/>
-
-  <div class="search-option">
-    <button type="submit" class="search-button">
-      <svg class="submit-button">
-        <use
-          xmlns:xlink="http://www.w3.org/1999/xlink"
-          xlink:href="#search"
-        ></use>
-      </svg>
-    </button>
-    <div>
-      <input name="type" type="radio" value="0" id="type-users" class="search_chack"/>
-      <label for="type-users">
-        <svg class="edit-pen-title">
-          <use
-            xmlns:xlink="http://www.w3.org/1999/xlink"
-            xlink:href="#user"
-          ></use>
-        </svg>
-        <span>Users</span>
-      </label>
-    </div>
-
-    <div>
-      <input name="type" type="radio" value="1" id="type-posts" class="search_chack"/>
-      <label for="type-posts">
-        <svg class="edit-pen-title">
-          <use
-            xmlns:xlink="http://www.w3.org/1999/xlink"
-            xlink:href="#post"
-          ></use>
-        </svg>
-        <span>Feed</span>
-      </label>
-    </div>
-    <div>
-      <input name="type" type="radio" value="2" id="type-special" checked="" class="search_chack"/>
-      <label for="type-special">
-        <svg class="edit-pen-title">
-          <use
-            xmlns:xlink="http://www.w3.org/1999/xlink"
-            xlink:href="#special"
-          ></use>
-        </svg>
-        <span>Hashtag</span>
-      </label>
-    </div>
-  </div>
-</form>
+<link rel="stylesheet" href="/resources/css/feed/feed.css">
+<link rel="stylesheet" href="/resources/css/feed/feedDetail.css">
+<script defer src="/resources/js/feed/feedDetail.js"></script>
 
 <svg xmlns="http://www.w3.org/2000/svg" width="0" height="0" display="none">
-  <symbol id="search" viewBox="0 0 32 32">
-    <path
-      d="M 19.5 3 C 14.26514 3 10 7.2651394 10 12.5 C 10 14.749977 10.810825 16.807458 12.125 18.4375 L 3.28125 27.28125 L 4.71875 28.71875 L 13.5625 19.875 C 15.192542 21.189175 17.250023 22 19.5 22 C 24.73486 22 29 17.73486 29 12.5 C 29 7.2651394 24.73486 3 19.5 3 z M 19.5 5 C 23.65398 5 27 8.3460198 27 12.5 C 27 16.65398 23.65398 20 19.5 20 C 15.34602 20 12 16.65398 12 12.5 C 12 8.3460198 15.34602 5 19.5 5 z"
-    />
-  </symbol>
   <symbol id="user" viewBox="0 0 32 32">
     <path
       d="M 16 4 C 12.145852 4 9 7.1458513 9 11 C 9 13.393064 10.220383 15.517805 12.0625 16.78125 C 8.485554 18.302923 6 21.859881 6 26 L 8 26 C 8 21.533333 11.533333 18 16 18 C 20.466667 18 24 21.533333 24 26 L 26 26 C 26 21.859881 23.514446 18.302923 19.9375 16.78125 C 21.779617 15.517805 23 13.393064 23 11 C 23 7.1458513 19.854148 4 16 4 z M 16 6 C 18.773268 6 21 8.2267317 21 11 C 21 13.773268 18.773268 16 16 16 C 13.226732 16 11 13.773268 11 11 C 11 8.2267317 13.226732 6 16 6 z"
@@ -84,7 +31,60 @@ pageEncoding="UTF-8"%>
   </symbol>
 </svg>
 
+<form class="search-form" onsubmit="return false" >
+  <input type="text" name="search_input" onkeyup="enterkey(this)" placeholder="Search" class="search-input" value="${data}" />
+  <div class="search-option">
+    <div>
+      <input name="type" type="radio" value="0" onclick="userSeatchClick()" id="type-users" class="search_chack" <c:if test="${data  == null}">checked</c:if>/>
+      <label for="type-users">
+        <svg class="edit-pen-title">
+          <use
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            xlink:href="#user"
+          ></use>
+        </svg>
+        <span>Users</span>
+      </label>
+    </div>
+
+    <div>
+      <input name="type" type="radio" value="1" onclick="feedSeatchClick()" id="type-posts" class="search_chack" />
+      <label for="type-posts">
+        <svg class="edit-pen-title">
+          <use
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            xlink:href="#post"
+          ></use>
+        </svg>
+        <span>Feed</span>
+      </label>
+    </div>
+    <div>
+      <input name="type" type="radio" value="2" onclick="hashtagSeatchClick()" id="type-special"  class="search_chack" 
+      <c:if test="${data != null}">checked</c:if> 
+      />
+      <label for="type-special">
+        <svg class="edit-pen-title">
+          <use
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            xlink:href="#special"
+          ></use>
+        </svg>
+        <span>Hashtag</span>
+      </label>
+    </div>
+  </div>
+</form>
+
+
+
 <div class="search_content" name="search_content">
 
+</div>
+
+<div class="feed_overlay">
+  <div class="feedDetail">
+           
+  </div> 
 </div>
 

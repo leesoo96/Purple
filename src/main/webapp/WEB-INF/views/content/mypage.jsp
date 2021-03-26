@@ -67,7 +67,7 @@
         </div>
         <div id="mypage_userinfo_img">
             <c:if test="${not empty userInfo.user_profileimg}">
-                <img alt="기본프로필사진" src="${userInfo.user_profileimg}">
+                <img src=${userInfo.user_profileimg} onerror="this.src='/resources/img/common/basic_profile.png'" alt="기본프로필사진">
             </c:if>
             <c:if test="${empty userInfo.user_profileimg}">
                 <img alt="기본프로필사진" src="/resources/img/common/basic_profile.png">

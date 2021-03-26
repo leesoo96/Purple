@@ -16,8 +16,6 @@ function feedDetail(e, feed_pk) {
 
 
 function makeFeedDetail(e, myJson) {
-  console.log(e)
-  console.log(myJson)
 
   feed_DetailOverlay.style.display = 'block' // feedDetail show
 
@@ -136,7 +134,6 @@ function makeFeedDetail(e, myJson) {
   // 댓글 수
   const commentI = document.createElement('i')
   commentI.className = 'fal fa-comment'
-  commentI.innerText = `${myJson.comment_count}`
   detail_functionbarDiv.appendChild(commentI)
 
   // 좋아요
@@ -171,7 +168,10 @@ function makeFeedDetail(e, myJson) {
   detail_comment_containerDiv.appendChild(comment_listDiv)
 
   if(myJson.comment_list.length == 0) {
-    //댓글 없을 때 작성
+    let span = document.createElement('span')
+    span.innerHTML = '댓글이 없습니다.'
+    span.className = 'noComment'
+    comment_listDiv.appendChild(span)
   }
   for(let k =0; k < myJson.comment_list.length; k++) {
     let commentbarDiv = document.createElement('div')
@@ -234,6 +234,7 @@ function makeFeedDetail(e, myJson) {
   feedDetailClass.querySelectorAll('*').forEach((test) => test.remove())
 
   feed_DetailOverlay.style.display = 'none'
+  location.reload()
   }
 }
 
@@ -277,6 +278,7 @@ function comment_submit(e,feed_pk) {
   .then((myJson) => {
     if(myJson.result === 1) {
       comment_inputEle.querySelector('input[name="comment_ctnt"]').value = ''
+      comment_inputEle.querySelector('span[name="recomment_userid"]').remove()
     }
   })
     return
@@ -310,7 +312,6 @@ function getCommentList(e, feed_pk) {
   .then((myJson) => {
     e.parentNode.parentNode.firstChild.querySelectorAll('*').forEach((nodes) => nodes.remove())
     for(let i=0; myJson.result.length; i++) {
-      console.log(`${myJson.result[i].comment_pk}`)
       let commentbarDiv = document.createElement('div')
       commentbarDiv.className = 'commentbar'
       commentbarDiv.setAttribute('data-comment_pk', `${myJson.result[i].comment_pk}`)
@@ -358,7 +359,6 @@ function viewMore(e) {
   fetch('/feed/getrecomment/'+comment_parentpk)
   .then((res) => res.json())
   .then((myJson) => {
-    console.log(myJson)
     if(myJson.result.length == 0) {
       alert('댓글이 없습니다.')
       return

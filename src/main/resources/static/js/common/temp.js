@@ -181,6 +181,33 @@ function getFriend_list(myJson) {
     table_tr.appendChild(friend_info_td)
     table_tr.appendChild(friend_block_td)
     table_tr.appendChild(friend_Chat_td)
+
+    function commonChatFunc() {
+      let chatParam = {
+        chatroom_friendpk: myJson[i].user_pk,
+      }
+      fetch('/layout/getRoom', {
+        method: 'post',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(chatParam),
+      })
+        .then((res) => res.json())
+        .then((myJson) => {
+          if (myJson.result != null) {
+            alert('채팅방 생성 성공')
+          }
+        })
+    }
+  }
+
+  // 대화 클릭 이벤트
+  let chat_tdClass = document.querySelectorAll('.friend_chat_func')
+  for (let j = 0; j < chat_tdClass.length; j++) {
+    chat_tdClass[j].onclick = function () {
+      commonChatFunc()
+    }
   }
 
   // 친구 아이디 클릭 시 친구정보 보기 + 차단하기 표시 & 숨김
@@ -237,9 +264,9 @@ getFriendChatListFunc()
 
 function getFriendChatListFunc() {
   let param = {
-    user_pk: user_pk.value,
+    chatroom_userpk: user_pk.value,
   }
-  fetch('/layout/getFriendChatList', {
+  fetch('/layout/getChatList', {
     method: 'post',
     headers: {
       'Content-Type': 'application/json',
@@ -256,26 +283,27 @@ const chat_list_divSpan = document.querySelector('.chat_list span')
 
 function getChat_List(myJson) {
   if (myJson.length === 0) {
-    let CList_div = document.createElement('div')
+    const CList_div = document.createElement('div')
     chat_list_divSpan.after(CList_div)
     CList_div.innerText = '대화가 없습니다!'
     return
   } else {
     for (let i = 0; i < myJson.length; i++) {
       let CList_div = document.createElement('div')
+      CList_div.classList.add('CList_div')
       chat_list_divSpan.after(CList_div)
 
+      let CList_img = document.createElement('img')
+      if (myJson[i].user_profileimg === null) {
+        CList_img.src = '/resources/img/common/basic_profile.png'
+      } else {
+        CList_img.src = `${myJson[i].user_profileimg}`
+      }
+      CList_div.appendChild(CList_img)
+
       let CList_span = document.createElement('span')
-      CList_div.appendChild(CList_span)
+      CList_img.after(CList_span)
       CList_span.innerText = `@${myJson[i].user_id}`
-
-      let CList_p = document.createElement('p')
-      CList_div.appendChild(CList_p)
-      CList_p.innerText = `${myJson[i].chatroom_lasttalk}`
-
-      let CList_small = document.createElement('small')
-      CList_div.appendChild(CList_small)
-      CList_small.innerText = `${myJson[i].chatroom_date}`
     }
 
     // 해당 대화 클릭 시 채팅방으로 슬라이드 이동
@@ -326,9 +354,10 @@ function getRecFriend_List(myJson) {
     recFriend_profile_td.appendChild(recFriend_profile)
     if (myJson[i].user_profileimg === null) {
       recFriend_profile_td.innerHTML =
-        '<img src="/resources/img/common/basic_profile.png" alt="프로필사진">'
+        '<img src="/resources/img/common/basic_profile.png" alt="기본프로필사진">'
     } else {
-      recFriend_profile_td.innerHTML = '<img src="" alt="프로필사진">'
+      recFriend_profile_td.innerHTML =
+        '<img src="' + myJson[i].user_profileimg + '" alt="프로필사진">'
     }
 
     let recFriendTd = document.createElement('td')

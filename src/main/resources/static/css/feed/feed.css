@@ -31,8 +31,8 @@
 
 .feed_title img {
   width: 3em;
-  border-radius: 2em;
-  height: auto;
+  border-radius: 70%;
+  height: 3em;
 }
 
 .feed_title span {
@@ -47,6 +47,26 @@
   cursor: pointer;
   margin-right: 1em;
 }
+
+.feedMenu {
+  position: absolute;
+  left: 282%;
+  height: 3em;
+  top: -163%;
+  width: 5em;
+  list-style: none;
+  padding-left: 0px;
+  border-radius: 1em;
+  background-color: white;
+}
+.feedMenu li:hover{
+  color: #ad00e2;
+}
+.feedLi {
+  left:0;
+  margin-bottom: 1em;
+}
+
 
 .fa-heart {
   color: red;

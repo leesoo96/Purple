@@ -172,6 +172,7 @@ a {
 #temp_user p {
   color: #7901a1;
   padding-top: 1.2em;
+  font-size: 1.1rem;
 }
 #temp_user i {
   position: relative;
@@ -185,10 +186,17 @@ a {
   float: left;
   margin: 0.5em 1em 0 -1em;
 }
-#temp_user img,
+#temp_user img {
+  width: 4em;
+  height: 100%;
+  border-radius: 70%;
+}
+
 #temp_user_modal img {
-  width: 3em;
-  border-radius: 2em;
+  width: 5em;
+  height: 5em;
+  border-radius: 70%;
+  margin: 0.4em;
 }
 .only_modalClose {
   position: fixed;
@@ -231,7 +239,6 @@ a {
 }
 #temp_user_modal img {
   float: left;
-  margin: 1.3em 1em 0 1.3em;
 }
 #temp_user_modal p {
   margin: 0.8em 0 0 0.5em;
@@ -288,7 +295,8 @@ a {
 }
 #followers img {
   width: 2em;
-  border-radius: 3em;
+  height: 2em;
+  border-radius: 70%;
 }
 #followers span {
   position: relative;
@@ -347,8 +355,9 @@ a {
   margin: 0.5em 0 0.5em 0;
 }
 #footer img {
-  width: 2em;
-  margin-top: 1em;
+  width: 3em;
+  border-radius: 70%;
+  height: 3em;
 }
 #footer button {
   height: 1.7em;
@@ -519,7 +528,8 @@ a {
 }
 #friend_list img {
   width: 3em;
-  border-radius: 2em;
+  height: 3em;
+  border-radius: 70%;
 }
 
 #friend_list td:nth-of-type(1) {
@@ -590,6 +600,7 @@ a {
   top: 3em;
   overflow-y: scroll;
   width: 24em;
+  height: 30em;
 }
 .chat_list::-webkit-scrollbar {
   width: 7px;
@@ -603,27 +614,37 @@ a {
 .chat_list::-webkit-scrollbar-button {
   display: none;
 }
-.chat_list div {
+.chat_list .CList_div {
   border-top: 2px solid rgb(207, 207, 207);
-  margin: 1em 0 0 0.5em;
+  margin-left: 0.5em;
   width: 23em;
+  height: 4.5em;
   cursor: pointer;
+}
+.CList_div:first-of-type {
+  margin-top: 1em;
+}
+.CList_div img {
+  width: 3.3em;
+  height: 3.3em;
+  border-radius: 70%;
+  position: relative;
+  top: 0.5em;
+  left: 0.5em;
 }
 .chat_list div:hover {
   background: rgb(250, 245, 255);
 }
-.chat_list div > span {
+.chat_list span:first-child {
   font-size: 1em;
   position: relative;
   top: 0.5em;
 }
-.chat_list p {
-  font-weight: 100;
-  margin-top: 0.3em;
-}
-.chat_list small {
-  float: right;
-  margin-right: 1em;
+.chat_list span:not(:first-child) {
+  position: relative;
+  font-size: 1.3rem;
+  top: -2em;
+  left: 1em;
 }
 
 /* 채팅창 */
