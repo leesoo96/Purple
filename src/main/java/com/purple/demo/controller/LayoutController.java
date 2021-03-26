@@ -104,7 +104,6 @@ public class LayoutController {
     @ResponseBody
     @PostMapping("/getChatList")
     public List<ChatRoomDTO> getFriendChatList(@RequestBody ChatRoomDTO dto) {
-        System.out.println(dto.getChatroom_id());
         return mapper.getChatList(dto);
     }
 }

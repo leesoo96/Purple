@@ -299,6 +299,6 @@
 .recommentbar img {
   margin-right: 0.5em;
   width: 3em;
-  border-radius: 2em;
-  height: auto;
+  border-radius: 70%;
+  height: 3em;
 }

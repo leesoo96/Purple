@@ -154,8 +154,9 @@
 
 #profileImg {
   width: 3em;
+  height: 3em;
   margin: 1.3em 0 1em 0;
-  border-radius: 4em;
+  border-radius: 70%;
 }
 
 #profileImg,

@@ -239,11 +239,13 @@ function user_list(myJson) {
           let user_tag = document.createElement('div')
 
           user_tag.setAttribute('onclick', `addFriendFunc(${friend_pk})`)
-          search_td.appendChild(user_tag)
+          if (document.querySelector('#user_pk').value != `${friend_pk}`) {
+            search_td.appendChild(user_tag)
 
-          let user_teg_i = document.createElement('i')
-          user_teg_i.className = 'fas fa-user-plus'
-          user_tag.appendChild(user_teg_i)
+            let user_teg_i = document.createElement('i')
+            user_teg_i.className = 'fas fa-user-plus'
+            user_tag.appendChild(user_teg_i)
+          }
         }
       })
     search_content.appendChild(search_table)
@@ -332,9 +334,23 @@ function makeFeed(myJson) {
     feed_writedateSpan.innerText = `${myJson.result[i].feed_writedate}`
     feed_titleEle.appendChild(feed_writedateSpan)
 
-    let feedMenuI = document.createElement('i')
-    feedMenuI.className = 'fas fa-ellipsis-h'
-    feed_titleEle.appendChild(feedMenuI)
+    if(myJson.result[i].user_pk === myJson.result[i].feed_userpk) {
+      let feedMenuI = document.createElement('i')
+      feedMenuI.className = 'fas fa-ellipsis-h'
+      feedMenuI.setAttribute('onclick', 'openCloseMenu(this)')
+      feed_titleEle.appendChild(feedMenuI)
+
+      let feedMenuUl = document.createElement('ul')
+      feedMenuUl.className = 'feedMenu'
+      feedMenuUl.style.display = 'none'
+      feedMenuI.appendChild(feedMenuUl)
+
+      let feedMenuLi1 = document.createElement('li')
+      feedMenuLi1.className = 'feedLi'
+      feedMenuLi1.innerHTML = '삭제'
+      feedMenuLi1.setAttribute('onclick', `delFeed(${myJson.result[i].feed_pk})`)
+      feedMenuUl.appendChild(feedMenuLi1)
+    }
 
     // 이미지
     if (myJson.result[i].media_url.length > 0) {
@@ -498,4 +514,33 @@ function feedBookmark(e, feed_pk) {
         bookmarkI.className = 'fas fa-bookmark'
       }
     })
+}
+
+
+function openCloseMenu(e) {
+  if(e.querySelector('.feedMenu').style.display === 'none'){
+    e.querySelector('.feedMenu').style.display = 'block'
+    return
+  }
+  e.querySelector('.feedMenu').style.display ='none'
+}
+
+function delFeed(feed_pk) {
+
+  if(confirm('정말 삭제하시겠습니까?')) {
+    fetch(`/feed/deleteFeed`, {
+      method: 'put',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(feed_pk),
+    }).then((res)=>res.json())
+    .then((myJson) => {
+      if(myJson.result ===1){
+        alert('삭제되었습니다.')
+        location.reload()
+      }
+    })
+    return
+  }
 }
