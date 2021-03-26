@@ -357,6 +357,7 @@ const recFriendTable = document.querySelector("table[name='recommand_friend']")
 
 function getRecFriend_List(myJson) {
   for (let i = 0; i < myJson.length; i++) {
+    console.log(myJson[i])
     let recFriendTr = document.createElement('tr')
     recFriendTable.appendChild(recFriendTr)
 

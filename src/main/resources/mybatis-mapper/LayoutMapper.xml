@@ -41,9 +41,10 @@
 
     <!-- 친구가 없는 사용자에게 랜덤으로 목록을 출력합니다 -->
     <select id="getRandomRecommandFriendList" resultType="FriendDTO">
-        SELECT user_pk, user_id, user_profileimg
+        SELECT user_pk AS friend_pk, user_id, user_profileimg
         FROM user
         WHERE user_pk != (#{user_pk}) 
+        AND user_pk NOT IN (select friend_pk from friend where user_pk = #{user_pk})
         ORDER BY RAND()
         LIMIT 20
     </select>
