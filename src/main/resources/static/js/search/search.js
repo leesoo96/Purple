@@ -8,7 +8,6 @@ const windowHeight = window.innerHeight // 현재 보이는 창 높이
 let page_count = 0
 
 document.addEventListener('scroll', () => {
-  console.log('test')
   let scrollLocation = document.documentElement.scrollTop // 현재 스크롤바 위치
   let fullHeight = document.body.scrollHeight // 스크롤 포함 전체 길이
 
@@ -16,7 +15,6 @@ document.addEventListener('scroll', () => {
     let search_check = document.querySelector('input[name="type"]:checked')
       .value
     if (search_check == 1) {
-      console.log(page_count)
       let param = {
         page_count,
         feed_ctnt: form.search_input.value,
@@ -33,23 +31,60 @@ document.addEventListener('scroll', () => {
           makeFeed(myJson)
         })
       page_count++
+    } else if (search_check == 2) {
+      let param = {
+        page_count,
+        search_hashtag_ctnt: form.search_input.value,
+      }
+
+      fetch('/search/searchHashtag', {
+        method: 'post',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(param),
+      })
+        .then((res) => res.json())
+        .then((myJson) => {
+          search_content.querySelectorAll('*').forEach((test) => test.remove())
+          if (myJson.result.length == 0) {
+            let noSearchDiv = document.createElement('div')
+            noSearchDiv.className = 'noSearch'
+            noSearchDiv.innerHTML = '검색 결과가 없습니다.'
+            search_content.appendChild(noSearchDiv)
+            return
+          }
+          makeFeed(myJson)
+        })
+      page_count++
     }
   }
 })
 
-function radioClick() {
+function userSeatchClick() {
   form.search_input.value = ''
+  search_content.innerHTML = ''
+  page_count = 0
+}
+function feedSeatchClick() {
+  form.search_input.value = ''
+  search_content.innerHTML = ''
+  page_count = 0
+}
+function hashtagSeatchClick() {
+  form.search_input.value = '#'
+  search_content.innerHTML = ''
+  page_count = 0
 }
 
 function enterkey() {
   let search_check = document.querySelector('input[name="type"]:checked').value
-  console.log(search_check)
+
   // 유저검색
   if (search_check == 0) {
     let param = {
       search_user_id: form.search_input.value,
     }
-    console.log(param)
     fetch('/search/searchUser', {
       method: 'post',
       headers: {
@@ -93,7 +128,6 @@ function enterkey() {
           return
         }
         makeFeed(myJson)
-        page_count++
       })
 
     // 해시태그 검색
@@ -112,7 +146,6 @@ function enterkey() {
     })
       .then((res) => res.json())
       .then((myJson) => {
-        console.log(myJson.result)
         search_content.querySelectorAll('*').forEach((test) => test.remove())
         if (myJson.result.length == 0) {
           let noSearchDiv = document.createElement('div')
@@ -122,9 +155,35 @@ function enterkey() {
           return
         }
         makeFeed(myJson)
-        page_count++
       })
   }
+}
+
+if (form.search_input.value != '') {
+  let param = {
+    page_count,
+    search_hashtag_ctnt: form.search_input.value,
+  }
+
+  fetch('/search/searchHashtag', {
+    method: 'post',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(param),
+  })
+    .then((res) => res.json())
+    .then((myJson) => {
+      search_content.querySelectorAll('*').forEach((test) => test.remove())
+      if (myJson.result.length == 0) {
+        let noSearchDiv = document.createElement('div')
+        noSearchDiv.className = 'noSearch'
+        noSearchDiv.innerHTML = '검색 결과가 없습니다.'
+        search_content.appendChild(noSearchDiv)
+        return
+      }
+      makeFeed(myJson)
+    })
 }
 
 function user_list(myJson) {
@@ -155,7 +214,6 @@ function user_list(myJson) {
     user_id_span.innerHTML = `@${myJson[i].user_id}`
     user_id.appendChild(user_id_span)
 
-    console.log(`${myJson[i].user_bio}`)
     let user_bio = document.createElement('span')
     user_bio.id = 'content'
     user_bio.innerHTML = `${myJson[i].user_bio}`
@@ -168,7 +226,6 @@ function user_list(myJson) {
       user_pk: document.querySelector('#user_pk').value,
       friend_pk: friend_pk,
     }
-    console.log(addFriendParam.friend_pk)
     fetch('/layout/friendCheck', {
       method: 'post',
       headers: {
