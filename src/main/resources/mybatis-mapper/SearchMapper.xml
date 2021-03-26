@@ -39,10 +39,10 @@
         FROM feed AS a
         LEFT OUTER JOIN user AS b
         ON (a.feed_userpk = b.user_pk)
-        LEFT JOIN hashtag_relation c ON a.feed_pk = c.htrel_feedpk
-        LEFT JOIN hashtag d ON c.htrel_hashtagpk = d.hashtag_pk
+        inner JOIN hashtag_relation c ON a.feed_pk = c.htrel_feedpk
+        inner JOIN hashtag d ON c.htrel_hashtagpk = d.hashtag_pk
         WHERE a.feed_state = 1 AND d.hashtag_ctnt 
-        <if test="search_hashtag_ctnt != ''">
+        <if test="search_hashtag_ctnt != '' ">
             LIKE '%${search_hashtag_ctnt}%' 
         </if>
         <if test="search_hashtag_ctnt == ''">

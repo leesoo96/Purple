@@ -40,7 +40,6 @@
   appearance: none;
 }
 
-
 .search-option {
   position: absolute;
   text-align: right;
@@ -132,7 +131,7 @@
 
 /* 검색결과 CSS */
 .search_content {
-  margin-top: 6em;
+  margin-top: 9em;
 }
 .search_content table {
   width: 40em;
