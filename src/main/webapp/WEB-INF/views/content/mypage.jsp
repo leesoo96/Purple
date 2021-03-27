@@ -33,8 +33,8 @@
             <input accept="image/jpeg, image/jpg, image/png" id="mod_img" type="file"/>
         </div>
         <form id="userModFrm">
-            <input maxlength="10" name="mod_id" placeholder="Id" type="text">
-            <button name="id_check" type="button">중복확인</button>
+            <input maxlength="10" name="mod_id" placeholder="Id" type="text" onchange="alertCheck()">
+            <button name="id_check" type="button" >중복확인</button>
             <input maxlength="5" name="mod_name" placeholder="Name" type="text">
             <input maxlength="20" name="mod_bio" placeholder="Bio" type="text">
             <input maxlength="30" name="mod_location" placeholder="Location" type="text">
