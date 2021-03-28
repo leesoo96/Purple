@@ -23,18 +23,19 @@ public class WebsocketHandler extends TextWebSocketHandler {    // 웹 소켓 �
         System.out.println("연결성공");
     }
 
-    // 클라이언트가 메시지를 보냈을 때 호출된다 
+    // 데이터 전송 시 호출된다 
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
         // 전송된 메시지를 list의 모든 세션에 전송
         String msg = message.getPayload();
-        for(WebSocketSession sock : list) {
-            try{
-                sock.sendMessage(new TextMessage(msg));
-            }catch(Exception e){
-                e.printStackTrace();
-            }
-        }
+		for(String key : socket.keySet()) {
+			WebSocketSession wss = socket.get(key);
+			try {
+				wss.sendMessage(new TextMessage(msg));
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
     }
 
     // 클라이언트 접속이 종료되었을 때 호출된다 
