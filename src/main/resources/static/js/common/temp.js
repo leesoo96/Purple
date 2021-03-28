@@ -1,3 +1,5 @@
+'use strict'
+
 // 각 아이콘 hover event
 let home = document.querySelector('#home a')
 let search = document.querySelector('#search a')
@@ -417,3 +419,4 @@ function getRecFriend_List(myJson) {
     }
   }
 }
+
