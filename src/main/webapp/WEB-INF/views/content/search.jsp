@@ -35,7 +35,7 @@ pageEncoding="UTF-8"%>
   <input type="text" name="search_input" onkeyup="enterkey(this)" placeholder="Search" class="search-input" value="${data}" />
   <div class="search-option">
     <div>
-      <input name="type" type="radio" value="0" onclick="userSeatchClick()" id="type-users" class="search_chack" <c:if test="${data  == null}">checked</c:if>/>
+      <input name="type" type="radio" value="0" onclick="userSearchClick()" id="type-users" class="search_chack" <c:if test="${data  == null}">checked</c:if>/>
       <label for="type-users">
         <svg class="edit-pen-title">
           <use
@@ -48,7 +48,7 @@ pageEncoding="UTF-8"%>
     </div>
 
     <div>
-      <input name="type" type="radio" value="1" onclick="feedSeatchClick()" id="type-posts" class="search_chack" />
+      <input name="type" type="radio" value="1" onclick="feedSearchClick()" id="type-posts" class="search_chack" />
       <label for="type-posts">
         <svg class="edit-pen-title">
           <use
@@ -60,7 +60,7 @@ pageEncoding="UTF-8"%>
       </label>
     </div>
     <div>
-      <input name="type" type="radio" value="2" onclick="hashtagSeatchClick()" id="type-special"  class="search_chack" 
+      <input name="type" type="radio" value="2" onclick="hashtagSearchClick()" id="type-special"  class="search_chack" 
       <c:if test="${data != null}">checked</c:if> 
       />
       <label for="type-special">

@@ -111,8 +111,10 @@ function makeFeedDetail(e, myJson) {
   hastagDiv.className= 'hashtag_container'
   for (let j = 0; j < myJson.hashtag_ctnt.length; j++) {
     const hashtagA = document.createElement('a')
-    hashtagA.href = "#"
-    hashtagA.innerText = myJson.hashtag_ctnt[j].hashtag_ctnt
+    let hashtag_ctnt = `${myJson.hashtag_ctnt[j].hashtag_ctnt}`
+        hashtag_ctnt = hashtag_ctnt.split('#')[1]
+        hashtagA.href = '/search/' + hashtag_ctnt
+        hashtagA.innerText = myJson.hashtag_ctnt[j].hashtag_ctnt
     hastagDiv.appendChild(hashtagA)
   }
   detail_ctntDiv.appendChild(hastagDiv)
@@ -307,11 +309,13 @@ function comment_submit(e,feed_pk) {
 }
 
 function getCommentList(e, feed_pk) {
+  e.parentNode.parentNode.firstChild.querySelectorAll('*').forEach((nodes) => nodes.remove())
   fetch('/feed/getcomment/'+feed_pk)
   .then(res => res.json())
   .then((myJson) => {
-    e.parentNode.parentNode.firstChild.querySelectorAll('*').forEach((nodes) => nodes.remove())
-    for(let i=0; myJson.result.length; i++) {
+    console.log(myJson)
+    for(let i=0; i< myJson.result.length; i++) {
+      console.log(myJson.result[i])
       let commentbarDiv = document.createElement('div')
       commentbarDiv.className = 'commentbar'
       commentbarDiv.setAttribute('data-comment_pk', `${myJson.result[i].comment_pk}`)
@@ -345,6 +349,7 @@ function getCommentList(e, feed_pk) {
       let commentViewMoreSpan = document.createElement('button')
       commentViewMoreSpan.className = 'commentViewMore'
       commentViewMoreSpan.innerText = '더 보기'
+      commentViewMoreSpan.setAttribute('onclick', `viewMore(this)`)
       commentFunctionbarDiv.appendChild(commentViewMoreSpan)
     }
   })

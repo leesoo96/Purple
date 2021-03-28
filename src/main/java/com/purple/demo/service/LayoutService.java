@@ -50,7 +50,7 @@ public class LayoutService {
                 return 0;
             }
         }
-         return 1;
+        return 1;
     }
 
     // 채팅방 생성

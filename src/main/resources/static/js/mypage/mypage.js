@@ -63,6 +63,15 @@ id_chekBtn.addEventListener('click', () => {
       })
   }
 })
+
+function alertCheck() {
+  console.log(check_state)
+  if(check_state === 1) {
+    alert('아이디 중복 검사를 다시 해주세요.')
+    check_state = 0
+    userModFrm.mod_id.focus()
+  }
+}
 // 사용자 정보 변경
 const userMod_contentEle = document.querySelector('#userMod_content')
 const saveBtn = document.querySelector('#save_userModBtn')
@@ -122,7 +131,7 @@ saveBtn.addEventListener('click', () => {
       user_name: userModFrm.mod_name.value,
       user_bio: userModFrm.mod_bio.value,
       user_location: userModFrm.mod_location.value,
-      user_website: userModFrm.mod_website.value,
+      user_email: userModFrm.mod_email.value,
       user_birth: userModFrm.mod_birth.value,
     }
     fetch(`/mypage/mod_userinfo`, {
@@ -367,9 +376,23 @@ function makeFeed(myJson){
     feed_writedateSpan.innerText = `${myJson.result[i].feed_writedate}`
     feed_titleEle.appendChild(feed_writedateSpan)
 
-    let feedMenuI = document.createElement('i')
-    feedMenuI.className = 'fas fa-ellipsis-h'
-    feed_titleEle.appendChild(feedMenuI)
+    if(myJson.result[i].user_pk === myJson.result[i].feed_userpk) {
+      let feedMenuI = document.createElement('i')
+      feedMenuI.className = 'fas fa-ellipsis-h'
+      feedMenuI.setAttribute('onclick', 'openCloseMenu(this)')
+      feed_titleEle.appendChild(feedMenuI)
+
+      let feedMenuUl = document.createElement('ul')
+      feedMenuUl.className = 'feedMenu'
+      feedMenuUl.style.display = 'none'
+      feedMenuI.appendChild(feedMenuUl)
+
+      let feedMenuLi1 = document.createElement('li')
+      feedMenuLi1.className = 'feedLi'
+      feedMenuLi1.innerHTML = '삭제'
+      feedMenuLi1.setAttribute('onclick', `delFeed(${myJson.result[i].feed_pk})`)
+      feedMenuUl.appendChild(feedMenuLi1)
+    }
     
     // 이미지
     if(myJson.result[i].media_url.length > 0) {
@@ -411,7 +434,9 @@ function makeFeed(myJson){
     if(myJson.result[i].hashtag_ctnt.length > 0) {
       for(let k=0; k < myJson.result[i].hashtag_ctnt.length; k++) {
         let hashtagA = document.createElement('a')
-        hashtagA.setAttribute('href','#')
+        let hashtag_ctnt = `${myJson.result[i].hashtag_ctnt[k].hashtag_ctnt}`
+        hashtag_ctnt = hashtag_ctnt.split('#')[1]
+        hashtagA.href = '/search/' + hashtag_ctnt
         hashtagA.innerText = myJson.result[i].hashtag_ctnt[k].hashtag_ctnt
         feed_contentDiv.appendChild(hashtagA)
       }
@@ -521,4 +546,32 @@ function feedBookmark(e, feed_pk) {
       bookmarkI.className = 'fas fa-bookmark'
     }
   })
+}
+
+function openCloseMenu(e) {
+  if(e.querySelector('.feedMenu').style.display === 'none'){
+    e.querySelector('.feedMenu').style.display = 'block'
+    return
+  }
+  e.querySelector('.feedMenu').style.display ='none'
+}
+
+function delFeed(feed_pk) {
+
+  if(confirm('정말 삭제하시겠습니까?')) {
+    fetch(`/feed/deleteFeed`, {
+      method: 'put',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(feed_pk),
+    }).then((res)=>res.json())
+    .then((myJson) => {
+      if(myJson.result ===1){
+        alert('삭제되었습니다.')
+        location.reload()
+      }
+    })
+    return
+  }
 }

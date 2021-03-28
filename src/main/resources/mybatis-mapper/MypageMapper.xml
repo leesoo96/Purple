@@ -17,8 +17,8 @@
             <if test="user_location != null and user_location != ''">
                 user_location = #{user_location},
             </if>
-            <if test="user_website != null and user_website != ''">
-                user_website = #{user_website},
+            <if test="user_email != null and user_email != ''">
+                user_email = #{user_email},
             </if>
             <if test="user_birth != null and user_birth != ''">
                 user_birth = #{user_birth},

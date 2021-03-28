@@ -5,15 +5,18 @@ const form = document.querySelector('.search-form')
 
 const windowHeight = window.innerHeight // 현재 보이는 창 높이
 
-let page_count = 0
+let page_count
 
 document.addEventListener('scroll', () => {
   let scrollLocation = document.documentElement.scrollTop // 현재 스크롤바 위치
   let fullHeight = document.body.scrollHeight // 스크롤 포함 전체 길이
-
+  console.log(page_count)
   if (scrollLocation + windowHeight >= fullHeight) {
-    let search_check = document.querySelector('input[name="type"]:checked')
-      .value
+    if(page_count === 0) {
+      page_count =1
+    }
+    let search_check = document.querySelector('input[name="type"]:checked').value
+    console.log('스크롤 들어갈 때: ' +page_count)
     if (search_check == 1) {
       let param = {
         page_count,
@@ -28,9 +31,12 @@ document.addEventListener('scroll', () => {
       })
         .then((res) => res.json())
         .then((myJson) => {
-          makeFeed(myJson)
+          if (myJson.result.length != 0) {
+            makeFeed(myJson)
+            page_count++
+          }
         })
-      page_count++
+      
     } else if (search_check == 2) {
       let param = {
         page_count,
@@ -46,40 +52,40 @@ document.addEventListener('scroll', () => {
       })
         .then((res) => res.json())
         .then((myJson) => {
-          search_content.querySelectorAll('*').forEach((test) => test.remove())
-          if (myJson.result.length == 0) {
-            let noSearchDiv = document.createElement('div')
-            noSearchDiv.className = 'noSearch'
-            noSearchDiv.innerHTML = '검색 결과가 없습니다.'
-            search_content.appendChild(noSearchDiv)
-            return
+          if (myJson.result.length != 0) {
+            makeFeed(myJson)
+            page_count++
           }
-          makeFeed(myJson)
-        })
-      page_count++
+        })  
     }
+    console.log('스크롤 나올 때: ' +page_count)
   }
 })
 
-function userSeatchClick() {
+function userSearchClick() {
+  search_content.querySelectorAll('*').forEach((test) => test.remove())
   form.search_input.value = ''
   search_content.innerHTML = ''
   page_count = 0
 }
-function feedSeatchClick() {
+function feedSearchClick() {
+  search_content.querySelectorAll('*').forEach((test) => test.remove())
   form.search_input.value = ''
   search_content.innerHTML = ''
   page_count = 0
 }
-function hashtagSeatchClick() {
+function hashtagSearchClick() {
+  search_content.querySelectorAll('*').forEach((test) => test.remove())
   form.search_input.value = '#'
   search_content.innerHTML = ''
   page_count = 0
 }
 
-function enterkey() {
+function enterkey(e) {
+  
+  page_count= 0
   let search_check = document.querySelector('input[name="type"]:checked').value
-
+  console.log('처음: ' +page_count)
   // 유저검색
   if (search_check == 0) {
     let param = {
@@ -94,14 +100,15 @@ function enterkey() {
     })
       .then((res) => res.json())
       .then((myJson) => {
-        search_content.querySelectorAll('*').forEach((test) => test.remove())
         if (myJson.length == 0) {
+          search_content.querySelectorAll('*').forEach((test) => test.remove())
           let noSearchDiv = document.createElement('div')
           noSearchDiv.className = 'noSearch'
           noSearchDiv.innerHTML = '검색 결과가 없습니다.'
           search_content.appendChild(noSearchDiv)
           return
         }
+        search_content.querySelectorAll('*').forEach((test) => test.remove())
         user_list(myJson)
       })
     // 내용검색
@@ -119,14 +126,15 @@ function enterkey() {
     })
       .then((res) => res.json())
       .then((myJson) => {
-        search_content.querySelectorAll('*').forEach((test) => test.remove())
         if (myJson.result.length == 0) {
+          search_content.querySelectorAll('*').forEach((test) => test.remove())
           let noSearchDiv = document.createElement('div')
           noSearchDiv.className = 'noSearch'
           noSearchDiv.innerHTML = '검색 결과가 없습니다.'
           search_content.appendChild(noSearchDiv)
           return
         }
+        search_content.querySelectorAll('*').forEach((test) => test.remove())
         makeFeed(myJson)
       })
 
@@ -145,26 +153,27 @@ function enterkey() {
       body: JSON.stringify(param),
     })
       .then((res) => res.json())
-      .then((myJson) => {
-        search_content.querySelectorAll('*').forEach((test) => test.remove())
+      .then((myJson) => {  
         if (myJson.result.length == 0) {
+          search_content.querySelectorAll('*').forEach((test) => test.remove())
           let noSearchDiv = document.createElement('div')
           noSearchDiv.className = 'noSearch'
           noSearchDiv.innerHTML = '검색 결과가 없습니다.'
           search_content.appendChild(noSearchDiv)
           return
         }
+        search_content.querySelectorAll('*').forEach((test) => test.remove())
         makeFeed(myJson)
       })
   }
 }
 
 if (form.search_input.value != '') {
+  page_count = 0
   let param = {
     page_count,
     search_hashtag_ctnt: form.search_input.value,
   }
-
   fetch('/search/searchHashtag', {
     method: 'post',
     headers: {
@@ -174,14 +183,15 @@ if (form.search_input.value != '') {
   })
     .then((res) => res.json())
     .then((myJson) => {
-      search_content.querySelectorAll('*').forEach((test) => test.remove())
       if (myJson.result.length == 0) {
+        search_content.querySelectorAll('*').forEach((test) => test.remove())
         let noSearchDiv = document.createElement('div')
         noSearchDiv.className = 'noSearch'
         noSearchDiv.innerHTML = '검색 결과가 없습니다.'
         search_content.appendChild(noSearchDiv)
         return
       }
+      search_content.querySelectorAll('*').forEach((test) => test.remove())
       makeFeed(myJson)
     })
 }
@@ -239,11 +249,13 @@ function user_list(myJson) {
           let user_tag = document.createElement('div')
 
           user_tag.setAttribute('onclick', `addFriendFunc(${friend_pk})`)
-          search_td.appendChild(user_tag)
+          if (document.querySelector('#user_pk').value != `${friend_pk}`) {
+            search_td.appendChild(user_tag)
 
-          let user_teg_i = document.createElement('i')
-          user_teg_i.className = 'fas fa-user-plus'
-          user_tag.appendChild(user_teg_i)
+            let user_teg_i = document.createElement('i')
+            user_teg_i.className = 'fas fa-user-plus'
+            user_tag.appendChild(user_teg_i)
+          }
         }
       })
     search_content.appendChild(search_table)
@@ -301,10 +313,6 @@ function nextImg(e) {
 }
 
 function makeFeed(myJson) {
-  if (myJson.result.length === 0) {
-    page_count--
-    return
-  }
   for (let i = 0; i < myJson.result.length; i++) {
     // feed_container 생성
     let feed_containerEle = document.createElement('div')
@@ -332,9 +340,23 @@ function makeFeed(myJson) {
     feed_writedateSpan.innerText = `${myJson.result[i].feed_writedate}`
     feed_titleEle.appendChild(feed_writedateSpan)
 
-    let feedMenuI = document.createElement('i')
-    feedMenuI.className = 'fas fa-ellipsis-h'
-    feed_titleEle.appendChild(feedMenuI)
+    if(myJson.result[i].user_pk === myJson.result[i].feed_userpk) {
+      let feedMenuI = document.createElement('i')
+      feedMenuI.className = 'fas fa-ellipsis-h'
+      feedMenuI.setAttribute('onclick', 'openCloseMenu(this)')
+      feed_titleEle.appendChild(feedMenuI)
+
+      let feedMenuUl = document.createElement('ul')
+      feedMenuUl.className = 'feedMenu'
+      feedMenuUl.style.display = 'none'
+      feedMenuI.appendChild(feedMenuUl)
+
+      let feedMenuLi1 = document.createElement('li')
+      feedMenuLi1.className = 'feedLi'
+      feedMenuLi1.innerHTML = '삭제'
+      feedMenuLi1.setAttribute('onclick', `delFeed(${myJson.result[i].feed_pk})`)
+      feedMenuUl.appendChild(feedMenuLi1)
+    }
 
     // 이미지
     if (myJson.result[i].media_url.length > 0) {
@@ -376,7 +398,9 @@ function makeFeed(myJson) {
     if (myJson.result[i].hashtag_ctnt.length > 0) {
       for (let k = 0; k < myJson.result[i].hashtag_ctnt.length; k++) {
         let hashtagA = document.createElement('a')
-        hashtagA.setAttribute('href', '#')
+        let hashtag_ctnt = `${myJson.result[i].hashtag_ctnt[k].hashtag_ctnt}`
+        hashtag_ctnt = hashtag_ctnt.split('#')[1]
+        hashtagA.href = '/search/' + hashtag_ctnt
         hashtagA.innerText = myJson.result[i].hashtag_ctnt[k].hashtag_ctnt
         feed_contentDiv.appendChild(hashtagA)
       }
@@ -498,4 +522,33 @@ function feedBookmark(e, feed_pk) {
         bookmarkI.className = 'fas fa-bookmark'
       }
     })
+}
+
+
+function openCloseMenu(e) {
+  if(e.querySelector('.feedMenu').style.display === 'none'){
+    e.querySelector('.feedMenu').style.display = 'block'
+    return
+  }
+  e.querySelector('.feedMenu').style.display ='none'
+}
+
+function delFeed(feed_pk) {
+
+  if(confirm('정말 삭제하시겠습니까?')) {
+    fetch(`/feed/deleteFeed`, {
+      method: 'put',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(feed_pk),
+    }).then((res)=>res.json())
+    .then((myJson) => {
+      if(myJson.result ===1){
+        alert('삭제되었습니다.')
+        location.reload()
+      }
+    })
+    return
+  }
 }
