@@ -86,7 +86,7 @@
 
     <!-- 대화목록 -->
     <select id="getChatList" resultType="ChatRoomDTO">
-        SELECT A.user_id, A.user_profileimg 
+        SELECT A.user_id, A.user_profileimg, B.chatroom_id
         FROM user AS A
         JOIN chatroom AS B 
         ON A.user_pk = B.chatroom_friendpk
