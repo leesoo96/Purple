@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
   pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>  
-<%-- <script defer src="/resources/js/chat/sockjs.min.js"></script> --%>
 
 <div id="followers">
   <h3>알 수도 있는 사람</h3>
@@ -73,7 +72,7 @@
       </div> <!-- chat --> 
 
       <div class="msg_container">
-        <textarea name="msg_input" placeholder="메시지를 입력해주세요."></textarea>
+        <input name="msg_input" placeholder="메시지를 입력해주세요.">
         <div class="msg_btn">
           <button onclick="send()">전송</button>
         </div>

@@ -63,6 +63,15 @@ id_chekBtn.addEventListener('click', () => {
       })
   }
 })
+
+function alertCheck() {
+  console.log(check_state)
+  if(check_state === 1) {
+    alert('아이디 중복 검사를 다시 해주세요.')
+    check_state = 0
+    userModFrm.mod_id.focus()
+  }
+}
 // 사용자 정보 변경
 const userMod_contentEle = document.querySelector('#userMod_content')
 const saveBtn = document.querySelector('#save_userModBtn')

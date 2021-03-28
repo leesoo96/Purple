@@ -13,11 +13,12 @@ import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry
 public class WebSocketConfig implements WebSocketConfigurer{
 
     @Autowired
-    private WebsocketHandler webSocketHandler;
+    WebsocketHandler socketHandler;
 
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-        registry.addHandler(webSocketHandler, "/feed");
+        registry.addHandler(socketHandler, "/websocket")
+                .addInterceptors(new HttpHandshakeInterceptor());
     }
     
 }

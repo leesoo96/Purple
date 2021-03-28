@@ -3,7 +3,6 @@ package com.purple.demo.handler;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
