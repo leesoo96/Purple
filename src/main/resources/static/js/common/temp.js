@@ -1,9 +1,7 @@
-'use strict'
-
+// 서버구축 완료 후 wss로 바꿀 것
 var ws = 'ws'
 
 var socket = new WebSocket(ws + '://' + location.hostname + ':8091/websocket')
-// 서버구축 완료 후 wss로 바꿀 것
 socket.onopen = function () {
   console.log('웹소켓 서버 가동')
 }
@@ -224,7 +222,7 @@ function getFriend_list(myJson) {
         .then((res) => res.json())
         .then((myJson) => {
           if (myJson.result != null) {
-            alert('채팅방 생성 성공')
+            history.go(0)
           }
         })
     }
@@ -314,6 +312,8 @@ function getChat_List(myJson) {
     const CList_div = document.createElement('div')
     chat_list_divSpan.after(CList_div)
     CList_div.innerText = '대화가 없습니다!'
+    CList_div.style.marginLeft = '0.5em'
+    CList_div.style.marginTop = '1em'
     return
   } else {
     for (let i = 0; i < myJson.length; i++) {
@@ -332,6 +332,9 @@ function getChat_List(myJson) {
       let CList_span = document.createElement('span')
       CList_img.after(CList_span)
       CList_span.innerText = `@${myJson[i].user_id}`
+
+      let chatroom_id = `${myJson[i].chatroom_id}`
+      console.log(chatroom_id)
     }
 
     // 해당 대화 클릭 시 채팅방으로 슬라이드 이동
@@ -445,4 +448,3 @@ function getRecFriend_List(myJson) {
     }
   }
 }
-

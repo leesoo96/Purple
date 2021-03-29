@@ -91,5 +91,6 @@
         JOIN chatroom AS B 
         ON A.user_pk = B.chatroom_friendpk
         WHERE chatroom_userpk = #{chatroom_userpk}
+        ORDER BY user_id DESC
     </select>
 </mapper>
