@@ -1,3 +1,31 @@
+'use strict'
+
+var ws = 'ws'
+
+var socket = new WebSocket(ws + '://' + location.hostname + ':8091/websocket')
+// 서버구축 완료 후 wss로 바꿀 것
+socket.onopen = function () {
+  console.log('웹소켓 서버 가동')
+}
+socket.onmessage = function (data) {
+  let msg = data.data
+  let friendMsgContainer = document.querySelector('.friendMsgContainer')
+  friendMsgContainer.append(msg)
+}
+socket.onerror = function (error) {
+  console.log(`${error.message}`)
+}
+socket.onclose = function () {
+  console.log('소켓 종료')
+}
+const sendInput = document.querySelector('input[name="msg_input"]')
+const sendBtn = document.querySelector('button[name="send_btn"]')
+function send() {
+  let msg = sendInput.value
+  socket.send(msg)
+  sendInput.value = ''
+}
+
 // 각 아이콘 hover event
 let home = document.querySelector('#home a')
 let search = document.querySelector('#search a')
@@ -417,3 +445,4 @@ function getRecFriend_List(myJson) {
     }
   }
 }
+

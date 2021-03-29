@@ -4,8 +4,10 @@
 
 <link rel="stylesheet" href="/resources/css/feed/feed.css">
 <link rel="stylesheet" href="/resources/css/feed/feedDetail.css">
+<%-- <script defer src="/resources/js/feed/sockjs.min.js"></script> --%>
 <script defer src="/resources/js/feed/feed.js"></script>
 <script defer src="/resources/js/feed/feedDetail.js"></script>
+
 <div id="selectBox">
   <select name="feed">
     <option value="1" selected>최신순</option>
