@@ -1,5 +1,6 @@
 // 서버구축 완료 후 wss로 바꿀 것
 var ws = 'ws'
+
 var socket = new WebSocket(ws + '://' + location.hostname + ':8091/websocket')
 socket.onopen = function () {
   console.log('웹소켓 서버 가동')

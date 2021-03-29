@@ -25,6 +25,7 @@ public class WebsocketHandler extends TextWebSocketHandler {
     // 데이터 전송 시 호출된다 
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
+        // 전송된 메시지를 list의 모든 세션에 전송
         String msg = message.getPayload();
 		for(String key : users.keySet()) {
 			WebSocketSession wss = users.get(key);
@@ -48,7 +49,6 @@ public class WebsocketHandler extends TextWebSocketHandler {
 	@Override
 	public void handleTransportError(WebSocketSession session, Throwable exception) throws Exception {
 		System.out.println((session.getId() + " 에러 발생: " + exception.getMessage()));
-
 	}
 
     // // 로그인한 유저들의 아이디
