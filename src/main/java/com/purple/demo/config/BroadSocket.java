@@ -6,7 +6,7 @@ import javax.websocket.OnOpen;
 import javax.websocket.server.ServerEndpoint;
 
 @ServerEndpoint("/websocket")
-public class BrodSocket {
+public class BroadSocket {
 
     @OnOpen
     public void handleOpen() {
