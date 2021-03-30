@@ -8,6 +8,7 @@ import com.purple.demo.mapper.LayoutMapper;
 import com.purple.demo.model.ChatRoomDTO;
 import com.purple.demo.model.FriendDTO;
 import com.purple.demo.model.UserPrincipal;
+import com.purple.demo.model.DTO.MessageDTO;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -57,6 +58,7 @@ public class LayoutService {
     public String getRoom(ChatRoomDTO dto) {
         UserPrincipal principal = (UserPrincipal)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         dto.setChatroom_userpk(principal.getUser_pk());
+        System.out.println(dto.getChatroom_userpk());
         String room_id = mapper.getRoom(dto);
 
         if(room_id == null || room_id.equals("")){
@@ -76,5 +78,9 @@ public class LayoutService {
     // 대화목록
     public List<ChatRoomDTO> getChatList(ChatRoomDTO dto) {
         return mapper.getChatList(dto);
+    }
+
+    public List<MessageDTO> enterChatroom(String room_id) {
+        return mapper.enterChatroom(room_id);
     }
  }

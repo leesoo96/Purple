@@ -86,11 +86,27 @@
 
     <!-- 대화목록 -->
     <select id="getChatList" resultType="ChatRoomDTO">
-        SELECT A.user_id, A.user_profileimg, B.chatroom_id
-        FROM user AS A
-        JOIN chatroom AS B 
-        ON A.user_pk = B.chatroom_friendpk
-        WHERE chatroom_userpk = #{chatroom_userpk}
-        ORDER BY user_id DESC
+        SELECT A.chatroom_id, A.chatroom_friendpk, B.user_id, B.user_profileimg, C.message_ctnt as "last_message", C.message_date as "last_messagedate"
+        FROM chatroom AS A
+        LEFT JOIN user AS B
+        ON A.chatroom_friendpk = B.user_pk
+        LEFT JOIN (SELECT message_chatroomid, message_ctnt, message_date FROM message
+        WHERE message_date = (
+        SELECT MAX(message_date) FROM message GROUP BY message_chatroomid)) AS C
+        ON A.chatroom_id = C.message_chatroomid
+        WHERE A.chatroom_userpk = #{chatroom_userpk};
+    </select>
+
+    <select id="enterChatroom" resultType="MessageDTO">
+        SELECT A.message_chatroomid, A.message_ctnt, A.message_date,
+        A.message_sendto, A.message_from, A.message_readstate, B.user_id,
+        B.user_profileimg
+        FROM message AS A
+        LEFT JOIN user AS B
+        ON A.message_from = B.user_pk
+        WHERE A.message_chatroomid= #{room_id}
+        AND A.message_state = 1
+        ORDER BY A.message_date ASC
+        LIMIT 0,30;
     </select>
 </mapper>

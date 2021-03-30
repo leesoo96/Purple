@@ -44,7 +44,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			http.csrf().disable();
 		
 			http.authorizeRequests()
-				.antMatchers("/alarm/**","/bookmark/**", "/layout/**", "/search/**", "/userpage/**","/mypage/**", "/feed/**", "/notice/**").hasAnyRole("USER","ADMIN")
+				.antMatchers("/socket/**","/alarm/**","/bookmark/**", "/layout/**", "/search/**", "/userpage/**","/mypage/**", "/feed/**", "/notice/**").hasAnyRole("USER","ADMIN")
 				.antMatchers("/admin/**").hasRole("ADMIN")
 				.antMatchers("/**").permitAll();
 			
@@ -64,10 +64,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 					.deleteCookies("JSESSIONID") // 쿠키 제거
 					.clearAuthentication(true); // 권한정보 제거 
 	
-			http.sessionManagement()
-					.maximumSessions(1) // 최대 세션 허용 수 
-					.maxSessionsPreventsLogin(true) // 중복 로그인 시 x
-					.expiredUrl("/welcome"); // 세션 만료 또는 중복 시 리다이렉트되는 url
+			// http.sessionManagement()
+			// 		.maximumSessions(3) // 최대 세션 허용 수 
+					// .maxSessionsPreventsLogin(true) // 중복 로그인 시 x
+					// .expiredUrl("/welcome"); // 세션 만료 또는 중복 시 리다이렉트되는 url
 
 //					.sessionRegistry(null); 
 			
