@@ -1,28 +1,88 @@
-'use strict'
-
-var ws = 'ws'
-
-var socket = new WebSocket(ws + '://' + location.hostname + ':8091/websocket')
 // 서버구축 완료 후 wss로 바꿀 것
-socket.onopen = function () {
-  console.log('웹소켓 서버 가동')
+var socket
+
+if(typeof socket =="undefined") {
+  socket = new WebSocket('ws://' + location.hostname + ':8091/socket')
+  socket.onopen = function () {
+    console.log('웹소켓 서버 가동')
+    let createSocketParam = {
+      user_id: document.querySelector('#temp_user').innerText,
+      type:"CREATE"
+    }
+    console.log(createSocketParam.user_id)
+    socket.send(JSON.stringify(createSocketParam))
+  }
+
+  // 서버로부터 응답이 올 때
+  socket.onmessage = function (data) {
+    console.log(data)
+    console.log(data.data)
+    let msg = JSON.parse(data.data)
+    console.log(msg)
+    // console.log(msg)
+    // console.log(typeof(data))
+    // // console.log(msg.room_id)
+    // const room_id = document.querySelector('.room_id').value
+    // console.log(room_id)
+    // if(room_id == msg.room_id) {
+    //   let friendMsgContainer = document.querySelector('.friendMsgContainer')
+    //   let chatSpan = document.createElement('span')
+    //   chatSpan.innerHTML = msg.msg_ctnt
+    //   friendMsgContainer.appendChild(chatSpan)
+    //   return
+    // }
+    // console.log('실행1')
+  }
+  socket.onerror = function (error) {
+    console.log(`${error.message}`)
+  }
+  socket.onclose = function () {
+    console.log('소켓 종료')
+    let closeSocketParam = {
+      user_id: document.querySelector('#temp_user').innerText,
+      type:"DELETE"
+    }
+    socket.send(JSON.stringify(closeSocketParam))
+  }
 }
-socket.onmessage = function (data) {
-  let msg = data.data
-  let friendMsgContainer = document.querySelector('.friendMsgContainer')
-  friendMsgContainer.append(msg)
-}
-socket.onerror = function (error) {
-  console.log(`${error.message}`)
-}
-socket.onclose = function () {
-  console.log('소켓 종료')
-}
+
+
+console.log(socket)
+
+
+
+//서버로 값을 보낼 때
+const sendChatBtn = document.querySelector('button[name="send_btn"]')
+sendChatBtn.addEventListener('click', () => {
+  sendChat()
+})
+
 const sendInput = document.querySelector('input[name="msg_input"]')
-const sendBtn = document.querySelector('button[name="send_btn"]')
-function send() {
-  let msg = sendInput.value
-  socket.send(msg)
+const send_id = document.querySelector('#chat_friendName')
+
+function sendChat() {
+  const room_id = document.querySelector('.room_id')
+  let params = {
+    room_id : room_id.value,
+    send_to: send_id.innerText.split("@")[1],
+    from: document.querySelector('#temp_user').innerText,
+    chat_ctnt : sendInput.value,
+    type : "CHAT"
+}
+  socket.send(JSON.stringify(params))
+  let myMsgContainerDiv = document.createElement('div')
+  myMsgContainerDiv.className = 'myMsgContainer'
+  chatDiv.appendChild(myMsgContainerDiv)
+
+  let myMsgP = document.createElement('p')
+  myMsgP.className = 'myMsg'
+  myMsgP.innerHTML = params.chat_ctnt
+  myMsgContainerDiv.appendChild(myMsgP)
+
+  let myMsg_timeSmall = document.createElement('small')
+  myMsg_timeSmall.className = 'myMsg_time'
+  myMsg_timeSmall.innerText = getTimeStamp()
+  myMsgContainerDiv.appendChild(myMsg_timeSmall)
   sendInput.value = ''
 }
 
@@ -114,6 +174,8 @@ chat_btn.onclick = function () {
 
   chat_msg.style.right = '-23em'
   chat_msg.style.transition = '.5s'
+
+  getFriendChatListFunc()
 }
 
 // 채팅 - 친구목록 확인
@@ -153,7 +215,6 @@ function getFriend_list(myJson) {
     fList_div.innerText = '친구가 없습니다ㅠ'
     return
   }
-
   for (let i = 0; i < myJson.length; i++) {
     let table_tr = document.createElement('tr')
     table.append(table_tr)
@@ -203,6 +264,7 @@ function getFriend_list(myJson) {
     // 대화
     let friend_Chat_td = document.createElement('td')
     friend_Chat_td.classList.add('friend_chat_func')
+    friend_Chat_td.setAttribute('onclick', `commonChatFunc(this, ${myJson[i].user_pk})`)
     friend_Chat_td.innerHTML = '<span>대화</span>'
 
     table_tr.appendChild(friend_profileImg_td)
@@ -210,32 +272,7 @@ function getFriend_list(myJson) {
     table_tr.appendChild(friend_block_td)
     table_tr.appendChild(friend_Chat_td)
 
-    function commonChatFunc() {
-      let chatParam = {
-        chatroom_friendpk: myJson[i].user_pk,
-      }
-      fetch('/layout/getRoom', {
-        method: 'post',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(chatParam),
-      })
-        .then((res) => res.json())
-        .then((myJson) => {
-          if (myJson.result != null) {
-            alert('채팅방 생성 성공')
-          }
-        })
-    }
-  }
-
-  // 대화 클릭 이벤트
-  let chat_tdClass = document.querySelectorAll('.friend_chat_func')
-  for (let j = 0; j < chat_tdClass.length; j++) {
-    chat_tdClass[j].onclick = function () {
-      commonChatFunc()
-    }
+    
   }
 
   // 친구 아이디 클릭 시 친구정보 보기 + 차단하기 표시 & 숨김
@@ -250,6 +287,28 @@ function getFriend_list(myJson) {
       }
     }
   }
+}
+
+// 채팅방 만들기 /가져오기
+function commonChatFunc(e, friend_pk) {
+  let user_id = e.parentNode.querySelector('.friend_info span').innerText
+  let chatParam = {
+    chatroom_friendpk: friend_pk,
+  }
+  fetch('/layout/getRoom', {
+    method: 'post',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(chatParam),
+  })
+    .then((res) => res.json())
+    .then((myJson) => {
+      console.log(myJson.result)
+      if (myJson.result != null) {
+        enterChatroom(myJson.result, user_id)
+      }
+    })
 }
 
 // 친구 삭제
@@ -288,7 +347,8 @@ function delFriendFunc(friend_pk) {
 }
 
 // 채팅 - 대화 목록 확인
-getFriendChatListFunc()
+document.querySelector('.dm_open').addEventListener('click', ()=>{
+  getFriendChatListFunc()})
 
 function getFriendChatListFunc() {
   let param = {
@@ -303,6 +363,10 @@ function getFriendChatListFunc() {
   })
     .then((res) => res.json())
     .then((myJson) => {
+      console.log(myJson)
+      document.querySelector('.chat_list').querySelectorAll('div')
+      .forEach((test) => test.remove())
+  
       getChat_List(myJson)
     })
 }
@@ -310,16 +374,25 @@ function getFriendChatListFunc() {
 const chat_list_divSpan = document.querySelector('.chat_list span')
 
 function getChat_List(myJson) {
+
   if (myJson.length === 0) {
     const CList_div = document.createElement('div')
     chat_list_divSpan.after(CList_div)
     CList_div.innerText = '대화가 없습니다!'
+    CList_div.style.marginLeft = '0.5em'
+    CList_div.style.marginTop = '1em'
     return
   } else {
     for (let i = 0; i < myJson.length; i++) {
       let CList_div = document.createElement('div')
       CList_div.classList.add('CList_div')
+      CList_div.setAttribute('onclick',`enterChatroom('${myJson[i].chatroom_id}','${myJson[i].user_id}')`)
       chat_list_divSpan.after(CList_div)
+
+      // let chatroom_idInput = document.createElement('input')
+      // chatroom_idInput.type= 'hidden'
+      // chatroom_idInput.value =`${myJson[i].chatroom_id}`
+      // CList_div.appendChild(chatroom_idInput)
 
       let CList_img = document.createElement('img')
       if (myJson[i].user_profileimg === null) {
@@ -332,22 +405,82 @@ function getChat_List(myJson) {
       let CList_span = document.createElement('span')
       CList_img.after(CList_span)
       CList_span.innerText = `@${myJson[i].user_id}`
-    }
 
-    // 해당 대화 클릭 시 채팅방으로 슬라이드 이동
-    let CList_divAll = document.querySelectorAll('.chat_list div')
-    for (let i = 0; i < CList_divAll.length; i++) {
-      let CList_divEle = CList_divAll[i]
-      CList_divEle.addEventListener('click', function () {
-        chat_msg.style.right = '17px'
-        chat_msg.style.transition = '.5s'
+      let last_message = document.createElement('span')
+      last_message.innerText = `${myJson[i].last_message}`
+      if(myJson[i].last_message == null) {
+        last_message.innerText = '대화 내용이 없습니다.'
+      }
+      
+      CList_span.after(last_message)
 
-        chat_list.style.left = '-24em'
-      })
     }
   }
 }
 
+
+function enterChatroom(room_id, user_id) {
+  document.querySelector('#chat_friendName').innerText = '@'+user_id
+  document.querySelector('.chat').querySelectorAll('div')
+      .forEach((test) => test.remove())
+  chat_msg.style.right = '17px'
+  chat_msg.style.transition = '.5s'
+
+  friend_list.style.left = '-24em'
+  chat_list.style.left = '-24em'
+
+  fetch('/layout/enterChatroom/'+room_id,
+  ).then((res) => res.json())
+  .then((myJson) => {
+    if(document.querySelector('.room_id')){
+      document.querySelector('.room_id').remove()
+    }
+    let room_idInput = document.createElement('input')
+    room_idInput.className = 'room_id'
+    room_idInput.type='hidden'
+    room_idInput.value=room_id
+    document.querySelector('.chat_msg').appendChild(room_idInput)
+    makeChat(user_id, myJson)
+  })
+  
+  
+}
+
+const chatDiv = document.querySelector('.chat')
+function makeChat(user_id, myJson) {
+  for(let i =0; i< myJson.length;i++) {
+    if(myJson[i].user_id === user_id){
+      let friendMsgContainerDiv = document.createElement('div')
+      friendMsgContainerDiv.className = 'friendMsgContainer'
+      chatDiv.appendChild(friendMsgContainerDiv)
+
+      let friendMsgP = document.createElement('p')
+      friendMsgP.className = 'friendMsg'
+      friendMsgP.innerHTML = myJson[i].message_ctnt
+      friendMsgContainerDiv.appendChild(friendMsgP)
+
+      let friendMsg_timeSmall = document.createElement('small')
+      friendMsg_timeSmall.className = 'friendMsg_time'
+      friendMsg_timeSmall.innerText = myJson[i].message_date
+      friendMsgContainerDiv.appendChild(friendMsg_timeSmall)
+    } else {
+      let myMsgContainerDiv = document.createElement('div')
+      myMsgContainerDiv.className = 'myMsgContainer'
+      chatDiv.appendChild(myMsgContainerDiv)
+
+      let myMsgP = document.createElement('p')
+      myMsgP.className = 'myMsg'
+      myMsgP.innerHTML = myJson[i].message_ctnt
+      myMsgContainerDiv.appendChild(myMsgP)
+
+      let myMsg_timeSmall = document.createElement('small')
+      myMsg_timeSmall.className = 'myMsg_time'
+      myMsg_timeSmall.innerText = myJson[i].message_date
+      myMsgContainerDiv.appendChild(myMsg_timeSmall)
+
+    }
+  }
+}
 // 알 수도 있는 사람 목록(추천친구)
 getRecommandFriendListFunc()
 
@@ -366,6 +499,31 @@ function getRecommandFriendListFunc() {
     .then((myJson) => {
       getRecFriend_List(myJson)
     })
+}
+
+function getTimeStamp() {
+  var d = new Date();
+  var s =
+    leadingZeros(d.getFullYear(), 4) + '-' +
+    leadingZeros(d.getMonth() + 1, 2) + '-' +
+    leadingZeros(d.getDate(), 2) + ' ' +
+
+    leadingZeros(d.getHours(), 2) + ':' +
+    leadingZeros(d.getMinutes(), 2) + ':' +
+    leadingZeros(d.getSeconds(), 2);
+
+  return s;
+}
+
+function leadingZeros(n, digits) {
+  var zero = '';
+  n = n.toString();
+
+  if (n.length < digits) {
+    for (i = 0; i < digits - n.length; i++)
+      zero += '0';
+  }
+  return zero + n;
 }
 
 const recFriendTable = document.querySelector("table[name='recommand_friend']")
@@ -445,4 +603,3 @@ function getRecFriend_List(myJson) {
     }
   }
 }
-

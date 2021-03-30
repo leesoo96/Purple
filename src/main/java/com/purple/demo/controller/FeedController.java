@@ -3,6 +3,7 @@ package com.purple.demo.controller;
 import com.purple.demo.service.FeedService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,9 +18,13 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import com.purple.demo.common.Const;
 import com.purple.demo.model.FeedListDTO;
 import com.purple.demo.model.FeedWriteDTO;
+import com.purple.demo.model.UserPrincipal;
 import com.purple.demo.model.DTO.CommentWriteDTO;
 import com.purple.demo.model.DTO.FeedBookmarkDTO;
 import com.purple.demo.model.DTO.FeedDetailDTO;

@@ -3,49 +3,103 @@ package com.purple.demo.handler;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import com.purple.demo.model.UserPrincipal;
+import com.purple.demo.common.Utils;
+import com.purple.demo.config.AlarmSocketService;
+import com.purple.demo.mapper.ChatMapper;
+import com.purple.demo.model.DTO.MessageDTO;
 
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
+import lombok.RequiredArgsConstructor;
+
+
 @Component
-public class WebsocketHandler extends TextWebSocketHandler {    // 웹 소켓 서버 생성하는 곳.
-    
+@RequiredArgsConstructor
+public class WebsocketHandler extends TextWebSocketHandler { 
+
+    final ChatMapper chatMapper;
+    final Utils util;
+    final AlarmSocketService socketService; // 로그인한 사용자들 
+
     // 로그인한 사용자들 
-    private Map<String, WebSocketSession> socket = new ConcurrentHashMap<>();
+    private Map<String, WebSocketSession> users = new ConcurrentHashMap<>();
 
     // 클라이언트가 접속했을 때 호출된다
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-        System.out.println("웹소켓 연결 성공");
-        
-        socket.put(session.getId(), session);
+        users.put(session.getId(),session);
     }
 
-    // 데이터 전송 시 호출된다 
+    // 데이터 전송 시 호출된다
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
-        // 전송된 메시지를 list의 모든 세션에 전송
+        
         String msg = message.getPayload();
-		for(String key : socket.keySet()) {
-			WebSocketSession wss = socket.get(key);
-			try {
-				wss.sendMessage(new TextMessage(msg));
-			}catch(Exception e) {
-				e.printStackTrace();
-			}
-		}
+        System.out.println(msg);
+        JSONParser parser = new JSONParser();
+        JSONObject json = (JSONObject)parser.parse(msg);
+
+        if(json.get("type").equals("CREATE")) {
+            String user_id = (String)json.get("user_id");
+            socketService.putSession(user_id, session);
+        }else if(json.get("type").equals("CHAT")) {
+            
+            String send_to = (String)json.get("from"); //테스트용으로 자기자신한테
+            WebSocketSession wss = socketService.getSession(send_to);
+            try{
+                wss.sendMessage(new TextMessage((String)json.get("chat_ctnt")));
+            }catch(Exception e) {
+                e.printStackTrace();
+                System.out.println("비로그인");
+            }finally {
+                MessageDTO dto = new MessageDTO();
+                int sendto = util.getUserPkFromId((String)json.get("send_to"));
+                int from = util.getUserPkFromId((String)json.get("from"));
+                dto.setMessage_state(1);
+                dto.setMessage_readsate(1);
+                dto.setMessage_sendto(sendto);
+                dto.setMessage_from(from);
+                dto.setMessage_ctnt((String)json.get("chat_ctnt"));
+                dto.setMessage_chatroomid((String)json.get("room_id"));
+
+                System.out.println(dto.getMessage_ctnt());
+                //db에 넣는 부분
+                //안 읽은 메시지 가져오는 부분
+
+            }
+        }else if(json.get("type").equals("DELETE")) {
+            String user_id = (String)json.get("user_id");
+            socketService.removeSession(user_id);
+            System.out.println("종료");
+        }else if(json.get("type").equals("CHAT")){
+            
+        }
+       
+        //보내는 메세지
+        //로그인 한 websocketsession 검사
+		// for(String key : users.keySet()) {
+        //     System.out.println(key);
+		// 	WebSocketSession wss = users.get(key);
+        //     System.out.println(wss);
+		// 	try {
+		// 		wss.sendMessage(new TextMessage(msg));
+		// 	}catch(Exception e) {
+		// 		e.printStackTrace();
+		// 	}
+		// }
     }
 
     // 클라이언트 접속이 종료되었을 때 호출된다 
     @Override
     public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
-        System.out.println("웹소켓 종료");
-        socket.remove(session.getId()); 
+        users.remove(session.getId());
+        socketService.removeSession(session);
         super.afterConnectionClosed(session, status);
     }
 
@@ -55,13 +109,16 @@ public class WebsocketHandler extends TextWebSocketHandler {    // 웹 소켓 �
 		System.out.println((session.getId() + " 에러 발생: " + exception.getMessage()));
 	}
 
-    // 로그인한 유저들의 아이디
-    private String getUserId(WebSocketSession session) {
-		Map<String, Object> httpSession = session.getAttributes();
-		UserPrincipal principal = (UserPrincipal)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        // HttpSession에 저장된 아이디
-        String user_id = (String) httpSession.get(principal.getUser_id()); 
-        System.out.println("id = " + user_id);
-		return user_id == null ? null: user_id;
-	}
+    // // 로그인한 유저들의 아이디
+    // private String getUserId(WebSocketSession session) {
+	// 	Map<String, Object> httpSession = session.getAttributes();
+
+	// 	UserPrincipal principal = (UserPrincipal)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    //     // HttpSession에 저장된 아이디
+    //     System.out.println("3");
+
+    //     String user_id = (String) httpSession.get(principal.getUser_id()); 
+    //     System.out.println("4");
+	// 	return user_id == null ? null: user_id;
+	// }
 }

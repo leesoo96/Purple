@@ -7,10 +7,13 @@ import com.purple.demo.mapper.LayoutMapper;
 import com.purple.demo.model.ChatRoomDTO;
 import com.purple.demo.model.FriendDTO;
 import com.purple.demo.model.UserEntity;
+import com.purple.demo.model.DTO.MessageDTO;
 import com.purple.demo.service.LayoutService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -104,6 +107,13 @@ public class LayoutController {
     @ResponseBody
     @PostMapping("/getChatList")
     public List<ChatRoomDTO> getFriendChatList(@RequestBody ChatRoomDTO dto) {
+        System.out.println(dto.getChatroom_userpk());
         return mapper.getChatList(dto);
+    }
+
+    @ResponseBody
+    @GetMapping("/enterChatroom/{room_id}")
+    public List<MessageDTO> enterChatroom(@PathVariable String room_id) {
+        return layoutService.enterChatroom(room_id);
     }
 }

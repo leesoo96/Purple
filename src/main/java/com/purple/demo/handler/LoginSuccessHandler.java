@@ -11,10 +11,12 @@ import javax.servlet.http.HttpSession;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.stereotype.Component;
 
 import com.purple.demo.common.Const;
 import com.purple.demo.model.UserPrincipal;
 
+@Component
 public class LoginSuccessHandler implements AuthenticationSuccessHandler{
 
 	@Override
