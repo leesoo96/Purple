@@ -1,9 +1,9 @@
 package com.purple.demo.utils;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.List;
 import java.util.UUID;
 
 import org.apache.commons.io.FileUtils;
@@ -12,7 +12,6 @@ import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.multipart.MultipartFile;
 
 import lombok.RequiredArgsConstructor;
-
 
 @Component
 @RequiredArgsConstructor
@@ -45,7 +44,6 @@ public class PurpleFileUtils {
 					f.delete();
 				}
 			}
-			
 			folder.delete();
 		}
 	}
@@ -59,10 +57,11 @@ public class PurpleFileUtils {
 	}
 	
 	public void moveFile(String beforePath, String afterPath) {
-		
 		try {
 			FileUtils.moveFile(FileUtils.getFile(getRealPath(beforePath)), FileUtils.getFile(getRealPath(afterPath)));
-		} catch(Exception e) {}
+		} catch(Exception e) {
+
+		}
 	}
 	
 	//스프링이 돌아가고 있는 절대주소값에 path값을 붙여서 가져오기
@@ -99,5 +98,4 @@ public class PurpleFileUtils {
 		System.out.println(basePath);
 		return fileNm;
 	}
-
 }
