@@ -10,7 +10,8 @@ import org.springframework.http.server.ServletServerHttpRequest;
 import org.springframework.web.socket.WebSocketHandler;
 import org.springframework.web.socket.server.HandshakeInterceptor;
 
-public class HttpHandshakeInterceptor implements HandshakeInterceptor{
+// Httpsession에 있는 값을 가로채서 WebSocketSession에 똑같이 넣어주는 역할.
+public class HttpHandshakeInterceptor implements HandshakeInterceptor{  // Interceptor : http통신에서 request, response를 가로채는 역할.
 
     @Override
     public boolean beforeHandshake(ServerHttpRequest request, ServerHttpResponse response, WebSocketHandler wsHandler,
