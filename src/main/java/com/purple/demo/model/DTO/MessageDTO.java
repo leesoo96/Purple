@@ -14,7 +14,7 @@ public class MessageDTO extends MessageEntity{
     // private String message_date; // 작성 날짜
     // private int message_sendto; // 받는사람
     // private int message_from; // 보내는 사람
-    // private int message_readsate; //읽음 상태
+    // private int message_readstate; //읽음 상태
     // private int message_state; //삭제 여부
 
     private String user_id;

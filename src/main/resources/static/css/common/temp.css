@@ -601,10 +601,12 @@ a {
   overflow-y: scroll;
   width: 24em;
   height: 30em;
+  overflow-x:hidden;
 }
 .chat_list::-webkit-scrollbar {
   width: 7px;
 }
+
 .chat_list::-webkit-scrollbar-track {
   background: #ffffff;
 }
@@ -656,7 +658,7 @@ a {
   top: 3em;
   right: -23em;
   height: 35em;
-  overflow-x: hidden;
+  
 }
 
 #chat_friendName {
@@ -674,6 +676,7 @@ a {
   position: relative;
   top: -0.7em;
   overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 .friendMsgContainer {
@@ -703,7 +706,7 @@ a {
   /* overflow: hidden; */
   height: auto;
   margin-top:0.8em;
-  margin-left: 8.5em;
+  margin-left: 7.5em;
   padding: 0.3em;
 }
 
@@ -716,25 +719,29 @@ a {
 }
 
 
-.msg_container textarea {
+.msg_container input {
   font-family: 'Y_Spotlight';
-  width: 27.3rem;
-  height: 2.7em;
+  width: 23rem;
+  height: 2em;
   font-size: 1em;
   border: 1px solid #b8b8b8;
   resize: none;
+  margin-right: 0.8em;
 }
 
 .msg_btn {
   width: 4em;
   display: inline;
   position: absolute;
+  top:82%;
 }
 .msg_btn button {
   font-family: 'Y_Spotlight';
-  height: 3.3em;
+  height: 3em;
   font-size: 1.2rem;
   font-weight: bold;
+  border-radius: 1em;
   border: 1px solid #8a03b3;
   background: #fcf6ff;
+  width: 5em;
 }
