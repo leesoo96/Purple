@@ -26,7 +26,7 @@
               <span>알림</span>
             </a>
             <div id="alarm">
-               <div>17</div> 
+              <div>17</div>
             </div>
           </div>
           <div id="bookmark">

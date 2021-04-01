@@ -24,9 +24,9 @@
 
 <div id="dm_view"> <!-- 대화창 표시 -->
   <p>Purple Talk</p>
-    <div id="new_dm">
-      <div>31</div> 
-    </div>
+    <!-- <div id="new_dm">
+      <div>13</div>
+    </div> -->
   <i class="fas fa-angle-double-up dm_open"></i>
 
   <div class="chat_view">
@@ -64,8 +64,8 @@
         </div> <!-- friendMsgContainer -->
           <!-- 채팅 메시지 입력 시 계속 append  -->
           <div class="msg_container">
-            <input name="msg_input" placeholder="메시지를 입력해주세요.">
-            <div class="msg_btn">
+            <input name="msg_input" onclick="clickRead(this)" placeholder="메시지를 입력해주세요.">
+            <div class="msg_btn" >
               <button name="send_btn">전송</button>
             </div>
           </div> <!-- msg_container -->

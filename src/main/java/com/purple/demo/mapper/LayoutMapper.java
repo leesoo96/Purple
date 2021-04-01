@@ -40,4 +40,9 @@ public interface LayoutMapper {
 
    // 채팅방
    List<MessageDTO> enterChatroom(String room_id);
+
+   //안 읽은 메시지 수
+   int getNoReadAllMessage(int send_to);
+
+   int readMessage(MessageDTO dto);
 }

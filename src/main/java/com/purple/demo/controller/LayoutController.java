@@ -116,4 +116,16 @@ public class LayoutController {
     public List<MessageDTO> enterChatroom(@PathVariable String room_id) {
         return layoutService.enterChatroom(room_id);
     }
+
+    @ResponseBody
+    @GetMapping("/getnoreadallmessage/{user_id}")
+    public int getNoReadAllMessage(@PathVariable String user_id) {
+        return layoutService.getNoReadAllMessage(user_id);
+    }
+
+    @ResponseBody
+    @GetMapping("/readmessage/{room_id}")
+    public int readMessage(@PathVariable String room_id) {
+        return layoutService.readMessage(room_id);
+    }
 }

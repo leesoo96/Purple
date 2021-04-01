@@ -90,13 +90,16 @@
         FROM chatroom AS A
         LEFT JOIN user AS B
         ON A.chatroom_friendpk = B.user_pk
-        LEFT JOIN (SELECT message_chatroomid, message_ctnt, message_date FROM message
-        WHERE message_date = (
-        SELECT MAX(message_date) FROM message GROUP BY message_chatroomid)) AS C
+        LEFT JOIN (SELECT    original.message_chatroomid, original.message_ctnt, original.message_date
+			FROM      message original
+			LEFT JOIN message compare
+			ON        original.message_chatroomid = compare.message_chatroomid
+			AND       original.message_date <![CDATA[<]]>  compare.message_date
+			WHERE     compare.message_chatroomid IS NULL) AS C
         ON A.chatroom_id = C.message_chatroomid
-        WHERE A.chatroom_userpk = #{chatroom_userpk};
+        WHERE A.chatroom_userpk =  #{chatroom_userpk};  
     </select>
-
+   
     <select id="enterChatroom" resultType="MessageDTO">
         SELECT A.message_chatroomid, A.message_ctnt, A.message_date,
         A.message_sendto, A.message_from, A.message_readstate, B.user_id,
@@ -106,7 +109,21 @@
         ON A.message_from = B.user_pk
         WHERE A.message_chatroomid= #{room_id}
         AND A.message_state = 1
-        ORDER BY A.message_date ASC
-        LIMIT 0,30;
+        ORDER BY A.message_date DESC
+        LIMIT 0,40;
     </select>
+
+    <select id="getNoReadAllMessage" resultType="int">
+        SELECT COUNT(message_pk)
+        FROM message
+        WHERE message_sendto = #{send_to}
+        AND message_readstate = 1
+    </select>
+
+    <update id="readMessage">
+        UPDATE message
+		SET message_readstate = #{message_readstate}
+		WHERE message_chatroomid = #{message_chatroomid}
+        AND message_sendto = #{message_sendto}
+    </update>
 </mapper>

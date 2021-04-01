@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import com.purple.demo.common.Utils;
 import com.purple.demo.mapper.LayoutMapper;
 import com.purple.demo.model.ChatRoomDTO;
 import com.purple.demo.model.FriendDTO;
@@ -19,6 +20,9 @@ public class LayoutService {
 
     @Autowired
     private LayoutMapper mapper;
+
+    @Autowired
+    private Utils utils;
 
     public List<FriendDTO> getRecommandFriendList(FriendDTO dto) {
         List<FriendDTO> friendList = new ArrayList<FriendDTO>();
@@ -82,5 +86,19 @@ public class LayoutService {
 
     public List<MessageDTO> enterChatroom(String room_id) {
         return mapper.enterChatroom(room_id);
+    }
+
+    public int getNoReadAllMessage(String user_id) {
+        int user_pk = utils.getUserPkFromId(user_id);
+        return mapper.getNoReadAllMessage(user_pk);
+    }
+
+    public int readMessage(String room_id) {
+        MessageDTO dto = new MessageDTO();
+        UserPrincipal principal = (UserPrincipal)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        dto.setMessage_sendto(principal.getUser_pk());
+        dto.setMessage_chatroomid(room_id);
+        dto.setMessage_readstate(0);
+        return mapper.readMessage(dto);
     }
  }

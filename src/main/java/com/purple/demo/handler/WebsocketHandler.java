@@ -6,6 +6,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import com.purple.demo.common.Utils;
 import com.purple.demo.config.AlarmSocketService;
 import com.purple.demo.mapper.ChatMapper;
+import com.purple.demo.mapper.LayoutMapper;
 import com.purple.demo.model.DTO.MessageDTO;
 
 import org.json.simple.JSONObject;
@@ -24,6 +25,7 @@ import lombok.RequiredArgsConstructor;
 public class WebsocketHandler extends TextWebSocketHandler { 
 
     final ChatMapper chatMapper;
+    final LayoutMapper layoutMapper;
     final Utils util;
     final AlarmSocketService socketService; // 로그인한 사용자들 
 
@@ -39,39 +41,38 @@ public class WebsocketHandler extends TextWebSocketHandler {
     // 데이터 전송 시 호출된다
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
-        
-        String msg = message.getPayload();
-        System.out.println(msg);
         JSONParser parser = new JSONParser();
+        String msg = message.getPayload();
         JSONObject json = (JSONObject)parser.parse(msg);
-
+        
         if(json.get("type").equals("CREATE")) {
             String user_id = (String)json.get("user_id");
             socketService.putSession(user_id, session);
         }else if(json.get("type").equals("CHAT")) {
+            // message를 DB에 저장
+            MessageDTO dto = new MessageDTO();
+            int sendto = util.getUserPkFromId((String)json.get("send_to"));
+            int from = util.getUserPkFromId((String)json.get("from"));
+            dto.setMessage_state(1);
+            dto.setMessage_readstate(1);
+            dto.setMessage_sendto(sendto);
+            dto.setMessage_from(from);
+            dto.setMessage_date((String)json.get("chat_time"));
+            dto.setMessage_ctnt((String)json.get("chat_ctnt"));
+            dto.setMessage_chatroomid((String)json.get("room_id"));
             
-            String send_to = (String)json.get("from"); //테스트용으로 자기자신한테
+            chatMapper.insMessage(dto);
+            
+            json.put("noread", layoutMapper.getNoReadAllMessage(util.getUserPkFromId((String)json.get("send_to"))));
+
+            String send_to = (String)json.get("send_to"); //테스트용으로 자기자신한테
             WebSocketSession wss = socketService.getSession(send_to);
             try{
-                wss.sendMessage(new TextMessage((String)json.get("chat_ctnt")));
+                wss.sendMessage(new TextMessage(json.toJSONString()));
             }catch(Exception e) {
                 e.printStackTrace();
                 System.out.println("비로그인");
             }finally {
-                MessageDTO dto = new MessageDTO();
-                int sendto = util.getUserPkFromId((String)json.get("send_to"));
-                int from = util.getUserPkFromId((String)json.get("from"));
-                dto.setMessage_state(1);
-                dto.setMessage_readsate(1);
-                dto.setMessage_sendto(sendto);
-                dto.setMessage_from(from);
-                dto.setMessage_ctnt((String)json.get("chat_ctnt"));
-                dto.setMessage_chatroomid((String)json.get("room_id"));
-
-                System.out.println(dto.getMessage_ctnt());
-                //db에 넣는 부분
-                //안 읽은 메시지 가져오는 부분
-
             }
         }else if(json.get("type").equals("DELETE")) {
             String user_id = (String)json.get("user_id");
