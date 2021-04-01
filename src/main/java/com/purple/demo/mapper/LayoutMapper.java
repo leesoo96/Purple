@@ -16,6 +16,7 @@ public interface LayoutMapper {
 
    // 추천친구 목록
    List<FriendDTO> getRecommandFriendList(FriendDTO dto);
+   
    // 추천친구 랜덤목록
    List<FriendDTO> getRandomRecommandFriendList(FriendDTO dto);
 
