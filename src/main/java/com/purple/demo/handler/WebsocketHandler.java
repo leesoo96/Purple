@@ -78,7 +78,7 @@ public class WebsocketHandler extends TextWebSocketHandler {
             String user_id = (String)json.get("user_id");
             socketService.removeSession(user_id);
             System.out.println("종료");
-        }else if(json.get("type").equals("CHAT")){
+        }else if(json.get("type").equals("ALARM")){
             
         }
        
