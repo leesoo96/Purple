@@ -10,6 +10,7 @@ if(typeof socket =="undefined") {
       type:"CREATE"
     }
     socket.send(JSON.stringify(createSocketParam))
+    sendAlarm(1,2,'asd')
   }
 
   // 서버로부터 응답이 올 때
@@ -52,7 +53,17 @@ if(typeof socket =="undefined") {
     socket.send(JSON.stringify(closeSocketParam))
   }
 }
-
+function sendAlarm(alarm_category, alarm_valuepk, alarm_sendto) {
+  let params = {
+    alarm_from: user_pk.value,
+    alarm_sendto,
+    alarm_category,
+    alarm_valuepk,
+    type : "ALARM"
+}
+console.log(params.alarm_from)
+  socket.send(JSON.stringify(params))
+}
 
 getNoRealAllMessage()
 function getNoRealAllMessage(){
@@ -495,6 +506,8 @@ function readMessage(room_id) {
   .then((myJson) =>{
   })
 }
+
+
 
 const chatDiv = document.querySelector('.chat')
 function makeChat(user_id, myJson) {

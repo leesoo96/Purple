@@ -7,6 +7,7 @@ import com.purple.demo.common.Utils;
 import com.purple.demo.config.AlarmSocketService;
 import com.purple.demo.mapper.ChatMapper;
 import com.purple.demo.mapper.LayoutMapper;
+import com.purple.demo.model.DTO.AlarmDTO;
 import com.purple.demo.model.DTO.MessageDTO;
 
 import org.json.simple.JSONObject;
@@ -26,7 +27,7 @@ public class WebsocketHandler extends TextWebSocketHandler {
 
     final ChatMapper chatMapper;
     final LayoutMapper layoutMapper;
-    final Utils util;
+    final Utils utils;
     final AlarmSocketService socketService; // 로그인한 사용자들 
 
     // 로그인한 사용자들 
@@ -51,19 +52,16 @@ public class WebsocketHandler extends TextWebSocketHandler {
         }else if(json.get("type").equals("CHAT")) {
             // message를 DB에 저장
             MessageDTO dto = new MessageDTO();
-            int sendto = util.getUserPkFromId((String)json.get("send_to"));
-            int from = util.getUserPkFromId((String)json.get("from"));
+            int sendto = utils.getUserPkFromId((String)json.get("send_to"));
+            int from = utils.getUserPkFromId((String)json.get("from"));
             dto.setMessage_state(1);
             dto.setMessage_readstate(1);
             dto.setMessage_sendto(sendto);
             dto.setMessage_from(from);
             dto.setMessage_date((String)json.get("chat_time"));
             dto.setMessage_ctnt((String)json.get("chat_ctnt"));
-            dto.setMessage_chatroomid((String)json.get("room_id"));
-            
+            dto.setMessage_chatroomid((String)json.get("room_id"));      
             chatMapper.insMessage(dto);
-            
-            json.put("noread", layoutMapper.getNoReadAllMessage(util.getUserPkFromId((String)json.get("send_to"))));
 
             String send_to = (String)json.get("send_to"); //테스트용으로 자기자신한테
             WebSocketSession wss = socketService.getSession(send_to);
@@ -74,14 +72,30 @@ public class WebsocketHandler extends TextWebSocketHandler {
                 System.out.println("비로그인");
             }finally {
             }
-        }else if(json.get("type").equals("DELETE")) {
+        }else if(json.get("type").equals("ALARM")){
+            String send_to = (String)json.get("alarm_sendto");
+            AlarmDTO alarmDTO = new AlarmDTO();
+            System.out.println(Integer.valueOf((String)json.get("alarm_from")).getClass().getName());
+            alarmDTO.setAlarm_category(Integer.valueOf((String)json.get("alarm_category")));
+            alarmDTO.setAlarm_from(Integer.valueOf((String)json.get("alarm_from")));
+            alarmDTO.setAlarm_sendto(utils.getUserPkFromId(send_to));
+            alarmDTO.setAlarm_valuepk(Integer.valueOf((String)json.get("alarm_valuepk")));
+            chatMapper.insAlarm(alarmDTO);
+
+            WebSocketSession wss = socketService.getSession(send_to);
+            try{
+            wss.sendMessage(new TextMessage(json.toJSONString()));
+            }catch(Exception e) {   
+                e.printStackTrace();
+                System.out.println("비로그인");
+            }finally {
+            }
+        }
+        else if(json.get("type").equals("DELETE")) {
             String user_id = (String)json.get("user_id");
             socketService.removeSession(user_id);
             System.out.println("종료");
-        }else if(json.get("type").equals("ALARM")){
-            
         }
-       
         //보내는 메세지
         //로그인 한 websocketsession 검사
 		// for(String key : users.keySet()) {

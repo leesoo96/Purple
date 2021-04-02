@@ -9,5 +9,12 @@
         (#{message_chatroomid}, #{message_ctnt}, #{message_date}, #{message_sendto}, #{message_from})
     </insert>
 
+    <insert id="insAlarm">
+        INSERT INTO alarm
+        (alarm_category, alarm_sendto, alarm_from, alarm_valuepk)
+        VALUES
+        (#{alarm_category}, #{alarm_sendto}, #{alarm_from}, #{alarm_valuepk})
+    </insert>
+
     
 </mapper>
