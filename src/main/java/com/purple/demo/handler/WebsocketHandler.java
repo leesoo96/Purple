@@ -20,7 +20,6 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 import lombok.RequiredArgsConstructor;
 
-
 @Component
 @RequiredArgsConstructor
 public class WebsocketHandler extends TextWebSocketHandler { 

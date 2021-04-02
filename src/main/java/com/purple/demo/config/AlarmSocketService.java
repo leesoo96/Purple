@@ -8,7 +8,7 @@ import org.springframework.web.socket.WebSocketSession;
 
 @Component
 public class AlarmSocketService {
-    private Map<String, WebSocketSession> sessionList  = new ConcurrentHashMap();
+    private Map<String, WebSocketSession> sessionList  = new ConcurrentHashMap<>();
 
     public WebSocketSession getSession(String user_id) {
         return sessionList.get(user_id);
@@ -37,6 +37,6 @@ public class AlarmSocketService {
     }
     public void sendMessage(String getId, String msg) {
         WebSocketSession ws = sessionList.get(getId);
-       /// ws.sendMessage(new TextMessage(msg));
+        // ws.sendMessage(new TextMessage(msg));
     }
 }
