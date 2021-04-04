@@ -2,7 +2,6 @@
 
 let page_count = 0
 
-
 function openCloseMenu(e) {
   if(e.querySelector('.feedMenu').style.display === 'none'){
     e.querySelector('.feedMenu').style.display = 'block'

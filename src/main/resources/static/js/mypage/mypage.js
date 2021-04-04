@@ -1,3 +1,5 @@
+'use strict'
+
 // 모달창 열고 닫기
 function openCloseModal(modalname, state) {
   let modalElem = document.querySelector(`${modalname}`)
@@ -37,6 +39,7 @@ mod_userbackground.addEventListener('change', (event) => {
   }
   reader.readAsDataURL(event.target.files[0])
 })
+
 const userModFrm = document.querySelector('#userModFrm')
 // ID 중복검사
 let check_state = 0
@@ -91,6 +94,7 @@ saveBtn.addEventListener('click', () => {
   if (confirm('정보를 변경하시겠습니까?')) {
     ajax()
   }
+
   function ajaxProfileImg() {
     return new Promise(function (resolve) {
       var formData = new FormData()
@@ -105,6 +109,7 @@ saveBtn.addEventListener('click', () => {
         })
     })
   }
+
   function ajaxBackgroundImg() {
     return new Promise(function (resolve) {
       var formData = new FormData()
@@ -180,8 +185,10 @@ function pw_check(user_pk, user_pw) {
     })
   return Boolean(isTrue)
 }
+
 //비밀번호 확인 검사
 const mod_chkpw = userPwModFrm.mod_chkpw
+
 mod_chkpw.addEventListener('change', () => {
   check_modpw()
   function check_modpw() {
@@ -329,25 +336,26 @@ document.addEventListener('scroll', () => {
 
 // const category = document.querySelector('select[name="feed"]')
 function makeFeedAjax(category, page_count) {
-    return new Promise(function (resolve) {
-      let params = {
-        category: category,
-        page_count: page_count
-      }
-      fetch('/mypage', {
-        method: 'post',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(params), 
-      }).then((res) => 
-        res.json()
-      ).then(function (myJson) {
-        resolve(myJson)
-      })
+  return new Promise(function (resolve) {
+    let params = {
+      category: category,
+      page_count: page_count
+    }
+    fetch('/mypage', {
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(params), 
+    }).then((res) => 
+      res.json()
+    ).then(function (myJson) {
+      resolve(myJson)
     })
+  })
 }
 const feedEle = document.querySelector('#feed')
+
 function makeFeed(myJson){
   if(myJson.result.length === 0) {
     page_count--
@@ -435,6 +443,7 @@ function makeFeed(myJson){
     let feed_contentDiv = document.createElement('div')
     feed_contentDiv.className = 'feed_content'
     feed_containerEle.appendChild(feed_contentDiv)
+
     if(myJson.result[i].hashtag_ctnt.length > 0) {
       for(let k=0; k < myJson.result[i].hashtag_ctnt.length; k++) {
         let hashtagA = document.createElement('a')
@@ -445,6 +454,7 @@ function makeFeed(myJson){
         feed_contentDiv.appendChild(hashtagA)
       }
     }
+
     let detailDiv = document.createElement('div')
     detailDiv.setAttribute('onclick', `feedDetail(this, ${myJson.result[i].feed_pk})`)
     feed_contentDiv.appendChild(detailDiv)
@@ -452,8 +462,6 @@ function makeFeed(myJson){
     let feed_ctntP = document.createElement('p')
     feed_ctntP.innerText = `${myJson.result[i].feed_ctnt}`
     detailDiv.appendChild(feed_ctntP)
-    
-    
     feed_containerEle.appendChild(feed_contentDiv)
     
     let feed_functionbarEle = document.createElement('div')
@@ -466,6 +474,7 @@ function makeFeed(myJson){
     feed_functionbarEle.appendChild(commentI)
 
     let favoriteI = document.createElement('i')
+
     if(myJson.result[i].favorite_state === 1) {
       favoriteI.className = 'fas fa-heart'
     }else {
@@ -495,6 +504,7 @@ function feedFavorite(e,feed_pk) {
   let favorite_state = 0
   const function_bar = e.parentNode
   let favoriteI = function_bar.querySelector('.fa-heart')
+  
   if(favoriteI.className === 'fas fa-heart'){
     favorite_state = 1
   }else {
@@ -561,7 +571,6 @@ function openCloseMenu(e) {
 }
 
 function delFeed(feed_pk) {
-
   if(confirm('정말 삭제하시겠습니까?')) {
     fetch(`/feed/deleteFeed`, {
       method: 'put',

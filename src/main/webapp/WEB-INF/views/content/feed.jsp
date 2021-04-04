@@ -4,7 +4,6 @@
 
 <link rel="stylesheet" href="/resources/css/feed/feed.css">
 <link rel="stylesheet" href="/resources/css/feed/feedDetail.css">
-<%-- <script defer src="/resources/js/feed/sockjs.min.js"></script> --%>
 <script defer src="/resources/js/feed/feed.js"></script>
 <script defer src="/resources/js/feed/feedDetail.js"></script>
 
@@ -15,13 +14,14 @@
   </select>
 </div>
 <div id="feed">
+
 </div>   <!-- feed -->
 
 <div class="feed_overlay">
-      <div class="feedDetail">
-               
-      </div> 
-   </div>
+   <div class="feedDetail">
+      
+   </div> 
+</div>
 
 <!-- 댓글 html 코드 
 <div class="cmtReadDetail">
