@@ -27,6 +27,50 @@ function register() {
   errMSG.style.left = '-400px'
 }
 
+//이메일 형식
+function email_check(email) {
+  var regex = /([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/
+  return email != '' && email != 'undefined' && regex.test(email)
+}
+
+//아이디 형식
+function CheckId(uid) {
+  if (!/[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]{2,7}$/.test(uid)) {
+    alert('이름은 한글로 2~7자리를 입력해야 합니다.')
+    return false
+  }
+  return true
+}
+
+//비밀번호 형식
+function CheckPassword(uid, upw) {
+  if (
+    !/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/.test(
+      upw
+    )
+  ) {
+    alert(
+      '비밀번호는 숫자와 영문자와 특수문자 조합으로 8~20자리를 사용해야 합니다.'
+    )
+    return false
+  }
+  var chk_num = upw.search(/[0-9]/g)
+  var chk_eng = upw.search(/[a-z]/gi)
+  if (chk_num < 0 || chk_eng < 0) {
+    alert('비밀번호는 숫자와 영무자를 혼용하여야 합니다.')
+    return false
+  }
+  if (/(\w)\1\1\1/.test(upw)) {
+    alert('비밀번호에 같은 문자를 4번 이상 사용하실 수 없습니다.')
+    return false
+  }
+  if (upw.search(uid) > -1) {
+    alert('ID가 포함된 비밀번호는 사용하실 수 없습니다.')
+    return false
+  }
+  return true
+}
+
 // 로그인
 const loginBtn = document.querySelector('#login_Btn')
 let user_id = loginFrmEle.user_id
@@ -89,16 +133,14 @@ function joinProc() {
   ajax()
 
   function ajax() {
-    if (user_nameEle.value === '') {
-      alert('성함을 입력해주세요')
+    if (!CheckId(user_nameEle.value)) {
       user_nameEle.focus()
       return
-    } else if (user_pwEle.value === '') {
-      alert('비밀번호를 입력해주세요')
+    } else if (!CheckPassword(user_idEle.value, user_pwEle.value)) {
       user_pwEle.focus()
       return
-    } else if (user_emailEle.value === '') {
-      alert('이메일을 입력해주세요')
+    } else if (!email_check(user_emailEle.value)) {
+      alert('이메일을 형식에 맞게 입력해주세요')
       user_emailEle.focus()
       return
     } else if (user_birthEle.value === '') {

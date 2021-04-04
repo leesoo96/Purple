@@ -179,7 +179,7 @@ function makeFeed(myJson) {
     feed_writedateSpan.innerText = `${myJson.result[i].feed_writedate}`
     feed_titleEle.appendChild(feed_writedateSpan)
 
-    if(myJson.result[i].user_pk === myJson.result[i].feed_userpk) {
+    if(myJson.result[i].user_pk === document.querySelector('#user_pk').value) {
       let feedMenuI = document.createElement('i')
       feedMenuI.className = 'fas fa-ellipsis-h'
       feedMenuI.setAttribute('onclick', 'openCloseMenu(this)')

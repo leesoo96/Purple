@@ -14,7 +14,12 @@ pageEncoding="UTF-8"%>
     <img onerror="this.style.display='none'" src="${userInfo.user_backgroundimg}">
   </div>
   <div id="userpage_userinfo_img">
-    <img src=${userInfo.user_profileimg} onerror="this.src='/resources/img/common/basic_profile.png'" alt="기본프로필사진">
+    <c:if test="${not empty userInfo.user_profileimg}">
+      <img src=${userInfo.user_profileimg} onerror="this.src='/resources/img/common/basic_profile.png'" alt="기본프로필사진">
+  </c:if>
+  <c:if test="${empty userInfo.user_profileimg}">
+      <img alt="기본프로필사진" src="/resources/img/common/basic_profile.png">
+  </c:if>
   </div>
   <div id="userpage_userinfo_content">
       <div class="userpageuser_id">

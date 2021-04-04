@@ -58,7 +58,7 @@
 
 .detail_Img{
   position: relative;
-  padding: 0.1em;
+  left: -0.7em;
   width: 100%;
 }
 
@@ -92,10 +92,13 @@
   border-radius: 0 3px 3px 0;
   user-select: none;
   z-index: 1;
-}
 
+}
+.detail_previous{
+  left: -0.1em;
+}
 .detail_next {
-  right: 0;
+  right: 0.6em;
   border-radius: 3px 0 0 3px;
 }
 
