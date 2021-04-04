@@ -94,8 +94,8 @@ public class UserServiceImpl implements UserDetailsService {
 		// Mail server 설정
 		String charSet = "utf-8";
 		String hostSMTP = "smtp.gmail.com";
-		String hostSMTPid = "dltnwls7042"; // 보내는 사람 아이디
-		String hostSMTPpwd = "cltzpanotdmabqvl"; // 앱 비밀번호
+		String hostSMTPid = "purple210409"; // 보내는 사람 아이디
+		String hostSMTPpwd = "mrpshuscuzizaent"; // 앱 비밀번호
 
 		// 보내는 사람
 		String fromEmail = "purple@purple.com";
