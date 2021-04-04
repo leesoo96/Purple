@@ -1,3 +1,5 @@
+'use strict'
+
 // 서버구축 완료 후 wss로 바꿀 것
 var socket
 

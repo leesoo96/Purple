@@ -1,3 +1,5 @@
+'use strict'
+
 // feedDetail
 let feed_DetailOverlay = document.querySelector('.feed_overlay')
 const feedDetailClass = document.querySelector('.feedDetail')
@@ -14,11 +16,9 @@ function feedDetail(e, feed_pk) {
   })
 }
 
-
 function makeFeedDetail(e, myJson) {
 
   feed_DetailOverlay.style.display = 'block' // feedDetail show
-
 
   //detail content
   const detail_ctnt_containerDiv = document.createElement('div')
@@ -33,8 +33,6 @@ function makeFeedDetail(e, myJson) {
   const closeI = document.createElement('i')
   closeI.className = 'fas fa-times'
   closeDiv.appendChild(closeI)
-
-
 
   //이미지가 있을 때
   if (myJson.media_url.length > 0) {
@@ -159,7 +157,6 @@ function makeFeedDetail(e, myJson) {
   bookmarkI.setAttribute('onclick', `feedBookmark(this, ${myJson.feed_pk})`)
   detail_functionbarDiv.appendChild(bookmarkI)
 
-
   // 댓글창 ////////////////////////////////////////
   const detail_comment_containerDiv = document.createElement('div')
   detail_comment_containerDiv.classList.add('detail_comment_container')
@@ -175,6 +172,7 @@ function makeFeedDetail(e, myJson) {
     span.className = 'noComment'
     comment_listDiv.appendChild(span)
   }
+
   for(let k =0; k < myJson.comment_list.length; k++) {
     let commentbarDiv = document.createElement('div')
     commentbarDiv.className = 'commentbar'
@@ -183,6 +181,7 @@ function makeFeedDetail(e, myJson) {
 
     let commentUserImg = document.createElement('img')
     commentUserImg.src = `${myJson.comment_list[k].user_profileimg}`
+    
     if(myJson.comment_list[k].user_profileimg == null) {
       commentUserImg.src = '/resources/img/common/basic_profile.png'
     }
