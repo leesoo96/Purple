@@ -74,13 +74,15 @@ function getNoRealAllMessage() {
       if (document.querySelector('#new_dm')) {
         document.querySelector('#new_dm').remove()
       }
-      const new_dmDiv = document.createElement('div')
-      new_dmDiv.setAttribute('id', 'new_dm')
-      document.querySelector('#dm_view p').after(new_dmDiv)
+      if (myJson > 0) {
+        const new_dmDiv = document.createElement('div')
+        new_dmDiv.setAttribute('id', 'new_dm')
+        document.querySelector('#dm_view p').after(new_dmDiv)
 
-      let noReadCount = document.createElement('div')
-      noReadCount.innerHTML = myJson
-      new_dm.appendChild(noReadCount)
+        let noReadCount = document.createElement('div')
+        noReadCount.innerHTML = myJson
+        new_dm.appendChild(noReadCount)
+      }
     })
 }
 
@@ -92,13 +94,16 @@ function getAlarmCount() {
       if (document.querySelector('#alarm')) {
         document.querySelector('#alarm').remove()
       }
-      const alarmDiv = document.createElement('div')
-      alarmDiv.setAttribute('id', 'alarm')
-      document.querySelector('#news').appendChild(alarmDiv)
 
-      let alarmCount = document.createElement('div')
-      alarmCount.innerHTML = myJson
-      alarmDiv.appendChild(alarmCount)
+      if (myJson > 0) {
+        const alarmDiv = document.createElement('div')
+        alarmDiv.setAttribute('id', 'alarm')
+        document.querySelector('#news').appendChild(alarmDiv)
+
+        let alarmCount = document.createElement('div')
+        alarmCount.innerHTML = myJson
+        alarmDiv.appendChild(alarmCount)
+      }
     })
 }
 //서버로 값을 보낼 때

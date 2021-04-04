@@ -26,7 +26,6 @@
         LIMIT #{first_page}, #{end_page};
     </select>
 
-
     <select id="selFeedDetail" resultType="FeedDetailDTO">
         SELECT a.feed_pk, a.feed_ctnt, a.feed_writedate, a.feed_userpk, a.feed_state,
         b.user_id, b.user_profileimg,
@@ -79,6 +78,7 @@
         SET feed_state = 0
         WHERE feed_pk= #{feed_pk}
     </update>
+
     <!-- favorite 부분 -->
     <select id="favoriteCount" resultType="_int">
         SELECT COUNT(favorite_feedpk) AS "favorite_count"
@@ -168,6 +168,7 @@
         VALUES
         (#{comment_feedpk}, #{comment_ctnt}, #{comment_userpk}, #{comment_state}, #{comment_parentpk})
     </insert>
+    
     <insert id="insComment" useGeneratedKeys="true" keyProperty="comment_pk">
         INSERT INTO comment
         (comment_feedpk, comment_ctnt, comment_userpk, comment_state)

@@ -14,10 +14,12 @@
 }
 .alarmTable img {
   width: 4em;
-  border-radius: 2em;
+  height: 100%;
+  border-radius: 70%;
+  padding: 0.4em 0em;
 }
 .alarmTable td {
-  height: 6em;
+  height: 4em;
   margin-right: 0.4em
 }
 

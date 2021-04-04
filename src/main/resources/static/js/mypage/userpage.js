@@ -116,23 +116,23 @@ function makeFeedAjax(category, page_count) {
     })
 }
 const feedEle = document.querySelector('#feed')
-function makeFeed(myJson){
-  if(myJson.result.length === 0) {
+function makeFeed(myJson) {
+  if (myJson.result.length === 0) {
     page_count--
     return
   }
-    for(let i = 0; i < myJson.result.length; i++){
+  for (let i = 0; i < myJson.result.length; i++) {
     // feed_container 생성
     let feed_containerEle = document.createElement('div')
     feed_containerEle.className = 'feed_container'
-    
+
     // feedtitle 생성
     let feed_titleEle = document.createElement('div')
     feed_titleEle.className = 'feed_title'
     feed_containerEle.appendChild(feed_titleEle)
     let imgEle = document.createElement('img')
     imgEle.src = `/resources/img/common/basic_profile.png`
-    if(myJson.result[i].user_profileimg !== null) {
+    if (myJson.result[i].user_profileimg !== null) {
       imgEle.src = `${myJson.result[i].user_profileimg}`
     }
     feed_titleEle.appendChild(imgEle)
@@ -148,12 +148,27 @@ function makeFeed(myJson){
     feed_writedateSpan.innerText = `${myJson.result[i].feed_writedate}`
     feed_titleEle.appendChild(feed_writedateSpan)
 
-    let feedMenuI = document.createElement('i')
-    feedMenuI.className = 'fas fa-ellipsis-h'
-    feed_titleEle.appendChild(feedMenuI)
-    
+    console.log(myJson.result[i])
+    if(myJson.result[i].user_pk === document.querySelector('#user_pk').value) {
+      let feedMenuI = document.createElement('i')
+      feedMenuI.className = 'fas fa-ellipsis-h'
+      feedMenuI.setAttribute('onclick', 'openCloseMenu(this)')
+      feed_titleEle.appendChild(feedMenuI)
+
+      let feedMenuUl = document.createElement('ul')
+      feedMenuUl.className = 'feedMenu'
+      feedMenuUl.style.display = 'none'
+      feedMenuI.appendChild(feedMenuUl)
+
+      let feedMenuLi1 = document.createElement('li')
+      feedMenuLi1.className = 'feedLi'
+      feedMenuLi1.innerHTML = '삭제'
+      feedMenuLi1.setAttribute('onclick', `delFeed(${myJson.result[i].feed_pk})`)
+      feedMenuUl.appendChild(feedMenuLi1)
+    }
+
     // 이미지
-    if(myJson.result[i].media_url.length > 0) {
+    if (myJson.result[i].media_url.length > 0) {
       let feed_imgDiv = document.createElement('div')
       feed_imgDiv.className = 'feed_img'
       feed_containerEle.appendChild(feed_imgDiv)
@@ -169,7 +184,7 @@ function makeFeed(myJson){
 
       let feed_imgListDiv = document.createElement('div')
       feed_imgListDiv.className = 'feed_imgList'
-      for(let j =0; j < myJson.result[i].media_url.length; j++) {
+      for (let j = 0; j < myJson.result[i].media_url.length; j++) {
         let img = document.createElement('img')
         img.src = `${myJson.result[i].media_url[j].media_url}`
         feed_imgListDiv.appendChild(img)
@@ -185,12 +200,12 @@ function makeFeed(myJson){
       nextI.className = 'fas fa-chevron-right'
       nextDiv.appendChild(nextI)
     }
-    
+
     let feed_contentDiv = document.createElement('div')
     feed_contentDiv.className = 'feed_content'
     feed_containerEle.appendChild(feed_contentDiv)
-    if(myJson.result[i].hashtag_ctnt.length > 0) {
-      for(let k=0; k < myJson.result[i].hashtag_ctnt.length; k++) {
+    if (myJson.result[i].hashtag_ctnt.length > 0) {
+      for (let k = 0; k < myJson.result[i].hashtag_ctnt.length; k++) {
         let hashtagA = document.createElement('a')
         let hashtag_ctnt = `${myJson.result[i].hashtag_ctnt[k].hashtag_ctnt}`
         hashtag_ctnt = hashtag_ctnt.split('#')[1]
@@ -200,43 +215,54 @@ function makeFeed(myJson){
       }
     }
     let detailDiv = document.createElement('div')
-    detailDiv.setAttribute('onclick', `feedDetail(this, ${myJson.result[i].feed_pk})`)
+    detailDiv.setAttribute(
+      'onclick',
+      `feedDetail(this, ${myJson.result[i].feed_pk})`
+    )
     feed_contentDiv.appendChild(detailDiv)
 
     let feed_ctntP = document.createElement('p')
     feed_ctntP.innerText = `${myJson.result[i].feed_ctnt}`
     detailDiv.appendChild(feed_ctntP)
-    
-    
+
     feed_containerEle.appendChild(feed_contentDiv)
-    
+
     let feed_functionbarEle = document.createElement('div')
     feed_functionbarEle.className = 'feed_functionbar'
 
     let commentI = document.createElement('i')
-    commentI.setAttribute('onclick', `feedDetail(this, ${myJson.result[i].feed_pk})`)
+    commentI.setAttribute(
+      'onclick',
+      `feedDetail(this, ${myJson.result[i].feed_pk})`
+    )
     commentI.className = 'fal fa-comment'
     commentI.innerHTML = `${myJson.result[i].comment_count}`
     feed_functionbarEle.appendChild(commentI)
 
     let favoriteI = document.createElement('i')
-    if(myJson.result[i].favorite_state === 1) {
+    if (myJson.result[i].favorite_state === 1) {
       favoriteI.className = 'fas fa-heart'
-    }else {
+    } else {
       favoriteI.className = 'far fa-heart'
     }
     favoriteI.innerHTML = `${myJson.result[i].favorite_count}`
-    favoriteI.setAttribute('onclick', `feedFavorite(this, ${myJson.result[i].feed_pk})`)
+    favoriteI.setAttribute(
+      'onclick',
+      `feedFavorite(this, ${myJson.result[i].feed_pk})`
+    )
     feed_functionbarEle.appendChild(favoriteI)
 
     let bookmarkI = document.createElement('i')
 
-    if(myJson.result[i].bookmark_state === 1){
+    if (myJson.result[i].bookmark_state === 1) {
       bookmarkI.className = 'fas fa-bookmark'
-    }else{
+    } else {
       bookmarkI.className = 'far fa-bookmark'
     }
-    bookmarkI.setAttribute('onclick', `feedBookmark(this, ${myJson.result[i].feed_pk})`)
+    bookmarkI.setAttribute(
+      'onclick',
+      `feedBookmark(this, ${myJson.result[i].feed_pk})`
+    )
     feed_functionbarEle.appendChild(bookmarkI)
 
     feed_containerEle.appendChild(feed_functionbarEle)
@@ -245,35 +271,36 @@ function makeFeed(myJson){
   }
 }
 
-function feedFavorite(e,feed_pk) {
+function feedFavorite(e, feed_pk) {
   let favorite_state = 0
   const function_bar = e.parentNode
   let favoriteI = function_bar.querySelector('.fa-heart')
-  if(favoriteI.className === 'fas fa-heart'){
+  if (favoriteI.className === 'fas fa-heart') {
     favorite_state = 1
-  }else {
+  } else {
     favorite_state = 0
   }
   let params = {
-    favorite_feedpk : feed_pk,
-    favorite_state
+    favorite_feedpk: feed_pk,
+    favorite_state,
   }
   fetch('/feed/favorite', {
     method: 'post',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(params), 
-  }).then((res) => res.json()
-  ).then((myJson) => {
-
-    if(myJson.result.favorite_state == 0) {
-      favoriteI.className = 'far fa-heart'
-    }else {
-      favoriteI.className = 'fas fa-heart'
-    }
-    favoriteI.innerHTML = myJson.result.favorite_count
+    body: JSON.stringify(params),
   })
+    .then((res) => res.json())
+    .then((myJson) => {
+      if (myJson.result.favorite_state == 0) {
+        favoriteI.className = 'far fa-heart'
+      } else {
+        favoriteI.className = 'fas fa-heart'
+        sendAlarm(2,feed_pk,function_bar.parentNode.querySelector('span').innerText)
+      }
+      favoriteI.innerHTML = myJson.result.favorite_count
+    })
 }
 
 // Feed Bookmark
@@ -281,27 +308,28 @@ function feedBookmark(e, feed_pk) {
   let bookmark_state = 0
   const function_bar = e.parentNode
   let bookmarkI = function_bar.querySelector('.fa-bookmark')
-  if(bookmarkI.className === 'fas fa-bookmark'){
+  if (bookmarkI.className === 'fas fa-bookmark') {
     bookmark_state = 1
-  }else {
+  } else {
     bookmark_state = 0
   }
   let params = {
-    bookmark_feedpk : feed_pk,
-    bookmark_state
+    bookmark_feedpk: feed_pk,
+    bookmark_state,
   }
   fetch('/feed/bookmark', {
     method: 'post',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(params), 
-  }).then((res) => res.json()
-  ).then((myJson) => {
-    if(myJson.result.bookmark_state == 0) {
-      bookmarkI.className = 'far fa-bookmark'
-    }else {
-      bookmarkI.className = 'fas fa-bookmark'
-    }
+    body: JSON.stringify(params),
   })
+    .then((res) => res.json())
+    .then((myJson) => {
+      if (myJson.result.bookmark_state == 0) {
+        bookmarkI.className = 'far fa-bookmark'
+      } else {
+        bookmarkI.className = 'fas fa-bookmark'
+      }
+    })
 }

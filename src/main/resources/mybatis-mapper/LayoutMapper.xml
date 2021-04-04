@@ -97,7 +97,8 @@
 			AND       original.message_date <![CDATA[<]]>  compare.message_date
 			WHERE     compare.message_chatroomid IS NULL) AS C
         ON A.chatroom_id = C.message_chatroomid
-        WHERE A.chatroom_userpk =  #{chatroom_userpk};  
+        WHERE A.chatroom_userpk =  #{chatroom_userpk}
+        ORDER BY C.message_date ASC;
     </select>
    
     <select id="enterChatroom" resultType="MessageDTO">
