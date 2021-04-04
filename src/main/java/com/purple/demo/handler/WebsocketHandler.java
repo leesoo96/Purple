@@ -10,7 +10,6 @@ import com.purple.demo.mapper.LayoutMapper;
 import com.purple.demo.model.DTO.AlarmDTO;
 import com.purple.demo.model.DTO.MessageDTO;
 
-import org.hamcrest.core.Is;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.springframework.stereotype.Component;
@@ -63,7 +62,7 @@ public class WebsocketHandler extends TextWebSocketHandler {
             dto.setMessage_chatroomid((String)json.get("room_id"));      
             chatMapper.insMessage(dto);
 
-            String send_to = (String)json.get("send_to"); //테스트용으로 자기자신한테
+            String send_to = (String)json.get("send_to");
             WebSocketSession wss = socketService.getSession(send_to);
             try{
                 wss.sendMessage(new TextMessage(json.toJSONString()));

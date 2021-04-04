@@ -650,7 +650,7 @@ function getRecFriend_List(myJson) {
 
     let addNewFriendBtn_i = document.querySelectorAll('#recommand_div i')
     for (let j = 0; j < addNewFriendBtn_i.length; j++) {
-      addNewFriendBtn = addNewFriendBtn_i[j].onclick = function () {
+      addNewFriendBtn_i[j].onclick = function () {
         let addFriendConfirmMsg = confirm(
           `${myJson[j].user_id}` + ' 님을 친구 추가하시겠습니까?'
         )
