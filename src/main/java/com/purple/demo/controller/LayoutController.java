@@ -128,4 +128,16 @@ public class LayoutController {
     public int readMessage(@PathVariable String room_id) {
         return layoutService.readMessage(room_id);
     }
+
+    @ResponseBody
+    @GetMapping("/getalarmcount/{user_id}")
+    public int getAlarmCount(@PathVariable String user_id) {
+        return layoutService.getAlarmCount(user_id);
+    }
+
+    @ResponseBody
+    @GetMapping("/readalarm/{user_pk}")
+    public int readAlarm(@PathVariable int user_pk) {
+        return layoutService.readAlarm(user_pk);
+    }
 }

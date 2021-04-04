@@ -25,9 +25,7 @@
               <i class="far fa-bell menu_icons"></i>
               <span>알림</span>
             </a>
-            <div id="alarm">
-              <div>17</div>
-            </div>
+        
           </div>
           <div id="bookmark">
             <a href="/bookmark">

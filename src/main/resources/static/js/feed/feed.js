@@ -327,6 +327,7 @@ function feedFavorite(e, feed_pk) {
         favoriteI.className = 'far fa-heart'
       } else {
         favoriteI.className = 'fas fa-heart'
+        sendAlarm(2,feed_pk,function_bar.parentNode.querySelector('span').innerText)
       }
       favoriteI.innerHTML = myJson.result.favorite_count
     })

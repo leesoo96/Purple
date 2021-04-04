@@ -101,4 +101,13 @@ public class LayoutService {
         dto.setMessage_readstate(0);
         return mapper.readMessage(dto);
     }
+
+    public int getAlarmCount(String user_id) {
+        int user_pk = utils.getUserPkFromId(user_id);
+        return mapper.getAlarmCount(user_pk);
+    }
+    
+    public int readAlarm(int user_pk) {
+        return mapper.readAlarm(user_pk);
+    }
  }

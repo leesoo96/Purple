@@ -265,6 +265,8 @@ function comment_submit(e,feed_pk) {
   const comment_inputEle = e.parentNode
   let comment_ctnt = comment_inputEle.querySelector('input[name="comment_ctnt"]').value
   if(comment_inputEle.querySelector('span[name="recomment_userid"]') != null) {
+    let parent_comment_user_pk = comment_inputEle.querySelector('span[name="recomment_userid"]').innerText
+    
     let params = {
       comment_feedpk: feed_pk,
       comment_parentpk : comment_inputEle.querySelector('span[name="recomment_userid"]').dataset.comment_pk,
@@ -281,6 +283,8 @@ function comment_submit(e,feed_pk) {
     if(myJson.result === 1) {
       comment_inputEle.querySelector('input[name="comment_ctnt"]').value = ''
       comment_inputEle.querySelector('span[name="recomment_userid"]').remove()
+      sendAlarm(4,feed_pk,parent_comment_user_pk.split('@')[1])
+      sendAlarm(3,feed_pk,e.parentNode.parentNode.parentNode.querySelector('.detail_titlebar span').innerText)
     }
   })
     return
@@ -302,6 +306,7 @@ function comment_submit(e,feed_pk) {
     if(myJson.result === 1) {
       comment_inputEle.querySelector('input[name="comment_ctnt"]').value = ''
       getCommentList(e, feed_pk)
+      sendAlarm(3,feed_pk,e.parentNode.parentNode.parentNode.querySelector('.detail_titlebar span').innerText)
       return
     }
     alert('댓글 작성을 실패하였습니다.')

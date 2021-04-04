@@ -46,4 +46,8 @@ public interface LayoutMapper {
    int getNoReadAllMessage(int send_to);
 
    int readMessage(MessageDTO dto);
+
+   int getAlarmCount(int send_to);
+
+   int readAlarm(int user_pk);
 }

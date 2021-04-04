@@ -8,4 +8,10 @@
         WHERE user_id = #{user_id};
     </select>
 
+    <select id="getUserIdFromPk" resultType="String">
+        SELECT user_id
+        FROM user
+        WHERE user_pk = #{user_pk};
+    </select>
+
 </mapper>
