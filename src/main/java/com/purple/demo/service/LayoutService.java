@@ -27,7 +27,7 @@ public class LayoutService {
     public List<FriendDTO> getRecommandFriendList(FriendDTO dto) {
         List<FriendDTO> friendList = new ArrayList<FriendDTO>();
         friendList = mapper.getRecommandFriendList(dto);
-        if(friendList.isEmpty()) {
+        if(friendList.size() <= 5) {
         // 친구가 없는 사용자에게 랜덤으로 목록을 출력합니다 
             friendList = mapper.getRandomRecommandFriendList(dto);
             return friendList;

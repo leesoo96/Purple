@@ -53,8 +53,6 @@ public class WebsocketHandler extends TextWebSocketHandler {
             MessageDTO dto = new MessageDTO();
             int sendto = utils.getUserPkFromId((String)json.get("send_to"));
             int from = utils.getUserPkFromId((String)json.get("from"));
-            dto.setMessage_state(1);
-            dto.setMessage_readstate(1);
             dto.setMessage_sendto(sendto);
             dto.setMessage_from(from);
             dto.setMessage_date((String)json.get("chat_time"));
@@ -116,17 +114,4 @@ public class WebsocketHandler extends TextWebSocketHandler {
 	public void handleTransportError(WebSocketSession session, Throwable exception) throws Exception {
 		System.out.println((session.getId() + " 에러 발생: " + exception.getMessage()));
 	}
-
-    // // 로그인한 유저들의 아이디
-    // private String getUserId(WebSocketSession session) {
-	// 	Map<String, Object> httpSession = session.getAttributes();
-
-	// 	UserPrincipal principal = (UserPrincipal)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-    //     // HttpSession에 저장된 아이디
-    //     System.out.println("3");
-
-    //     String user_id = (String) httpSession.get(principal.getUser_id()); 
-    //     System.out.println("4");
-	// 	return user_id == null ? null: user_id;
-	// }
 }

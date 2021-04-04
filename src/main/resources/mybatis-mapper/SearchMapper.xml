@@ -42,13 +42,8 @@
         ON (a.feed_userpk = b.user_pk)
         inner JOIN hashtag_relation c ON a.feed_pk = c.htrel_feedpk
         inner JOIN hashtag d ON c.htrel_hashtagpk = d.hashtag_pk
-        WHERE a.feed_state = 1 AND d.hashtag_ctnt 
-        <if test="search_hashtag_ctnt != '' ">
-            LIKE '%${search_hashtag_ctnt}%' 
-        </if>
-        <if test="search_hashtag_ctnt == ''">
-            LIKE '%null%'
-        </if>
+        WHERE a.feed_state = 1 
+        AND d.hashtag_ctnt = #{search_hashtag_ctnt}
         ORDER BY a.feed_writedate DESC
         LIMIT #{first_page}, #{end_page};
     </select>
