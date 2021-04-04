@@ -29,9 +29,6 @@ public class LayoutController {
     @Autowired
     private LayoutService layoutService;
 
-    // @Autowired
-    // private ChatService chatService;
-
     // RightLayout ONLY //////////////////////////////////////////////
     // 알 수도 있는 사람 목록 
     @ResponseBody
@@ -84,14 +81,6 @@ public class LayoutController {
 		delFriend.put(Const.KEY_REUSLT, layoutService.delFriend(dto));
 		return delFriend;
 	}
-
-    // 방 정보 가져오기 
-    // @ResponseBody
-    // @RequestMapping("/getRoom")
-	// public List<ChatRoomDTO> getRoom(){
-    //     // chatService.getRoom();
-	// 	return roomList;
-	// }
 
     // 채팅방 생성
     @ResponseBody

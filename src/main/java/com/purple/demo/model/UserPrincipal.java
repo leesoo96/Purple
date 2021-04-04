@@ -14,8 +14,7 @@ import lombok.EqualsAndHashCode;
 
 // loadUserByUsername 메소드가 userDetails를 리턴
 @Data
-@EqualsAndHashCode(of = "user_id")
-public class UserPrincipal extends UserEntity implements UserDetails, Principal {
+public class UserPrincipal extends UserEntity implements Principal {
 	private Collection<? extends GrantedAuthority> authorities;
 	
 	public UserPrincipal(UserEntity user) {
@@ -40,44 +39,9 @@ public class UserPrincipal extends UserEntity implements UserDetails, Principal 
 	        		singletonList(new SimpleGrantedAuthority(user.getUser_auth()));
 	        return new UserPrincipal(user);
 	    }
-	
-//	한 계정에 권한을 몇 개 가지고 있는지 확인하는 메소드
-	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return Collections.singletonList(new SimpleGrantedAuthority(this.getUser_auth()));
-	}
-	
-//	유저 비밀번호
-	@Override
-	public String getPassword() {
-		return this.getUser_pw();
-	}
-	
-//	유저 아이디 
-	@Override
-	public String getUsername() {
-		return this.getUser_id();
-	}
-	
-	@Override
-	public boolean isAccountNonExpired() {
-		return true;
-	}
-	@Override
-	public boolean isAccountNonLocked() {
-		return true;
-	}
-	@Override
-	public boolean isCredentialsNonExpired() {
-		return true;
-	}
-	@Override
-	public boolean isEnabled() {
-		return true;
-	}
-
+			
 	@Override
 	public String getName() {
-		return null;
+		return this.getUser_id();
 	}
 }
