@@ -10,7 +10,6 @@ import com.purple.demo.mapper.LayoutMapper;
 import com.purple.demo.model.DTO.AlarmDTO;
 import com.purple.demo.model.DTO.MessageDTO;
 
-import org.hamcrest.core.Is;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.springframework.stereotype.Component;
