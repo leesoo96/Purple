@@ -12,17 +12,15 @@ if(typeof socket =="undefined") {
       type:"CREATE"
     }
     socket.send(JSON.stringify(createSocketParam))
-    sendAlarm(1,2,'asd')
   }
 
   // 서버로부터 응답이 올 때
   socket.onmessage = function (data) {
     // 서버로 부터 받은 데이터를 json 형태로 변환
     let msg = JSON.parse(data.data)
+    console.log(msg)
     if(msg.type === "CHAT"){
-     
       getNoRealAllMessage()
-     
       if(document.querySelector('.room_id')) {
         if(msg.room_id === document.querySelector('.room_id').value) {
         let friendMsgContainerDiv = document.createElement('div')
@@ -41,6 +39,8 @@ if(typeof socket =="undefined") {
         goToBottom()
         }
     }
+  }else if(msg.type === "ALARM"){
+    getAlarmCount()
   }
   }
   socket.onerror = function (error) {
@@ -48,11 +48,12 @@ if(typeof socket =="undefined") {
   }
   socket.onclose = function () {
     console.log('소켓 종료')
-    let closeSocketParam = {
-      user_id: document.querySelector('#temp_user').innerText,
-      type:"DELETE"
-    }
-    socket.send(JSON.stringify(closeSocketParam))
+    socket = new WebSocket('ws://' + location.hostname + ':8091/socket')
+    // let closeSocketParam = {
+    //   user_id: document.querySelector('#temp_user').innerText,
+    //   type:"DELETE"
+    // }
+    // socket.send(JSON.stringify(closeSocketParam))
   }
 }
 function sendAlarm(alarm_category, alarm_valuepk, alarm_sendto) {
@@ -63,10 +64,10 @@ function sendAlarm(alarm_category, alarm_valuepk, alarm_sendto) {
     alarm_valuepk,
     type : "ALARM"
 }
-console.log(params.alarm_from)
   socket.send(JSON.stringify(params))
 }
 
+getAlarmCount()
 getNoRealAllMessage()
 function getNoRealAllMessage(){
   const user_id = document.querySelector('#temp_user').innerText
@@ -86,6 +87,23 @@ function getNoRealAllMessage(){
   })
 }
 
+function getAlarmCount(){
+  const user_id = document.querySelector('#temp_user').innerText
+  fetch('/layout/getalarmcount/' + user_id,)
+  .then((res) => res.json())
+  .then((myJson) => {
+    if(document.querySelector('#alarm')){
+      document.querySelector('#alarm').remove()
+    }
+    const alarmDiv = document.createElement('div')
+    alarmDiv.setAttribute('id', 'alarm')
+    document.querySelector('#news').appendChild(alarmDiv)
+
+    let alarmCount = document.createElement('div')
+    alarmCount.innerHTML = myJson
+    alarmDiv.appendChild(alarmCount)
+  })
+}
 //서버로 값을 보낼 때
 const sendChatBtn = document.querySelector('button[name="send_btn"]')
 sendChatBtn.addEventListener('click', () => {
@@ -658,6 +676,7 @@ function getRecFriend_List(myJson) {
                 return
               } else {
                 alert(`${myJson[j].user_id}` + ' 님을 친구 추가하였습니다.')
+                sendAlarm(1,addFriendParam.user_pk, addFriendParam.friend_pk)
                 history.go(0)
               }
             })

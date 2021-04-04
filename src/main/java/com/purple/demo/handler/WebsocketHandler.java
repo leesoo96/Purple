@@ -10,6 +10,7 @@ import com.purple.demo.mapper.LayoutMapper;
 import com.purple.demo.model.DTO.AlarmDTO;
 import com.purple.demo.model.DTO.MessageDTO;
 
+import org.hamcrest.core.Is;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.springframework.stereotype.Component;
@@ -72,15 +73,26 @@ public class WebsocketHandler extends TextWebSocketHandler {
             }finally {
             }
         }else if(json.get("type").equals("ALARM")){
-            String send_to = (String)json.get("alarm_sendto");
+            String send_to = String.valueOf(json.get("alarm_sendto"));
+            
+            if(utils.CheckNumber(send_to)){
+                int send_to_pk = Integer.parseInt(send_to);
+                send_to = utils.getUserIdFromPk(send_to_pk);
+            }
+
+            int send_to_pk = utils.getUserPkFromId(send_to);
+            if(Integer.parseInt(String.valueOf(json.get("alarm_from"))) == send_to_pk) {
+                return;
+            }
+            String from = utils.getUserIdFromPk(Integer.parseInt(String.valueOf(json.get("alarm_from"))));
             AlarmDTO alarmDTO = new AlarmDTO();
-            System.out.println(Integer.valueOf((String)json.get("alarm_from")).getClass().getName());
-            alarmDTO.setAlarm_category(Integer.valueOf((String)json.get("alarm_category")));
-            alarmDTO.setAlarm_from(Integer.valueOf((String)json.get("alarm_from")));
-            alarmDTO.setAlarm_sendto(utils.getUserPkFromId(send_to));
-            alarmDTO.setAlarm_valuepk(Integer.valueOf((String)json.get("alarm_valuepk")));
+            alarmDTO.setAlarm_category(Integer.parseInt(String.valueOf(json.get("alarm_category"))));
+            alarmDTO.setAlarm_from(Integer.parseInt(String.valueOf(json.get("alarm_from"))));
+            alarmDTO.setAlarm_sendto(send_to_pk);
+            alarmDTO.setAlarm_valuepk(Integer.parseInt(String.valueOf(json.get("alarm_valuepk"))));
             chatMapper.insAlarm(alarmDTO);
 
+            json.replace("alarm_from", from);
             WebSocketSession wss = socketService.getSession(send_to);
             try{
             wss.sendMessage(new TextMessage(json.toJSONString()));
@@ -90,23 +102,6 @@ public class WebsocketHandler extends TextWebSocketHandler {
             }finally {
             }
         }
-        else if(json.get("type").equals("DELETE")) {
-            String user_id = (String)json.get("user_id");
-            socketService.removeSession(user_id);
-            System.out.println("종료");
-        }
-        //보내는 메세지
-        //로그인 한 websocketsession 검사
-		// for(String key : users.keySet()) {
-        //     System.out.println(key);
-		// 	WebSocketSession wss = users.get(key);
-        //     System.out.println(wss);
-		// 	try {
-		// 		wss.sendMessage(new TextMessage(msg));
-		// 	}catch(Exception e) {
-		// 		e.printStackTrace();
-		// 	}
-		// }
     }
 
     // 클라이언트 접속이 종료되었을 때 호출된다 

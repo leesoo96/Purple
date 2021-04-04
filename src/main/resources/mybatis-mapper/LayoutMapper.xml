@@ -120,10 +120,24 @@
         AND message_readstate = 1
     </select>
 
+    <select id="getAlarmCount" resultType="int">
+        SELECT COUNT(alarm_category)
+        FROM alarm
+        WHERE alarm_sendto = #{send_to}
+        AND alarm_readstate = 1
+    </select>
+
     <update id="readMessage">
         UPDATE message
 		SET message_readstate = #{message_readstate}
 		WHERE message_chatroomid = #{message_chatroomid}
         AND message_sendto = #{message_sendto}
+    </update>
+
+    <update id="readAlarm">
+        UPDATE alarm
+		SET alarm_readstate = 0
+		WHERE alarm_sendto = #{user_pk}
+        AND alarm_readstate = 1
     </update>
 </mapper>
