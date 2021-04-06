@@ -82,7 +82,6 @@ public class FeedService {
             System.out.println(dto.getHashtag().get(i));
             HashtagRelationEntity hrel = new HashtagRelationEntity();
             HashtagEntity htentity = new HashtagEntity();
-            System.out.println(dto.getHashtag().get(i));
             htentity.setHashtag_ctnt((String)dto.getHashtag().get(i));
             int state = mapper.insHashtag(htentity);
             hrel.setHtrel_feedpk(dto.getFeed_pk());

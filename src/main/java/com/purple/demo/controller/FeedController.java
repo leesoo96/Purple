@@ -29,7 +29,7 @@ public class FeedController {
 	@Autowired
 	private FeedService feedService;
 
-	// Feed
+	// Feed4
 	@RequestMapping(value="")
 	public String feed(){
 		return "/feed";
