@@ -23,7 +23,7 @@
                 a.feed_writedate DESC
             </otherwise>
         </choose> 
-        LIMIT #{first_page}, #{end_page};
+        LIMIT #{first_page}, #{end_page}
     </select>
 
     <select id="selFeedDetail" resultType="FeedDetailDTO">
@@ -149,7 +149,7 @@
         ON (A.comment_userpk = B.user_pk)
         WHERE A.comment_feedpk = #{feed_pk} AND A.comment_state = 1
         AND A.comment_parentpk = A.comment_pk
-        ORDER BY A.comment_writedate DESC;
+        ORDER BY A.comment_writedate DESC
     </select>
 
     <select id="selReCommentList" resultType="CommentListDTO">
@@ -159,7 +159,7 @@
         ON (A.comment_userpk = B.user_pk)
         WHERE A.comment_parentpk = #{comment_parentpk} AND A.comment_state = 1
         AND A.comment_pk != #{comment_parentpk}
-        ORDER BY A.comment_writedate DESC;
+        ORDER BY A.comment_writedate DESC
     </select>
 
     <insert id="insReComment">

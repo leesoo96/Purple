@@ -21,7 +21,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-
 @Service
 public class FeedService {
     
@@ -99,7 +98,6 @@ public class FeedService {
     }
     }
   
-
     public FeedFavoriteDTO feedFavorite(FeedFavoriteDTO dto) {
         UserPrincipal principal = (UserPrincipal)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         dto.setFavorite_userpk(principal.getUser_pk());

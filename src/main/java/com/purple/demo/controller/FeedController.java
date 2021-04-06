@@ -57,19 +57,18 @@ public class FeedController {
 	}
 
 	@PostMapping("/feed_write")
-		public String feed_write(FeedWriteDTO dto
-		, @RequestParam(value = "imgs") MultipartFile[] files) {
-			feedService.insFeed(dto, files);	
-			return "redirect:/feed";
-		}
+	public String feed_write(FeedWriteDTO dto, @RequestParam(value = "imgs") MultipartFile[] files) {
+		feedService.insFeed(dto, files);	
+		return "redirect:/feed";
+	}
 	
 	@ResponseBody
 	@PostMapping("/favorite")
-		public Map<String, Object> feedFavorite(@RequestBody FeedFavoriteDTO dto) {
-			Map<String, Object> feedFavoriteResult = new HashMap<String, Object>();
-			feedFavoriteResult.put("result", feedService.feedFavorite(dto));
-			return feedFavoriteResult;
-		}
+	public Map<String, Object> feedFavorite(@RequestBody FeedFavoriteDTO dto) {
+		Map<String, Object> feedFavoriteResult = new HashMap<String, Object>();
+		feedFavoriteResult.put("result", feedService.feedFavorite(dto));
+		return feedFavoriteResult;
+	}
 
 	// Bookmark
 	@ResponseBody
@@ -77,7 +76,6 @@ public class FeedController {
 	public Map<String, Object> feedBookmark(@RequestBody FeedBookmarkDTO bmd) {
 		Map<String, Object> feedBookmarkResult = new HashMap<String, Object>();
 		feedBookmarkResult.put("result", feedService.feedBookmark(bmd));
-
 		return feedBookmarkResult;
 	}
 

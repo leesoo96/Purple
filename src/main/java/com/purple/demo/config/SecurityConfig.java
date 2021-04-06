@@ -26,67 +26,67 @@ import com.purple.demo.handler.LoginSuccessHandler;
 @EnableGlobalMethodSecurity(securedEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-		@Autowired
-		private UserDetailsService userService;
-		
-		@Bean
-		public PasswordEncoder passwordEncoder() {
-			return new BCryptPasswordEncoder();
-		}
-		
-		@Override
-		public void configure(WebSecurity web) throws Exception {
-			web.ignoring().antMatchers("/resources/**");
-		}
-
-		@Override
-		protected void configure(HttpSecurity http) throws Exception {
-			http.csrf().disable();
-		
-			http.authorizeRequests()
-				.antMatchers("/socket/**","/alarm/**","/bookmark/**", "/layout/**", "/search/**", "/userpage/**","/mypage/**", "/feed/**", "/notice/**").hasAnyRole("USER","ADMIN")
-				.antMatchers("/admin/**").hasRole("ADMIN")
-				.antMatchers("/**").permitAll();
-			
-			http.formLogin()
-					.loginPage("/welcome")
-					.loginProcessingUrl("/login")
-					.defaultSuccessUrl("/feed")
-					.usernameParameter("user_id")
-					.passwordParameter("user_pw")
-					.successHandler(new LoginSuccessHandler())
-					.failureHandler(new LoginFailHandler());
-			
-			http.logout()
-					.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-					.logoutSuccessUrl("/welcome")
-					.invalidateHttpSession(true) // 세션 제거
-					.deleteCookies("JSESSIONID") // 쿠키 제거
-					.clearAuthentication(true); // 권한정보 제거 
+	@Autowired
+	private UserDetailsService userService;
 	
-			http.sessionManagement()
-			 		.maximumSessions(1) // 최대 세션 허용 수 
-					.maxSessionsPreventsLogin(true) // 중복 로그인 시 x
-					.expiredUrl("/welcome") // 세션 만료 또는 중복 시 리다이렉트되는 url
-					.sessionRegistry(sessionRegistry()); 
-			
-			http.exceptionHandling()
-				.accessDeniedPage("/welcome");
-		}
-		
-		@Bean
-		public SessionRegistry sessionRegistry() {
-			return new SessionRegistryImpl();
-		}
+	@Bean
+	public PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
+	
+	@Override
+	public void configure(WebSecurity web) throws Exception {
+		web.ignoring().antMatchers("/resources/**");
+	}
 
-		@Bean
-		public ServletListenerRegistrationBean<HttpSessionEventPublisher> httpSessionEventPublisher() {
-			return new ServletListenerRegistrationBean<HttpSessionEventPublisher>(
-					new HttpSessionEventPublisher());
-		}
+	@Override
+	protected void configure(HttpSecurity http) throws Exception {
+		http.csrf().disable();
+	
+		http.authorizeRequests()
+			.antMatchers("/socket/**","/alarm/**","/bookmark/**", "/layout/**", "/search/**", "/userpage/**","/mypage/**", "/feed/**", "/notice/**").hasAnyRole("USER","ADMIN")
+			.antMatchers("/admin/**").hasRole("ADMIN")
+			.antMatchers("/**").permitAll();
 		
-		@Override
-		public void configure(AuthenticationManagerBuilder auth) throws Exception {
-			auth.userDetailsService(userService).passwordEncoder(passwordEncoder());
-		}
+		http.formLogin()
+			.loginPage("/welcome")
+			.loginProcessingUrl("/login")
+			.defaultSuccessUrl("/feed")
+			.usernameParameter("user_id")
+			.passwordParameter("user_pw")
+			.successHandler(new LoginSuccessHandler())
+			.failureHandler(new LoginFailHandler());
+		
+		http.logout()
+			.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+			.logoutSuccessUrl("/welcome")
+			.invalidateHttpSession(true) // 세션 제거
+			.deleteCookies("JSESSIONID") // 쿠키 제거
+			.clearAuthentication(true); // 권한정보 제거 
+
+		http.sessionManagement()
+			.maximumSessions(1) // 최대 세션 허용 수 
+			.maxSessionsPreventsLogin(true) // 중복 로그인 시 x
+			.expiredUrl("/welcome") // 세션 만료 또는 중복 시 리다이렉트되는 url
+			.sessionRegistry(sessionRegistry()); 
+		
+		http.exceptionHandling()
+			.accessDeniedPage("/welcome");
+	}
+		
+	@Bean
+	public SessionRegistry sessionRegistry() {
+		return new SessionRegistryImpl();
+	}
+
+	@Bean
+	public ServletListenerRegistrationBean<HttpSessionEventPublisher> httpSessionEventPublisher() {
+		return new ServletListenerRegistrationBean<HttpSessionEventPublisher>(
+				new HttpSessionEventPublisher());
+	}
+	
+	@Override
+	public void configure(AuthenticationManagerBuilder auth) throws Exception {
+		auth.userDetailsService(userService).passwordEncoder(passwordEncoder());
+	}
 }

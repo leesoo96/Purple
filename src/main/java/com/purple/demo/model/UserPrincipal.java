@@ -7,10 +7,8 @@ import java.util.List;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 // loadUserByUsername 메소드가 userDetails를 리턴
 @Data
@@ -33,12 +31,12 @@ public class UserPrincipal extends UserEntity implements Principal {
 		authorities = Collections.singletonList(new SimpleGrantedAuthority(user.getUser_auth()));
 	}
 	
-//	시큐리티 로그인 관련 
-	 public static UserPrincipal create(UserEntity user) {
-	        List<GrantedAuthority> authorities = Collections.
-	        		singletonList(new SimpleGrantedAuthority(user.getUser_auth()));
-	        return new UserPrincipal(user);
-	    }
+	//	시큐리티 로그인 관련 
+	public static UserPrincipal create(UserEntity user) {
+		List<GrantedAuthority> authorities = Collections.
+				singletonList(new SimpleGrantedAuthority(user.getUser_auth()));
+		return new UserPrincipal(user);
+	}
 			
 	@Override
 	public String getName() {

@@ -98,7 +98,7 @@
 			WHERE     compare.message_chatroomid IS NULL) AS C
         ON A.chatroom_id = C.message_chatroomid
         WHERE A.chatroom_userpk =  #{chatroom_userpk}
-        ORDER BY C.message_date ASC;
+        ORDER BY C.message_date ASC
     </select>
    
     <select id="enterChatroom" resultType="MessageDTO">
@@ -111,7 +111,7 @@
         WHERE A.message_chatroomid= #{room_id}
         AND A.message_state = 1
         ORDER BY A.message_date DESC
-        LIMIT 0,40;
+        LIMIT 0,40
     </select>
 
     <select id="getNoReadAllMessage" resultType="int">

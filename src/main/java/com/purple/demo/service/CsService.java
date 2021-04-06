@@ -1,8 +1,5 @@
 package com.purple.demo.service;
 
-
-
-
 import com.purple.demo.mapper.CsMapper;
 import com.purple.demo.model.AnswerEntity;
 import com.purple.demo.model.NoticeDTO;
@@ -27,7 +24,6 @@ public class CsService {
 
 	@Autowired
 	private PurpleFileUtils fUtils;
-
 
 	public 	NoticeDomain selNoticeList(NoticeDTO p){
 		if(p.getRecordCntPerPage() == 0) {
@@ -85,7 +81,6 @@ public class CsService {
 	}
 
 	public String notice_img(MultipartFile img, int notice_pk) {
-
 		//유저 pk 값
 		UserPrincipal principal = (UserPrincipal)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		int user_pk = principal.getUser_pk();  
@@ -109,7 +104,6 @@ public class CsService {
 		} catch(Exception e) {
 			return null;
 		}
-		
 	}
 	
 	public int notice_upd(NoticeEntity p) {
@@ -128,7 +122,7 @@ public class CsService {
 		return mapper.notice_del(p);
 	}
 
-	//문의사항
+	// 문의사항
 	public 	QuestionDomain selQuestionList(QuestionDTO p){
 		if(p.getRecordCntPerPage() == 0) {
 			p.setRecordCntPerPage(10);
@@ -145,7 +139,7 @@ public class CsService {
 		nd.setPage(p.getPage());
 		nd.setRecordCntPerPage(p.getRecordCntPerPage());
 
-		final int SIDE_NUM = 3; //사이드 페이지 넘버
+		final int SIDE_NUM = 3; // 사이드 페이지 넘버
 		int pageLen = SIDE_NUM * 2;
 		int page = p.getPage();
 		int maxPage = nd.getMaxPageNum();
@@ -187,7 +181,8 @@ public class CsService {
 	public String question_img(MultipartFile img, int question_pk) {
 		//유저 pk 값
 		UserPrincipal principal = (UserPrincipal)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		int user_pk = principal.getUser_pk();  
+		int user_pk = principal.getUser_pk();
+
 		//업로드 할 파일 경로
 		String folder = "/images/question/"+user_pk+"/" + question_pk;
 		try {

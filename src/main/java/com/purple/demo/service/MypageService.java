@@ -21,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class MypageService {
+
     @Autowired
     private PasswordEncoder encoder;
 
@@ -50,12 +51,13 @@ public class MypageService {
         return mypageMapper.modUserPw(userEntity);
     }
 
-    //프로필 이미지 등록
+    // 프로필 이미지 등록
     public String profile_img(MultipartFile img) {
-		//유저 pk 값
+		// 유저 pk 값
 		UserPrincipal principal = (UserPrincipal)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		int user_pk = principal.getUser_pk();  
-		//업로드 할 파일 경로
+
+		// 업로드 할 파일 경로
 		String folder = "/images/user/" + user_pk +"/profileimg";
 		try {
             String delFolder = fUtils.getRealPath(folder);
@@ -67,12 +69,13 @@ public class MypageService {
 		}
 	}
 
-    //배경 이미지 등록
+    // 배경 이미지 등록
     public String background_img(MultipartFile img) {
-		//유저 pk 값
+		// 유저 pk 값
 		UserPrincipal principal = (UserPrincipal)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		int user_pk = principal.getUser_pk();  
-		//업로드 할 파일 경로
+		int user_pk = principal.getUser_pk();
+
+		// 업로드 할 파일 경로
 		String folder = "/images/user/" + user_pk +"/backgroundimg";
 		try {
             String delFolder = fUtils.getRealPath(folder);

@@ -12,6 +12,5 @@ public class ChatRoomDTO extends ChatroomEntity {
     private String last_message;
     private String last_messagedate;
 
-
     private int chatroom_noreadcount; // 안 읽은 갯수
 }

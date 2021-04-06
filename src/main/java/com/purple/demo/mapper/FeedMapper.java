@@ -25,6 +25,7 @@ public interface FeedMapper {
    int deleteFeed(int feed_pk);
    FeedDetailDTO selFeedDetail(FeedDetailDTO dto);
 
+   // 좋아요
    FeedFavoriteDTO feedFavorite(FeedFavoriteDTO dto);
    int insFavorite(FeedFavoriteDTO dto);
    int delFavorite(FeedFavoriteDTO dto);
@@ -39,7 +40,7 @@ public interface FeedMapper {
    int insertBookmark(FeedBookmarkDTO bmd);
    int deleteBookmark(FeedBookmarkDTO bmd);
 
-   //hashtag
+   // 해시태그
    int selHashtag_pk(HashtagEntity p);
    int insHashtagRel(HashtagRelationEntity p);
 
@@ -48,6 +49,4 @@ public interface FeedMapper {
    int insComment(CommentWriteDTO p);
    int updCommentParentPk(CommentWriteDTO p);
    int insReComment(CommentWriteDTO p);
-
-
 }

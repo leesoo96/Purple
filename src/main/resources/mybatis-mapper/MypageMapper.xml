@@ -55,6 +55,6 @@
         ON (a.feed_userpk = b.user_pk)
         WHERE a.feed_state = 1 AND a.feed_userpk = #{user_pk}
         ORDER BY a.feed_writedate DESC
-        LIMIT #{first_page}, #{end_page};
+        LIMIT #{first_page}, #{end_page}
     </select>
 </mapper>

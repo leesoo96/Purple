@@ -85,7 +85,7 @@
       		<input type="button" id="join_btn" class="input_submit" value="회원가입">
     	</form>
   	</div>
-      
-     
+						
+					
 </body>
 </html>
