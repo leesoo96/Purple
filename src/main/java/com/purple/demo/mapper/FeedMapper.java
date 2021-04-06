@@ -8,6 +8,7 @@ import com.purple.demo.model.HashtagEntity;
 import com.purple.demo.model.HashtagRelationEntity;
 import com.purple.demo.model.MediaEntity;
 import com.purple.demo.model.DTO.CommentListDTO;
+import com.purple.demo.model.DTO.CommentWriteDTO;
 import com.purple.demo.model.DTO.FeedBookmarkDTO;
 import com.purple.demo.model.DTO.FeedDetailDTO;
 import com.purple.demo.model.DTO.FeedFavoriteDTO;
@@ -16,12 +17,12 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface FeedMapper {
-   List<FeedListDTO> selFeedList(FeedListDTO param);
-   List<MediaEntity> selMediaList(FeedListDTO param);
-   List<HashtagEntity> selHashtagList(FeedListDTO param);
+   List<FeedListDTO> selFeedList(FeedListDTO dto);
+   List<MediaEntity> selMediaList(FeedListDTO dto);
+   List<HashtagEntity> selHashtagList(FeedListDTO dto);
    int isFavorite(int feed_pk, int user_pk);
-   int isBookmark(FeedListDTO param);
-
+   int isBookmark(FeedListDTO dto);
+   int deleteFeed(int feed_pk);
    FeedDetailDTO selFeedDetail(FeedDetailDTO dto);
 
    FeedFavoriteDTO feedFavorite(FeedFavoriteDTO dto);
@@ -30,15 +31,21 @@ public interface FeedMapper {
    int favoriteCount(FeedFavoriteDTO dto);
 
    int insFeed(FeedWriteDTO dto);
-   int insFeedImg(MediaEntity p);
-   int insHashtag(HashtagEntity p);
-   List<CommentListDTO> selCommentList(FeedDetailDTO dto);
+   int insFeedImg(MediaEntity entity);
+   int insHashtag(HashtagEntity entity);
+   
    // 북마크
-   FeedBookmarkDTO feedBookmark(FeedBookmarkDTO bmd);
-   int insertBookmark(FeedBookmarkDTO bmd);
-   int deleteBookmark(FeedBookmarkDTO bmd);
+   FeedBookmarkDTO feedBookmark(FeedBookmarkDTO dto);
+   int insertBookmark(FeedBookmarkDTO dto);
+   int deleteBookmark(FeedBookmarkDTO dto);
 
    //hashtag
-   int selHashtag_pk(HashtagEntity p);
-   int insHashtagRel(HashtagRelationEntity p);
+   int selHashtag_pk(HashtagEntity entity);
+   int insHashtagRel(HashtagRelationEntity entity);
+
+   List<CommentListDTO> selCommentList(int feed_pk);
+   List<CommentListDTO> selReCommentList(int comment_parentpk);
+   int insComment(CommentWriteDTO dto);
+   int updCommentParentPk(CommentWriteDTO dto);
+   int insReComment(CommentWriteDTO dto);
 }

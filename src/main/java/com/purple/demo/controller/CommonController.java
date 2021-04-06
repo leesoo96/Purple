@@ -31,7 +31,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class CommonController {
 
-	final UserServiceImpl service;
+	final UserServiceImpl userService;
 	
 	@Autowired
 	private CommonService commonService;
@@ -47,7 +47,7 @@ public class CommonController {
 	@PostMapping("/join")
 	public Map<String, Object> join(@RequestBody UserEntity entity) {
 		Map<String, Object> joinResult = new HashMap<String, Object>();
-		joinResult.put(Const.KEY_REUSLT, service.join(entity));
+		joinResult.put(Const.KEY_RESULT, userService.join(entity));
 			
 		return joinResult;
 	}
@@ -57,7 +57,7 @@ public class CommonController {
 	@GetMapping("/join/{user_id}")
 	public Map<String, Object> overlap_Confirm(UserEntity entity) {
 		Map<String, Object> value = new HashMap<String, Object>();
-		value.put(Const.KEY_REUSLT, service.overlap_Confirm(entity));
+		value.put(Const.KEY_RESULT, userService.overlap_Confirm(entity));
 			
 		return value;
 	}
@@ -67,7 +67,8 @@ public class CommonController {
 	@RequestMapping("/findpw")
 	public  Map<String, Object> findPw(@RequestBody UserEntity entity, HttpServletResponse res, Model model) {
 		Map<String, Object> value = new HashMap<String, Object>();
-		value.put(Const.KEY_REUSLT, service.findPw(res, entity));
+		value.put(Const.KEY_RESULT, userService.findPw(res, entity));
+		
 		return value;
 	}
 
@@ -76,23 +77,26 @@ public class CommonController {
 	public ModelAndView userInfo(@PathVariable String user_id) {
 		ModelAndView model = new ModelAndView();
 		UserPrincipal principal = (UserPrincipal)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		
 		if(user_id.equals(principal.getUser_id())) {
 			model.setViewName("/mypage");
 			return model;
 		}
+
 		UserEntity dto = new UserEntity();
-		dto = service.selUserInfo(user_id);
+		dto = userService.selUserInfo(user_id);
 		model.addObject("userInfo", dto);
 		model.setViewName("/userpage");
+
 		return model;
 	}
 
 	@ResponseBody
-	@RequestMapping(value = "/userpage/{user_id}", method= RequestMethod.POST)
-	public Map<String, Object> userpageFeedList(@RequestBody FeedListDTO param){
+	@RequestMapping(value = "/userpage/{user_id}", method = RequestMethod.POST)
+	public Map<String, Object> userpageFeedList(@RequestBody FeedListDTO dto){
 		Map<String, Object> userpageFeedListResult = new HashMap<String, Object>();
-		userpageFeedListResult.put("result", commonService.selUserpageFeedList(param));
+		userpageFeedListResult.put(Const.KEY_RESULT, commonService.selUserpageFeedList(dto));
+		
 		return userpageFeedListResult;
 	}
-
 }

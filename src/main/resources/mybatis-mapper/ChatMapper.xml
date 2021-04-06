@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.purple.demo.mapper.ChatMapper">
+    <!-- 채팅방 아이디 가져오기 -->
+    <select id="getRoom" resultType="String">
+        SELECT chatroom_id
+        FROM chatroom
+        WHERE chatroom_userpk = #{chatroom_userpk}
+        AND chatroom_friendpk = #{chatroom_friendpk}
+    </select>
+
+    <!-- 대화목록 -->
+    <select id="getChatList" resultType="ChatRoomDTO">
+        SELECT A.chatroom_id, A.chatroom_friendpk, B.user_id, B.user_profileimg, C.message_ctnt as "last_message", C.message_date as "last_messagedate"
+        FROM chatroom AS A
+        LEFT JOIN user AS B
+        ON A.chatroom_friendpk = B.user_pk
+        LEFT JOIN (SELECT    original.message_chatroomid, original.message_ctnt, original.message_date
+			FROM      message original
+			LEFT JOIN message compare
+			ON        original.message_chatroomid = compare.message_chatroomid
+			AND       original.message_date <![CDATA[<]]>  compare.message_date
+			WHERE     compare.message_chatroomid IS NULL) AS C
+        ON A.chatroom_id = C.message_chatroomid
+        WHERE A.chatroom_userpk =  #{chatroom_userpk}
+        ORDER BY C.message_date ASC;
+    </select>
+   
+    <!-- 채팅방 정보 가져오기 -->
+    <select id="enterChatroom" resultType="MessageDTO">
+        SELECT A.message_chatroomid, A.message_ctnt, A.message_date,
+        A.message_sendto, A.message_from, A.message_readstate, B.user_id,
+        B.user_profileimg
+        FROM message AS A
+        LEFT JOIN user AS B
+        ON A.message_from = B.user_pk
+        WHERE A.message_chatroomid= #{room_id}
+        AND A.message_state = 1
+        ORDER BY A.message_date DESC
+        LIMIT 0,40;
+    </select>
+
+    <!-- 안읽은 메시지(채팅) 수 가져오기 -->
+    <select id="getNoReadAllMessage" resultType="int">
+        SELECT COUNT(message_pk)
+        FROM message
+        WHERE message_sendto = #{send_to}
+        AND message_readstate = 1
+    </select>
+
+    <!-- 메시지 입력 -->
+    <insert id="insMessage">
+        INSERT INTO message
+        (message_chatroomid, message_ctnt, message_date, message_sendto, message_from)
+        VALUES
+        (#{message_chatroomid}, #{message_ctnt}, #{message_date}, #{message_sendto}, #{message_from})
+    </insert>
+
+    <!-- 방 만들기 -->
+    <insert id="createRoom">
+        INSERT INTO chatroom
+        (chatroom_id, chatroom_userpk, chatroom_friendpk)
+        VALUES
+        (#{chatroom_id}, #{chatroom_userpk}, #{chatroom_friendpk})
+    </insert>
+
+    <!-- 채팅(메시지) 읽음 -->
+    <update id="readMessage">
+        UPDATE message
+		SET message_readstate = #{message_readstate}
+		WHERE message_chatroomid = #{message_chatroomid}
+        AND message_sendto = #{message_sendto}
+    </update>
+</mapper>

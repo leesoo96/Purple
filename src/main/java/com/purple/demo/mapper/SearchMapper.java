@@ -12,4 +12,6 @@ public interface SearchMapper {
     List<SearchUserDTO> selUserSearch(SearchUserDTO dto);
 
     List<FeedListDTO> selFeedSearch(FeedListDTO dto);
+
+    List<FeedListDTO> searchHashtag(FeedListDTO dto);
 }

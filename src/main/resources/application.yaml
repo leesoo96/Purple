@@ -8,7 +8,7 @@ spring:
     view:
       prefix: /WEB-INF/views/
       suffix: .jsp
-
+    
   #jdbc 설정
   datasource:
     url: jdbc:mysql://localhost:3306/purple?autoReconnect=true
@@ -25,8 +25,8 @@ mybatis:
 server:
   port: 8090
   multipart:
-    max-file-size: 50MB
-    max-request-size: 50MB
+    max-file-size: 100MB
+    max-request-size: 100MB
 
   ssl:
     enabled: true
@@ -36,4 +36,3 @@ server:
     key-password: 'purple'
     trust-store: purpletrust
     trust-store-password: 'purple'
-#이미지

@@ -1,6 +1,5 @@
 package com.purple.demo.mapper;
 
-import java.io.IOException;
 import java.util.List;
 
 import com.purple.demo.model.AnswerEntity;
@@ -10,44 +9,43 @@ import com.purple.demo.model.QuestionDTO;
 import com.purple.demo.model.QuestionEntity;
 
 import org.apache.ibatis.annotations.Mapper;
-import org.springframework.web.multipart.MultipartFile;
 
 @Mapper
 public interface CsMapper {
 
-	List<NoticeEntity> selNoticeList(NoticeDTO p);
+	List<NoticeEntity> selNoticeList(NoticeDTO dto);
 	
-	NoticeEntity selNotice(NoticeEntity p);
+	NoticeEntity selNotice(NoticeEntity entity);
 
-	int selNoticeMaxPage(NoticeDTO p);
+	int selNoticeMaxPage(NoticeDTO dto);
 	
-	int regNotice(NoticeEntity p);
+	int regNotice(NoticeEntity entity);
 	
-	int notice_upd(NoticeEntity p);
+	int notice_upd(NoticeEntity entity);
 
-	int notice_img_upd(NoticeEntity p);
+	int notice_img_upd(NoticeEntity entity);
 	
-	int updNoticevieView(NoticeEntity p);
+	int updNoticevieView(NoticeEntity entity);
 	
-	int notice_del(NoticeEntity p);
+	int notice_del(NoticeEntity entity);
 	
-	List<QuestionEntity> selQuestionList(QuestionDTO p);
+	List<QuestionEntity> selQuestionList(QuestionDTO dto);
 	
-	QuestionEntity selQuestion(QuestionEntity p);
+	QuestionEntity selQuestion(QuestionEntity entity);
 
-	int selQuestionMaxPage(QuestionDTO p);
+	int selQuestionMaxPage(QuestionDTO dto);
 	
-	int regQuestion(QuestionEntity p) ;
+	int regQuestion(QuestionEntity entity);
 
-	int question_img_upd(QuestionEntity p) ;
+	int question_img_upd(QuestionEntity entity);
 	
-	int question_upd(QuestionEntity p);
+	int question_upd(QuestionEntity entity);
 
-	int updQuestionView(QuestionEntity p);
+	int updQuestionView(QuestionEntity entity);
 	
-	int question_del(QuestionEntity p);
+	int question_del(QuestionEntity entity);
 
-	int question_cmt_reg(AnswerEntity p);
+	int question_cmt_reg(AnswerEntity entity);
 	
-	int answer_del(AnswerEntity p);
+	int answer_del(AnswerEntity entity);
 }

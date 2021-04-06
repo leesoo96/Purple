@@ -24,9 +24,9 @@
 
 <div id="dm_view"> <!-- 대화창 표시 -->
   <p>Purple Talk</p>
-    <div id="new_dm">
-      <div>31</div> 
-    </div>
+    <!-- <div id="new_dm">
+      <div>13</div>
+    </div> -->
   <i class="fas fa-angle-double-up dm_open"></i>
 
   <div class="chat_view">
@@ -51,31 +51,28 @@
 
     <!-- 채팅방 --> 
     <div class="chat_msg">
+    
       <p id="chat_friendName">
-        @friendName
       </p>
 
       <div class="chat">
-        <span id="chat_date">- 2021년 00월 00일 -</span>
-        <div class="friendMsgContainer">
-          <p class="friendMsg">야</p>
-          <small class="friendMsg_time">오후 00:00</small>
-        </div> <!-- friendMsgContainer -->
-
+      
+<!--
         <div class="friendMsgContainer">
           <p class="friendMsg">지금 뭐해?</p>
-          <small class="friendMsg_time">오후 00:00</small>
+          <small class="friendMsg_time">오후 00:00</small> -->
         </div> <!-- friendMsgContainer -->
-              <!--채팅 메시지 입력 시 계속 append -->
-      </div> <!-- chat -->
+          <!-- 채팅 메시지 입력 시 계속 append  -->
+          <div class="msg_container">
+            <input name="msg_input" onclick="clickRead(this)" placeholder="메시지를 입력해주세요.">
+            <div class="msg_btn" >
+              <button name="send_btn">전송</button>
+            </div>
+          </div> <!-- msg_container -->
+      </div> <!-- chat --> 
 
-      <div class="msg_container">
-        <textarea name="msg_input" placeholder="메시지를 입력해주세요."></textarea>
-        <div class="msg_btn">
-          <button>전송</button>
-        </div>
-      </div> <!-- msg_container -->
-
+      
+     
     </div><!--chat msg-->
   </div> <!-- chat_view -->
 </div> <!-- dm_view -->

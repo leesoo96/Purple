@@ -6,7 +6,7 @@
 <script defer src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <link rel="stylesheet" href="/resources/css/feed/feed.css">
 <link rel="stylesheet" href="/resources/css/feed/feedDetail.css">
-<script defer src="resources/js/feed/feedDetail.js"></script>
+
 <div id="modal_background"></div>
 <!-- modal_background -->
 <div id="userMod_container">
@@ -33,13 +33,13 @@
             <input accept="image/jpeg, image/jpg, image/png" id="mod_img" type="file"/>
         </div>
         <form id="userModFrm">
-            <input maxlength="10" name="mod_id" placeholder="Id" type="text">
-            <button name="id_check" type="button">중복확인</button>
+            <input maxlength="10" name="mod_id" placeholder="Id" type="text" onchange="alertCheck()">
+            <button name="id_check" type="button" >중복확인</button>
             <input maxlength="5" name="mod_name" placeholder="Name" type="text">
             <input maxlength="20" name="mod_bio" placeholder="Bio" type="text">
             <input maxlength="30" name="mod_location" placeholder="Location" type="text">
             <input name="find_Address" type="button" onclick="postCode()" value="주소 찾기">
-            <input maxlength="30" name="mod_website" placeholder="Website" type="text">
+            <input maxlength="30" name="mod_email" placeholder="Email" type="text">
             <input data-placeholder="생년월일을 선택해주세요" name="mod_birth" type="date">
         </form>
     </div>
@@ -67,7 +67,7 @@
         </div>
         <div id="mypage_userinfo_img">
             <c:if test="${not empty userInfo.user_profileimg}">
-                <img alt="기본프로필사진" src="${userInfo.user_profileimg}">
+                <img src=${userInfo.user_profileimg} onerror="this.src='/resources/img/common/basic_profile.png'" alt="기본프로필사진">
             </c:if>
             <c:if test="${empty userInfo.user_profileimg}">
                 <img alt="기본프로필사진" src="/resources/img/common/basic_profile.png">

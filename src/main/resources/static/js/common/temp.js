@@ -1,3 +1,13 @@
+'use strict'
+
+document.addEventListener('DOMContentLoaded', ()=> {
+  dm_view()
+  getRecommandFriendListFunc()
+  getAlarmCount()
+  getNoRealAllMessage()
+})
+
+// LeftSide
 // 각 아이콘 hover event
 let home = document.querySelector('#home a')
 let search = document.querySelector('#search a')
@@ -48,11 +58,12 @@ function dm_view() {
   })
 
   dm_close.addEventListener('click', function () {
+    getNoRealAllMessage()
     chat_view.style.visibility = 'hidden'
     chat_view.style.opacity = '0'
   })
 }
-dm_view()
+
 
 // 친구목록 버튼과 대화목록 버튼 클릭 시
 let friend_btn = document.querySelector('#friend_btn')
@@ -86,6 +97,8 @@ chat_btn.onclick = function () {
 
   chat_msg.style.right = '-23em'
   chat_msg.style.transition = '.5s'
+
+  getFriendChatListFunc()
 }
 
 // 채팅 - 친구목록 확인
@@ -103,17 +116,9 @@ function getFriendListFunc() {
   let param = {
     user_pk: user_pk.value,
   }
-  fetch('/layout/getFriendList', {
-    method: 'post',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(param),
+  fetchAjax(param, 'post', '/layout/getFriendList', (myJson) => {
+    getFriend_list(myJson)
   })
-    .then((res) => res.json())
-    .then((myJson) => {
-      getFriend_list(myJson)
-    })
 }
 
 const table = friend_list.querySelector('table')
@@ -125,7 +130,6 @@ function getFriend_list(myJson) {
     fList_div.innerText = '친구가 없습니다ㅠ'
     return
   }
-
   for (let i = 0; i < myJson.length; i++) {
     let table_tr = document.createElement('tr')
     table.append(table_tr)
@@ -175,6 +179,10 @@ function getFriend_list(myJson) {
     // 대화
     let friend_Chat_td = document.createElement('td')
     friend_Chat_td.classList.add('friend_chat_func')
+    friend_Chat_td.setAttribute(
+      'onclick',
+      `commonChatFunc(this, ${myJson[i].user_pk})`
+    )
     friend_Chat_td.innerHTML = '<span>대화</span>'
 
     table_tr.appendChild(friend_profileImg_td)
@@ -197,6 +205,19 @@ function getFriend_list(myJson) {
   }
 }
 
+// 채팅방 만들기 /가져오기
+function commonChatFunc(e, friend_pk) {
+  let user_id = e.parentNode.querySelector('.friend_info span').innerText
+  let chatParam = {
+    chatroom_friendpk: friend_pk,
+  }
+  fetchAjax(chatParam, 'post', '/layout/getRoom', (myJson) => {
+    if (myJson.result != null) {
+      enterChatroom(myJson.result, user_id)
+    }
+  })
+}
+
 // 친구 삭제
 function delFriendFunc(friend_pk) {
   let delFriendConfirm = confirm('정말 삭제하시겠습니까?')
@@ -211,105 +232,168 @@ function delFriendFunc(friend_pk) {
     let delFriendParam = {
       friend_pk: friend_pk,
     }
-    console.log('삭제한 친구 번호 - ' + delFriendParam.friend_pk)
-    fetch('/layout/delFriend', {
-      method: 'post',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(delFriendParam),
+    fetchAjax(delFriendParam, 'post', '/layout/delFriend', (myJson) => {
+      if (myJson.result == 0) {
+        alert('삭제에 실패하였습니다.')
+        return
+      } else {
+        alert('삭제되었습니다.')
+        history.go(0)
+      }
     })
-      .then((res) => res.json())
-      .then((delFriend) => {
-        if (delFriend.result == 0) {
-          alert('삭제에 실패하였습니다.')
-          return
-        } else {
-          alert('삭제되었습니다.')
-          history.go(0)
-        }
-      })
   }
 }
 
+function goToBottom() {
+  document.querySelector('.chat').scrollTop = document.querySelector(
+    '.chat'
+  ).scrollHeight
+}
 // 채팅 - 대화 목록 확인
-getFriendChatListFunc()
+document.querySelector('.dm_open').addEventListener('click', () => {
+  getFriendChatListFunc()
+})
 
 function getFriendChatListFunc() {
   let param = {
-    user_pk: user_pk.value,
+    chatroom_userpk: user_pk.value,
   }
-  fetch('/layout/getFriendChatList', {
-    method: 'post',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(param),
+  fetchAjax(param, 'post', '/layout/getChatList', (myJson) => {
+    document
+    .querySelector('.chat_list')
+    .querySelectorAll('div')
+    .forEach((test) => test.remove())
+
+    getChat_List(myJson)
   })
-    .then((res) => res.json())
-    .then((myJson) => {
-      getChat_List(myJson)
-    })
 }
 
 const chat_list_divSpan = document.querySelector('.chat_list span')
 
 function getChat_List(myJson) {
   if (myJson.length === 0) {
-    let CList_div = document.createElement('div')
+    const CList_div = document.createElement('div')
     chat_list_divSpan.after(CList_div)
     CList_div.innerText = '대화가 없습니다!'
+    CList_div.style.marginLeft = '0.5em'
+    CList_div.style.marginTop = '1em'
     return
   } else {
     for (let i = 0; i < myJson.length; i++) {
       let CList_div = document.createElement('div')
+      CList_div.classList.add('CList_div')
+      CList_div.setAttribute(
+        'onclick',
+        `enterChatroom('${myJson[i].chatroom_id}','${myJson[i].user_id}')`
+      )
       chat_list_divSpan.after(CList_div)
 
+      let CList_img = document.createElement('img')
+      if (myJson[i].user_profileimg === null) {
+        CList_img.src = '/resources/img/common/basic_profile.png'
+      } else {
+        CList_img.src = `${myJson[i].user_profileimg}`
+      }
+      CList_div.appendChild(CList_img)
+
       let CList_span = document.createElement('span')
-      CList_div.appendChild(CList_span)
+      CList_img.after(CList_span)
       CList_span.innerText = `@${myJson[i].user_id}`
 
-      let CList_p = document.createElement('p')
-      CList_div.appendChild(CList_p)
-      CList_p.innerText = `${myJson[i].chatroom_lasttalk}`
+      let last_message = document.createElement('span')
+      last_message.innerText = `${myJson[i].last_message}`
+      if (myJson[i].last_message == null) {
+        last_message.innerText = '대화 내용이 없습니다.'
+      } else if (getTextLength(myJson[i].last_message) > 30) {
+        let message_ctnt = `${myJson[i].last_message}`
+        last_message.innerText = message_ctnt.substring(0, 15) + '...'
+      }
 
-      let CList_small = document.createElement('small')
-      CList_div.appendChild(CList_small)
-      CList_small.innerText = `${myJson[i].chatroom_date}`
-    }
-
-    // 해당 대화 클릭 시 채팅방으로 슬라이드 이동
-    let CList_divAll = document.querySelectorAll('.chat_list div')
-    for (let i = 0; i < CList_divAll.length; i++) {
-      let CList_divEle = CList_divAll[i]
-      CList_divEle.addEventListener('click', function () {
-        chat_msg.style.right = '17px'
-        chat_msg.style.transition = '.5s'
-
-        chat_list.style.left = '-24em'
-      })
+      CList_span.after(last_message)
     }
   }
 }
 
+// 채팅방 들어갈 때
+function enterChatroom(room_id, user_id) {
+  document.querySelector('#chat_friendName').innerText = '@' + user_id
+  document
+    .querySelector('.chat')
+    .querySelectorAll('div')
+    .forEach((test) => test.remove())
+  chat_msg.style.right = '17px'
+  chat_msg.style.transition = '.5s'
+
+  friend_list.style.left = '-24em'
+  chat_list.style.left = '-24em'
+
+  fetchAjax(room_id, 'get', '/layout/enterChatroom/', (myJson) => {
+    if (document.querySelector('.room_id')) {
+      document.querySelector('.room_id').remove()
+    }
+    let room_idInput = document.createElement('input')
+    room_idInput.className = 'room_id'
+    room_idInput.type = 'hidden'
+    room_idInput.value = room_id
+    document.querySelector('.chat_msg').appendChild(room_idInput)
+    readMessage(room_id)
+    makeChat(user_id, myJson)
+    goToBottom()
+  })
+}
+
+function clickRead(e) {
+  readMessage(e.parentNode.parentNode.querySelector('.room_id').value)
+}
+
+function readMessage(room_id) {
+  fetchAjax(room_id, 'get', '/layout/readmessage/', (myJson) => {})
+}
+
+const chatDiv = document.querySelector('.chat')
+function makeChat(user_id, myJson) {
+  for (let i = myJson.length - 1; i >= 0; i--) {
+    if (myJson[i].user_id === user_id) {
+      let friendMsgContainerDiv = document.createElement('div')
+      friendMsgContainerDiv.className = 'friendMsgContainer'
+      chatDiv.appendChild(friendMsgContainerDiv)
+
+      let friendMsgP = document.createElement('p')
+      friendMsgP.className = 'friendMsg'
+      friendMsgP.innerHTML = myJson[i].message_ctnt
+      friendMsgContainerDiv.appendChild(friendMsgP)
+
+      let friendMsg_timeSmall = document.createElement('small')
+      friendMsg_timeSmall.className = 'friendMsg_time'
+      friendMsg_timeSmall.innerText = myJson[i].message_date
+      friendMsgContainerDiv.appendChild(friendMsg_timeSmall)
+    } else {
+      let myMsgContainerDiv = document.createElement('div')
+      myMsgContainerDiv.className = 'myMsgContainer'
+      chatDiv.appendChild(myMsgContainerDiv)
+
+      let myMsgP = document.createElement('p')
+      myMsgP.className = 'myMsg'
+      myMsgP.innerHTML = myJson[i].message_ctnt
+      myMsgContainerDiv.appendChild(myMsgP)
+
+      let myMsg_timeSmall = document.createElement('small')
+      myMsg_timeSmall.className = 'myMsg_time'
+      myMsg_timeSmall.innerText = myJson[i].message_date
+      myMsgContainerDiv.appendChild(myMsg_timeSmall)
+    }
+  }
+}
 // 알 수도 있는 사람 목록(추천친구)
-getRecommandFriendListFunc()
+
 
 function getRecommandFriendListFunc() {
   let param = {
     user_pk: user_pk.value,
   }
-  fetch('/layout/recommandFriend', {
-    method: 'post',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(param),
+  fetchAjax(param, 'post', '/layout/recommandFriend', (myJson) => {
+    getRecFriend_List(myJson)
   })
-    .then((res) => res.json())
-    .then((myJson) => {
-      getRecFriend_List(myJson)
-    })
 }
 
 const recFriendTable = document.querySelector("table[name='recommand_friend']")
@@ -326,9 +410,10 @@ function getRecFriend_List(myJson) {
     recFriend_profile_td.appendChild(recFriend_profile)
     if (myJson[i].user_profileimg === null) {
       recFriend_profile_td.innerHTML =
-        '<img src="/resources/img/common/basic_profile.png" alt="프로필사진">'
+        '<img src="/resources/img/common/basic_profile.png" alt="기본프로필사진">'
     } else {
-      recFriend_profile_td.innerHTML = '<img src="" alt="프로필사진">'
+      recFriend_profile_td.innerHTML =
+        '<img src="' + myJson[i].user_profileimg + '" alt="프로필사진">'
     }
 
     let recFriendTd = document.createElement('td')
@@ -348,7 +433,7 @@ function getRecFriend_List(myJson) {
 
     let addNewFriendBtn_i = document.querySelectorAll('#recommand_div i')
     for (let j = 0; j < addNewFriendBtn_i.length; j++) {
-      addNewFriendBtn = addNewFriendBtn_i[j].onclick = function () {
+      addNewFriendBtn_i[j].onclick = function () {
         let addFriendConfirmMsg = confirm(
           `${myJson[j].user_id}` + ' 님을 친구 추가하시겠습니까?'
         )
@@ -364,27 +449,58 @@ function getRecFriend_List(myJson) {
             user_pk: user_pk.value,
             friend_pk: `${myJson[j].friend_pk}`,
           }
-          console.log('추가한 친구 번호 - ' + addFriendParam.friend_pk)
 
-          fetch('/layout/addNewFriend', {
-            method: 'post',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(addFriendParam),
+          fetchAjax(addFriendParam, 'post', '/layout/addNewFriend', (addFriend) => {
+            if (addFriend.result == 0) {
+              alert('친구 추가에 실패하였습니다.')
+              return
+            } else {
+              alert(`${myJson[j].user_id}` + ' 님을 친구 추가하였습니다.')
+              sendAlarm(1, addFriendParam.user_pk, addFriendParam.friend_pk)
+              history.go(0)
+            }
           })
-            .then((res) => res.json())
-            .then((addFriend) => {
-              if (addFriend.result == 0) {
-                alert('친구 추가에 실패하였습니다.')
-                return
-              } else {
-                alert(`${myJson[j].user_id}` + ' 님을 친구 추가하였습니다.')
-                history.go(0)
-              }
-            })
         }
       }
     }
   }
+}
+
+function getAlarmCount() {
+  const user_id = document.querySelector('#temp_user').innerText
+  console.log(user_id)
+  fetchAjax(user_id, 'get', '/layout/getalarmcount/', (myJson) => {
+    console.log(myJson)
+    if (document.querySelector('#alarm')) {
+      document.querySelector('#alarm').remove()
+    }
+
+    if (myJson > 0) {
+      const alarmDiv = document.createElement('div')
+      alarmDiv.setAttribute('id', 'alarm')
+      document.querySelector('#news').appendChild(alarmDiv)
+
+      let alarmCount = document.createElement('div')
+      alarmCount.innerHTML = myJson
+      alarmDiv.appendChild(alarmCount)
+    }
+  })
+}
+
+function getNoRealAllMessage() {
+  const user_id = document.querySelector('#temp_user').innerText
+  fetchAjax(user_id, 'get', '/layout/getnoreadallmessage/', (myJson) => {
+    if (document.querySelector('#new_dm')) {
+      document.querySelector('#new_dm').remove()
+    }
+    if (myJson > 0) {
+      const new_dmDiv = document.createElement('div')
+      new_dmDiv.setAttribute('id', 'new_dm')
+      document.querySelector('#dm_view p').after(new_dmDiv)
+
+      let noReadCount = document.createElement('div')
+      noReadCount.innerHTML = myJson
+      new_dm.appendChild(noReadCount)
+    }
+  })
 }

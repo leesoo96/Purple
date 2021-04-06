@@ -14,12 +14,13 @@ import javax.servlet.http.HttpServletResponse;
 import com.purple.demo.mapper.UserMapper;
 import com.purple.demo.model.UserEntity;
 import com.purple.demo.model.UserPrincipal;
+import com.purple.demo.model.DTO.LoginVO;
 
 @Service
 public class UserServiceImpl implements UserDetailsService {
 
 	@Autowired
-	private UserMapper mapper;
+	private UserMapper userMapper;
 	
 	@Autowired
 	private PasswordEncoder encoder;
@@ -27,10 +28,10 @@ public class UserServiceImpl implements UserDetailsService {
 	// DB로부터 회원정보를 가져와서 존재하는 회원인지 아닌지를 체크하는 주요메소드 
 	@Override
 	public UserDetails loadUserByUsername(String user_id) throws UsernameNotFoundException {
-		UserEntity entity = new UserEntity();
-		entity.setUser_id(user_id);
-		
-		UserEntity user = mapper.loginUser(entity);
+		LoginVO vo = new LoginVO();
+		vo.setUser_id(user_id);
+
+		UserEntity user = userMapper.loginUser(vo);
 		return UserPrincipal.create(user);
 	}
 
@@ -39,23 +40,23 @@ public class UserServiceImpl implements UserDetailsService {
 		if(entity.getUser_pw() != null && !"".equals(entity.getUser_pw())) {
 			entity.setUser_pw(encoder.encode(entity.getUser_pw()));
 		}
-		return mapper.joinUser(entity);
+		return userMapper.joinUser(entity);
 	}
 	
 //	중복 체크 
 	public int overlap_Confirm(UserEntity entity) {
-		return mapper.overlap_Confirm(entity);
+		return userMapper.overlap_Confirm(entity);
 	}
 
 	public UserEntity selUserInfo(String user_id) {
-		return mapper.selUserInfo(user_id);
+		return userMapper.selUserInfo(user_id);
 	}
 
 //	비밀번호 찾기
 	public int findPw(HttpServletResponse res, UserEntity entity) {
 		res.setContentType("text/html;charset=utf-8");
 
-		UserEntity dto = mapper.compareId_email(entity);
+		UserEntity dto = userMapper.compareId_email(entity);
 
 		if(ObjectUtils.isEmpty(dto) || !entity.getUser_id().equals(dto.getUser_id())) {
 		// 아이디가 없거나 틀렸을 경우 
@@ -81,7 +82,7 @@ public class UserServiceImpl implements UserDetailsService {
 			String bcryptTemp_pw = encoder.encode(temp_pw);
 
 			// 임시 비밀번호 저장 
-			mapper.temporary_pw(dto.getUser_id(), bcryptTemp_pw);
+			userMapper.temporary_pw(dto.getUser_id(), bcryptTemp_pw);
 
 			// 이메일 발송
 			return sendEmail(dto); // 3
@@ -94,8 +95,8 @@ public class UserServiceImpl implements UserDetailsService {
 		// Mail server 설정
 		String charSet = "utf-8";
 		String hostSMTP = "smtp.gmail.com";
-		String hostSMTPid = "dltnwls7042"; // 보내는 사람 아이디
-		String hostSMTPpwd = "cltzpanotdmabqvl"; // 앱 비밀번호
+		String hostSMTPid = "purple210409"; // 보내는 사람 아이디
+		String hostSMTPpwd = "mrpshuscuzizaent"; // 앱 비밀번호
 
 		// 보내는 사람
 		String fromEmail = "purple@purple.com";
@@ -125,11 +126,8 @@ public class UserServiceImpl implements UserDetailsService {
 			email.setHtmlMsg(msg);
 			email.send();
 
-			System.out.println("메일 발송 성공");
-
 			return 3;
 		} catch (Exception e) {
-			System.out.println("메일발송 실패 : " + e);
 			// 메일 형식이 틀렸을 때
 			return 4;
 		}

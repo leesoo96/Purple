@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.purple.demo.mapper.BookmarkMapper">
+    <!-- 북마크된 내용들 가져오기 -->
     <select id="selBookmarkList" resultType="FeedListDTO">
         SELECT a.feed_pk, a.feed_ctnt, a.feed_writedate, a.feed_userpk,
         b.user_id, b.user_profileimg,
