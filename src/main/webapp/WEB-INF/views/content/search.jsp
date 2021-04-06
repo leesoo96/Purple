@@ -1,17 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<link
-  rel="stylesheet"
-  href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
-  integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
-  crossorigin="anonymous"
-/>
 <link rel="stylesheet" href="/resources/css/search/search.css" />
 <script defer src="/resources/js/search/search.js"></script>
 <link rel="stylesheet" href="/resources/css/feed/feed.css">
 <link rel="stylesheet" href="/resources/css/feed/feedDetail.css">
-<script defer src="/resources/js/feed/feedDetail.js"></script>
 
 <svg xmlns="http://www.w3.org/2000/svg" width="0" height="0" display="none">
   <symbol id="user" viewBox="0 0 32 32">

@@ -6,13 +6,9 @@ const feedDetailClass = document.querySelector('.feedDetail')
 
 function feedDetail(e, feed_pk) {
   return new Promise(function (resolve) {
-    fetch(`/feed/detail/` + feed_pk)
-      .then((res) => res.json())
-      .then((myJson) => {
-        resolve(myJson.result)
-      })
+    fetchAjax(feed_pk, 'get','/feed/detail/', resolve)
   }).then((myJson) => {
-    makeFeedDetail(e, myJson)
+    makeFeedDetail(e, myJson.result)
   })
 }
 
@@ -271,14 +267,7 @@ function comment_submit(e,feed_pk) {
       comment_parentpk : comment_inputEle.querySelector('span[name="recomment_userid"]').dataset.comment_pk,
       comment_ctnt
     }
-    fetch('/feed/recomment',{
-      method: 'post',
-    headers: {
-      'Content-Type' : 'application/json',
-    },
-    body: JSON.stringify(params),
-  }).then((res) => res.json())
-  .then((myJson) => {
+    fetchAjax(params, 'post','/feed/recomment',(myJson) => {
     if(myJson.result === 1) {
       comment_inputEle.querySelector('input[name="comment_ctnt"]').value = ''
       comment_inputEle.querySelector('span[name="recomment_userid"]').remove()
@@ -293,15 +282,7 @@ function comment_submit(e,feed_pk) {
     comment_feedpk: feed_pk,
     comment_ctnt
   }
-
-  fetch('/feed/comment',{
-    method: 'post',
-    headers: {
-      'Content-Type' : 'application/json',
-    },
-    body: JSON.stringify(params),
-  }).then((res) => res.json())
-  .then((myJson) =>{
+  fetchAjax(params, 'post', '/feed/comment', (myJson) => {
     if(myJson.result === 1) {
       comment_inputEle.querySelector('input[name="comment_ctnt"]').value = ''
       getCommentList(e, feed_pk)
@@ -309,14 +290,12 @@ function comment_submit(e,feed_pk) {
       return
     }
     alert('댓글 작성을 실패하였습니다.')
-  })
+    })
 }
 
 function getCommentList(e, feed_pk) {
   e.parentNode.parentNode.firstChild.querySelectorAll('*').forEach((nodes) => nodes.remove())
-  fetch('/feed/getcomment/'+feed_pk)
-  .then(res => res.json())
-  .then((myJson) => {
+  fetchAjax(feed_pk, 'get', '/feed/getcomment/', (myJson) => {
     console.log(myJson)
     for(let i=0; i< myJson.result.length; i++) {
       console.log(myJson.result[i])
@@ -364,10 +343,8 @@ function viewMore(e) {
   let comment_parentpk = e.parentNode.parentNode.dataset.comment_pk
   e.parentNode.parentNode.parentNode.querySelectorAll('.recommentbar').forEach((test) => test.remove())
 
-
-  fetch('/feed/getrecomment/'+comment_parentpk)
-  .then((res) => res.json())
-  .then((myJson) => {
+  fetchAjax(comment_parentpk, 'get', '/feed/getrecomment/', (myJson) => {
+    console.log(myJson)
     if(myJson.result.length == 0) {
       alert('댓글이 없습니다.')
       return

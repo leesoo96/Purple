@@ -9,6 +9,7 @@
         LEFT JOIN user AS B
         ON A.alarm_from = B.user_pk
         WHERE alarm_sendto = #{user_pk}
+        AND alarm_readstate = 1
         ORDER BY alarm_date DESC;
     </select>
 
