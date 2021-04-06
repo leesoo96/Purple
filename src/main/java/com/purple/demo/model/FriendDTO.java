@@ -5,8 +5,8 @@ import lombok.Setter;
 
 @Getter
 @Setter
+@SuppressWarnings("serial")
 public class FriendDTO extends UserEntity {
-    private int user_pk;
     private int friend_pk; // 친구 pk 번호 
 
 }

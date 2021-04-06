@@ -6,7 +6,7 @@
 <script defer src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <link rel="stylesheet" href="/resources/css/feed/feed.css">
 <link rel="stylesheet" href="/resources/css/feed/feedDetail.css">
-<script defer src="/resources/js/feed/feedDetail.js"></script>
+
 <div id="modal_background"></div>
 <!-- modal_background -->
 <div id="userMod_container">

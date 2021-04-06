@@ -2,6 +2,28 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.purple.demo.mapper.MypageMapper">
+    <select id="checkUserpw" resultType="string">
+        SELECT user_pw
+        FROM user
+        WHERE user_pk = #{user_pk}
+    </select>
+
+    <select id="selMypageFeedList" resultType="FeedListDTO">
+        SELECT a.feed_pk, a.feed_ctnt, a.feed_writedate, a.feed_userpk,
+        b.user_id, b.user_profileimg,
+        (SELECT COUNT(comment_pk) FROM comment WHERE comment_feedpk = a.feed_pk) 
+        AS "comment_count",
+        (SELECT COUNT(favorite_feedpk) FROM favorite WHERE favorite_feedpk = a.feed_pk) 
+        AS "favorite_count"
+        FROM feed AS a
+        LEFT OUTER JOIN user AS b
+        ON (a.feed_userpk = b.user_pk)
+        WHERE a.feed_state = 1 
+        AND a.feed_userpk = #{user_pk}
+        ORDER BY a.feed_writedate DESC
+        LIMIT #{first_page}, #{end_page};
+    </select>
+
     <update id="modUserInfo">
         UPDATE user
         <set>
@@ -33,28 +55,9 @@
         WHERE user_pk = #{user_pk}
     </update>
 
-    <select id="checkUserpw" resultType="string">
-        SELECT user_pw
-        FROM user
-        WHERE user_pk = #{user_pk}
-    </select>
-
     <update id="modUserPw">
         UPDATE user
         SET user_pw = #{user_pw}
         WHERE user_pk = #{user_pk}
     </update>
-
-    <select id="selMypageFeedList" resultType="FeedListDTO">
-        SELECT a.feed_pk, a.feed_ctnt, a.feed_writedate, a.feed_userpk,
-        b.user_id, b.user_profileimg,
-        (SELECT COUNT(comment_pk) FROM comment WHERE comment_feedpk = a.feed_pk) AS "comment_count",
-        (SELECT COUNT(favorite_feedpk) FROM favorite WHERE favorite_feedpk= a.feed_pk) AS "favorite_count"
-        FROM feed AS a
-        LEFT OUTER JOIN user AS b
-        ON (a.feed_userpk = b.user_pk)
-        WHERE a.feed_state = 1 AND a.feed_userpk = #{user_pk}
-        ORDER BY a.feed_writedate DESC
-        LIMIT #{first_page}, #{end_page}
-    </select>
 </mapper>

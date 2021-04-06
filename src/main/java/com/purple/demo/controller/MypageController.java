@@ -23,7 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class MypageController {
 
 	@Autowired
-	private MypageService service;
+	private MypageService mypageService;
 
 	@RequestMapping("")
 	public String mypage() {
@@ -31,18 +31,20 @@ public class MypageController {
 	}
 
 	@ResponseBody
-	@RequestMapping(value="", method = RequestMethod.POST)
-	public Map<String, Object> mypageFeedList(@RequestBody FeedListDTO param){
+	@RequestMapping(value = "", method = RequestMethod.POST)
+	public Map<String, Object> mypageFeedList(@RequestBody FeedListDTO dto){
 		Map<String, Object> mypageFeedListResult = new HashMap<String, Object>();
-		mypageFeedListResult.put("result", service.selMypageFeedList(param));
+		mypageFeedListResult.put(Const.KEY_RESULT, mypageService.selMypageFeedList(dto));
+		
 		return mypageFeedListResult;
 	}
 
 	@ResponseBody
 	@PutMapping("/mod_userinfo")
-	public Map<String, Object> mod_userinfo(@RequestBody UserEntity userEntity) {
+	public Map<String, Object> mod_userinfo(@RequestBody UserEntity dto) {
 		Map<String, Object> modUserInfoResult = new HashMap<String, Object>();
-		modUserInfoResult.put(Const.KEY_REUSLT, service.modUserInfo(userEntity));
+		modUserInfoResult.put(Const.KEY_RESULT, mypageService.modUserInfo(dto));
+		
 		return modUserInfoResult;
 	}
 
@@ -50,15 +52,17 @@ public class MypageController {
 	@PostMapping("/pw_check")
 	public Map<String, Object> checkUserPw(@RequestBody Map<String, Object> map) {
 		Map<String, Object> checkUserPwResult = new HashMap<String, Object>();
-		checkUserPwResult.put(Const.KEY_REUSLT, service.checkUserpw(map));
+		checkUserPwResult.put(Const.KEY_RESULT, mypageService.checkUserpw(map));
+		
 		return checkUserPwResult;
 	}
 
 	@ResponseBody
 	@PostMapping("/mod_userpw")
-	public Map<String, Object> modUserPw(@RequestBody UserEntity userEntity) {
+	public Map<String, Object> modUserPw(@RequestBody UserEntity entity) {
 		Map<String, Object> modUserPwResult = new HashMap<String, Object>();
-		modUserPwResult.put(Const.KEY_REUSLT, service.modUserPw(userEntity));
+		modUserPwResult.put(Const.KEY_RESULT, mypageService.modUserPw(entity));
+		
 		return modUserPwResult;
 	}
 
@@ -67,12 +71,12 @@ public class MypageController {
 	@PostMapping("/profile_img")
 	public Map<String, Object> profile_img(MultipartFile img) {
 		Map<String, Object> Result = new HashMap<String, Object>();
-
+		
 		if (img == null) {
 			UserEntity userEntity = new UserEntity();
-			Result.put("result", userEntity.getUser_profileimg());
+			Result.put(Const.KEY_RESULT, userEntity.getUser_profileimg());
 		}else{
-			Result.put("result", service.profile_img(img));
+			Result.put(Const.KEY_RESULT, mypageService.profile_img(img));
 		}
 		return Result;
 	}
@@ -85,9 +89,9 @@ public class MypageController {
 
 		if (img == null) {
 			UserEntity userEntity = new UserEntity();
-			Result.put("result", userEntity.getUser_backgroundimg());
+			Result.put(Const.KEY_RESULT, userEntity.getUser_backgroundimg());
 		}else{
-			Result.put("result", service.background_img(img));
+			Result.put(Const.KEY_RESULT, mypageService.background_img(img));
 		}
 		return Result;
 	}

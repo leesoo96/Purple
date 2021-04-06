@@ -18,12 +18,12 @@
   	<div id="write_container">
 	  	<button id="write_btn" onclick="off()"><img src="/resources/img/common/close_icon.png"></button>
 	  	<div id="write_title">Upload Post</div>
-	  		<form id="write_content" action="/feed/feed_write" method="post" enctype="multipart/form-data">
+	  		<form id="write_content" action="/feed/feed_write" method="post" enctype="multipart/form-data" onkeydown ="return keyEnter(event)">
           <div class='write_preview' >
             <div id="add_image">사진을 추가해 주세요</div>
             <!-- 미리보기 공간 -->  	
         	</div>
-            <img src="/resources/img/common/close_icon.png" id="write_icon" onclick="document.getElementById('file').click();" />
+            <img src="/resources/img/common/photo_icon.png" id="write_icon" onclick="document.getElementById('file').click();" />
             <input type="file" id="file" name="imgs" accept="image/**" onchange="setThumbnail(event);"  onchange="document.getElementById('txt').value=this.value;" multiple="multiple" />	  			
             <textarea id="write_text" name="feed_ctnt" rows="7" placeholder="내용을 입력하세요"></textarea>
             <div id="write_hashtag">

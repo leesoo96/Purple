@@ -2,12 +2,38 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.purple.demo.mapper.AlarmMapper">
+    <!-- 알람 정보 가져오기 -->
     <select id="getAlarm" resultType="AlarmDTO">
         SELECT A.alarm_from, A.alarm_valuepk, A.alarm_category, A.alarm_date, B.user_id, B.user_profileimg
         FROM alarm AS A
         LEFT JOIN user AS B
         ON A.alarm_from = B.user_pk
         WHERE alarm_sendto = #{user_pk}
+        AND alarm_readstate = 1
         ORDER BY alarm_date DESC;
     </select>
+
+    <!-- 알람 수 가져오기 -->
+    <select id="getAlarmCount" resultType="int">
+        SELECT COUNT(alarm_category)
+        FROM alarm
+        WHERE alarm_sendto = #{send_to}
+        AND alarm_readstate = 1
+    </select>
+
+    <!-- 알람 타입에 따라 알람내용 저장 -->
+    <insert id="insAlarm">
+        INSERT INTO alarm
+        (alarm_category, alarm_sendto, alarm_from, alarm_valuepk)
+        VALUES
+        (#{alarm_category}, #{alarm_sendto}, #{alarm_from}, #{alarm_valuepk})
+    </insert>
+
+    <!-- 알람 읽기 -->
+    <update id="readAlarm">
+        UPDATE alarm
+		SET alarm_readstate = 0
+		WHERE alarm_sendto = #{user_pk}
+        AND alarm_readstate = 1
+    </update>
 </mapper>

@@ -1,9 +1,9 @@
 package com.purple.demo.model;
 
 import java.security.Principal;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
+
+import com.purple.demo.model.DTO.LoginVO;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -12,7 +12,7 @@ import lombok.Data;
 
 // loadUserByUsername 메소드가 userDetails를 리턴
 @Data
-public class UserPrincipal extends UserEntity implements Principal {
+public class UserPrincipal extends LoginVO implements Principal {
 	private Collection<? extends GrantedAuthority> authorities;
 	
 	public UserPrincipal(UserEntity user) {
@@ -27,19 +27,56 @@ public class UserPrincipal extends UserEntity implements Principal {
 		this.setUser_name(user.getUser_name());
 		this.setUser_email(user.getUser_email());
 		this.setUser_auth(user.getUser_auth());
-
+		
 		authorities = Collections.singletonList(new SimpleGrantedAuthority(user.getUser_auth()));
 	}
 	
-	//	시큐리티 로그인 관련 
+	// 시큐리티 로그인 관련 
 	public static UserPrincipal create(UserEntity user) {
 		List<GrantedAuthority> authorities = Collections.
-				singletonList(new SimpleGrantedAuthority(user.getUser_auth()));
+		  singletonList(new SimpleGrantedAuthority(user.getUser_auth()));
 		return new UserPrincipal(user);
 	}
 			
+	// 유저 비밀번호
+	@Override
+	public String getPassword() {
+	   return this.getUser_pw();
+	}
+	
+ 	// 유저 아이디 
+	@Override
+	public String getUsername() {
+	   return this.getUser_id();
+	}
+	   
+ 	// 유저계정이 만료안했으면 true
+	@Override
+	public boolean isAccountNonExpired() {
+	   return true;
+	}
+	
+ 	// 유저계정이 안잠겨있으면 true
+	@Override
+	public boolean isAccountNonLocked() {
+	   return true;
+	}
+	
+ 	// 유저계정의 비밀번호를 오래사용한것이 아니면 true
+	@Override
+	public boolean isCredentialsNonExpired() {
+	   return true;
+	}
+	
+ 	// 유저계정의 활성화기능 되어있지않으면 true  , ex) 1년이상 사용안하계정은 잠금할때 사용함
+	@Override
+	public boolean isEnabled() {
+	   return true;
+	}
+ 
 	@Override
 	public String getName() {
-		return this.getUser_id();
+	   return null;
 	}
+ 
 }

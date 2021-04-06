@@ -32,33 +32,35 @@ public class FeedController {
 	@Autowired
 	private FeedService feedService;
 
-	// Feed
-	@RequestMapping(value="")
+	@RequestMapping(value = "")
 	public String feed(){
 		return "/feed";
 	}
 
 	@ResponseBody
-	@RequestMapping(value="", method = RequestMethod.POST)
-	public Map<String, Object> feedList(@RequestBody FeedListDTO param){
+	@RequestMapping(value = "", method = RequestMethod.POST)
+	public Map<String, Object> feedList(@RequestBody FeedListDTO dto){
 		Map<String, Object> feedListResult = new HashMap<String, Object>();
-		feedListResult.put("result", feedService.selFeedList(param));
+		feedListResult.put(Const.KEY_RESULT, feedService.selFeedList(dto));
+
 		return feedListResult;
 	}
 	
 	@ResponseBody
-	@RequestMapping(value="/detail/{feed_pk}", method = RequestMethod.GET)
+	@RequestMapping(value = "/detail/{feed_pk}", method = RequestMethod.GET)
 	public Map<String, Object> feedDetail(@PathVariable int feed_pk) {
 		Map<String, Object> feedDetailResult = new HashMap<String, Object>();
 		FeedDetailDTO dto = new FeedDetailDTO();
 		dto.setFeed_pk(feed_pk);
-		feedDetailResult.put("result", feedService.feedDetail(dto));
+		feedDetailResult.put(Const.KEY_RESULT, feedService.feedDetail(dto));
+
 		return feedDetailResult;
 	}
 
 	@PostMapping("/feed_write")
 	public String feed_write(FeedWriteDTO dto, @RequestParam(value = "imgs") MultipartFile[] files) {
-		feedService.insFeed(dto, files);	
+		feedService.insFeed(dto, files);
+
 		return "redirect:/feed";
 	}
 	
@@ -66,32 +68,35 @@ public class FeedController {
 	@PostMapping("/favorite")
 	public Map<String, Object> feedFavorite(@RequestBody FeedFavoriteDTO dto) {
 		Map<String, Object> feedFavoriteResult = new HashMap<String, Object>();
-		feedFavoriteResult.put("result", feedService.feedFavorite(dto));
+		feedFavoriteResult.put(Const.KEY_RESULT, feedService.feedFavorite(dto));
+		
 		return feedFavoriteResult;
 	}
 
-	// Bookmark
 	@ResponseBody
 	@PostMapping("/bookmark")
-	public Map<String, Object> feedBookmark(@RequestBody FeedBookmarkDTO bmd) {
+	public Map<String, Object> feedBookmark(@RequestBody FeedBookmarkDTO dto) {
 		Map<String, Object> feedBookmarkResult = new HashMap<String, Object>();
-		feedBookmarkResult.put("result", feedService.feedBookmark(bmd));
+		feedBookmarkResult.put(Const.KEY_RESULT, feedService.feedBookmark(dto));
+
 		return feedBookmarkResult;
 	}
 
 	@ResponseBody
 	@PostMapping("/comment")
-	public Map<String, Object> insComment(@RequestBody CommentWriteDTO param) {
+	public Map<String, Object> insComment(@RequestBody CommentWriteDTO dto) {
 		Map<String, Object> insCommentResult = new HashMap<String, Object>();
-		insCommentResult.put(Const.KEY_REUSLT, feedService.insComment(param));
+		insCommentResult.put(Const.KEY_RESULT, feedService.insComment(dto));
+		
 		return insCommentResult;
 	}
 
 	@ResponseBody
 	@PostMapping("/recomment")
-	public Map<String, Object> insReComment(@RequestBody CommentWriteDTO param) {
+	public Map<String, Object> insReComment(@RequestBody CommentWriteDTO dto) {
 		Map<String, Object> insReCommentResult = new HashMap<String, Object>();
-		insReCommentResult.put(Const.KEY_REUSLT, feedService.insReComment(param));
+		insReCommentResult.put(Const.KEY_RESULT, feedService.insReComment(dto));
+		
 		return insReCommentResult;
 	}
 
@@ -99,7 +104,8 @@ public class FeedController {
 	@RequestMapping(value="/getcomment/{feed_pk}", method = RequestMethod.GET)
 	public Map<String, Object> getCommentList(@PathVariable int feed_pk) {
 		Map<String, Object> CommentListResult = new HashMap<String, Object>();
-		CommentListResult.put("result", feedService.getCommentList(feed_pk));
+		CommentListResult.put(Const.KEY_RESULT, feedService.getCommentList(feed_pk));
+		
 		return CommentListResult;
 	}
 
@@ -107,7 +113,8 @@ public class FeedController {
 	@RequestMapping(value="/getrecomment/{comment_parentpk}", method = RequestMethod.GET)
 	public Map<String, Object> getReCommentList(@PathVariable int comment_parentpk) {
 		Map<String, Object> getReCommentListResult = new HashMap<String, Object>();
-		getReCommentListResult.put(Const.KEY_REUSLT, feedService.getReCommentList(comment_parentpk));
+		getReCommentListResult.put(Const.KEY_RESULT, feedService.getReCommentList(comment_parentpk));
+		
 		return getReCommentListResult;
 	}
 
@@ -115,7 +122,8 @@ public class FeedController {
 	@PutMapping("/deleteFeed")
 	public Map<String, Object> deleteFeed(@RequestBody int feed_pk) {
 		Map<String, Object> deleteFeedResult = new HashMap<String, Object>();
-		deleteFeedResult.put(Const.KEY_REUSLT, feedService.deleteFeed(feed_pk));
+		deleteFeedResult.put(Const.KEY_RESULT, feedService.deleteFeed(feed_pk));
+		
 		return deleteFeedResult;
 	}
 }
