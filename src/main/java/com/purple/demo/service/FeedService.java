@@ -65,46 +65,47 @@ public class FeedService {
     }
     
     public void insFeed(FeedWriteDTO dto, MultipartFile[] files){
-        //유저 pk 값
+        // 유저 pk 값
 		UserPrincipal principal = (UserPrincipal)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         dto.setFeed_userpk(principal.getUser_pk());
         feedMapper.insFeed(dto);
  
-        //업로드 할 파일 경로
+        // 업로드 할 파일 경로
         if(!files[0].isEmpty()) {
-		String folder = "/images/feed/" + dto.getFeed_pk();
-        fUtils.makeFolders(fUtils.getRealPath(folder));
-		try {	
-            for(MultipartFile file : files) {
-                MediaEntity entity = new MediaEntity();
-			    String fileNm = fUtils.transferTo(file, folder);
-                
-                entity.setMedia_url(folder + "/" + fileNm);
-                entity.setMedia_feedpk(dto.getFeed_pk());
-                
-                feedMapper.insFeedImg(entity);
-            }
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
-    }
-        //해시 태그
-        if(dto.getHashtag() != null) {
-        for(int i=0; i < dto.getHashtag().size(); i++){
-            System.out.println(dto.getHashtag().get(i));
-            HashtagRelationEntity hrel = new HashtagRelationEntity();
-            HashtagEntity htentity = new HashtagEntity();
-            htentity.setHashtag_ctnt((String)dto.getHashtag().get(i));
-            int state = feedMapper.insHashtag(htentity);
-            hrel.setHtrel_feedpk(dto.getFeed_pk());
-            if(state == 0) {
-               int hashtag_pk = feedMapper.selHashtag_pk(htentity);
-               hrel.setHtrel_hashtagpk(hashtag_pk);
-            }else {
-                hrel.setHtrel_hashtagpk(htentity.getHashtag_pk());
+            String folder = "/images/feed/" + dto.getFeed_pk();
+            fUtils.makeFolders(fUtils.getRealPath(folder));
+            try {	
+                for(MultipartFile file : files) {
+                    MediaEntity entity = new MediaEntity();
+                    String fileNm = fUtils.transferTo(file, folder);
+                    
+                    entity.setMedia_url(folder + "/" + fileNm);
+                    entity.setMedia_feedpk(dto.getFeed_pk());
+                    
+                    feedMapper.insFeedImg(entity);
+                }
+            } catch(Exception e) {
+                e.printStackTrace();
             }
         }
-    }
+        
+        // 해시 태그
+        if(dto.getHashtag() != null) {
+            for(int i=0; i < dto.getHashtag().size(); i++){
+                System.out.println(dto.getHashtag().get(i));
+                HashtagRelationEntity hrel = new HashtagRelationEntity();
+                HashtagEntity htentity = new HashtagEntity();
+                htentity.setHashtag_ctnt((String)dto.getHashtag().get(i));
+                int state = feedMapper.insHashtag(htentity);
+                hrel.setHtrel_feedpk(dto.getFeed_pk());
+                if(state == 0) {
+                int hashtag_pk = feedMapper.selHashtag_pk(htentity);
+                hrel.setHtrel_hashtagpk(hashtag_pk);
+                }else {
+                    hrel.setHtrel_hashtagpk(htentity.getHashtag_pk());
+                }
+            }
+        }
     }
   
     public FeedFavoriteDTO feedFavorite(FeedFavoriteDTO dto) {

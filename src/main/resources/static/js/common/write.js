@@ -1,7 +1,10 @@
+'use strict'
+
 const input_ht = document.querySelector('.text_hashtag')
 const ht = document.querySelector('#write_hashtag')
 const write_contentEle = document.querySelector('#write_content')
 let arr = new Array()
+
 // 클릭 이벤트
 function on() {
   document.querySelector('#overlay').style.display = 'block'
@@ -16,6 +19,7 @@ function keyEnter(event) {
     return false
   }
 }
+
 //해시태그
 function hashtag() {
   let htCount = ht.childElementCount
@@ -23,6 +27,7 @@ function hashtag() {
     alert('10개까지 입력 가능합니다')
     input_ht.remove()
   } else {
+
   }
 
   // 해시태그 내용 span 생성
@@ -37,6 +42,7 @@ function hashtag() {
     }
   }
   arr.push(input_ht_val)
+
   // span태그 삭제 버튼
   let div_DeleteBtn2 = document.createElement('div')
   div_DeleteBtn2.className = 'DeleteBtn2'
@@ -58,7 +64,7 @@ function hashtag() {
     }
   })
 
-  //hidden input 생성
+  // hidden input 생성
   let hidden_input = document.createElement('input')
   hidden_input.type = 'hidden'
   hidden_input.value = sarp(input_ht_val).trim()
@@ -73,7 +79,7 @@ function hashtag() {
   console.log(arr)
 }
 
-//맨앞에 #붙이기
+// 맨앞에 #붙이기
 function sarp(input_ht_val) {
   if (input_ht_val.charAt(0) !== '#') {
     input_ht_val = '#' + input_ht_val
@@ -82,7 +88,7 @@ function sarp(input_ht_val) {
   return input_ht_val
 }
 
-//해시태그에서 엔터, 스페이스바치면 넘어가게 처리
+// 해시태그에서 엔터, 스페이스바치면 넘어가게 처리
 function enterkey() {
   if (window.event.keyCode == 32 || window.event.keyCode == 13) {
     if (input_ht.value == ' ' || input_ht.value == '') {
@@ -94,7 +100,7 @@ function enterkey() {
   }
 }
 
-//preview_img
+// preview_img
 function setThumbnail(event) {
   for (var image of event.target.files) {
     var reader = new FileReader()

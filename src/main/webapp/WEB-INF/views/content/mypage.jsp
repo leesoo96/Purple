@@ -7,8 +7,10 @@
 <link rel="stylesheet" href="/resources/css/feed/feed.css">
 <link rel="stylesheet" href="/resources/css/feed/feedDetail.css">
 
-<div id="modal_background"></div>
-<!-- modal_background -->
+<div id="modal_background">
+
+</div>  <!-- modal_background -->
+
 <div id="userMod_container">
     <div id="userMod_top">
         <div id="close_userMod">
@@ -59,6 +61,7 @@
         <button name="pwModBtn" type="button">변경하기</button>
     </form>
 </div>
+
 <sec:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_USER')">
     <sec:authentication property="principal" var="userInfo"/>
     <div id="mypage_userinfo_container">
@@ -100,11 +103,13 @@
         </div>
     </div>
 </sec:authorize>
+
 <div id="feed">
 
 </div>
+
 <div class="feed_overlay">
     <div class="feedDetail">
              
     </div> 
- </div>
+</div>

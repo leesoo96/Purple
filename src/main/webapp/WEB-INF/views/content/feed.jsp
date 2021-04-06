@@ -12,10 +12,13 @@
     <option value="2">인기순</option>
   </select>
 </div>
+
 <div id="feed">
+
 </div>   <!-- feed -->
 
 <div class="feed_overlay">
    <div class="feedDetail">
+
    </div> 
 </div>
