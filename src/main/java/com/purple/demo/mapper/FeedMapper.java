@@ -17,11 +17,11 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface FeedMapper {
-   List<FeedListDTO> selFeedList(FeedListDTO param);
-   List<MediaEntity> selMediaList(FeedListDTO param);
-   List<HashtagEntity> selHashtagList(FeedListDTO param);
+   List<FeedListDTO> selFeedList(FeedListDTO dto);
+   List<MediaEntity> selMediaList(FeedListDTO dto);
+   List<HashtagEntity> selHashtagList(FeedListDTO dto);
    int isFavorite(int feed_pk, int user_pk);
-   int isBookmark(FeedListDTO param);
+   int isBookmark(FeedListDTO dto);
    int deleteFeed(int feed_pk);
    FeedDetailDTO selFeedDetail(FeedDetailDTO dto);
 
@@ -31,23 +31,21 @@ public interface FeedMapper {
    int favoriteCount(FeedFavoriteDTO dto);
 
    int insFeed(FeedWriteDTO dto);
-   int insFeedImg(MediaEntity p);
-   int insHashtag(HashtagEntity p);
+   int insFeedImg(MediaEntity entity);
+   int insHashtag(HashtagEntity entity);
    
    // 북마크
-   FeedBookmarkDTO feedBookmark(FeedBookmarkDTO bmd);
-   int insertBookmark(FeedBookmarkDTO bmd);
-   int deleteBookmark(FeedBookmarkDTO bmd);
+   FeedBookmarkDTO feedBookmark(FeedBookmarkDTO dto);
+   int insertBookmark(FeedBookmarkDTO dto);
+   int deleteBookmark(FeedBookmarkDTO dto);
 
    //hashtag
-   int selHashtag_pk(HashtagEntity p);
-   int insHashtagRel(HashtagRelationEntity p);
+   int selHashtag_pk(HashtagEntity entity);
+   int insHashtagRel(HashtagRelationEntity entity);
 
    List<CommentListDTO> selCommentList(int feed_pk);
    List<CommentListDTO> selReCommentList(int comment_parentpk);
-   int insComment(CommentWriteDTO p);
-   int updCommentParentPk(CommentWriteDTO p);
-   int insReComment(CommentWriteDTO p);
-
-
+   int insComment(CommentWriteDTO dto);
+   int updCommentParentPk(CommentWriteDTO dto);
+   int insReComment(CommentWriteDTO dto);
 }

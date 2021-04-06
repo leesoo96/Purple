@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.purple.demo.common.Const;
 import com.purple.demo.model.FeedListDTO;
 import com.purple.demo.model.DTO.SearchUserDTO;
 import com.purple.demo.service.SearchService;
@@ -22,15 +23,15 @@ import org.springframework.web.servlet.ModelAndView;
 public class SearchController {
 	
 	@Autowired
-    private SearchService service;
+    private SearchService searchService;
 
     @ResponseBody
 	@RequestMapping("/{hashtag_ctnt}")
 	public ModelAndView feedSearchHashtag(@PathVariable String hashtag_ctnt) {
         ModelAndView model = new ModelAndView();
-        System.out.println(hashtag_ctnt);
-        model.addObject("data", "#" +hashtag_ctnt);
+        model.addObject("data", "#" + hashtag_ctnt);
         model.setViewName("/search");
+        
         return model;
     }
 
@@ -42,26 +43,24 @@ public class SearchController {
     @ResponseBody
     @PostMapping("/searchUser")
     public List<SearchUserDTO> selUserSearch(@RequestBody SearchUserDTO dto){
-        return service.selUserSearch(dto);
+        return searchService.selUserSearch(dto);
     }
 
     @ResponseBody
     @PostMapping("/searchFeed")
     public Map<String, Object> selFeedSearch(@RequestBody FeedListDTO dto){
         Map<String, Object> searchFeedListResult = new HashMap<String, Object>();
-		searchFeedListResult.put("result", service.selFeedSearch(dto));
-		return searchFeedListResult;
+		searchFeedListResult.put(Const.KEY_RESULT, searchService.selFeedSearch(dto));
+		
+        return searchFeedListResult;
     }
 
     @ResponseBody
     @PostMapping("/searchHashtag")
     public Map<String, Object> searchHashtag(@RequestBody FeedListDTO dto){
         Map<String, Object> searchHashtagListResult = new HashMap<String, Object>();
-        searchHashtagListResult.put("result", service.searchHashtag(dto));
+        searchHashtagListResult.put(Const.KEY_RESULT, searchService.searchHashtag(dto));
+        
         return searchHashtagListResult;
     }
-
-    
-    
-
 }

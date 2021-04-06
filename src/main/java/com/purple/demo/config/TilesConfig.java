@@ -9,7 +9,7 @@ import org.springframework.web.servlet.view.tiles3.TilesViewResolver;
 @Configuration
 public class TilesConfig {
     
-    @Bean(name="tilesConfigure")
+    @Bean(name = "tilesConfigure")
     public TilesConfigurer tilesConfigurer() {
         final TilesConfigurer configurer = new TilesConfigurer();
         configurer.setDefinitions(new String[] { "/WEB-INF/tiles/default-layout.xml" });
@@ -17,7 +17,7 @@ public class TilesConfig {
         return configurer;
     }
 
-    @Bean(name="viewResolver")
+    @Bean(name = "viewResolver")
     public TilesViewResolver tilesViewResolver() {
         TilesViewResolver resolver = new TilesViewResolver();
         resolver.setViewClass(TilesView.class);

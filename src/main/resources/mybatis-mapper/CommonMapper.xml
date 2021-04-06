@@ -13,5 +13,4 @@
         FROM user
         WHERE user_pk = #{user_pk};
     </select>
-
 </mapper>

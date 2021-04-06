@@ -3,6 +3,7 @@ package com.purple.demo.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.purple.demo.common.Const;
 import com.purple.demo.model.FeedListDTO;
 import com.purple.demo.service.BookmarkService;
 
@@ -20,16 +21,17 @@ public class BookmarkController {
     @Autowired
     private BookmarkService bookmarkService;
 
-    @RequestMapping(value="")
+    @RequestMapping(value = "")
     public String bookmark() {
         return "/bookmark";
     }
 
     @ResponseBody
-    @RequestMapping(value="", method = RequestMethod.POST)
-    public Map<String, Object> bookmarkList(@RequestBody FeedListDTO param){
+    @RequestMapping(value = "", method = RequestMethod.POST)
+    public Map<String, Object> bookmarkList(@RequestBody FeedListDTO dto){
 		Map<String, Object> bookmarkListResult = new HashMap<String, Object>();
-		bookmarkListResult.put("result", bookmarkService.selBookmarkList(param));
-		return bookmarkListResult;
+		bookmarkListResult.put(Const.KEY_RESULT, bookmarkService.selBookmarkList(dto));
+		
+        return bookmarkListResult;
     }
 }

@@ -37,6 +37,5 @@ public class AlarmSocketService {
     }
     public void sendMessage(String getId, String msg) {
         WebSocketSession ws = sessionList.get(getId);
-        // ws.sendMessage(new TextMessage(msg));
     }
 }
