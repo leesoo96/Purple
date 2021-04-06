@@ -78,34 +78,15 @@ let user_pw = loginFrmEle.user_pw
 let remember_Id = loginFrm.remember_userId
 
 loginBtn.addEventListener('click', () => {
-  loginFunc()
-})
-
-function loginFunc() {
-  ajax()
-
-  function ajax() {
-    let param = {
-      user_id: user_id.value,
-      user_pw: user_pw.value,
-      remember_Id: remember_Id.checked,
-    }
-
-    fetch('/login', {
-      method: 'post',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(param),
-    })
-      .then((res) => {
-        res.json()
-      })
-      .then(function (myJson) {
-        console.log(myJson)
-      })
+  let param = {
+    user_id: user_id.value,
+    user_pw: user_pw.value,
+    remember_Id: remember_Id.checked,
   }
-}
+  fetchAjax(param, 'post', '/login', (myJson) => {
+    console.log(myJson)
+  })
+})
 
 // 회원가입
 const joinBtn = document.querySelector('#join_btn')
@@ -156,17 +137,7 @@ function joinProc() {
       user_email: user_emailEle.value,
       user_birth: user_birthEle.value,
     }
-    fetch('/join', {
-      method: 'post',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(param),
-    })
-      .then((res) => res.json())
-      .then(function (myJson) {
-        proc(myJson)
-      })
+    fetchAjax(param, 'post', '/join', proc)
   }
 
   function proc(myJson) {
@@ -196,24 +167,17 @@ let chkSuccess = document.querySelector('.ChkSuccess')
 const overlap_idBtn = document.querySelector('#overlap_id')
 
 overlap_idBtn.addEventListener('click', () => {
-  ajax()
-  function ajax() {
-    let idEle_value = user_idEle.value
-
-    fetch(`/join/${idEle_value}`)
-      .then((res) => res.json())
-      .then(function (myJson) {
-        if (myJson.result === 1) {
-          chkSuccess.style.display = 'none'
-          chkFail.style.display = 'inline'
-          overlap_state = 0
-        } else {
-          chkFail.style.display = 'none'
-          chkSuccess.style.display = 'inline'
-          overlap_state = 1
-        }
-      })
-  }
+  fetchAjax(idEle_value, 'get', '/join/', (myJson) => {
+    if (myJson.result === 1) {
+      chkSuccess.style.display = 'none'
+      chkFail.style.display = 'inline'
+      overlap_state = 0
+    } else {
+      chkFail.style.display = 'none'
+      chkSuccess.style.display = 'inline'
+      overlap_state = 1
+    }
+  })
 })
 
 // 비밀번호 찾기 modal 창 열고 닫기
@@ -241,17 +205,7 @@ find_btn.onclick = function () {
     user_id: find_pw_id.value,
     user_email: find_pw_mail.value,
   }
-  fetch('/findpw', {
-    method: 'post',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(param),
-  })
-    .then((res) => res.json())
-    .then((myJson) => {
-      findpw_proc(myJson.result)
-    })
+  fetchAjax(param, 'post', '/findpw', findpw_proc)
 }
 
 function findpw_proc(result) {

@@ -14,6 +14,7 @@ import lombok.EqualsAndHashCode;
 
 // loadUserByUsername 메소드가 userDetails를 리턴
 @Data
+@SuppressWarnings("serial")
 public class UserPrincipal extends UserEntity implements Principal {
 	private Collection<? extends GrantedAuthority> authorities;
 	

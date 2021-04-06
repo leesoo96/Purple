@@ -13,6 +13,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
+@SuppressWarnings("serial")
 @EqualsAndHashCode(of = "user_id")
 public class UserEntity implements UserDetails {
 // 클래스명 UserVO로 바꾸기 
@@ -37,6 +38,7 @@ public class UserEntity implements UserDetails {
 		auth.add(new SimpleGrantedAuthority(user_auth));
 		return auth;
 	}
+
 	@Override
 	public String getPassword() {
 		return this.user_pw;

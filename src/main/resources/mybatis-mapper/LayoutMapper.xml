@@ -94,7 +94,7 @@
 			FROM      message original
 			LEFT JOIN message compare
 			ON        original.message_chatroomid = compare.message_chatroomid
-			AND       original.message_date <![CDATA[<]]>  compare.message_date
+			AND       original.message_pk <![CDATA[<]]>  compare.message_pk
 			WHERE     compare.message_chatroomid IS NULL) AS C
         ON A.chatroom_id = C.message_chatroomid
         WHERE A.chatroom_userpk =  #{chatroom_userpk}

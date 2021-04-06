@@ -34,6 +34,8 @@ public class LayoutController {
     @ResponseBody
     @PostMapping("/recommandFriend")
     public List<FriendDTO> getRecommandFriendList(@RequestBody FriendDTO dto) {
+        System.out.println(dto.getUser_pk());
+        System.out.println("연결");
         return layoutService.getRecommandFriendList(dto);
     }
 
