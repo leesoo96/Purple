@@ -2,6 +2,7 @@ package com.purple.demo.service;
 
 import org.apache.commons.mail.HtmlEmail;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -14,7 +15,6 @@ import javax.servlet.http.HttpServletResponse;
 import com.purple.demo.mapper.UserMapper;
 import com.purple.demo.model.UserEntity;
 import com.purple.demo.model.UserPrincipal;
-import com.purple.demo.model.DTO.LoginVO;
 
 @Service
 public class UserServiceImpl implements UserDetailsService {
@@ -28,10 +28,10 @@ public class UserServiceImpl implements UserDetailsService {
 	// DB로부터 회원정보를 가져와서 존재하는 회원인지 아닌지를 체크하는 주요메소드 
 	@Override
 	public UserDetails loadUserByUsername(String user_id) throws UsernameNotFoundException {
-		LoginVO vo = new LoginVO();
-		vo.setUser_id(user_id);
+		UserEntity entity = new UserEntity();
+		entity.setUser_id(user_id);
 
-		UserEntity user = userMapper.loginUser(vo);
+		UserEntity user = userMapper.loginUser(entity);
 		return UserPrincipal.create(user);
 	}
 

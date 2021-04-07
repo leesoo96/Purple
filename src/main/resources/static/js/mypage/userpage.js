@@ -10,7 +10,7 @@ add_friend_btn.addEventListener('click', () =>{
       user_pk: user_pk,
       friend_pk: friend_pk,
     }
-  fetchAjax(addFriendParam, 'post', '/layout/addNewFriend', (myJson) => {
+  fetchAjax(addFriendParam, 'post', '/friend/addNewFriend', (myJson) => {
     if(myJson.result === 1) {
       alert('친구 등록이 완료되었습니다.')
       location.reload()

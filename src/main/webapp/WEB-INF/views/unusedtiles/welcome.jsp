@@ -9,6 +9,7 @@
  	<link rel="icon" href="resources/img/common/favicon.ico" type="image/x-icon" />
     <link rel="stylesheet" href="resources/css/common/welcome.css">
 	<script defer type="text/javascript" src="resources/js/common/welcome.js"></script>
+	<script defer type="text/javascript" src="resources/js/common/utils.js"></script>
 </head>
 <body>
 	<div id="form-wrap">

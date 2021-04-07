@@ -156,11 +156,11 @@ public class FeedService {
 
     public int insComment(CommentWriteDTO dto) {
         UserPrincipal principal = (UserPrincipal)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        System.out.println(principal.getUser_pk());
         dto.setComment_userpk(principal.getUser_pk());
         dto.setComment_state(1);
-
+        feedMapper.insComment(dto);
         dto.setComment_parentpk(dto.getComment_pk());
-        
         return feedMapper.updCommentParentPk(dto);
     }
 

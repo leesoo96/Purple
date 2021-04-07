@@ -56,15 +56,10 @@
       </p>
 
       <div class="chat">
-      
-<!--
-        <div class="friendMsgContainer">
-          <p class="friendMsg">지금 뭐해?</p>
-          <small class="friendMsg_time">오후 00:00</small> -->
         </div> <!-- friendMsgContainer -->
           <!-- 채팅 메시지 입력 시 계속 append  -->
           <div class="msg_container">
-            <input name="msg_input" onclick="clickRead(this)" placeholder="메시지를 입력해주세요.">
+            <input name="msg_input" onclick="clickRead(this)" placeholder="메시지를 입력해주세요." onkeydown="return enterKey(event)">
             <div class="msg_btn" >
               <button name="send_btn">전송</button>
             </div>

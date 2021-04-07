@@ -193,8 +193,8 @@ a {
 }
 
 #temp_user_modal img {
-  width: 5em;
-  height: 5em;
+  width: 4em;
+  height: 4em;
   border-radius: 70%;
   margin: 0.4em;
 }
@@ -601,7 +601,7 @@ a {
   overflow-y: scroll;
   width: 24em;
   height: 30em;
-  overflow-x:hidden;
+  overflow-x: hidden;
 }
 .chat_list::-webkit-scrollbar {
   width: 7px;
@@ -622,12 +622,10 @@ a {
   width: 23em;
   height: 4.5em;
   cursor: pointer;
-  
 }
 .CList_div:first-of-type {
   margin-top: 1em;
 }
-
 
 .CList_div img {
   width: 3.3em;
@@ -658,12 +656,11 @@ a {
   top: 3em;
   right: -23em;
   height: 35em;
-  
 }
 
 #chat_friendName {
   position: relative;
-  font-size:1.4em;
+  font-size: 1.4em;
   color: #7901a1;
   line-height: 2.5em;
   margin-left: 1em;
@@ -686,7 +683,7 @@ a {
   width: 60%;
   /* overflow: hidden; */
   height: auto;
-  margin-top:0.8em;
+  margin-top: 0.8em;
   padding: 0.3em;
 }
 
@@ -705,7 +702,7 @@ a {
   width: 60%;
   /* overflow: hidden; */
   height: auto;
-  margin-top:0.8em;
+  margin-top: 0.8em;
   margin-left: 7.5em;
   padding: 0.3em;
 }
@@ -717,7 +714,6 @@ a {
   word-break: break-all;
   color: white;
 }
-
 
 .msg_container input {
   font-family: 'Y_Spotlight';
@@ -733,7 +729,7 @@ a {
   width: 4em;
   display: inline;
   position: absolute;
-  top:82%;
+  top: 82%;
 }
 .msg_btn button {
   font-family: 'Y_Spotlight';

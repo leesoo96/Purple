@@ -56,17 +56,9 @@ function Regajax() {
       notice_ctnt: notice_write_form.notice_ctnt.value,
       notice_userpk: document.querySelector('#user_pk').value,
     }
-    fetch('/notice_write', {
-      method: 'post',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(param),
+    fetchAjax(param, 'post', '/notice_write', (myJson) => {
+      resolve(myJson.result)
     })
-      .then((res) => res.json())
-      .then(function (myJson) {
-        resolve(myJson.result)
-      })
   })
 }
 
@@ -96,7 +88,7 @@ async function Updajax() {
     notice_pk: notice_write_form.notice_pk.value,
     notice_img: img,
   }
-  console.log(param)
+
   fetch('/notice_upd', {
     method: 'post',
     headers: {
