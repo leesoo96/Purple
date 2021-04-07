@@ -6,8 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class UserEntity {
-// 클래스명 UserVO로 바꾸기 
-
+	
 	private int user_pk; // 회원번호
 	private String user_id; // 아이디
 	private String user_pw; // 비밀번호

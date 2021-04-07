@@ -2,11 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.purple.demo.mapper.UserMapper">
-	<insert id="insertState">
-		insert into user 
-		(
-	</insert>
-	
 	<!-- 로그인 -->
 	<select id="loginUser" resultType="UserEntity">
 		SELECT *
@@ -50,4 +45,18 @@
         SET user_pw = #{user_pw}
         WHERE user_id = #{user_id}
     </update>
+
+	<!-- 로그인 성공 시 회원상태 값 1로 변경-->
+	<update id="changeLoginState">
+		UPDATE user 
+		set user_state = 1
+		where user_id = #{user_id}
+	</update>
+
+	<!-- 로그아웃 성공 시 회원상태 값 리셋 -->
+	<update id="changeLogoutState">
+		UPDATE user 
+		set user_state = 0
+		where user_id = #{user_id}
+	</update>
 </mapper>

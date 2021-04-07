@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.purple.demo.common.Const;
+import com.purple.demo.mapper.UserMapper;
 import com.purple.demo.model.FeedListDTO;
 import com.purple.demo.model.UserEntity;
 import com.purple.demo.model.UserPrincipal;
@@ -32,7 +33,8 @@ import lombok.RequiredArgsConstructor;
 public class CommonController {
 
 	final UserServiceImpl userService;
-	
+	final UserMapper userMapper;
+
 	@Autowired
 	private CommonService commonService;
 
@@ -41,7 +43,24 @@ public class CommonController {
 	public String first() {
 		return "unusedtiles/welcome";
 	}
-	
+
+	@RequestMapping("/duplLogin")
+	public String duplLogin() {
+		UserPrincipal p = (UserPrincipal)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		userMapper.changeLoginState(p.getUser_id());
+
+		if(p.getUser_state() == 0) { // 로그인하기 전의 state 상태
+			return "redirect:feed"; // feed로 넘어갈때 state 값이 1로 변경됩니다.
+		} else {
+			return "redirect:logout"; 
+			/* 이미 로그인 -> 
+			중복로그인을 방어하기위한 부분으로 다른 브라우저에서
+			동일한 아이디로 로그인을 시도할 경우 /welcome으로 이동해서 
+			중복 로그인을 방어합니다
+			*/
+		}
+	}
+
 //	회원가입
 	@ResponseBody
 	@PostMapping("/join")

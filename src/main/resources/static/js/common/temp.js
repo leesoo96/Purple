@@ -1,6 +1,6 @@
 'use strict'
 
-document.addEventListener('DOMContentLoaded', ()=> {
+document.addEventListener('DOMContentLoaded', () => {
   dm_view()
   getRecommandFriendListFunc()
   getAlarmCount()
@@ -63,7 +63,6 @@ function dm_view() {
     chat_view.style.opacity = '0'
   })
 }
-
 
 // 친구목록 버튼과 대화목록 버튼 클릭 시
 let friend_btn = document.querySelector('#friend_btn')
@@ -260,9 +259,9 @@ function getFriendChatListFunc() {
   }
   fetchAjax(param, 'post', '/layout/getChatList', (myJson) => {
     document
-    .querySelector('.chat_list')
-    .querySelectorAll('div')
-    .forEach((test) => test.remove())
+      .querySelector('.chat_list')
+      .querySelectorAll('div')
+      .forEach((test) => test.remove())
 
     getChat_List(myJson)
   })
@@ -386,7 +385,6 @@ function makeChat(user_id, myJson) {
 }
 // 알 수도 있는 사람 목록(추천친구)
 
-
 function getRecommandFriendListFunc() {
   let param = {
     user_pk: user_pk.value,
@@ -450,16 +448,21 @@ function getRecFriend_List(myJson) {
             friend_pk: `${myJson[j].friend_pk}`,
           }
 
-          fetchAjax(addFriendParam, 'post', '/layout/addNewFriend', (addFriend) => {
-            if (addFriend.result == 0) {
-              alert('친구 추가에 실패하였습니다.')
-              return
-            } else {
-              alert(`${myJson[j].user_id}` + ' 님을 친구 추가하였습니다.')
-              sendAlarm(1, addFriendParam.user_pk, addFriendParam.friend_pk)
-              history.go(0)
+          fetchAjax(
+            addFriendParam,
+            'post',
+            '/layout/addNewFriend',
+            (addFriend) => {
+              if (addFriend.result == 0) {
+                alert('친구 추가에 실패하였습니다.')
+                return
+              } else {
+                alert(`${myJson[j].user_id}` + ' 님을 친구 추가하였습니다.')
+                sendAlarm(1, addFriendParam.user_pk, addFriendParam.friend_pk)
+                history.go(0)
+              }
             }
-          })
+          )
         }
       }
     }
@@ -468,9 +471,7 @@ function getRecFriend_List(myJson) {
 
 function getAlarmCount() {
   const user_id = document.querySelector('#temp_user').innerText
-  console.log(user_id)
   fetchAjax(user_id, 'get', '/layout/getalarmcount/', (myJson) => {
-    console.log(myJson)
     if (document.querySelector('#alarm')) {
       document.querySelector('#alarm').remove()
     }

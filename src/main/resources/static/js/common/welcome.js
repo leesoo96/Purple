@@ -226,6 +226,7 @@ function findpw_proc(result) {
 
     case 4:
       alert('메일 형식이 올바르지 않습니다.다시 확인해주세요.')
+      find_pw_mail.focus()
       break
   }
 }
