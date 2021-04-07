@@ -60,4 +60,10 @@
         SET user_pw = #{user_pw}
         WHERE user_pk = #{user_pk}
     </update>
+
+     <!--oauth2 타입 가져오기-->
+     <select id="oauth2_typ" resultType="UserEntity">
+        SELECT oauth_typ FROM user
+        WHERE user_pk = #{user_pk};
+    </select>
 </mapper>

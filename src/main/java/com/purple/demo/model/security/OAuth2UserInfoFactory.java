@@ -1,8 +1,8 @@
 package com.purple.demo.model.security;
 import java.util.Map;
 
-import com.purple.demo.security.OAuth2AuthenticationProcessingException;
-import com.purple.demo.security.SocialType;
+import com.purple.demo.config.oauth.OAuth2AuthenticationProcessingException;
+import com.purple.demo.config.oauth.SocialType;
 
 
 public class OAuth2UserInfoFactory {
@@ -20,4 +20,8 @@ public class OAuth2UserInfoFactory {
 					"Sorry! Login with " + registrationId + " is not supported yet.");
 		}
 	}
+
+	
 }
+
+

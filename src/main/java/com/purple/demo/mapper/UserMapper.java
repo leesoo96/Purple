@@ -12,6 +12,8 @@ public interface UserMapper {
 	UserPrincipal loginUser(UserEntity entity);
 	
 	
+	UserPrincipal oauthloginUser(UserEntity entity);
+	
 	// 회원가입
 	int joinUser(UserEntity entity);
 	

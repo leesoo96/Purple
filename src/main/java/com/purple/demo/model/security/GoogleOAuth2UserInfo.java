@@ -2,7 +2,7 @@ package com.purple.demo.model.security;
 
 import java.util.Map;
 
-import com.purple.demo.security.SocialType;
+import com.purple.demo.config.oauth.SocialType;
 
 public class GoogleOAuth2UserInfo extends OAuth2UserInfo {
 	
@@ -15,8 +15,12 @@ public class GoogleOAuth2UserInfo extends OAuth2UserInfo {
         return (String) attributes.get("sub");
     }
 
+
+
+
     @Override
     public String getName() {
+        System.out.println("namenamenamenamenamenamenamenamenamenamenamenamenamenamenamename: "+ (String) attributes.get("name"));
         return (String) attributes.get("name");
     }
 
@@ -27,7 +31,8 @@ public class GoogleOAuth2UserInfo extends OAuth2UserInfo {
 
     @Override
     public String getImageUrl() {
-        return (String) attributes.get("picture");
+      /*  return (String) attributes.get("picture");*/
+      return null;
     }
 
 	@Override

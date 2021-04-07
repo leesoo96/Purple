@@ -2,7 +2,7 @@ package com.purple.demo.model.security;
 
 import java.util.Map;
 
-import com.purple.demo.security.SocialType;
+import com.purple.demo.config.oauth.SocialType;
 
 public class NaverOAuth2UserInfo extends OAuth2UserInfo {
 	public NaverOAuth2UserInfo(Map<String, Object> attributes) {

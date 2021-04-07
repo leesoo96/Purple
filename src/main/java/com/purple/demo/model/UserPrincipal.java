@@ -18,15 +18,14 @@ import lombok.EqualsAndHashCode;
 
 //security session => authentication => userDetails 
 @Data
-@EqualsAndHashCode(of = "user_id")
-public class UserPrincipal extends UserEntity implements UserDetails, Principal, OAuth2User {
+public class UserPrincipal extends UserEntity implements Principal, UserDetails, OAuth2User  {
 	private Collection<? extends GrantedAuthority> authorities;
 
 	private Map<String, Object> attributes;
-	
+
 	public UserPrincipal() {
 	}
-
+	
 	public UserPrincipal(UserEntity user) {
 		this.setUser_pk(user.getUser_pk());
 		this.setUser_profileimg(user.getUser_profileimg());
@@ -40,6 +39,8 @@ public class UserPrincipal extends UserEntity implements UserDetails, Principal,
 		this.setUser_email(user.getUser_email());
 		this.setUser_state(user.getUser_state());
 		this.setUser_auth(user.getUser_auth());
+		this.setOauth_id(user.getOauth_id());
+		this.setOauth_typ(user.getOauth_typ());
 		
 		authorities = Collections.singletonList(new SimpleGrantedAuthority(user.getUser_auth()));
 	}

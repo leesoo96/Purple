@@ -2,7 +2,8 @@ package com.purple.demo.model.security;
 
 import java.util.Map;
 
-import com.purple.demo.security.SocialType;
+import com.purple.demo.config.oauth.SocialType;
+
 
 public class FacebookOAuth2UserInfo extends OAuth2UserInfo {
 	public FacebookOAuth2UserInfo(Map<String, Object> attributes) {
@@ -26,7 +27,7 @@ public class FacebookOAuth2UserInfo extends OAuth2UserInfo {
 
     @Override
     public String getImageUrl() {
-        if(attributes.containsKey("picture")) {
+      /*  if(attributes.containsKey("picture")) {
             Map<String, Object> pictureObj = (Map<String, Object>) attributes.get("picture");
             if(pictureObj.containsKey("data")) {
                 Map<String, Object>  dataObj = (Map<String, Object>) pictureObj.get("data");
@@ -34,7 +35,7 @@ public class FacebookOAuth2UserInfo extends OAuth2UserInfo {
                     return (String) dataObj.get("url");
                 }
             }
-        }
+        }*/
         return null;
     }
 

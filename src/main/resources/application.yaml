@@ -9,13 +9,13 @@ spring:
       prefix: /WEB-INF/views/
       suffix: .jsp
 
-    #jdbc 설정
+  #jdbc 설정
   datasource:
     url: jdbc:mysql://localhost:3307/purple?autoReconnect=true
     username: root
     password: koreait2020
     driver-class-name: com.mysql.cj.jdbc.Driver
-
+  #소셜로그인
   security:
     oauth2:
       client:
@@ -35,7 +35,6 @@ custom:
     naver:
       client-id: FncvzBqJPltRANb9yYrk
       client-secret: VB2Af9_gWS
-
 #myBatis 설정
 mybatis:
   mapper-locations: mybatis-mapper/**/*.xml
