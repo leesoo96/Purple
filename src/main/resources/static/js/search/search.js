@@ -10,7 +10,6 @@ let page_count = 0
 document.addEventListener('scroll', () => {
   let scrollLocation = document.documentElement.scrollTop // 현재 스크롤바 위치
   let fullHeight = document.body.scrollHeight // 스크롤 포함 전체 길이
-
   if (scrollLocation + windowHeight >= fullHeight) {
     let search_check = document.querySelector('input[name="type"]:checked')
       .value

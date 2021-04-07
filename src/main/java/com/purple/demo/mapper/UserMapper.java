@@ -3,12 +3,14 @@ package com.purple.demo.mapper;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.purple.demo.model.UserEntity;
+import com.purple.demo.model.UserPrincipal;
 
 @Mapper
 public interface UserMapper {
 
 //	로그인
-	UserEntity loginUser(UserEntity entity);
+	UserPrincipal loginUser(UserEntity entity);
+	
 	
 //	회원가입
 	int joinUser(UserEntity entity);
