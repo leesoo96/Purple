@@ -4,18 +4,25 @@ import java.security.Principal;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import lombok.Data;
 
 // loadUserByUsername 메소드가 userDetails를 리턴
 @Data
-public class UserPrincipal extends UserEntity implements Principal, UserDetails {
+public class UserPrincipal extends UserEntity implements Principal, UserDetails, OAuth2User  {
 	private Collection<? extends GrantedAuthority> authorities;
 
+	private Map<String, Object> attributes;
+
+	public UserPrincipal() {
+	}
+	
 	public UserPrincipal(UserEntity user) {
 		this.setUser_pk(user.getUser_pk());
 		this.setUser_profileimg(user.getUser_profileimg());
@@ -29,6 +36,8 @@ public class UserPrincipal extends UserEntity implements Principal, UserDetails 
 		this.setUser_email(user.getUser_email());
 		this.setUser_state(user.getUser_state());
 		this.setUser_auth(user.getUser_auth());
+		this.setOauth_id(user.getOauth_id());
+		this.setOauth_typ(user.getOauth_typ());
 		
 		authorities = Collections.singletonList(new SimpleGrantedAuthority(user.getUser_auth()));
 	}
@@ -79,5 +88,10 @@ public class UserPrincipal extends UserEntity implements Principal, UserDetails 
 	@Override
 	public String getName() {
 	   return null;
+	}
+
+	@Override
+	public Map<String, Object> getAttributes() {		
+		return attributes;
 	}
 }

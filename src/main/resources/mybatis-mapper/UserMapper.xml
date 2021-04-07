@@ -8,6 +8,12 @@
 		FROM user
 		WHERE user_id = #{user_id}
 	</select> 
+
+	<select id="oauthloginUser" resultType="com.purple.demo.model.UserPrincipal">
+		SELECT *
+		FROM user
+		WHERE oauth_id = #{oauth_id}
+	</select> 
 	
 	<!-- 아이디 중복체크 -->
 	<select id="overlap_Confirm" resultType="Integer">
@@ -15,6 +21,8 @@
 		FROM user
 		WHERE user_id = #{user_id}
 	</select>
+
+	
 
 	<select id="selUserInfo" resultType="UserEntity">
 		SELECT user_pk, user_id, user_name, user_profileimg, user_backgroundimg,
@@ -33,10 +41,10 @@
 	<!-- 회원가입 -->
 	<insert id="joinUser">
 		INSERT INTO user
-		( user_id, user_pw, user_name, user_email, user_birth)
+		( user_id, user_pw, user_name, user_email, user_birth, oauth_id, oauth_typ )
 		VALUES 
 		( #{user_id}, #{user_pw},
-		  #{user_name}, #{user_email}, #{user_birth} )
+		  #{user_name}, #{user_email}, #{user_birth}, #{oauth_id}, #{oauth_typ}  )
 	</insert>
 
 	<!-- 비밀번호 찾기 - 이메일로 발급될 임시 비밀번호 저장 -->

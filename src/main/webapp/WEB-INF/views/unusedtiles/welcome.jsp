@@ -40,6 +40,12 @@
 
         	<input type="submit" id="login_Btn" class="input_submit" value="로그인">
         	<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }">
+			
+			<!--소셜 로그인-->
+			<div><a href='/oauth2/authorization/google'>google</a></div>
+			<div><a href='/oauth2/authorization/facebook'>facebook</a></div>
+			<div><a href='/oauth2/authorization/naver'>naver</a></div>
+			<div class="kakaoButton"><a href='/oauth2/authorization/kakao'><img src="resources/img/common/kakaoLogin.png" alt="카카오로그인"></a></div>
      	</form>
 
 		<!-- 비밀번호 찾기 -->
