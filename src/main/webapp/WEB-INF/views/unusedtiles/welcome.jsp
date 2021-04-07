@@ -38,13 +38,12 @@
         	</c:choose>
         	<span>아이디 기억하기</span>  	
 
-					
         	<input type="submit" id="login_Btn" class="input_submit" value="로그인">
         	<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }">
      	</form>
 
 		<!-- 비밀번호 찾기 -->
-		 <div id="findpw">
+		<div id="findpw">
 			<span class="findpw_btn">비밀번호 찾기</span>
 			
 			<div class="findpw_modal">
@@ -63,8 +62,7 @@
 				</div>
 			</div>
 		</div>
-		<!-- 비밀번호 찾기 -->
-
+		
 		<c:if test="${not empty loginFailMsg}">
            <p id="errMSG">${requestScope.loginFailMsg}</p>
         </c:if>
@@ -86,7 +84,5 @@
       		<input type="button" id="join_btn" class="input_submit" value="회원가입">
     	</form>
   	</div>
-      
-     
 </body>
 </html>

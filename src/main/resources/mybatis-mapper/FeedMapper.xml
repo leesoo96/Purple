@@ -23,7 +23,7 @@
                 a.feed_writedate DESC
             </otherwise>
         </choose> 
-        LIMIT #{first_page}, #{end_page};
+        LIMIT #{first_page}, #{end_page}
     </select>
 
     <select id="selFeedDetail" resultType="FeedDetailDTO">

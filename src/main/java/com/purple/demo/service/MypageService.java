@@ -51,9 +51,9 @@ public class MypageService {
         return mypageMapper.modUserPw(entity);
     }
 
-    //프로필 이미지 등록
+    // 프로필 이미지 등록
     public String profile_img(MultipartFile img) {
-		//유저 pk 값
+		// 유저 pk 값
 		UserPrincipal principal = (UserPrincipal)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		int user_pk = principal.getUser_pk();  
 		
@@ -72,9 +72,9 @@ public class MypageService {
 		}
 	}
 
-    //배경 이미지 등록
+    // 배경 이미지 등록
     public String background_img(MultipartFile img) {
-		//유저 pk 값
+		// 유저 pk 값
 		UserPrincipal principal = (UserPrincipal)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		int user_pk = principal.getUser_pk();  
 		

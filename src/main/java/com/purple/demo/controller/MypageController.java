@@ -66,7 +66,7 @@ public class MypageController {
 		return modUserPwResult;
 	}
 
-	//마이페이지 프로필이미지 등록
+	// 마이페이지 프로필이미지 등록
 	@ResponseBody
 	@PostMapping("/profile_img")
 	public Map<String, Object> profile_img(MultipartFile img) {
@@ -78,22 +78,21 @@ public class MypageController {
 		}else{
 			Result.put(Const.KEY_RESULT, mypageService.profile_img(img));
 		}
-			
-			return Result;
-	
+		return Result;
 	}
 
-	//마이페이지 배경이미지 등록
+	// 마이페이지 배경이미지 등록
 	@ResponseBody
 	@PostMapping("/background_img")
 	public Map<String, Object> background_img(MultipartFile img) {
 		Map<String, Object> Result = new HashMap<String, Object>();
+
 		if (img == null) {
 			UserEntity userEntity = new UserEntity();
 			Result.put(Const.KEY_RESULT, userEntity.getUser_backgroundimg());
 		}else{
 			Result.put(Const.KEY_RESULT, mypageService.background_img(img));
 		}
-			return Result;
+		return Result;
 	}
 }
