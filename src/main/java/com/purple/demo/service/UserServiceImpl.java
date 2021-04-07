@@ -35,7 +35,7 @@ public class UserServiceImpl implements UserDetailsService {
 		return UserPrincipal.create(user);
 	}
 
-//	회원가입
+	// 회원가입
 	public int join(UserEntity entity) {
 		if(entity.getUser_pw() != null && !"".equals(entity.getUser_pw())) {
 			entity.setUser_pw(encoder.encode(entity.getUser_pw()));
@@ -43,7 +43,7 @@ public class UserServiceImpl implements UserDetailsService {
 		return userMapper.joinUser(entity);
 	}
 	
-//	중복 체크 
+	// 중복 체크 
 	public int overlap_Confirm(UserEntity entity) {
 		return userMapper.overlap_Confirm(entity);
 	}
@@ -52,24 +52,22 @@ public class UserServiceImpl implements UserDetailsService {
 		return userMapper.selUserInfo(user_id);
 	}
 
-//	비밀번호 찾기
+	// 비밀번호 찾기
 	public int findPw(HttpServletResponse res, UserEntity entity) {
 		res.setContentType("text/html;charset=utf-8");
 
 		UserEntity dto = userMapper.compareId_email(entity);
 
 		if(ObjectUtils.isEmpty(dto) || !entity.getUser_id().equals(dto.getUser_id())) {
-		// 아이디가 없거나 틀렸을 경우 
+			// 아이디가 없거나 틀렸을 경우 
 			return 1;
 		}  
 		else if(!entity.getUser_email().equals(dto.getUser_email())) { 
-		// 이메일이 틀렸을 경우
+			// 이메일이 틀렸을 경우
 			return 2;
 		}
-		else {
-		// 이메일 일치 
-
-		// 임시 비밀번호 만들기
+		else {	// 이메일 일치 
+			// 임시 비밀번호 만들기
 			String temp_pw = "";
 			for (int i = 0; i < 12; i++) {
 				temp_pw += (char) ((Math.random() * 26) + 97);
@@ -89,7 +87,7 @@ public class UserServiceImpl implements UserDetailsService {
 		}
 	}
 
-//  임시 비밀번호 발급을 위한 이메일 발송
+	// 임시 비밀번호 발급을 위한 이메일 발송
 	public int sendEmail(UserEntity entity) {
 		
 		// Mail server 설정

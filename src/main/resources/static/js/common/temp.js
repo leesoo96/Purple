@@ -115,7 +115,7 @@ function getFriendListFunc() {
   let param = {
     user_pk: user_pk.value,
   }
-  fetchAjax(param, 'post', '/layout/getFriendList', (myJson) => {
+  fetchAjax(param, 'post', '/friend/getFriendList', (myJson) => {
     getFriend_list(myJson)
   })
 }
@@ -210,7 +210,7 @@ function commonChatFunc(e, friend_pk) {
   let chatParam = {
     chatroom_friendpk: friend_pk,
   }
-  fetchAjax(chatParam, 'post', '/layout/getRoom', (myJson) => {
+  fetchAjax(chatParam, 'post', '/chat/getRoom', (myJson) => {
     if (myJson.result != null) {
       enterChatroom(myJson.result, user_id)
     }
@@ -231,7 +231,7 @@ function delFriendFunc(friend_pk) {
     let delFriendParam = {
       friend_pk: friend_pk,
     }
-    fetchAjax(delFriendParam, 'post', '/layout/delFriend', (myJson) => {
+    fetchAjax(delFriendParam, 'post', '/friend/delFriend', (myJson) => {
       if (myJson.result == 0) {
         alert('삭제에 실패하였습니다.')
         return
@@ -257,7 +257,7 @@ function getFriendChatListFunc() {
   let param = {
     chatroom_userpk: user_pk.value,
   }
-  fetchAjax(param, 'post', '/layout/getChatList', (myJson) => {
+  fetchAjax(param, 'post', '/chat/getChatList', (myJson) => {
     document
       .querySelector('.chat_list')
       .querySelectorAll('div')
@@ -326,7 +326,7 @@ function enterChatroom(room_id, user_id) {
   friend_list.style.left = '-24em'
   chat_list.style.left = '-24em'
 
-  fetchAjax(room_id, 'get', '/layout/enterChatroom/', (myJson) => {
+  fetchAjax(room_id, 'get', '/chat/enterChatroom/', (myJson) => {
     if (document.querySelector('.room_id')) {
       document.querySelector('.room_id').remove()
     }
@@ -346,7 +346,7 @@ function clickRead(e) {
 }
 
 function readMessage(room_id) {
-  fetchAjax(room_id, 'get', '/layout/readmessage/', (myJson) => {})
+  fetchAjax(room_id, 'get', '/chat/readmessage/', (myJson) => {})
 }
 
 const chatDiv = document.querySelector('.chat')
@@ -383,13 +383,13 @@ function makeChat(user_id, myJson) {
     }
   }
 }
-// 알 수도 있는 사람 목록(추천친구)
 
+// 알 수도 있는 사람 목록(추천친구)
 function getRecommandFriendListFunc() {
   let param = {
     user_pk: user_pk.value,
   }
-  fetchAjax(param, 'post', '/layout/recommandFriend', (myJson) => {
+  fetchAjax(param, 'post', '/friend/recommandFriend', (myJson) => {
     getRecFriend_List(myJson)
   })
 }
@@ -471,7 +471,7 @@ function getRecFriend_List(myJson) {
 
 function getAlarmCount() {
   const user_id = document.querySelector('#temp_user').innerText
-  fetchAjax(user_id, 'get', '/layout/getalarmcount/', (myJson) => {
+  fetchAjax(user_id, 'get', '/alarm/getalarmcount/', (myJson) => {
     if (document.querySelector('#alarm')) {
       document.querySelector('#alarm').remove()
     }
@@ -490,7 +490,7 @@ function getAlarmCount() {
 
 function getNoRealAllMessage() {
   const user_id = document.querySelector('#temp_user').innerText
-  fetchAjax(user_id, 'get', '/layout/getnoreadallmessage/', (myJson) => {
+  fetchAjax(user_id, 'get', '/chat/getnoreadallmessage/', (myJson) => {
     if (document.querySelector('#new_dm')) {
       document.querySelector('#new_dm').remove()
     }

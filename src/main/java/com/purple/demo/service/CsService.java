@@ -41,7 +41,7 @@ public class CsService {
 		nd.setPage(dto.getPage());
 		nd.setRecordCntPerPage(dto.getRecordCntPerPage());
 
-		final int SIDE_NUM = 3; //사이드 페이지 넘버
+		final int SIDE_NUM = 3; // 사이드 페이지 넘버
 		int pageLen = SIDE_NUM * 2;
 		int page = dto.getPage();
 		int maxPage = nd.getMaxPageNum();
@@ -81,15 +81,14 @@ public class CsService {
 	}
 
 	public String notice_img(MultipartFile img, int notice_pk) {
-
-		//유저 pk 값
+		// 유저 pk 값
 		UserPrincipal principal = (UserPrincipal)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		int user_pk = principal.getUser_pk();  
 		
-		//업로드 할 파일 경로
+		// 업로드 할 파일 경로
 		String folder = "/images/notice/" + user_pk + "/" + notice_pk;
 		try {
-			//삭제
+			// 삭제
 			fUtils.delFolder(fUtils.getRealPath(folder));
 			
 			String fileNm = fUtils.transferTo(img, folder);
@@ -126,7 +125,7 @@ public class CsService {
 		return csMapper.notice_del(entity);
 	}
 
-	//문의사항
+	// 문의사항
 	public 	QuestionDomain selQuestionList(QuestionDTO dto){
 		if(dto.getRecordCntPerPage() == 0) {
 			dto.setRecordCntPerPage(10);
@@ -143,7 +142,7 @@ public class CsService {
 		nd.setPage(dto.getPage());
 		nd.setRecordCntPerPage(dto.getRecordCntPerPage());
 
-		final int SIDE_NUM = 3; //사이드 페이지 넘버
+		final int SIDE_NUM = 3; // 사이드 페이지 넘버
 		int pageLen = SIDE_NUM * 2;
 		int page = dto.getPage();
 		int maxPage = nd.getMaxPageNum();
@@ -183,11 +182,11 @@ public class CsService {
 	}
 
 	public String question_img(MultipartFile img, int question_pk) {
-		//유저 pk 값
+		// 유저 pk 값
 		UserPrincipal principal = (UserPrincipal)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		int user_pk = principal.getUser_pk();  
 		
-		//업로드 할 파일 경로
+		// 업로드 할 파일 경로
 		String folder = "/images/question/" + user_pk + "/" + question_pk;
 		try {
 			fUtils.delFolder(fUtils.getRealPath(folder));

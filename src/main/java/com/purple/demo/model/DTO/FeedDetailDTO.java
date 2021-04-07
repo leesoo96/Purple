@@ -7,7 +7,6 @@ import com.purple.demo.model.FeedListDTO;
 import lombok.Getter;
 import lombok.Setter;
 
-
 @Getter
 @Setter
 public class FeedDetailDTO extends FeedListDTO{

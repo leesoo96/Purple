@@ -10,7 +10,7 @@
             LIKE '%${search_user_id}%' or user_name LIKE '%${search_user_id}%';
         </if>
         <if test="search_user_id == ''">
-            LIKE '%null%';
+            LIKE '%null%'
         </if>
     </select>
 
@@ -33,7 +33,7 @@
             LIKE '%null%'
         </if>
         ORDER BY a.feed_writedate DESC
-        LIMIT #{first_page}, #{end_page};
+        LIMIT #{first_page}, #{end_page}
     </select>
 
     <select id="searchHashtag" resultType="FeedListDTO">
@@ -51,6 +51,6 @@
         WHERE a.feed_state = 1 
         AND d.hashtag_ctnt = #{search_hashtag_ctnt}
         ORDER BY a.feed_writedate DESC
-        LIMIT #{first_page}, #{end_page};
+        LIMIT #{first_page}, #{end_page}
     </select>
 </mapper>

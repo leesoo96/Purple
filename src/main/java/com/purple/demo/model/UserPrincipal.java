@@ -33,20 +33,20 @@ public class UserPrincipal extends UserEntity implements Principal, UserDetails 
 		authorities = Collections.singletonList(new SimpleGrantedAuthority(user.getUser_auth()));
 	}
 	
-//	시큐리티 로그인 관련 
+	// 시큐리티 로그인 관련 
 	public static UserPrincipal create(UserEntity user) {
 		List<GrantedAuthority> authorities = Collections.
 		  singletonList(new SimpleGrantedAuthority(user.getUser_auth()));
 		return new UserPrincipal(user);
 	}
 			
-//  유저 비밀번호
+	// 유저 비밀번호
 	@Override
 	public String getPassword() {
 	   return this.getUser_pw();
 	}
 	
- // 유저 아이디 
+ 	// 유저 아이디 
 	@Override
 	public String getUsername() {
 	   return this.getUser_id();
@@ -58,13 +58,13 @@ public class UserPrincipal extends UserEntity implements Principal, UserDetails 
 	   return true;
 	}
 	
- // 유저계정이 안잠겨있으면 true
+ 	// 유저계정이 안잠겨있으면 true
 	@Override
 	public boolean isAccountNonLocked() {
 	   return true;
 	}
 	
- // 유저계정의 비밀번호를 오래사용한것이 아니면 true
+ 	// 유저계정의 비밀번호를 오래사용한것이 아니면 true
 	@Override
 	public boolean isCredentialsNonExpired() {
 	   return true;

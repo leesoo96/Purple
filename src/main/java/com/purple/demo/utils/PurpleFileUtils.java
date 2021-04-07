@@ -19,7 +19,7 @@ public class PurpleFileUtils {
 	
 	final WebApplicationContext webApplicationContext;
 
-	//폴더 만들기
+	// 폴더 만들기
 	public void makeFolders(String path) {
 		File folder = new File(path);
 		
@@ -28,7 +28,7 @@ public class PurpleFileUtils {
 		}
 	}
 	
-	//폴더 삭제
+	// 폴더 삭제
 	public void delFolder(String path) {
 		File folder = new File(path);
 		
@@ -52,7 +52,7 @@ public class PurpleFileUtils {
 		}
 	}
 
-	//파일 삭제
+	// 파일 삭제
 	public void delFile(String path) {
 		File file = new File(path);
 		
@@ -69,7 +69,7 @@ public class PurpleFileUtils {
 		}
 	}
 	
-	//스프링이 돌아가고 있는 절대주소값에 path값을 붙여서 가져오기
+	// 스프링이 돌아가고 있는 절대주소값에 path값을 붙여서 가져오기
 	public String getRealPath(String path) {
 		Path uploadPath = Paths.get("." + path);
 		
@@ -92,7 +92,7 @@ public class PurpleFileUtils {
 		return getRandomFileNm(file.getOriginalFilename());
 	}
 	
-	//파일저장 & 랜덤파일명 구하기
+	// 파일저장 & 랜덤파일명 구하기
 	public String transferTo(MultipartFile mf, String target) throws IllegalStateException, IOException {
 		String fileNm = null;
 		String basePath = getRealPath(target);

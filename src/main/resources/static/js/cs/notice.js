@@ -49,7 +49,6 @@ function cs_del_btn(notice_pk) {
   if (!confirm('삭제 하시겠습니까?')) {
     return
   }
-  console.log(notice_pk)
   fetch(`/notice_del?notice_pk=${notice_pk}`, {
     method: 'delete',
   })

@@ -23,7 +23,7 @@
                 a.feed_writedate DESC
             </otherwise>
         </choose> 
-        LIMIT #{first_page}, #{end_page};
+        LIMIT #{first_page}, #{end_page}
     </select>
 
     <select id="selFeedDetail" resultType="FeedDetailDTO">
@@ -35,6 +35,7 @@
         LEFT OUTER JOIN user AS b
         ON (a.feed_userpk = b.user_pk)
         WHERE a.feed_pk = #{feed_pk}
+        AND a.feed_state = 1
     </select>
 
     <select id="selMediaList" resultType="MediaEntity">

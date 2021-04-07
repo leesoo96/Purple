@@ -27,7 +27,6 @@ public class FriendController {
     @Autowired
     private FriendService friendService;
 
-    
     // 알 수도 있는 사람 목록 
     @ResponseBody
     @PostMapping("/recommandFriend")
