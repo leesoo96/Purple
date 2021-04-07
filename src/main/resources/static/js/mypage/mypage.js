@@ -77,6 +77,7 @@ const user_backgroundimg = document.querySelector('#mod_background')
 
 saveBtn.addEventListener('click', () => {
   // 아이디 변경을 할 때 중복검사 여부 확인
+  console.log('연결')
   if (userModFrm.mod_id.value) {
     if (check_state === 0) {
       alert('아이디 중복체크를 해주세요')
@@ -132,15 +133,23 @@ saveBtn.addEventListener('click', () => {
       user_email: userModFrm.mod_email.value,
       user_birth: userModFrm.mod_birth.value,
     }
-    fetchAjax(params, 'put', '/mypage/mod_userinfo', (myJson) => {
-      if (myJson.result === 1) {
-        alert('회원정보 수정이 완료되었습니다.')
-        location.href = `/logout`
-      } else {
-        alert('회원정보 수정이 실패했습니다.')
-        openCloseModal('#userMod_container', 'none')
-      }
+    fetch(`/mypage/mod_userinfo`, {
+      method: 'put',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(params),
     })
+      .then((res) => res.json())
+      .then((myJson) => {
+        if (myJson.result === 1) {
+          alert('회원정보 수정이 완료되었습니다.')
+          location.href = `/logout`
+        } else {
+          alert('회원정보 수정이 실패했습니다.')
+          openCloseModal('#userMod_container', 'none')
+        }
+      })
   }
 })
 
