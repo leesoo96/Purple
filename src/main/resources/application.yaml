@@ -8,13 +8,33 @@ spring:
     view:
       prefix: /WEB-INF/views/
       suffix: .jsp
-    
-  #jdbc 설정
+
+    #jdbc 설정
   datasource:
     url: jdbc:mysql://localhost:3307/purple?autoReconnect=true
     username: root
     password: koreait2020
     driver-class-name: com.mysql.cj.jdbc.Driver
+
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 223590531622-gapoulh2bi9ha2sou8ac0q0hbik1fmjr.apps.googleusercontent.com
+            client-secret: W_3fa8LILuklW2Ys9oPnCSry
+          facebook:
+            client-id: 453108009137161
+            client-secret: 185f9f7c745e78cf61ae77811d6a2325
+
+custom:
+  oauth2:
+    kakao:
+      client-id: dcd77beafc72e48753f0d5c6a3de7357
+      client-secret: fje5GZ41eNxENmpXLohtA1TsboD7LiGJ
+    naver:
+      client-id: FncvzBqJPltRANb9yYrk
+      client-secret: VB2Af9_gWS
 
 #myBatis 설정
 mybatis:
@@ -36,3 +56,4 @@ server:
     key-password: 'purple'
     trust-store: purpletrust
     trust-store-password: 'purple'
+#구글 로그인

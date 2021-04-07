@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<script defer src="resources/js/common/leftSide.js"></script>
 <div id="menus">
           <div id="logo">
             <a href="/feed">

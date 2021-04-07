@@ -20,4 +20,5 @@ public class UserEntity {
 	private String user_joindate; // 가입날짜
 	private int user_state; // 회원상태
 	private String user_auth; // 회원권한
+	private String provider;
 }

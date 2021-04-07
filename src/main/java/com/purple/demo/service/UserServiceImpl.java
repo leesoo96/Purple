@@ -15,7 +15,10 @@ import javax.servlet.http.HttpServletResponse;
 import com.purple.demo.mapper.UserMapper;
 import com.purple.demo.model.UserEntity;
 import com.purple.demo.model.UserPrincipal;
-
+ 
+//시큘리티 설정에서 loginProcessingUrl("/login") 을 했을때
+// "/login" 요청이 오면 자동으로 UserDetailsService 타입으로 ioc 되어있는
+//loadUserByUsername 함수가 실행함
 @Service
 public class UserServiceImpl implements UserDetailsService {
 
@@ -33,6 +36,17 @@ public class UserServiceImpl implements UserDetailsService {
 
 		UserEntity user = userMapper.loginUser(entity);
 		return UserPrincipal.create(user);
+	}
+		// oauth2
+	public UserDetails loadUserByUsername(String provider, String uid) throws UsernameNotFoundException {
+		UserEntity p = new UserEntity();
+		p.setProvider(provider);
+		p.setUser_id(uid);	
+		UserPrincipal ue = userMapper.loginUser(p);	
+		if(ue == null) {
+			return null;
+		}
+		return ue;
 	}
 
 	// 회원가입
