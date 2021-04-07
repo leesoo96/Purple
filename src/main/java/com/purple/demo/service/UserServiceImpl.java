@@ -2,7 +2,6 @@ package com.purple.demo.service;
 
 import org.apache.commons.mail.HtmlEmail;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -16,9 +15,9 @@ import com.purple.demo.mapper.UserMapper;
 import com.purple.demo.model.UserEntity;
 import com.purple.demo.model.UserPrincipal;
  
-//시큘리티 설정에서 loginProcessingUrl("/login") 을 했을때
+// 시큐리티 설정에서 loginProcessingUrl("/login") 을 했을때
 // "/login" 요청이 오면 자동으로 UserDetailsService 타입으로 ioc 되어있는
-//loadUserByUsername 함수가 실행함
+// loadUserByUsername 함수가 실행함
 @Service
 public class UserServiceImpl implements UserDetailsService {
 
@@ -37,7 +36,8 @@ public class UserServiceImpl implements UserDetailsService {
 		UserEntity user = userMapper.loginUser(entity);
 		return UserPrincipal.create(user);
 	}
-		// oauth2
+	
+	// oauth2
 	public UserDetails loadUserByUsername(String provider, String uid) throws UsernameNotFoundException {
 		UserEntity p = new UserEntity();
 		p.setProvider(provider);
