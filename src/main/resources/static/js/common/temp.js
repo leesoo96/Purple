@@ -64,7 +64,6 @@ function dm_view() {
   })
 }
 
-
 // 친구목록 버튼과 대화목록 버튼 클릭 시
 let friend_btn = document.querySelector('#friend_btn')
 let chat_btn = document.querySelector('#chat_btn')
@@ -205,7 +204,7 @@ function getFriend_list(myJson) {
   }
 }
 
-// 채팅방 만들기 /가져오기
+// 채팅방 만들기/가져오기
 function commonChatFunc(e, friend_pk) {
   let user_id = e.parentNode.querySelector('.friend_info span').innerText
   let chatParam = {
@@ -249,6 +248,7 @@ function goToBottom() {
     '.chat'
   ).scrollHeight
 }
+
 // 채팅 - 대화 목록 확인
 document.querySelector('.dm_open').addEventListener('click', () => {
   getFriendChatListFunc()
@@ -384,9 +384,8 @@ function makeChat(user_id, myJson) {
     }
   }
 }
+
 // 알 수도 있는 사람 목록(추천친구)
-
-
 function getRecommandFriendListFunc() {
   let param = {
     user_pk: user_pk.value,
