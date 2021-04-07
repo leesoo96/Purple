@@ -193,3 +193,49 @@ function nextImg(e) {
   }
   last_img.after(first_img)
 }
+
+function feedFavorite(e, feed_pk) {
+  let favorite_state = 0
+  const function_bar = e.parentNode
+  let favoriteI = function_bar.querySelector('.fa-heart')
+  if (favoriteI.className === 'fas fa-heart') {
+    favorite_state = 1
+  } else {
+    favorite_state = 0
+  }
+  let params = {
+    favorite_feedpk: feed_pk,
+    favorite_state,
+  }
+  fetchAjax(params, 'post', '/feed/favorite', (myJson) => {
+    if (myJson.result.favorite_state == 0) {
+      favoriteI.className = 'far fa-heart'
+    } else {
+      favoriteI.className = 'fas fa-heart'
+    }
+    favoriteI.innerHTML = myJson.result.favorite_count
+  })
+}
+
+// Feed Bookmark
+function feedBookmark(e, feed_pk) {
+  let bookmark_state = 0
+  const function_bar = e.parentNode
+  let bookmarkI = function_bar.querySelector('.fa-bookmark')
+  if (bookmarkI.className === 'fas fa-bookmark') {
+    bookmark_state = 1
+  } else {
+    bookmark_state = 0
+  }
+  let params = {
+    bookmark_feedpk: feed_pk,
+    bookmark_state,
+  }
+  fetchAjax(params, 'post', '/feed/bookmark', (myJson) => {
+    if (myJson.result.bookmark_state == 0) {
+      bookmarkI.className = 'far fa-bookmark'
+    } else {
+      bookmarkI.className = 'fas fa-bookmark'
+    }
+  })
+}

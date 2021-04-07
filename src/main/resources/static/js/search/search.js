@@ -186,7 +186,7 @@ function user_list(myJson) {
       user_pk: document.querySelector('#user_pk').value,
       friend_pk: friend_pk,
     }
-    fetchAjax(addFriendParam, 'post', '/layout/friendCheck', (myJson) => {
+    fetchAjax(addFriendParam, 'post', '/friend/friendCheck', (myJson) => {
       if (myJson.result == 1) {
         let user_tag = document.createElement('div')
 
@@ -210,7 +210,7 @@ function addFriendFunc(friend_pk) {
       user_pk: document.querySelector('#user_pk').value,
       friend_pk: friend_pk,
     }
-    fetch('/layout/addNewFriend', {
+    fetch('/friend/addNewFriend', {
       method: 'post',
       headers: {
         'Content-Type': 'application/json',

@@ -282,6 +282,9 @@ function comment_submit(e,feed_pk) {
     comment_feedpk: feed_pk,
     comment_ctnt
   }
+  console.log(params.comment_feedpk)
+  console.log(params.comment_ctnt)
+
   fetchAjax(params, 'post', '/feed/comment', (myJson) => {
     if(myJson.result === 1) {
       comment_inputEle.querySelector('input[name="comment_ctnt"]').value = ''
@@ -296,9 +299,7 @@ function comment_submit(e,feed_pk) {
 function getCommentList(e, feed_pk) {
   e.parentNode.parentNode.firstChild.querySelectorAll('*').forEach((nodes) => nodes.remove())
   fetchAjax(feed_pk, 'get', '/feed/getcomment/', (myJson) => {
-    console.log(myJson)
     for(let i=0; i< myJson.result.length; i++) {
-      console.log(myJson.result[i])
       let commentbarDiv = document.createElement('div')
       commentbarDiv.className = 'commentbar'
       commentbarDiv.setAttribute('data-comment_pk', `${myJson.result[i].comment_pk}`)
@@ -344,7 +345,6 @@ function viewMore(e) {
   e.parentNode.parentNode.parentNode.querySelectorAll('.recommentbar').forEach((test) => test.remove())
 
   fetchAjax(comment_parentpk, 'get', '/feed/getrecomment/', (myJson) => {
-    console.log(myJson)
     if(myJson.result.length == 0) {
       alert('댓글이 없습니다.')
       return

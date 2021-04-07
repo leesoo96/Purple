@@ -91,7 +91,6 @@ function setThumbnail(event) {
       document.querySelector('div.write_preview').appendChild(div_preview)
     }
 
-    console.log(image)
     reader.readAsDataURL(image)
   }
 }

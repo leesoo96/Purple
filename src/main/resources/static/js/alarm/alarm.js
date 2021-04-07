@@ -3,7 +3,7 @@ getAlarm()
 getAlarmCount()
 
 function readAlarm() {
-    fetch('/layout/readalarm/'+user_pk.value)
+    fetch('/alarm/readalarm/'+user_pk.value)
     .then((res) =>res.json())
     .then((myJson) =>{
     })
@@ -16,7 +16,6 @@ function getAlarm() {
     .then((res) => res.json())
     .then((myJson) => {
       for(let i =0; i< myJson.length; i++){
-        console.log(myJson[i])
         let tableTr = document.createElement('tr')
         if(myJson[i].alarm_category === 1){
           tableTr.setAttribute('onclick', `location.href="/userpage/${myJson[i].user_id}"`)
