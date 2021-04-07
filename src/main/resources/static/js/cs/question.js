@@ -115,7 +115,6 @@ function answer_del_btn(answer_pk) {
       return res.json()
     })
     .then(function (myJson) {
-      console.log(myJson)
       if (myJson.result === 1) {
         //삭제 완료
         location.href = `question`
@@ -138,7 +137,6 @@ function cs_del_btn(question_pk) {
       return res.json()
     })
     .then(function (myJson) {
-      console.log(myJson)
       if (myJson.result === 1) {
         //삭제 완료
         location.href = `question`

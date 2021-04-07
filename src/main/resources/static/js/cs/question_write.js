@@ -96,7 +96,6 @@ function questionUpd() {
       question_pk: question_write_form.question_pk.value,
       question_img: img,
     }
-    console.log(param)
     fetch('/question_upd', {
       method: 'post',
       headers: {

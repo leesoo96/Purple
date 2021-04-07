@@ -116,4 +116,3 @@ function enterKey(event) {
   }
   return false
 }
-

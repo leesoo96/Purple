@@ -8,7 +8,10 @@ function feedDetail(e, feed_pk) {
   return new Promise(function (resolve, reject) {
     fetchAjax(feed_pk, 'get','/feed/detail/', resolve)
   }).then((myJson) => {
+    if(myJson.status === 500) {
     reject(new Error('에러발생'))
+    return
+    }
     makeFeedDetail(e, myJson.result)
   }).catch((e)=> {
     alert('삭제된 피드입니다!')
