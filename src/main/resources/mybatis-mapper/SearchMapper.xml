@@ -1,26 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
 <mapper namespace="com.purple.demo.mapper.SearchMapper">
     <select id="selUserSearch" resultType="SearchUserDTO">
-        SELECT user_id, user_profileimg, user_bio, user_pk FROM user
-        WHERE  user_id 
+        SELECT user_id, user_profileimg, user_bio, user_pk 
+        FROM user
+        WHERE user_id 
         <if test="search_user_id != ''">
             LIKE '%${search_user_id}%' or user_name LIKE '%${search_user_id}%';
         </if>
         <if test="search_user_id == ''">
-            LIKE '%null%';
+            LIKE '%null%'
         </if>
     </select>
 
     <select id="selFeedSearch" resultType="FeedListDTO">
         SELECT a.feed_pk, a.feed_ctnt, a.feed_writedate, a.feed_userpk,
         b.user_id, b.user_profileimg,
-        (SELECT COUNT(comment_pk) FROM comment WHERE comment_feedpk = a.feed_pk) AS "comment_count",
-        (SELECT COUNT(favorite_feedpk) FROM favorite WHERE favorite_feedpk= a.feed_pk) AS "favorite_count"
+        (SELECT COUNT(comment_pk) FROM comment WHERE comment_feedpk = a.feed_pk) 
+        AS "comment_count",
+        (SELECT COUNT(favorite_feedpk) FROM favorite WHERE favorite_feedpk= a.feed_pk) 
+        AS "favorite_count"
         FROM feed AS a
         LEFT OUTER JOIN user AS b
         ON (a.feed_userpk = b.user_pk)
-        WHERE a.feed_state = #{feed_state} AND a.feed_ctnt
+        WHERE a.feed_state = #{feed_state} 
+        AND a.feed_ctnt
         <if test="feed_ctnt != ''">
             LIKE '%${feed_ctnt}%'
         </if>
@@ -28,27 +33,24 @@
             LIKE '%null%'
         </if>
         ORDER BY a.feed_writedate DESC
-        LIMIT #{first_page}, #{end_page};
+        LIMIT #{first_page}, #{end_page}
     </select>
 
     <select id="searchHashtag" resultType="FeedListDTO">
         SELECT a.feed_pk, a.feed_ctnt, a.feed_writedate, a.feed_userpk, d.hashtag_ctnt,
         b.user_id, b.user_profileimg,
-        (SELECT COUNT(comment_pk) FROM comment WHERE comment_feedpk = a.feed_pk) AS "comment_count",
-        (SELECT COUNT(favorite_feedpk) FROM favorite WHERE favorite_feedpk= a.feed_pk) AS "favorite_count"
+        (SELECT COUNT(comment_pk) FROM comment WHERE comment_feedpk = a.feed_pk) 
+        AS "comment_count",
+        (SELECT COUNT(favorite_feedpk) FROM favorite WHERE favorite_feedpk= a.feed_pk) 
+        AS "favorite_count"
         FROM feed AS a
         LEFT OUTER JOIN user AS b
         ON (a.feed_userpk = b.user_pk)
-        inner JOIN hashtag_relation c ON a.feed_pk = c.htrel_feedpk
-        inner JOIN hashtag d ON c.htrel_hashtagpk = d.hashtag_pk
-        WHERE a.feed_state = 1 AND d.hashtag_ctnt 
-        <if test="search_hashtag_ctnt != '' ">
-            LIKE '%${search_hashtag_ctnt}%' 
-        </if>
-        <if test="search_hashtag_ctnt == ''">
-            LIKE '%null%'
-        </if>
+        INNER JOIN hashtag_relation c ON a.feed_pk = c.htrel_feedpk
+        INNER JOIN hashtag d ON c.htrel_hashtagpk = d.hashtag_pk
+        WHERE a.feed_state = 1 
+        AND d.hashtag_ctnt = #{search_hashtag_ctnt}
         ORDER BY a.feed_writedate DESC
-        LIMIT #{first_page}, #{end_page};
+        LIMIT #{first_page}, #{end_page}
     </select>
 </mapper>

@@ -27,7 +27,7 @@
   height: 45em;
   min-width: 40em;
   position: absolute;
-  z-index:4;
+  z-index: 4;
   top: 10%;
   left: 33.9%;
   border-radius: 2em;
@@ -36,7 +36,7 @@
 }
 
 .detail_close {
-  position:relative;
+  position: relative;
   padding: 10px;
   float: right;
   cursor: pointer;
@@ -56,9 +56,9 @@
   align-items: center;
 }
 
-.detail_Img{
+.detail_Img {
   position: relative;
-  padding: 0.1em;
+  left: -0.7em;
   width: 100%;
 }
 
@@ -71,7 +71,7 @@
   width: 100%;
 }
 .detail_ctnt_container {
-  position:relative;
+  position: relative;
   width: 40em;
   height: 100%;
   float: right;
@@ -93,19 +93,20 @@
   user-select: none;
   z-index: 1;
 }
-
+.detail_previous {
+  left: -0.1em;
+}
 .detail_next {
-  right: 0;
+  right: 0.6em;
   border-radius: 3px 0 0 3px;
 }
 
-.detail_titlebar{
+.detail_titlebar {
   height: 40px;
   padding: 8px;
   position: relative;
   display: flex;
   align-items: center;
-
 }
 
 .detail_titlebar img {
@@ -129,7 +130,7 @@
 
 .detail_ctnt {
   position: relative;
-  width:40em;
+  width: 40em;
   height: auto;
 }
 
@@ -145,7 +146,7 @@
   font-size: 1.1em;
 }
 
-.ctnt_container{
+.ctnt_container {
   width: 27em;
   margin: 0.5em 0.5em;
   position: relative;
@@ -163,7 +164,7 @@
   margin-left: 1em;
 }
 
-.detail_functionbar i{
+.detail_functionbar i {
   width: 1em;
   font-size: 2em;
   cursor: pointer;
@@ -173,8 +174,8 @@
 
 .detail_comment_container {
   position: relative;
-  height:65%;
-  width:40em;
+  height: 65%;
+  width: 40em;
 }
 
 .comment_list {
@@ -189,7 +190,9 @@
   -ms-overflow-style: none;
 }
 
-.comment_list::-webkit-scrollbar{ display:none; }
+.comment_list::-webkit-scrollbar {
+  display: none;
+}
 
 .commentbar {
   margin-left: 0.4em;
@@ -202,7 +205,7 @@
 }
 
 .commentFunctionbar {
-  position : relative;
+  position: relative;
   width: 6em;
   height: auto;
   margin-bottom: 0.3em;
@@ -260,12 +263,14 @@
   width: 64%;
   padding: 10px 0;
   margin-top: 1em;
-  margin-left:1em;
-  margin-right:19px;
+  margin-left: 1em;
+  margin-right: 19px;
   border: none;
   border-bottom: 2px solid #8b11b1;
   outline: none;
   background: transparent;
+  font-size: 15px;
+  font-family: 'paybooc-Bold';
 }
 
 .comment_input input[type='button'] {
@@ -279,6 +284,8 @@
   padding: 1em;
   border-radius: 1em;
   white-space: nowrap;
+  font-size: 15px;
+  font-family: 'paybooc-Bold';
 }
 
 .recommentbar {
@@ -299,6 +306,6 @@
 .recommentbar img {
   margin-right: 0.5em;
   width: 3em;
-  border-radius: 2em;
-  height: auto;
+  border-radius: 70%;
+  height: 3em;
 }

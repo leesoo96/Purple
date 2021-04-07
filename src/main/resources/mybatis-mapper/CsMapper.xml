@@ -2,17 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.purple.demo.mapper.CsMapper">
-	<!-- 공지사항 -->
-	<!-- 공지사항 글 등록 -->
-	<insert id="regNotice" useGeneratedKeys="true" keyProperty="notice_pk">
-		INSERT INTO notice
-		( notice_title, notice_ctnt,
-		notice_userpk )
-		VALUES
-		( #{notice_title}, #{notice_ctnt},
-		#{notice_userpk} )
-	</insert>
-
 	<!-- 공지사항 글 리스트 -->
 	<select id="selNoticeList"  resultType="NoticeEntity">
 		SELECT * FROM notice
@@ -31,54 +20,6 @@
 	<select id="selNoticeMaxPage"  resultType="_int">
 		SELECT CEIL(COUNT(notice_pk) / #{recordCntPerPage})as notice_count FROM notice;
 	</select>
-
-	<!-- 공지사항 글 수정 -->
-	<update id="notice_upd">
-		UPDATE notice
-		SET notice_title = #{notice_title}
-		,notice_ctnt = #{notice_ctnt}
-		WHERE notice_pk = #{notice_pk}
-	</update>
-
-	<!-- 공지사항 이미지 수정 -->
-	<update id="notice_img_upd">
-		UPDATE notice
-		SET notice_img = #{notice_img}
-		WHERE notice_pk = #{notice_pk}
-	</update>
-
-	<!-- 공지사항 조회수 -->
-	<update id="updNoticevieView">
-		UPDATE notice
-		SET notice_view = notice_view + 1
-		WHERE notice_pk = #{notice_pk}
-		<selectKey keyProperty="notice_view" resultType="int" order="AFTER">
-		SELECT notice_view
-		FROM notice 
-		WHERE notice_pk = #{notice_pk}
-		</selectKey>
-	</update>
-
-	<!-- 공지사항 글 삭제 -->
-	<delete id="notice_del">
-		DELETE FROM notice
-		WHERE notice_pk = #{notice_pk}
-	</delete>
-
-
-
-	<!-- 문의사항 -->
-
-	<insert id="regQuestion" useGeneratedKeys="true" keyProperty="question_pk">
-		INSERT INTO question
-		( question_title,
-		question_ctnt,
-		question_userpk, question_type, question_img )
-		VALUES
-		(
-		#{question_title}, #{question_ctnt}, #{question_userpk},
-		#{question_type}, #{question_img} )
-	</insert>
 
 	<!-- 문의사항 글 리스트 -->
 	<select id="selQuestionList" resultType="QuestionEntity">
@@ -109,6 +50,68 @@
 		WHERE question_pk = #{question_pk};
 	</select>
 
+	<!-- 공지사항 -->
+	<!-- 공지사항 글 등록 -->
+	<insert id="regNotice" useGeneratedKeys="true" keyProperty="notice_pk">
+		INSERT INTO notice
+		( notice_title, notice_ctnt,
+		notice_userpk )
+		VALUES
+		( #{notice_title}, #{notice_ctnt},
+		#{notice_userpk} )
+	</insert>
+
+	<!-- 문의사항 -->
+	<insert id="regQuestion" useGeneratedKeys="true" keyProperty="question_pk">
+		INSERT INTO question
+		( question_title,
+		question_ctnt,
+		question_userpk, question_type, question_img )
+		VALUES
+		(
+		#{question_title}, #{question_ctnt}, #{question_userpk},
+		#{question_type}, #{question_img} )
+	</insert>
+
+	<!--문의사항 댓글 등록-->
+	<insert id="question_cmt_reg">
+		INSERT INTO answer
+		( answer_pk,
+		answer_userpk,
+		answer_ctnt)
+		VALUES
+		(
+		#{answer_pk}, #{answer_userpk}, #{answer_ctnt}
+		)
+	</insert>
+
+	<!-- 공지사항 글 수정 -->
+	<update id="notice_upd">
+		UPDATE notice
+		SET notice_title = #{notice_title}
+		,notice_ctnt = #{notice_ctnt}
+		WHERE notice_pk = #{notice_pk}
+	</update>
+
+	<!-- 공지사항 이미지 수정 -->
+	<update id="notice_img_upd">
+		UPDATE notice
+		SET notice_img = #{notice_img}
+		WHERE notice_pk = #{notice_pk}
+	</update>
+
+	<!-- 공지사항 조회수 -->
+	<update id="updNoticevieView">
+		UPDATE notice
+		SET notice_view = notice_view + 1
+		WHERE notice_pk = #{notice_pk}
+		<selectKey keyProperty="notice_view" resultType="int" order="AFTER">
+		SELECT notice_view
+		FROM notice 
+		WHERE notice_pk = #{notice_pk}
+		</selectKey>
+	</update>
+
 	<!-- 문의사항 글 수정 -->
 	<update id="question_upd">
 		UPDATE question
@@ -137,25 +140,18 @@
 		</selectKey>
 	</update>
 
+	<!-- 공지사항 글 삭제 -->
+	<delete id="notice_del">
+		DELETE FROM notice
+		WHERE notice_pk = #{notice_pk}
+	</delete>
+
 	<!-- 문의사항 글 삭제 -->
 	<delete id="question_del">
 		DELETE FROM question
 		WHERE question_pk =
 		#{question_pk}
 	</delete>
-
-
-	<!--문의사항 댓글 등록-->
-	<insert id="question_cmt_reg">
-		INSERT INTO answer
-		( answer_pk,
-		answer_userpk,
-		answer_ctnt)
-		VALUES
-		(
-		#{answer_pk}, #{answer_userpk}, #{answer_ctnt}
-		)
-	</insert>
 
 	<!-- 문의사항 댓글 삭제-->
 	<delete id="answer_del">

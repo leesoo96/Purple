@@ -9,6 +9,7 @@
  	<link rel="icon" href="resources/img/common/favicon.ico" type="image/x-icon" />
     <link rel="stylesheet" href="resources/css/common/welcome.css">
 	<script defer type="text/javascript" src="resources/js/common/welcome.js"></script>
+	<script defer type="text/javascript" src="resources/js/common/utils.js"></script>
 </head>
 <body>
 	<div id="form-wrap">
@@ -37,7 +38,6 @@
         	</c:choose>
         	<span>아이디 기억하기</span>  	
 
-					
         	<input type="submit" id="login_Btn" class="input_submit" value="로그인">
         	<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }">
 			<div><a href='/oauth2/authorization/google'>google</a></div>
@@ -47,7 +47,7 @@
      	</form>
 
 		<!-- 비밀번호 찾기 -->
-		 <div id="findpw">
+		<div id="findpw">
 			<span class="findpw_btn">비밀번호 찾기</span>
 			
 			<div class="findpw_modal">
@@ -66,8 +66,7 @@
 				</div>
 			</div>
 		</div>
-		<!-- 비밀번호 찾기 -->
-
+		
 		<c:if test="${not empty loginFailMsg}">
            <p id="errMSG">${requestScope.loginFailMsg}</p>
         </c:if>
@@ -89,7 +88,5 @@
       		<input type="button" id="join_btn" class="input_submit" value="회원가입">
     	</form>
   	</div>
-      
-     
 </body>
 </html>

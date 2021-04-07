@@ -27,6 +27,50 @@ function register() {
   errMSG.style.left = '-400px'
 }
 
+//이메일 형식
+function email_check(email) {
+  var regex = /([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/
+  return email != '' && email != 'undefined' && regex.test(email)
+}
+
+//아이디 형식
+function CheckId(uid) {
+  if (!/[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]{2,7}$/.test(uid)) {
+    alert('이름은 한글로 2~7자리를 입력해야 합니다.')
+    return false
+  }
+  return true
+}
+
+//비밀번호 형식
+function CheckPassword(uid, upw) {
+  if (
+    !/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/.test(
+      upw
+    )
+  ) {
+    alert(
+      '비밀번호는 숫자와 영문자와 특수문자 조합으로 8~20자리를 사용해야 합니다.'
+    )
+    return false
+  }
+  var chk_num = upw.search(/[0-9]/g)
+  var chk_eng = upw.search(/[a-z]/gi)
+  if (chk_num < 0 || chk_eng < 0) {
+    alert('비밀번호는 숫자와 영무자를 혼용하여야 합니다.')
+    return false
+  }
+  if (/(\w)\1\1\1/.test(upw)) {
+    alert('비밀번호에 같은 문자를 4번 이상 사용하실 수 없습니다.')
+    return false
+  }
+  if (upw.search(uid) > -1) {
+    alert('ID가 포함된 비밀번호는 사용하실 수 없습니다.')
+    return false
+  }
+  return true
+}
+
 // 로그인
 const loginBtn = document.querySelector('#login_Btn')
 let user_id = loginFrmEle.user_id
@@ -277,6 +321,7 @@ function findpw_proc(result) {
 
     case 4:
       alert('메일 형식이 올바르지 않습니다.다시 확인해주세요.')
+      find_pw_mail.focus()
       break
   }
 }

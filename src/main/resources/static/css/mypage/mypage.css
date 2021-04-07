@@ -164,7 +164,7 @@
   z-index: 5;
   width: 600px;
   height: 660px;
-  top: 21%;
+  top: 9%;
   left: 4%;
   border-radius: 15px;
   display: none;
@@ -209,6 +209,7 @@
   color: #fff;
   border-radius: 3em;
   padding: 10px 24px;
+  outline: none;
 }
 #userMod_content {
   position: relative;
@@ -297,7 +298,7 @@ label[for='mod_background'] {
 input[name='mod_name'],
 input[name='mod_bio'],
 input[name='mod_location'],
-input[name='mod_website'] {
+input[name='mod_email'] {
   position: relative;
   height: 2.5em;
   width: 99%;
@@ -327,7 +328,7 @@ input[name='mod_birth'] {
   z-index: 5;
   width: 20em;
   height: 15.5em;
-  top: 60%;
+  top: 10%;
   left: 25%;
   border-radius: 15px;
   padding: 0.3em;

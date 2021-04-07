@@ -5,10 +5,12 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class ChatRoomDTO extends UserEntity {
+public class ChatRoomDTO extends ChatroomEntity {
     
-    private String chatroom_id; // UUID로 채팅방 구분
-    private int chatroom_userpk; // 사용자 번호
-    private int chatroom_friendpk; // 사용자와 대화하는 친구 번호
-    private String chatroom_createdate; // 대화방 생성 시간
+    private String user_id;
+    private String user_profileimg;
+    private String last_message;
+    private String last_messagedate;
+
+    private int chatroom_noreadcount; // 안 읽은 갯수
 }

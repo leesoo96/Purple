@@ -95,6 +95,20 @@
   cursor: pointer;
 }
 
+.feed_content a {
+  font-size: 1.0em;
+  margin-right: 0.4em;
+}
+
+.feed_content a:hover{
+  color:#ad00e2
+}
+
+.feed_content p {
+  margin-top: 1em;
+  font-size: 1.3em;
+}
+
 .feed_functionbar {
   position: relative;
   width: auto;

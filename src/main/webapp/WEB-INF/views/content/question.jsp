@@ -1,11 +1,9 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib uri="http://www.springframework.org/security/tags"
 	prefix="sec"%>
-
 <!DOCTYPE html>
 <link rel="stylesheet" href="resources/css/common/temp.css" />
 <link rel="stylesheet" href="resources/css/cs/question.css" />
@@ -86,6 +84,7 @@
 <form id="pageFrm" action="/question" method="get">
 	<input type="hidden" name="page" value="1">
 </form>
+
 <div id="pagingLocation">
 	<c:if test="${requestScope.questionData.SPage > 1}">	
 		<span class="page" onclick="pageClick(1)">1</span>

@@ -1,17 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<link
-  rel="stylesheet"
-  href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
-  integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
-  crossorigin="anonymous"
-/>
 <link rel="stylesheet" href="/resources/css/search/search.css" />
 <script defer src="/resources/js/search/search.js"></script>
 <link rel="stylesheet" href="/resources/css/feed/feed.css">
 <link rel="stylesheet" href="/resources/css/feed/feedDetail.css">
-<script defer src="/resources/js/feed/feedDetail.js"></script>
 
 <svg xmlns="http://www.w3.org/2000/svg" width="0" height="0" display="none">
   <symbol id="user" viewBox="0 0 32 32">
@@ -35,7 +28,7 @@ pageEncoding="UTF-8"%>
   <input type="text" name="search_input" onkeyup="enterkey(this)" placeholder="Search" class="search-input" value="${data}" />
   <div class="search-option">
     <div>
-      <input name="type" type="radio" value="0" onclick="userSeatchClick()" id="type-users" class="search_chack" <c:if test="${data  == null}">checked</c:if>/>
+      <input name="type" type="radio" value="0" onclick="userSearchClick()" id="type-users" class="search_chack" <c:if test="${data  == null}">checked</c:if>/>
       <label for="type-users">
         <svg class="edit-pen-title">
           <use
@@ -48,7 +41,7 @@ pageEncoding="UTF-8"%>
     </div>
 
     <div>
-      <input name="type" type="radio" value="1" onclick="feedSeatchClick()" id="type-posts" class="search_chack" />
+      <input name="type" type="radio" value="1" onclick="feedSearchClick()" id="type-posts" class="search_chack" />
       <label for="type-posts">
         <svg class="edit-pen-title">
           <use
@@ -60,7 +53,7 @@ pageEncoding="UTF-8"%>
       </label>
     </div>
     <div>
-      <input name="type" type="radio" value="2" onclick="hashtagSeatchClick()" id="type-special"  class="search_chack" 
+      <input name="type" type="radio" value="2" onclick="hashtagSearchClick()" id="type-special"  class="search_chack" 
       <c:if test="${data != null}">checked</c:if> 
       />
       <label for="type-special">

@@ -1,24 +1,26 @@
+'use strict'
+
 // feedDetail
 let feed_DetailOverlay = document.querySelector('.feed_overlay')
 const feedDetailClass = document.querySelector('.feedDetail')
 
 function feedDetail(e, feed_pk) {
-  return new Promise(function (resolve) {
-    fetch(`/feed/detail/` + feed_pk)
-      .then((res) => res.json())
-      .then((myJson) => {
-        resolve(myJson.result)
-      })
+  return new Promise(function (resolve, reject) {
+    fetchAjax(feed_pk, 'get','/feed/detail/', resolve)
   }).then((myJson) => {
-    makeFeedDetail(e, myJson)
+    if(myJson.status === 500) {
+    reject(new Error('에러발생'))
+    return
+    }
+    makeFeedDetail(e, myJson.result)
+  }).catch((e)=> {
+    alert('삭제된 피드입니다!')
   })
 }
-
 
 function makeFeedDetail(e, myJson) {
 
   feed_DetailOverlay.style.display = 'block' // feedDetail show
-
 
   //detail content
   const detail_ctnt_containerDiv = document.createElement('div')
@@ -33,8 +35,6 @@ function makeFeedDetail(e, myJson) {
   const closeI = document.createElement('i')
   closeI.className = 'fas fa-times'
   closeDiv.appendChild(closeI)
-
-
 
   //이미지가 있을 때
   if (myJson.media_url.length > 0) {
@@ -111,8 +111,10 @@ function makeFeedDetail(e, myJson) {
   hastagDiv.className= 'hashtag_container'
   for (let j = 0; j < myJson.hashtag_ctnt.length; j++) {
     const hashtagA = document.createElement('a')
-    hashtagA.href = "#"
-    hashtagA.innerText = myJson.hashtag_ctnt[j].hashtag_ctnt
+    let hashtag_ctnt = `${myJson.hashtag_ctnt[j].hashtag_ctnt}`
+        hashtag_ctnt = hashtag_ctnt.split('#')[1]
+        hashtagA.href = '/search/' + hashtag_ctnt
+        hashtagA.innerText = myJson.hashtag_ctnt[j].hashtag_ctnt
     hastagDiv.appendChild(hashtagA)
   }
   detail_ctntDiv.appendChild(hastagDiv)
@@ -157,7 +159,6 @@ function makeFeedDetail(e, myJson) {
   bookmarkI.setAttribute('onclick', `feedBookmark(this, ${myJson.feed_pk})`)
   detail_functionbarDiv.appendChild(bookmarkI)
 
-
   // 댓글창 ////////////////////////////////////////
   const detail_comment_containerDiv = document.createElement('div')
   detail_comment_containerDiv.classList.add('detail_comment_container')
@@ -173,6 +174,7 @@ function makeFeedDetail(e, myJson) {
     span.className = 'noComment'
     comment_listDiv.appendChild(span)
   }
+
   for(let k =0; k < myJson.comment_list.length; k++) {
     let commentbarDiv = document.createElement('div')
     commentbarDiv.className = 'commentbar'
@@ -181,6 +183,7 @@ function makeFeedDetail(e, myJson) {
 
     let commentUserImg = document.createElement('img')
     commentUserImg.src = `${myJson.comment_list[k].user_profileimg}`
+    
     if(myJson.comment_list[k].user_profileimg == null) {
       commentUserImg.src = '/resources/img/common/basic_profile.png'
     }
@@ -263,22 +266,19 @@ function comment_submit(e,feed_pk) {
   const comment_inputEle = e.parentNode
   let comment_ctnt = comment_inputEle.querySelector('input[name="comment_ctnt"]').value
   if(comment_inputEle.querySelector('span[name="recomment_userid"]') != null) {
+    let parent_comment_user_pk = comment_inputEle.querySelector('span[name="recomment_userid"]').innerText
+    
     let params = {
       comment_feedpk: feed_pk,
       comment_parentpk : comment_inputEle.querySelector('span[name="recomment_userid"]').dataset.comment_pk,
       comment_ctnt
     }
-    fetch('/feed/recomment',{
-      method: 'post',
-    headers: {
-      'Content-Type' : 'application/json',
-    },
-    body: JSON.stringify(params),
-  }).then((res) => res.json())
-  .then((myJson) => {
+    fetchAjax(params, 'post','/feed/recomment',(myJson) => {
     if(myJson.result === 1) {
       comment_inputEle.querySelector('input[name="comment_ctnt"]').value = ''
       comment_inputEle.querySelector('span[name="recomment_userid"]').remove()
+      sendAlarm(4,feed_pk,parent_comment_user_pk.split('@')[1])
+      sendAlarm(3,feed_pk,e.parentNode.parentNode.parentNode.querySelector('.detail_titlebar span').innerText)
     }
   })
     return
@@ -288,30 +288,24 @@ function comment_submit(e,feed_pk) {
     comment_feedpk: feed_pk,
     comment_ctnt
   }
+  console.log(params.comment_feedpk)
+  console.log(params.comment_ctnt)
 
-  fetch('/feed/comment',{
-    method: 'post',
-    headers: {
-      'Content-Type' : 'application/json',
-    },
-    body: JSON.stringify(params),
-  }).then((res) => res.json())
-  .then((myJson) =>{
+  fetchAjax(params, 'post', '/feed/comment', (myJson) => {
     if(myJson.result === 1) {
       comment_inputEle.querySelector('input[name="comment_ctnt"]').value = ''
       getCommentList(e, feed_pk)
+      sendAlarm(3,feed_pk,e.parentNode.parentNode.parentNode.querySelector('.detail_titlebar span').innerText)
       return
     }
     alert('댓글 작성을 실패하였습니다.')
-  })
+    })
 }
 
 function getCommentList(e, feed_pk) {
-  fetch('/feed/getcomment/'+feed_pk)
-  .then(res => res.json())
-  .then((myJson) => {
-    e.parentNode.parentNode.firstChild.querySelectorAll('*').forEach((nodes) => nodes.remove())
-    for(let i=0; myJson.result.length; i++) {
+  e.parentNode.parentNode.firstChild.querySelectorAll('*').forEach((nodes) => nodes.remove())
+  fetchAjax(feed_pk, 'get', '/feed/getcomment/', (myJson) => {
+    for(let i=0; i< myJson.result.length; i++) {
       let commentbarDiv = document.createElement('div')
       commentbarDiv.className = 'commentbar'
       commentbarDiv.setAttribute('data-comment_pk', `${myJson.result[i].comment_pk}`)
@@ -345,6 +339,7 @@ function getCommentList(e, feed_pk) {
       let commentViewMoreSpan = document.createElement('button')
       commentViewMoreSpan.className = 'commentViewMore'
       commentViewMoreSpan.innerText = '더 보기'
+      commentViewMoreSpan.setAttribute('onclick', `viewMore(this)`)
       commentFunctionbarDiv.appendChild(commentViewMoreSpan)
     }
   })
@@ -355,10 +350,7 @@ function viewMore(e) {
   let comment_parentpk = e.parentNode.parentNode.dataset.comment_pk
   e.parentNode.parentNode.parentNode.querySelectorAll('.recommentbar').forEach((test) => test.remove())
 
-
-  fetch('/feed/getrecomment/'+comment_parentpk)
-  .then((res) => res.json())
-  .then((myJson) => {
+  fetchAjax(comment_parentpk, 'get', '/feed/getrecomment/', (myJson) => {
     if(myJson.result.length == 0) {
       alert('댓글이 없습니다.')
       return

@@ -1,8 +1,5 @@
 package com.purple.demo.service;
 
-
-
-
 import com.purple.demo.mapper.CsMapper;
 import com.purple.demo.model.AnswerEntity;
 import com.purple.demo.model.NoticeDTO;
@@ -23,31 +20,30 @@ import org.springframework.web.multipart.MultipartFile;
 public class CsService {
 	
 	@Autowired
-	private CsMapper mapper; 
+	private CsMapper csMapper; 
 
 	@Autowired
 	private PurpleFileUtils fUtils;
 
-
-	public 	NoticeDomain selNoticeList(NoticeDTO p){
-		if(p.getRecordCntPerPage() == 0) {
-			p.setRecordCntPerPage(10);
+	public NoticeDomain selNoticeList(NoticeDTO dto){
+		if(dto.getRecordCntPerPage() == 0) {
+			dto.setRecordCntPerPage(10);
 		}
-		if(p.getPage() == 0) {
-			p.setPage(1);
+		if(dto.getPage() == 0) {
+			dto.setPage(1);
 		}		
-		int sIdx = (p.getPage() - 1) * p.getRecordCntPerPage();
-		p.setSIdx(sIdx);
+		int sIdx = (dto.getPage() - 1) * dto.getRecordCntPerPage();
+		dto.setSIdx(sIdx);
 
 		NoticeDomain nd = new NoticeDomain();
-		nd.setMaxPageNum(mapper.selNoticeMaxPage(p));
-		nd.setList(mapper.selNoticeList(p));
-		nd.setPage(p.getPage());
-		nd.setRecordCntPerPage(p.getRecordCntPerPage());
+		nd.setMaxPageNum(csMapper.selNoticeMaxPage(dto));
+		nd.setList(csMapper.selNoticeList(dto));
+		nd.setPage(dto.getPage());
+		nd.setRecordCntPerPage(dto.getRecordCntPerPage());
 
-		final int SIDE_NUM = 3; //사이드 페이지 넘버
+		final int SIDE_NUM = 3; // 사이드 페이지 넘버
 		int pageLen = SIDE_NUM * 2;
-		int page = p.getPage();
+		int page = dto.getPage();
 		int maxPage = nd.getMaxPageNum();
 		
 		int sPage = page - SIDE_NUM;
@@ -76,24 +72,23 @@ public class CsService {
 		return nd;
 	}
 	
-	public NoticeEntity selNotice(NoticeEntity p) {
-		return mapper.selNotice(p);
+	public NoticeEntity selNotice(NoticeEntity entity) {
+		return csMapper.selNotice(entity);
 	}
 
-	public int regNotice(NoticeEntity p) {
-		return mapper.regNotice(p);
+	public int regNotice(NoticeEntity entity) {
+		return csMapper.regNotice(entity);
 	}
 
 	public String notice_img(MultipartFile img, int notice_pk) {
-
-		//유저 pk 값
+		// 유저 pk 값
 		UserPrincipal principal = (UserPrincipal)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		int user_pk = principal.getUser_pk();  
 		
-		//업로드 할 파일 경로
-		String folder = "/images/notice/"+user_pk+"/"+notice_pk;
+		// 업로드 할 파일 경로
+		String folder = "/images/notice/" + user_pk + "/" + notice_pk;
 		try {
-			//삭제
+			// 삭제
 			fUtils.delFolder(fUtils.getRealPath(folder));
 			
 			String fileNm = fUtils.transferTo(img, folder);
@@ -104,50 +99,52 @@ public class CsService {
 			noticeEntity.setNotice_img(DbFileName);
 			noticeEntity.setNotice_pk(notice_pk);
 
-			mapper.notice_img_upd(noticeEntity);
+			csMapper.notice_img_upd(noticeEntity);
+
 			return DbFileName;
 		} catch(Exception e) {
 			return null;
-		}
-		
+		}	
 	}
 	
-	public int notice_upd(NoticeEntity p) {
-		return mapper.notice_upd(p);
+	public int notice_upd(NoticeEntity entity) {
+		return csMapper.notice_upd(entity);
 	}
 	
-	public int updNoticevieView(NoticeEntity p) {
-		return mapper.updNoticevieView(p);
+	public int updNoticevieView(NoticeEntity entity) {
+		return csMapper.updNoticevieView(entity);
 	}
 	
-	public int Notice_del(NoticeEntity p) {
+	public int Notice_del(NoticeEntity entity) {
 		UserPrincipal principal = (UserPrincipal)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		int user_pk = principal.getUser_pk(); 
-		String folder = "/images/notice/"+user_pk+"/"+p.getNotice_pk();
+		
+		String folder = "/images/notice/" + user_pk + "/" + entity.getNotice_pk();
 		fUtils.delFolder(fUtils.getRealPath(folder));
-		return mapper.notice_del(p);
+		
+		return csMapper.notice_del(entity);
 	}
 
-	//문의사항
-	public 	QuestionDomain selQuestionList(QuestionDTO p){
-		if(p.getRecordCntPerPage() == 0) {
-			p.setRecordCntPerPage(10);
+	// 문의사항
+	public 	QuestionDomain selQuestionList(QuestionDTO dto){
+		if(dto.getRecordCntPerPage() == 0) {
+			dto.setRecordCntPerPage(10);
 		}
-		if(p.getPage() == 0) {
-			p.setPage(1);
+		if(dto.getPage() == 0) {
+			dto.setPage(1);
 		}		
-		int sIdx = (p.getPage() - 1) * p.getRecordCntPerPage();
-		p.setSIdx(sIdx);
+		int sIdx = (dto.getPage() - 1) * dto.getRecordCntPerPage();
+		dto.setSIdx(sIdx);
 
 		QuestionDomain nd = new QuestionDomain();
-		nd.setMaxPageNum(mapper.selQuestionMaxPage(p));
-		nd.setList(mapper.selQuestionList(p));
-		nd.setPage(p.getPage());
-		nd.setRecordCntPerPage(p.getRecordCntPerPage());
+		nd.setMaxPageNum(csMapper.selQuestionMaxPage(dto));
+		nd.setList(csMapper.selQuestionList(dto));
+		nd.setPage(dto.getPage());
+		nd.setRecordCntPerPage(dto.getRecordCntPerPage());
 
-		final int SIDE_NUM = 3; //사이드 페이지 넘버
+		final int SIDE_NUM = 3; // 사이드 페이지 넘버
 		int pageLen = SIDE_NUM * 2;
-		int page = p.getPage();
+		int page = dto.getPage();
 		int maxPage = nd.getMaxPageNum();
 		
 		int sPage = page - SIDE_NUM;
@@ -176,20 +173,21 @@ public class CsService {
 		return nd;
 	}
 	
-	public QuestionEntity selQuestion(QuestionEntity p) {
-		return mapper.selQuestion(p);
+	public QuestionEntity selQuestion(QuestionEntity entity) {
+		return csMapper.selQuestion(entity);
 	}
 	
-	public int regQuestion(QuestionEntity p) {
-		return mapper.regQuestion(p);
+	public int regQuestion(QuestionEntity entity) {
+		return csMapper.regQuestion(entity);
 	}
 
 	public String question_img(MultipartFile img, int question_pk) {
-		//유저 pk 값
+		// 유저 pk 값
 		UserPrincipal principal = (UserPrincipal)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		int user_pk = principal.getUser_pk();  
-		//업로드 할 파일 경로
-		String folder = "/images/question/"+user_pk+"/" + question_pk;
+		
+		// 업로드 할 파일 경로
+		String folder = "/images/question/" + user_pk + "/" + question_pk;
 		try {
 			fUtils.delFolder(fUtils.getRealPath(folder));
 			String fileNm = fUtils.transferTo(img, folder);
@@ -199,34 +197,37 @@ public class CsService {
 			QuestionEntity.setQuestion_img(DbFileName);
 			QuestionEntity.setQuestion_pk(question_pk);
 
-			mapper.question_img_upd(QuestionEntity);
+			csMapper.question_img_upd(QuestionEntity);
+			
 			return DbFileName;
 		} catch(Exception e) {
 			return null;
 		}
 	}
 	
-	public int question_upd(QuestionEntity p) {
-		return mapper.question_upd(p);
+	public int question_upd(QuestionEntity entity) {
+		return csMapper.question_upd(entity);
 	}
 
-	public int updQuestionView(QuestionEntity p) {
-		return mapper.updQuestionView(p);
+	public int updQuestionView(QuestionEntity entity) {
+		return csMapper.updQuestionView(entity);
 	}
 	
-	public int question_del(QuestionEntity p) {
+	public int question_del(QuestionEntity entity) {
 		UserPrincipal principal = (UserPrincipal)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		int user_pk = principal.getUser_pk(); 
-		String folder = "/images/question/"+user_pk+"/"+p.getQuestion_pk();
+		
+		String folder = "/images/question/" + user_pk + "/" + entity.getQuestion_pk();
 		fUtils.delFolder(fUtils.getRealPath(folder));
-		return mapper.question_del(p);
+		
+		return csMapper.question_del(entity);
 	}
 
-	public int question_cmt_reg(AnswerEntity p){
-		return mapper.question_cmt_reg(p);
+	public int question_cmt_reg(AnswerEntity entity){
+		return csMapper.question_cmt_reg(entity);
 	}
 
-	public int answer_del(AnswerEntity p){
-		return mapper.answer_del(p);
+	public int answer_del(AnswerEntity entity){
+		return csMapper.answer_del(entity);
 	}
 }

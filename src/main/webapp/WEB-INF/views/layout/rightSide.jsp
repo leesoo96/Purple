@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
   pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>  
-<%-- <script defer src="/resources/js/chat/sockjs.min.js"></script> --%>
 
 <div id="followers">
   <h3>알 수도 있는 사람</h3>
@@ -25,9 +24,9 @@
 
 <div id="dm_view"> <!-- 대화창 표시 -->
   <p>Purple Talk</p>
-    <div id="new_dm">
-      <div>31</div> 
-    </div>
+    <!-- <div id="new_dm">
+      <div>13</div>
+    </div> -->
   <i class="fas fa-angle-double-up dm_open"></i>
 
   <div class="chat_view">
@@ -54,30 +53,20 @@
     <div class="chat_msg">
     
       <p id="chat_friendName">
-        @friendName
       </p>
 
       <div class="chat">
-        <span id="chat_date">- 2021년 00월 00일 -</span>
-        <div class="friendMsgContainer">
-          <!--
-          <p class="friendMsg">야</p>
-          <small class="friendMsg_time">오후 00:00</small>  
-        </div> friendMsgContainer 
-
-        <div class="friendMsgContainer">
-          <p class="friendMsg">지금 뭐해?</p>
-          <small class="friendMsg_time">오후 00:00</small> -->
         </div> <!-- friendMsgContainer -->
           <!-- 채팅 메시지 입력 시 계속 append  -->
+          <div class="msg_container">
+            <input name="msg_input" onclick="clickRead(this)" placeholder="메시지를 입력해주세요." onkeydown="return enterKey(event)">
+            <div class="msg_btn" >
+              <button name="send_btn">전송</button>
+            </div>
+          </div> <!-- msg_container -->
       </div> <!-- chat --> 
 
-      <div class="msg_container">
-        <textarea name="msg_input" placeholder="메시지를 입력해주세요."></textarea>
-        <div class="msg_btn">
-          <button onclick="send()">전송</button>
-        </div>
-      </div> <!-- msg_container -->
+      
      
     </div><!--chat msg-->
   </div> <!-- chat_view -->

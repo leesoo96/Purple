@@ -2,6 +2,7 @@ package com.purple.demo.service;
 
 import org.apache.commons.mail.HtmlEmail;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -22,7 +23,7 @@ import com.purple.demo.model.UserPrincipal;
 public class UserServiceImpl implements UserDetailsService {
 
 	@Autowired
-	private UserMapper mapper;
+	private UserMapper userMapper;
 	
 	@Autowired
 	private PasswordEncoder encoder;
@@ -32,8 +33,8 @@ public class UserServiceImpl implements UserDetailsService {
 	public UserDetails loadUserByUsername(String user_id) throws UsernameNotFoundException {
 		UserEntity entity = new UserEntity();
 		entity.setUser_id(user_id);
-		
-		UserEntity user = mapper.loginUser(entity);
+
+		UserEntity user = userMapper.loginUser(entity);
 		return UserPrincipal.create(user);
 	}
 		// oauth2
@@ -41,48 +42,46 @@ public class UserServiceImpl implements UserDetailsService {
 		UserEntity p = new UserEntity();
 		p.setProvider(provider);
 		p.setUser_id(uid);	
-		UserPrincipal ue = mapper.loginUser(p);	
+		UserPrincipal ue = userMapper.loginUser(p);	
 		if(ue == null) {
 			return null;
 		}
 		return ue;
 	}
 
-//	회원가입
+	// 회원가입
 	public int join(UserEntity entity) {
 		if(entity.getUser_pw() != null && !"".equals(entity.getUser_pw())) {
 			entity.setUser_pw(encoder.encode(entity.getUser_pw()));
 		}
-		return mapper.joinUser(entity);
+		return userMapper.joinUser(entity);
 	}
 	
-//	중복 체크 
+	// 중복 체크 
 	public int overlap_Confirm(UserEntity entity) {
-		return mapper.overlap_Confirm(entity);
+		return userMapper.overlap_Confirm(entity);
 	}
 
 	public UserEntity selUserInfo(String user_id) {
-		return mapper.selUserInfo(user_id);
+		return userMapper.selUserInfo(user_id);
 	}
 
-//	비밀번호 찾기
+	// 비밀번호 찾기
 	public int findPw(HttpServletResponse res, UserEntity entity) {
 		res.setContentType("text/html;charset=utf-8");
 
-		UserEntity dto = mapper.compareId_email(entity);
+		UserEntity dto = userMapper.compareId_email(entity);
 
 		if(ObjectUtils.isEmpty(dto) || !entity.getUser_id().equals(dto.getUser_id())) {
-		// 아이디가 없거나 틀렸을 경우 
+			// 아이디가 없거나 틀렸을 경우 
 			return 1;
 		}  
 		else if(!entity.getUser_email().equals(dto.getUser_email())) { 
-		// 이메일이 틀렸을 경우
+			// 이메일이 틀렸을 경우
 			return 2;
 		}
-		else {
-		// 이메일 일치 
-
-		// 임시 비밀번호 만들기
+		else {	// 이메일 일치 
+			// 임시 비밀번호 만들기
 			String temp_pw = "";
 			for (int i = 0; i < 12; i++) {
 				temp_pw += (char) ((Math.random() * 26) + 97);
@@ -95,21 +94,21 @@ public class UserServiceImpl implements UserDetailsService {
 			String bcryptTemp_pw = encoder.encode(temp_pw);
 
 			// 임시 비밀번호 저장 
-			mapper.temporary_pw(dto.getUser_id(), bcryptTemp_pw);
+			userMapper.temporary_pw(dto.getUser_id(), bcryptTemp_pw);
 
 			// 이메일 발송
 			return sendEmail(dto); // 3
 		}
 	}
 
-//  임시 비밀번호 발급을 위한 이메일 발송
+	// 임시 비밀번호 발급을 위한 이메일 발송
 	public int sendEmail(UserEntity entity) {
 		
 		// Mail server 설정
 		String charSet = "utf-8";
 		String hostSMTP = "smtp.gmail.com";
-		String hostSMTPid = "dltnwls7042"; // 보내는 사람 아이디
-		String hostSMTPpwd = "cltzpanotdmabqvl"; // 앱 비밀번호
+		String hostSMTPid = "purple210409"; // 보내는 사람 아이디
+		String hostSMTPpwd = "mrpshuscuzizaent"; // 앱 비밀번호
 
 		// 보내는 사람
 		String fromEmail = "purple@purple.com";
@@ -139,11 +138,8 @@ public class UserServiceImpl implements UserDetailsService {
 			email.setHtmlMsg(msg);
 			email.send();
 
-			System.out.println("메일 발송 성공");
-
 			return 3;
 		} catch (Exception e) {
-			System.out.println("메일발송 실패 : " + e);
 			// 메일 형식이 틀렸을 때
 			return 4;
 		}

@@ -23,9 +23,8 @@
                 a.feed_writedate DESC
             </otherwise>
         </choose> 
-        LIMIT #{first_page}, #{end_page};
+        LIMIT #{first_page}, #{end_page}
     </select>
-
 
     <select id="selFeedDetail" resultType="FeedDetailDTO">
         SELECT a.feed_pk, a.feed_ctnt, a.feed_writedate, a.feed_userpk, a.feed_state,
@@ -36,6 +35,7 @@
         LEFT OUTER JOIN user AS b
         ON (a.feed_userpk = b.user_pk)
         WHERE a.feed_pk = #{feed_pk}
+        AND a.feed_state = 1
     </select>
 
     <select id="selMediaList" resultType="MediaEntity">
@@ -63,34 +63,54 @@
         WHERE bookmark_feedpk=#{feed_pk} AND bookmark_userpk=#{user_pk}
     </select>
 
-    <insert id="insertBookmark">
-        INSERT INTO bookmark(bookmark_feedpk, bookmark_userpk)
-        VALUES(#{bookmark_feedpk}, #{bookmark_userpk})
-    </insert>
-
-    <delete id="deleteBookmark">
-        DELETE FROM bookmark
-        WHERE bookmark_feedpk = #{bookmark_feedpk}
-        AND bookmark_userpk = #{bookmark_userpk}
-    </delete>
-
-    <update id="deleteFeed">
-        UPDATE feed
-        SET feed_state = 0
-        WHERE feed_pk= #{feed_pk}
-    </update>
-    <!-- favorite 부분 -->
+    <!-- 좋아요 수 가져오기 -->
     <select id="favoriteCount" resultType="_int">
         SELECT COUNT(favorite_feedpk) AS "favorite_count"
         FROM favorite 
-        WHERE favorite_feedpk= #{favorite_feedpk} 
+        WHERE favorite_feedpk = #{favorite_feedpk} 
     </select>
 
     <select id="isFavorite" resultType="_int">
         SELECT count(favorite_feedpk)
         FROM favorite
-        WHERE favorite_feedpk=#{feed_pk} AND favorite_userpk=#{user_pk}
+        WHERE favorite_feedpk=#{feed_pk} 
+        AND favorite_userpk=#{user_pk}
     </select>
+
+    <select id="selHashtag_pk" resultType="int">
+        SELECT hashtag_pk
+        FROM hashtag
+        WHERE hashtag_ctnt = #{hashtag_ctnt} 
+    </select>
+
+    <select id="selCommentList" resultType="CommentListDTO">
+        SELECT A.comment_pk, A.comment_ctnt, A.comment_userpk, A.comment_writedate, A.comment_state, B.user_id, B.user_profileimg
+        FROM comment AS A
+        LEFT OUTER JOIN user AS B
+        ON (A.comment_userpk = B.user_pk)
+        WHERE A.comment_feedpk = #{feed_pk} 
+        AND A.comment_state = 1
+        AND A.comment_parentpk = A.comment_pk
+        ORDER BY A.comment_writedate DESC;
+    </select>
+
+    <select id="selReCommentList" resultType="CommentListDTO">
+        SELECT A.comment_pk, A.comment_ctnt, A.comment_userpk, A.comment_writedate, A.comment_state, B.user_id, B.user_profileimg
+        FROM comment AS A
+        LEFT OUTER JOIN user AS B
+        ON (A.comment_userpk = B.user_pk)
+        WHERE A.comment_parentpk = #{comment_parentpk} 
+        AND A.comment_state = 1
+        AND A.comment_pk != #{comment_parentpk}
+        ORDER BY A.comment_writedate DESC;
+    </select>
+
+    <insert id="insertBookmark">
+        INSERT INTO bookmark
+        (bookmark_feedpk, bookmark_userpk)
+        VALUES 
+        (#{bookmark_feedpk}, #{bookmark_userpk})
+    </insert>
 
     <insert id="insFavorite">
         INSERT INTO favorite
@@ -99,13 +119,6 @@
         (#{favorite_feedpk}, #{favorite_userpk})
     </insert>
 
-    <delete id="delFavorite">
-        DELETE FROM favorite
-        WHERE favorite_feedpk = #{favorite_feedpk}
-        AND favorite_userpk = #{favorite_userpk}
-    </delete>
-    
-    <!-- 글 쓰기 -->
     <insert id="insFeed" useGeneratedKeys="true" keyProperty="feed_pk">
 		INSERT INTO feed
 		( feed_ctnt, feed_userpk )
@@ -129,38 +142,11 @@
 		( #{media_feedpk}, #{media_url} )
 	</insert>
 
-    <select id="selHashtag_pk" resultType="int">
-        SELECT hashtag_pk
-        FROM hashtag
-        WHERE hashtag_ctnt=#{hashtag_ctnt} 
-    </select>
-
     <insert id="insHashtagRel">
         INSERT INTO hashtag_relation
         VALUES
         (#{htrel_hashtagpk}, #{htrel_feedpk})
     </insert>
-
-    <!-- Comment -->
-    <select id="selCommentList" resultType="CommentListDTO">
-        SELECT A.comment_pk, A.comment_ctnt, A.comment_userpk, A.comment_writedate, A.comment_state, B.user_id, B.user_profileimg
-        FROM comment AS A
-        LEFT OUTER JOIN user AS B
-        ON (A.comment_userpk = B.user_pk)
-        WHERE A.comment_feedpk = #{feed_pk} AND A.comment_state = 1
-        AND A.comment_parentpk = A.comment_pk
-        ORDER BY A.comment_writedate DESC;
-    </select>
-
-    <select id="selReCommentList" resultType="CommentListDTO">
-        SELECT A.comment_pk, A.comment_ctnt, A.comment_userpk, A.comment_writedate, A.comment_state, B.user_id, B.user_profileimg
-        FROM comment AS A
-        LEFT OUTER JOIN user AS B
-        ON (A.comment_userpk = B.user_pk)
-        WHERE A.comment_parentpk = #{comment_parentpk} AND A.comment_state = 1
-        AND A.comment_pk != #{comment_parentpk}
-        ORDER BY A.comment_writedate DESC;
-    </select>
 
     <insert id="insReComment">
         INSERT INTO comment
@@ -168,6 +154,7 @@
         VALUES
         (#{comment_feedpk}, #{comment_ctnt}, #{comment_userpk}, #{comment_state}, #{comment_parentpk})
     </insert>
+    
     <insert id="insComment" useGeneratedKeys="true" keyProperty="comment_pk">
         INSERT INTO comment
         (comment_feedpk, comment_ctnt, comment_userpk, comment_state)
@@ -175,9 +162,27 @@
         (#{comment_feedpk}, #{comment_ctnt}, #{comment_userpk}, #{comment_state})
     </insert>
 
+    <update id="deleteFeed">
+        UPDATE feed
+        SET feed_state = 0
+        WHERE feed_pk = #{feed_pk}
+    </update>
+
     <update id="updCommentParentPk">
         UPDATE comment
 		SET comment_parentpk = #{comment_parentpk}
 		WHERE comment_pk = #{comment_pk}
     </update>
+
+    <delete id="deleteBookmark">
+        DELETE FROM bookmark
+        WHERE bookmark_feedpk = #{bookmark_feedpk}
+        AND bookmark_userpk = #{bookmark_userpk}
+    </delete>
+
+    <delete id="delFavorite">
+        DELETE FROM favorite
+        WHERE favorite_feedpk = #{favorite_feedpk}
+        AND favorite_userpk = #{favorite_userpk}
+    </delete>
 </mapper>

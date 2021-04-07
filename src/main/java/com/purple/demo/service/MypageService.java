@@ -21,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class MypageService {
+
     @Autowired
     private PasswordEncoder encoder;
 
@@ -33,8 +34,8 @@ public class MypageService {
     @Autowired
     private FeedMapper feedMapper;
 
-    public int modUserInfo(UserEntity userEntity) {
-        return mypageMapper.modUserInfo(userEntity);
+    public int modUserInfo(UserEntity entity) {
+        return mypageMapper.modUserInfo(entity);
     }
 
     public int checkUserpw(Map<String, Object> map) {
@@ -45,60 +46,73 @@ public class MypageService {
         return 0;
     }
 
-    public int modUserPw(UserEntity userEntity) {
-        userEntity.setUser_pw(encoder.encode(userEntity.getUser_pw()));
-        return mypageMapper.modUserPw(userEntity);
+    public int modUserPw(UserEntity entity) {
+        entity.setUser_pw(encoder.encode(entity.getUser_pw()));
+        return mypageMapper.modUserPw(entity);
     }
 
-    //프로필 이미지 등록
+    // 프로필 이미지 등록
     public String profile_img(MultipartFile img) {
-		//유저 pk 값
+		// 유저 pk 값
 		UserPrincipal principal = (UserPrincipal)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		int user_pk = principal.getUser_pk();  
-		//업로드 할 파일 경로
-		String folder = "/images/user/" + user_pk +"/profileimg";
-		try {
+		
+        //업로드 할 파일 경로
+		String folder = "/images/user/" + user_pk + "/profileimg";
+		
+        try {
             String delFolder = fUtils.getRealPath(folder);
             fUtils.delFolder(delFolder);
-			String fileNm = fUtils.transferTo(img, folder);
-			return folder + "/" + fileNm;
+			
+            String fileNm = fUtils.transferTo(img, folder);
+			
+            return folder + "/" + fileNm;
 		} catch(Exception e) {
 			return null;
 		}
 	}
 
-    //배경 이미지 등록
+    // 배경 이미지 등록
     public String background_img(MultipartFile img) {
-		//유저 pk 값
+		// 유저 pk 값
 		UserPrincipal principal = (UserPrincipal)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		int user_pk = principal.getUser_pk();  
-		//업로드 할 파일 경로
+		
+        //업로드 할 파일 경로
 		String folder = "/images/user/" + user_pk +"/backgroundimg";
-		try {
+		
+        try {
             String delFolder = fUtils.getRealPath(folder);
             fUtils.delFolder(delFolder);
-			String fileNm = fUtils.transferTo(img, folder);
-			return folder + "/" + fileNm;
+			
+            String fileNm = fUtils.transferTo(img, folder);
+			
+            return folder + "/" + fileNm;
 		} catch(Exception e) {
 			return null;
 		}
 	}
 
-    public List<FeedListDTO> selMypageFeedList(FeedListDTO param) {
+    public List<FeedListDTO> selMypageFeedList(FeedListDTO dto) {
         List<FeedListDTO> feed_list = new ArrayList<FeedListDTO>();
         UserPrincipal principal = (UserPrincipal)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        param.setFeed_state(1);
-        param.setUser_pk(principal.getUser_pk());
-        int first_page = (5*param.getPage_count());
+        dto.setFeed_state(1);
+        dto.setUser_pk(principal.getUser_pk());
+        
+        int first_page = (5 * dto.getPage_count());
         int end_page = first_page + 5;
-        param.setFirst_page(first_page);
-        param.setEnd_page(end_page);
-        feed_list = mypageMapper.selMypageFeedList(param);
+        dto.setFirst_page(first_page);
+        dto.setEnd_page(end_page);
+        
+        feed_list = mypageMapper.selMypageFeedList(dto);
         
         for (int i = 0; i < feed_list.size(); i++ ) {
             feed_list.get(i).setUser_pk(principal.getUser_pk());
+            
             List<HashtagEntity> hashtag_list = new ArrayList<HashtagEntity>();
+            
             hashtag_list = feedMapper.selHashtagList(feed_list.get(i));
+            
             List<MediaEntity> media_list = new ArrayList<MediaEntity>();
             media_list = feedMapper.selMediaList(feed_list.get(i));
             feed_list.get(i).setMedia_url(media_list);

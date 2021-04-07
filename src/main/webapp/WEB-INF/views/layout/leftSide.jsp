@@ -26,9 +26,7 @@
               <i class="far fa-bell menu_icons"></i>
               <span>알림</span>
             </a>
-            <div id="alarm">
-               <div>17</div> 
-            </div>
+        
           </div>
           <div id="bookmark">
             <a href="/bookmark">
@@ -71,10 +69,9 @@
               <img src=${userInfo.user_profileimg} alt="기본프로필사진">
             </c:if>  
             
-          <p>${userInfo.user_name }</p>
-         
+            <p>${userInfo.user_name }</p>
             <a href="/mypage">마이페이지</a>
-            <a href="/logout">로그아웃</a>
+            <a class="logout" href="/logout">로그아웃</a>
           </div>
           
         </div> <!-- menus -->

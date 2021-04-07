@@ -1,42 +1,72 @@
 package com.purple.demo.service;
 
-import java.util.HashMap;
+import java.util.List;
+import java.util.UUID;
 
-import org.springframework.stereotype.Component;
-import org.springframework.web.socket.CloseStatus;
-import org.springframework.web.socket.TextMessage;
-import org.springframework.web.socket.WebSocketSession;
-import org.springframework.web.socket.handler.TextWebSocketHandler;
+import com.purple.demo.common.Utils;
+import com.purple.demo.mapper.ChatMapper;
+import com.purple.demo.model.ChatRoomDTO;
+import com.purple.demo.model.UserPrincipal;
+import com.purple.demo.model.DTO.MessageDTO;
 
-@Component
-public class ChatService extends TextWebSocketHandler{  // 웹 소켓 서버 생성하는 곳.
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Service;
+
+import lombok.RequiredArgsConstructor;
+
+@Service
+@RequiredArgsConstructor
+public class ChatService {
     
-    private HashMap<String, WebSocketSession> sessionMap = new HashMap<String, WebSocketSession>(); // 웹 소켓 세션을 담아둘 맵.
+    final Utils utils;
 
-    @Override
-    public void afterConnectionEstablished(WebSocketSession session) throws Exception{  // 웹 소켓 연결 시, 동작(클라이언트가 서버로 연결 시...)
-        super.afterConnectionEstablished(session);
-        sessionMap.put(session.getId(), session);
-    }
+    final ChatMapper chatMapper;
 
-    @Override
-    public void handleTextMessage(WebSocketSession session, TextMessage message){   // 텍스트 메세지를 받았을 때, 실행(클라이언트가 데이터 전송 시...)
-        String msg = message.getPayload();  // 메세지에 담긴 텍스트 값을 얻을 수 있다.
+    // 채팅방 생성
+    public String getRoom(ChatRoomDTO dto) {
+        UserPrincipal principal = (UserPrincipal)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        dto.setChatroom_userpk(principal.getUser_pk());
+        
+        String room_id = chatMapper.getRoom(dto);
 
-        for(String key : sessionMap.keySet()){
-            WebSocketSession wss = sessionMap.get(key);
-
-            try{
-                wss.sendMessage(new TextMessage(msg));
-            }catch(Exception e){
-                e.printStackTrace();
-            }
+        if(room_id == null || room_id.equals("")){
+            room_id = UUID.randomUUID().toString();
+            dto.setChatroom_id(room_id);
+            
+            ChatRoomDTO tempdto = new ChatRoomDTO();
+            tempdto.setChatroom_friendpk(dto.getChatroom_userpk());
+            tempdto.setChatroom_userpk(dto.getChatroom_friendpk());
+            tempdto.setChatroom_id(room_id);
+            
+            chatMapper.createRoom(tempdto);
+            chatMapper.createRoom(dto);
         }
+        return room_id;
     }
 
-    @Override
-    public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception{   // 웹 소켓 종료 시, 동작.
-        sessionMap.remove(session.getId());
-        super.afterConnectionClosed(session, status);
+    // 대화목록
+    public List<ChatRoomDTO> getChatList(ChatRoomDTO dto) {
+        return chatMapper.getChatList(dto);
+    }
+
+    public List<MessageDTO> enterChatroom(String room_id) {
+        return chatMapper.enterChatroom(room_id);
+    }
+
+    public int getNoReadAllMessage(String user_id) {
+        int user_pk = utils.getUserPkFromId(user_id);
+        
+        return chatMapper.getNoReadAllMessage(user_pk);
+    }
+
+    public int readMessage(String room_id) {
+        MessageDTO dto = new MessageDTO();
+        
+        UserPrincipal principal = (UserPrincipal)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        dto.setMessage_sendto(principal.getUser_pk());
+        dto.setMessage_chatroomid(room_id);
+        dto.setMessage_readstate(0);
+        
+        return chatMapper.readMessage(dto);
     }
 }

@@ -1,20 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.purple.demo.mapper.LayoutMapper">
-
-<!-- RightLayout only //////////////////////////// -->
-    <!-- 친구 추가 -->
-    <insert id="addNewFriend">
-        INSERT INTO friend 
-        (user_pk, friend_pk)
-        VALUES 
-        (#{user_pk}, #{friend_pk})
-    </insert>
-
+<mapper namespace="com.purple.demo.mapper.FriendMapper">
     <!-- 이미 친구인지 확인 -->
     <select id="friendCheck" resultType="FriendDTO">
-        SELECT user_pk, friend_pk from friend 
+        SELECT user_pk, friend_pk 
+        FROM friend 
         WHERE user_pk = #{user_pk}
     </select>
 
@@ -55,12 +46,20 @@
 
     <!-- 친구목록 가져오기 -->
     <select id="getFriendList" resultType="userEntity">
-        SELECT A.user_id, A.user_bio, A.user_profileImg, B.friend_pk as "user_pk"
+        SELECT A.user_id, A.user_bio, A.user_profileImg, B.friend_pk AS "user_pk"
         FROM user AS A
         JOIN friend AS B
         ON (A.user_pk = B.friend_pk)
         WHERE B.user_pk = #{user_pk}
     </select>
+
+    <!-- 친구 추가 -->
+    <insert id="addNewFriend">
+        INSERT INTO friend 
+        (user_pk, friend_pk)
+        VALUES 
+        (#{user_pk}, #{friend_pk})
+    </insert>
 
     <!-- 친구 삭제 -->
     <delete id="delFriend">
@@ -68,28 +67,4 @@
         WHERE friend_pk = #{friend_pk}
         AND user_pk = #{user_pk}
     </delete>
-
-    <!-- 채팅방 생성과 채팅방 정보 가져오기 -->
-    <select id="getRoom" resultType="String">
-        SELECT chatroom_id
-        FROM chatroom
-        WHERE chatroom_userpk = #{chatroom_userpk}
-        AND chatroom_friendpk = #{chatroom_friendpk}
-    </select>
-
-    <insert id="createRoom">
-        INSERT INTO chatroom
-        (chatroom_id, chatroom_userpk, chatroom_friendpk)
-        VALUES
-        (#{chatroom_id}, #{chatroom_userpk}, #{chatroom_friendpk})
-    </insert>
-
-    <!-- 대화목록 -->
-    <select id="getChatList" resultType="ChatRoomDTO">
-        SELECT A.user_id, A.user_profileimg 
-        FROM user AS A
-        JOIN chatroom AS B 
-        ON A.user_pk = B.chatroom_friendpk
-        WHERE chatroom_userpk = #{chatroom_userpk}
-    </select>
 </mapper>

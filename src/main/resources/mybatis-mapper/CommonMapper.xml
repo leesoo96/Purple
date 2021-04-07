@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.purple.demo.mapper.CommonMapper">
+    <select id="getUserPkFromId" resultType="int">
+        SELECT user_pk
+        FROM user
+        WHERE user_id = #{user_id};
+    </select>
+
+    <select id="getUserIdFromPk" resultType="String">
+        SELECT user_id
+        FROM user
+        WHERE user_pk = #{user_pk};
+    </select>
+</mapper>

@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.purple.demo.common.Const;
+import com.purple.demo.mapper.UserMapper;
 import com.purple.demo.model.FeedListDTO;
 import com.purple.demo.model.UserEntity;
 import com.purple.demo.model.UserPrincipal;
@@ -31,8 +32,9 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class CommonController {
 
-	final UserServiceImpl service;
-	
+	final UserServiceImpl userService;
+	final UserMapper userMapper;
+
 	@Autowired
 	private CommonService commonService;
 
@@ -41,13 +43,30 @@ public class CommonController {
 	public String first() {
 		return "unusedtiles/welcome";
 	}
-	
+
+	@RequestMapping("/duplLogin")
+	public String duplLogin() {
+		UserPrincipal p = (UserPrincipal)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		userMapper.changeLoginState(p.getUser_id());
+
+		if(p.getUser_state() == 0) { // 로그인하기 전의 state 상태
+			return "redirect:feed"; // feed로 넘어갈때 state 값이 1로 변경됩니다.
+		} else {
+			return "redirect:logout"; 
+			/* 이미 로그인 -> 
+			중복로그인을 방어하기위한 부분으로 다른 브라우저에서
+			동일한 아이디로 로그인을 시도할 경우 /welcome으로 이동해서 
+			중복 로그인을 방어합니다
+			*/
+		}
+	}
+
 //	회원가입
 	@ResponseBody
 	@PostMapping("/join")
 	public Map<String, Object> join(@RequestBody UserEntity entity) {
 		Map<String, Object> joinResult = new HashMap<String, Object>();
-		joinResult.put(Const.KEY_REUSLT, service.join(entity));
+		joinResult.put(Const.KEY_RESULT, userService.join(entity));
 			
 		return joinResult;
 	}
@@ -57,7 +76,7 @@ public class CommonController {
 	@GetMapping("/join/{user_id}")
 	public Map<String, Object> overlap_Confirm(UserEntity entity) {
 		Map<String, Object> value = new HashMap<String, Object>();
-		value.put(Const.KEY_REUSLT, service.overlap_Confirm(entity));
+		value.put(Const.KEY_RESULT, userService.overlap_Confirm(entity));
 			
 		return value;
 	}
@@ -67,7 +86,8 @@ public class CommonController {
 	@RequestMapping("/findpw")
 	public  Map<String, Object> findPw(@RequestBody UserEntity entity, HttpServletResponse res, Model model) {
 		Map<String, Object> value = new HashMap<String, Object>();
-		value.put(Const.KEY_REUSLT, service.findPw(res, entity));
+		value.put(Const.KEY_RESULT, userService.findPw(res, entity));
+		
 		return value;
 	}
 
@@ -76,23 +96,26 @@ public class CommonController {
 	public ModelAndView userInfo(@PathVariable String user_id) {
 		ModelAndView model = new ModelAndView();
 		UserPrincipal principal = (UserPrincipal)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		
 		if(user_id.equals(principal.getUser_id())) {
 			model.setViewName("/mypage");
 			return model;
 		}
+
 		UserEntity dto = new UserEntity();
-		dto = service.selUserInfo(user_id);
+		dto = userService.selUserInfo(user_id);
 		model.addObject("userInfo", dto);
 		model.setViewName("/userpage");
+
 		return model;
 	}
 
 	@ResponseBody
-	@RequestMapping(value = "/userpage/{user_id}", method= RequestMethod.POST)
-	public Map<String, Object> userpageFeedList(@RequestBody FeedListDTO param){
+	@RequestMapping(value = "/userpage/{user_id}", method = RequestMethod.POST)
+	public Map<String, Object> userpageFeedList(@RequestBody FeedListDTO dto){
 		Map<String, Object> userpageFeedListResult = new HashMap<String, Object>();
-		userpageFeedListResult.put("result", commonService.selUserpageFeedList(param));
+		userpageFeedListResult.put(Const.KEY_RESULT, commonService.selUserpageFeedList(dto));
+		
 		return userpageFeedListResult;
 	}
-
 }

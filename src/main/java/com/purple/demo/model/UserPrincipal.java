@@ -38,8 +38,9 @@ public class UserPrincipal extends UserEntity implements UserDetails, Principal,
 		this.setUser_bio(user.getUser_bio());
 		this.setUser_name(user.getUser_name());
 		this.setUser_email(user.getUser_email());
+		this.setUser_state(user.getUser_state());
 		this.setUser_auth(user.getUser_auth());
-
+		
 		authorities = Collections.singletonList(new SimpleGrantedAuthority(user.getUser_auth()));
 	}
 	
@@ -60,23 +61,23 @@ public class UserPrincipal extends UserEntity implements UserDetails, Principal,
 		}
 		return authorities;
 	}
-	
-//	유저 비밀번호
+			
+	// 유저 비밀번호
 	@Override
 	public String getPassword() {
-		return this.getUser_pw();
+	   return this.getUser_pw();
 	}
 	
-//	유저 아이디 
+ 	// 유저 아이디 
 	@Override
 	public String getUsername() {
-		return this.getUser_id();
+	   return this.getUser_id();
 	}
 	
 //	유저계정이 만료안했으면 true
 	@Override
 	public boolean isAccountNonExpired() {
-		return true;
+	   return true;
 	}
 
 //	유저계정이 안잠겨있으면 true
@@ -86,20 +87,22 @@ public class UserPrincipal extends UserEntity implements UserDetails, Principal,
 
 //	유저계정의 비밀번호를 오래사용한것이 아니면 true
 	}
+	
+ 	// 유저계정의 비밀번호를 오래사용한것이 아니면 true
 	@Override
 	public boolean isCredentialsNonExpired() {
-		return true;
+	   return true;
 	}
 
 //	유저계정의 활성화기능 되어있지않으면 true  , ex) 1년이상 사용안하계정은 잠금할때 사용함
 	@Override
 	public boolean isEnabled() {
-		return true;
+	   return true;
 	}
-
+ 
 	@Override
 	public String getName() {
-		return null;
+	   return null;
 	}
 
 	@Override

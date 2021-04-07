@@ -5,7 +5,6 @@
 <link rel="stylesheet" href="/resources/css/bookmark/bookmark.css">
 <link rel="stylesheet" href="/resources/css/feed/feedDetail.css">
 <script defer src="/resources/js/bookmark/bookmark.js"></script>
-<script defer src="/resources/js/feed/feedDetail.js"></script>
 
 <div id="bookmark_container">
 </div> 
