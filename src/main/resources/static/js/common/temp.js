@@ -384,9 +384,8 @@ function makeChat(user_id, myJson) {
     }
   }
 }
+
 // 알 수도 있는 사람 목록(추천친구)
-
-
 function getRecommandFriendListFunc() {
   let param = {
     user_pk: user_pk.value,

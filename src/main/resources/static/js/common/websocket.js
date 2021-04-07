@@ -68,6 +68,9 @@ const sendInput = document.querySelector('input[name="msg_input"]')
 const send_id = document.querySelector('#chat_friendName')
 
 sendChatBtn.addEventListener('click', () => {
+  if(sendInput.value === '') {
+    return
+  }
   sendChat()
   goToBottom()
 })
@@ -99,5 +102,18 @@ function sendChat() {
   myMsg_timeSmall.innerText = getTimeStamp()
   myMsgContainerDiv.appendChild(myMsg_timeSmall)
   sendInput.value = ''
+}
+
+function enterKey(event) {
+  if(event.keyCode === 13) {
+    if(sendInput.value === '') {
+      return false
+    }else {
+      sendChat()
+      goToBottom()
+      return true
+    }
+  }
+  return false
 }
 

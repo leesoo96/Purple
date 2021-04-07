@@ -5,10 +5,13 @@ let feed_DetailOverlay = document.querySelector('.feed_overlay')
 const feedDetailClass = document.querySelector('.feedDetail')
 
 function feedDetail(e, feed_pk) {
-  return new Promise(function (resolve) {
+  return new Promise(function (resolve, reject) {
     fetchAjax(feed_pk, 'get','/feed/detail/', resolve)
   }).then((myJson) => {
+    reject(new Error('에러발생'))
     makeFeedDetail(e, myJson.result)
+  }).catch((e)=> {
+    alert('삭제된 피드입니다!')
   })
 }
 

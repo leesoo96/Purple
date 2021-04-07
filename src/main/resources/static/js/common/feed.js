@@ -43,7 +43,7 @@ function makeFeed(myJson, cotainer) {
     feed_writedateSpan.innerText = `${myJson.result[i].feed_writedate}`
     feed_titleEle.appendChild(feed_writedateSpan)
 
-    if (myJson.result[i].user_pk === document.querySelector('#user_pk').value) {
+    if (myJson.result[i].feed_userpk == document.querySelector('#user_pk').value) {
       let feedMenuI = document.createElement('i')
       feedMenuI.className = 'fas fa-ellipsis-h'
       feedMenuI.setAttribute('onclick', 'openCloseMenu(this)')
@@ -238,4 +238,31 @@ function feedBookmark(e, feed_pk) {
       bookmarkI.className = 'fas fa-bookmark'
     }
   })
+}
+
+function openCloseMenu(e) {
+  if(e.querySelector('.feedMenu').style.display === 'none'){
+    e.querySelector('.feedMenu').style.display = 'block'
+    return
+  }
+  e.querySelector('.feedMenu').style.display ='none'
+}
+
+function delFeed(feed_pk) {
+  if(confirm('정말 삭제하시겠습니까?')) {
+    fetch(`/feed/deleteFeed`, {
+      method: 'put',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(feed_pk),
+    }).then((res)=>res.json())
+    .then((myJson) => {
+      if(myJson.result ===1){
+        alert('삭제되었습니다.')
+        location.reload()
+      }
+    })
+    return
+  }
 }
