@@ -44,6 +44,7 @@ public class CommonController {
 		return "unusedtiles/welcome";
 	}
 
+//	로그인 성공 시 로그인 상태로 회원상태 전환 
 	@RequestMapping("/duplLogin")
 	public String duplLogin() {
 		UserPrincipal p = (UserPrincipal)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -56,7 +57,7 @@ public class CommonController {
 			/* 이미 로그인 -> 
 			중복로그인을 방어하기위한 부분으로 다른 브라우저에서
 			동일한 아이디로 로그인을 시도할 경우 /welcome으로 이동해서 
-			중복 로그인을 방어합니다
+			중복 로그인을 방어합니다.
 			*/
 		}
 	}
