@@ -261,6 +261,15 @@ a {
   font-size: 1.1rem;
   color: #9c9c9c;
 }
+.logout {
+  border-top: 2px solid rgb(230, 230, 230);
+}
+.logout p {
+  position: relative;
+  left: 7em;
+  cursor: pointer;
+  color: #8d8d8d;
+}
 
 .logout {
   margin-left: 4em;
