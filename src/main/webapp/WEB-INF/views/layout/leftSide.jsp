@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<script defer type="text/javascript" src="/resources/js/leftSide/leftSide.js"></script>
 <div id="menus">
           <div id="logo">
             <a href="/feed">
@@ -70,7 +71,7 @@
             
             <p>${userInfo.user_name }</p>
             <a href="/mypage">마이페이지</a>
-            <a class="logout" href="/logout">로그아웃</a>
+            <div class="logout">로그아웃</div>
           </div>
           
         </div> <!-- menus -->

@@ -17,4 +17,6 @@ public interface MypageMapper {
     int modUserPw(UserEntity entity);
 
     List<FeedListDTO> selMypageFeedList(FeedListDTO dto);
+
+    UserEntity oauth2_typ(UserEntity entity);
 }

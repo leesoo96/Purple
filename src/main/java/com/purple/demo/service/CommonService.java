@@ -8,8 +8,11 @@ import com.purple.demo.mapper.MypageMapper;
 import com.purple.demo.model.FeedListDTO;
 import com.purple.demo.model.HashtagEntity;
 import com.purple.demo.model.MediaEntity;
+import com.purple.demo.model.UserEntity;
+import com.purple.demo.model.UserPrincipal;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -48,4 +51,12 @@ public class CommonService {
         }
         return feed_list;
     }
+
+    public UserEntity oauth2_typ(UserEntity entity) {
+        UserPrincipal principal = (UserPrincipal)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		int user_pk = principal.getUser_pk();
+        entity.setUser_pk(user_pk); 
+        System.out.println("user_pkuser_pkuser_pkuser_pkuser_pk : " + user_pk); 
+		return mypageMapper.oauth2_typ(entity);
+	}
 }

@@ -204,7 +204,7 @@ function getFriend_list(myJson) {
   }
 }
 
-// 채팅방 만들기 /가져오기
+// 채팅방 만들기/가져오기
 function commonChatFunc(e, friend_pk) {
   let user_id = e.parentNode.querySelector('.friend_info span').innerText
   let chatParam = {
@@ -248,6 +248,7 @@ function goToBottom() {
     '.chat'
   ).scrollHeight
 }
+
 // 채팅 - 대화 목록 확인
 document.querySelector('.dm_open').addEventListener('click', () => {
   getFriendChatListFunc()

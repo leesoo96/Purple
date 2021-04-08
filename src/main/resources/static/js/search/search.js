@@ -10,7 +10,6 @@ let page_count
 document.addEventListener('scroll', () => {
   let scrollLocation = document.documentElement.scrollTop // 현재 스크롤바 위치
   let fullHeight = document.body.scrollHeight // 스크롤 포함 전체 길이
-
   if (scrollLocation + windowHeight >= fullHeight) {
     if(page_count === 0) {
       page_count =1

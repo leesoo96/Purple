@@ -44,6 +44,39 @@ public class CommonController {
 		return "unusedtiles/welcome";
 	}
 
+	// oauth 타입
+	@ResponseBody
+	@GetMapping("/oauth2Typ")
+	public Map<String, Object> oauth2_typ(UserEntity entity) {
+		Map<String, Object> oauth2_typ = new HashMap<String, Object>();
+		String oauthTyp = commonService.oauth2_typ(entity).getOauth_typ();
+		System.out.println("oauthTypoauthTypoauthTypoauthTypoauthTyp: " + oauthTyp);
+		switch (oauthTyp) {
+			case "kakao": 
+				oauth2_typ.put("result", "1");
+				oauth2_typ.put("url", "https://kauth.kakao.com/oauth/logout?client_id=dcd77beafc72e48753f0d5c6a3de7357&logout_redirect_uri=http://localhost:8091/logout");
+				break;
+
+			case "facebook": 
+				oauth2_typ.put("result", "2");
+				break;
+
+			case "google": 
+				oauth2_typ.put("result", "3");
+				oauth2_typ.put("url", "https://www.google.com/accounts/Logout?continue=https://appengine.google.com");
+				break;
+
+			case "naver": 
+				oauth2_typ.put("result", "4");
+				oauth2_typ.put("url", "http://nid.naver.com/nidlogin.logout");
+				break;
+
+			default : oauth2_typ.put("result", "0");
+		}
+		return oauth2_typ;
+	}
+			
+
 	@RequestMapping("/duplLogin")
 	public String duplLogin() {
 		UserPrincipal p = (UserPrincipal)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
