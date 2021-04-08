@@ -15,6 +15,7 @@ spring:
     username: root
     password: koreait2020
     driver-class-name: com.mysql.cj.jdbc.Driver
+
   #소셜로그인
   security:
     oauth2:
@@ -35,6 +36,7 @@ custom:
     naver:
       client-id: FncvzBqJPltRANb9yYrk
       client-secret: VB2Af9_gWS
+
 #myBatis 설정
 mybatis:
   mapper-locations: mybatis-mapper/**/*.xml
@@ -45,7 +47,11 @@ server:
   port: 8090
   multipart:
     max-file-size: 100MB
-    max-request-size: 100MB
+    max-request-size: 500MB
+
+  servlet:
+    session:
+      timeout: 61s
 
   ssl:
     enabled: true
@@ -55,4 +61,3 @@ server:
     key-password: 'purple'
     trust-store: purpletrust
     trust-store-password: 'purple'
-#구글 로그인

@@ -81,7 +81,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
          
       http.logout()
          .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-         .logoutSuccessUrl("/welcome")
+         .logoutSuccessUrl("/sessionLogout")
          .invalidateHttpSession(true) // 세션 제거
          .deleteCookies("JSESSIONID") // 쿠키 제거
          .clearAuthentication(true); // 권한정보 제거 
@@ -94,7 +94,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
          .sessionRegistry(sessionRegistry());
          
       http.exceptionHandling()
-         .accessDeniedPage("/welcome");
+         .accessDeniedPage("/sessionLogout");
 
    }
    
