@@ -114,5 +114,4 @@ function enterKey(event) {
       return true
     }
   }
-  return false
 }

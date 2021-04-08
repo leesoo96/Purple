@@ -45,12 +45,15 @@ public class CommonController {
 	}
 
 	// oauth 타입
-	@ResponseBody
+	@ResponseBody // 로그아웃
 	@GetMapping("/oauth2Typ")
 	public Map<String, Object> oauth2_typ(UserEntity entity) {
 		Map<String, Object> oauth2_typ = new HashMap<String, Object>();
 		String oauthTyp = commonService.oauth2_typ(entity).getOauth_typ();
 		System.out.println("oauthTypoauthTypoauthTypoauthTypoauthTyp: " + oauthTyp);
+		
+		UserPrincipal p = (UserPrincipal)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		userMapper.changeLogoutState(p.getUser_id()); // 로그아웃 상태로 전환
 		
 		switch (oauthTyp) {
 			case "kakao": 
@@ -72,7 +75,8 @@ public class CommonController {
 				oauth2_typ.put("url", "http://nid.naver.com/nidlogin.logout");
 				break;
 
-			default : oauth2_typ.put("result", "0");
+			default : 
+				oauth2_typ.put("result", "0");
 		}
 		return oauth2_typ;
 	}
@@ -90,7 +94,7 @@ public class CommonController {
 			/* 이미 로그인 -> 
 			중복로그인을 방어하기위한 부분으로 다른 브라우저에서
 			동일한 아이디로 로그인을 시도할 경우 /welcome으로 이동해서 
-			중복 로그인을 방어합니다
+			중복 로그인을 방어합니다.
 			*/
 		}
 	}
