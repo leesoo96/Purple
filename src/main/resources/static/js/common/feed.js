@@ -197,7 +197,6 @@ function nextImg(e) {
 function feedFavorite(e, feed_pk) {
   let favorite_state = 0
   const function_bar = e.parentNode
-  console.log(e.parentNode.parentNode)
 
   let favoriteI = function_bar.querySelector('.fa-heart')
   if (favoriteI.className === 'fas fa-heart') {

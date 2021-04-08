@@ -56,7 +56,6 @@ public class CommonService {
         UserPrincipal principal = (UserPrincipal)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		int user_pk = principal.getUser_pk();
         entity.setUser_pk(user_pk); 
-        System.out.println("user_pkuser_pkuser_pkuser_pkuser_pk : " + user_pk); 
 		return mypageMapper.oauth2_typ(entity);
 	}
 }

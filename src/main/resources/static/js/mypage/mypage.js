@@ -78,7 +78,6 @@ const user_backgroundimg = document.querySelector('#mod_background')
 
 saveBtn.addEventListener('click', () => {
   // 아이디 변경을 할 때 중복검사 여부 확인
-  console.log('연결')
   if (userModFrm.mod_id.value) {
     if (check_state === 0) {
       alert('아이디 중복체크를 해주세요')
@@ -148,7 +147,6 @@ saveBtn.addEventListener('click', () => {
           fetch(`/oauth2Typ`)
             .then((res) => res.json())
             .then((myJson) => {
-              console.log(myJson.result)
               switch (myJson.result) {
                 case '1':
                   location.href = myJson.url
@@ -233,7 +231,6 @@ pwModBtn.addEventListener('click', () => {
       fetch(`/oauth2Typ`)
             .then((res) => res.json())
             .then((myJson) => {
-              console.log(myJson.result)
               switch (myJson.result) {
                 case '1':
                   location.href = myJson.url

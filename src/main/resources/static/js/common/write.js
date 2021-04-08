@@ -67,7 +67,6 @@ function hashtag() {
     span_ht.remove()
     hidden_input.remove()
     htCount = ht.childElementCount - 1
-    console.log(htCount)
     if (htCount < 10) {
       ht.appendChild(input_ht)
     }

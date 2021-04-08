@@ -72,7 +72,6 @@ public class principalOauth2UserService extends DefaultOAuth2UserService{
 
         //끝점
         UserInfoEndpoint uiep = userRequest.getClientRegistration().getProviderDetails().getUserInfoEndpoint();
-        System.out.println("uiep : " +  uiep);
        
         String uri = uiep.getUri();  //url
         /*if (!StringUtils.hasText(uri)) {
@@ -82,10 +81,10 @@ public class principalOauth2UserService extends DefaultOAuth2UserService{
 					null);
 			throw new OAuth2AuthenticationException(oauth2Error, oauth2Error.toString());
 		}*/
-		System.out.println("uri : " +  uri);
+
 
         String userNameAttributeName = uiep.getUserNameAttributeName();  // google : sub , facebook 외 : id 를 가져오기 위함이다
-		System.out.println("userNameAttributeName : " +  uiep.getUserNameAttributeName());
+
 		/*if (!StringUtils.hasText(userNameAttributeName)) {
 			OAuth2Error oauth2Error = new OAuth2Error(MISSING_USER_NAME_ATTRIBUTE_ERROR_CODE,
 					"Missing required \"user name\" attribute name in UserInfoEndpoint for Client Registration: "
@@ -125,7 +124,6 @@ public class principalOauth2UserService extends DefaultOAuth2UserService{
 		OAuth2AccessToken token = userRequest.getAccessToken();
 		for (String authority : token.getScopes()) {
 			authorities.add(new SimpleGrantedAuthority("SCOPE_" + authority));
-			System.out.println("token : " + token.getTokenValue());
         }
 
         OAuth2User oAuth2User = new DefaultOAuth2User(authorities, userAttributes, userNameAttributeName);
@@ -154,7 +152,6 @@ public class principalOauth2UserService extends DefaultOAuth2UserService{
 		
 		UserPrincipal user = (UserPrincipal) myUserService.loadUserByUsername(oAuth2UserInfo.getProvider(),
 				oAuth2UserInfo.getId());
-				System.out.println(user);
 		if (user == null ) { // insert
 			UserPrincipal userjoin = new UserPrincipal();
 			userjoin.setUser_id(oAuth2UserInfo.getId());
@@ -164,7 +161,6 @@ public class principalOauth2UserService extends DefaultOAuth2UserService{
 			userjoin.setUser_auth("ROLE_USER");
 			userjoin.setOauth_id(oAuth2UserInfo.getId());
 			userjoin.setOauth_typ(oAuth2UserInfo.getProvider());
-			System.out.println("oAuth2UserInfo.getProvider()oAuth2UserInfo.getProvider()oAuth2UserInfo.getProvider():    " + oAuth2UserInfo.getProvider());
 			myUserService.join(userjoin);
 			 
 
