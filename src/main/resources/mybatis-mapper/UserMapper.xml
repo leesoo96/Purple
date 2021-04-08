@@ -58,13 +58,13 @@
 	<update id="changeLoginState">
 		UPDATE user 
 		set user_state = 1
-		where user_id = #{user_id}
+		where user_pk = #{user_pk}
 	</update>
 
 	<!-- 로그아웃 성공 시 회원상태 값 리셋 -->
 	<update id="changeLogoutState">
 		UPDATE user 
 		set user_state = 0
-		where user_id = #{user_id}
+		where user_pk = #{user_pk}
 	</update>
 </mapper>

@@ -67,7 +67,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
          .and()
             .oauth2Login()
             .loginPage("/welcome")
-            .defaultSuccessUrl("/feed")
+            .successHandler(new LoginSuccessHandler())
             .userInfoEndpoint()
             .userService(oauth2Service);
          
@@ -81,7 +81,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
          
       http.logout()
          .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-         .logoutSuccessUrl("/welcome")
+         .logoutSuccessUrl("/sessionLogout")
          .invalidateHttpSession(true) // 세션 제거
          .deleteCookies("JSESSIONID") // 쿠키 제거
          .clearAuthentication(true); // 권한정보 제거 
@@ -90,11 +90,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
          .maximumSessions(150) // 최대 세션 허용 수 
          .maxSessionsPreventsLogin(true) // 유저 인증 거부 
          // false 일 경우 이전 로그인한 유저 세션 종료
-         .expiredUrl("/welcome") // 세션 만료 또는 중복 시 리다이렉트되는 url
+         .expiredUrl("/sessionLogout") // 세션 만료 또는 중복 시 리다이렉트되는 url
          .sessionRegistry(sessionRegistry());
          
       http.exceptionHandling()
-         .accessDeniedPage("/welcome");
+         .accessDeniedPage("/sessionLogout");
+
    }
    
    @Bean

@@ -4,7 +4,6 @@ kakaoButton.addEventListener('click', function () {
   fetch(`/oauth2Typ`)
     .then((res) => res.json())
     .then((myJson) => {
-      console.log(myJson.result)
       switch (myJson.result) {
         case '1':
           location.href = myJson.url

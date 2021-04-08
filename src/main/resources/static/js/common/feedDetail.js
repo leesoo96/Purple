@@ -265,6 +265,10 @@ function recomment(e) {
 function comment_submit(e,feed_pk) {
   const comment_inputEle = e.parentNode
   let comment_ctnt = comment_inputEle.querySelector('input[name="comment_ctnt"]').value
+  if(comment_ctnt == '') {
+    alert('댓글을 입력해주세요')
+    return
+  }
   if(comment_inputEle.querySelector('span[name="recomment_userid"]') != null) {
     let parent_comment_user_pk = comment_inputEle.querySelector('span[name="recomment_userid"]').innerText
     
@@ -288,8 +292,6 @@ function comment_submit(e,feed_pk) {
     comment_feedpk: feed_pk,
     comment_ctnt
   }
-  console.log(params.comment_feedpk)
-  console.log(params.comment_ctnt)
 
   fetchAjax(params, 'post', '/feed/comment', (myJson) => {
     if(myJson.result === 1) {

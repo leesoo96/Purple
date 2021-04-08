@@ -105,7 +105,6 @@ function loginFunc() {
         res.json()
       })
       .then(function (myJson) {
-        console.log(myJson)
       })
   }
 }

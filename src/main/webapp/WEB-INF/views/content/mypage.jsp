@@ -47,6 +47,9 @@
     </div>
 </div>
 
+<sec:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_USER')">
+<sec:authentication property="principal" var="userInfo"/>
+
 <div id="userPwMod_container">
     <div id="userPwMod_top">
         <span>비밀번호 변경</span>
@@ -54,6 +57,7 @@
             <img alt="닫기" onclick="openCloseModal('#userPwMod_container', 'none')" src="/resources/img/common/close_icon.png">
         </div>
     </div>
+
     <form name="userPwModFrm">
         <input name="user_pw" placeholder="현재 비밀번호" type="password">
         <input name="mod_pw" placeholder="변경 할 비밀번호" type="password">
@@ -62,8 +66,7 @@
     </form>
 </div>
 
-<sec:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_USER')">
-    <sec:authentication property="principal" var="userInfo"/>
+
     <div id="mypage_userinfo_container">
         <div id="mypage_userinfo_backimg">
             <img onerror="this.style.display='none'" src="${userInfo.user_backgroundimg}">
@@ -98,8 +101,9 @@
         </div>
         <div id="mypage_userinfo_button">
             <button id="mypage_modcontent_btn" onclick="openCloseModal('#userMod_container', 'block')">프로필 수정</button>
-         
+            <c:if test="${userInfo.oauth_typ == 'purple'}">
             <button id="mypage_pw_btn" onclick="openCloseModal('#userPwMod_container', 'block')">비밀번호 변경</button>
+            </c:if>
         </div>
     </div>
 </sec:authorize>

@@ -1,0 +1,313 @@
+-- 테이블 순서는 관계를 고려하여 한 번에 실행해도 에러가 발생하지 않게 정렬되었습니다.
+
+-- user Table Create SQL
+CREATE TABLE user
+(
+    `user_pk`             INT UNSIGNED    NOT NULL    AUTO_INCREMENT COMMENT '회원번호', 
+    `user_id`             VARCHAR(30)     NOT NULL    COMMENT '아이디', 
+    `user_pw`             VARCHAR(100)    NULL    COMMENT '비밀번호', 
+    `user_name`           VARCHAR(5)      NULL    COMMENT '이름', 
+    `user_profileimg`     VARCHAR(100)    NULL        COMMENT '프로필이미지', 
+    `user_backgroundimg`  VARCHAR(100)    NULL        COMMENT '배경이미지', 
+    `user_location`       VARCHAR(30)     NULL        COMMENT '유저주소', 
+    `user_email`          VARCHAR(30)     NULL        COMMENT '이메일', 
+    `user_bio`            VARCHAR(160)    NULL        COMMENT '자기소개', 
+    `user_birth`          DATE            NULL    COMMENT '생일', 
+    `user_joindate`       DATETIME        NOT NULL    DEFAULT current_timestamp() COMMENT '가입날짜', 
+    `user_state`          TINYINT         NOT NULL    DEFAULT 0 COMMENT '회원상태', 
+    `user_auth`           VARCHAR(10)     NOT NULL    DEFAULT 'ROLE_USER' COMMENT '유저권한', 
+    `oauth_id`            VARCHAR(50)     NULL    COMMENT 'oauthID', 
+    `oauth_typ`          VARCHAR(10)     NOT NULL    COMMENT 'oauthType', 
+    PRIMARY KEY (user_pk)
+);
+
+ALTER TABLE user COMMENT '유저';
+
+ALTER TABLE user
+    ADD CONSTRAINT UC_user_user_id UNIQUE (user_id);
+
+
+-- user Table Create SQL
+CREATE TABLE feed
+(
+    `feed_pk`         INT UNSIGNED    NOT NULL    AUTO_INCREMENT COMMENT '피드 번호', 
+    `feed_ctnt`       VARCHAR(45)     NOT NULL    COMMENT '피드 내용', 
+    `feed_writedate`  TIMESTAMP       NOT NULL    DEFAULT current_timestamp() COMMENT '작성날짜', 
+    `feed_userpk`     INT UNSIGNED    NOT NULL    COMMENT '작성자', 
+    `feed_update`     TIMESTAMP       NOT NULL    DEFAULT current_timestamp() COMMENT '수정날짜', 
+    `feed_state`      TINYINT         NOT NULL    DEFAULT 1 COMMENT '삭제여부', 
+    `feed_report`     INT UNSIGNED    NOT NULL    DEFAULT 0 COMMENT '신고횟수', 
+    PRIMARY KEY (feed_pk)
+);
+
+ALTER TABLE feed COMMENT '피드';
+
+ALTER TABLE feed
+    ADD CONSTRAINT FK_feed_feed_userpk_user_user_pk FOREIGN KEY (feed_userpk)
+        REFERENCES user (user_pk) ON DELETE CASCADE ON UPDATE RESTRICT;
+
+
+-- user Table Create SQL
+CREATE TABLE question
+(
+    `question_pk`         INT UNSIGNED    NOT NULL    AUTO_INCREMENT COMMENT '문의사항 번호', 
+    `question_title`      VARCHAR(45)     NOT NULL    COMMENT '문의사항 제목', 
+    `question_ctnt`       VARCHAR(45)     NOT NULL    COMMENT '문의사항 내용', 
+    `question_writedate`  TIMESTAMP       NOT NULL    DEFAULT current_timestamp() COMMENT '작성날짜', 
+    `question_view`       INT UNSIGNED    NOT NULL    DEFAULT 0 COMMENT '조회수', 
+    `question_userpk`     INT UNSIGNED    NOT NULL    COMMENT '작성자', 
+    `question_img`        VARCHAR(100)    NULL        COMMENT '이미지', 
+    `question_type`       TINYINT         NOT NULL    COMMENT '글 종류', 
+    PRIMARY KEY (question_pk)
+);
+
+ALTER TABLE question COMMENT '문의사항';
+
+ALTER TABLE question
+    ADD CONSTRAINT FK_question_question_userpk_user_user_pk FOREIGN KEY (question_userpk)
+        REFERENCES user (user_pk) ON DELETE CASCADE ON UPDATE RESTRICT;
+
+
+-- user Table Create SQL
+CREATE TABLE comment
+(
+    `comment_pk`         INT UNSIGNED    NOT NULL    AUTO_INCREMENT COMMENT '댓글번호', 
+    `comment_feedpk`     INT UNSIGNED    NOT NULL    COMMENT '피드 번호', 
+    `comment_ctnt`       VARCHAR(45)     NOT NULL    COMMENT '댓글내용', 
+    `comment_userpk`     INT UNSIGNED    NOT NULL    COMMENT '작성자', 
+    `comment_writedate`  TIMESTAMP       NOT NULL    DEFAULT current_timestamp() COMMENT '작성날짜', 
+    `comment_parentpk`   INT UNSIGNED    NULL        COMMENT '댓글소속', 
+    `comment_state`      TINYINT         NOT NULL    DEFAULT 1 COMMENT '삭제여부', 
+    PRIMARY KEY (comment_pk)
+);
+
+ALTER TABLE comment COMMENT '댓글';
+
+ALTER TABLE comment
+    ADD CONSTRAINT FK_comment_comment_feedpk_feed_feed_pk FOREIGN KEY (comment_feedpk)
+        REFERENCES feed (feed_pk) ON DELETE CASCADE ON UPDATE RESTRICT;
+
+ALTER TABLE comment
+    ADD CONSTRAINT FK_comment_comment_parentpk_comment_comment_pk FOREIGN KEY (comment_parentpk)
+        REFERENCES comment (comment_pk) ON DELETE CASCADE ON UPDATE RESTRICT;
+
+ALTER TABLE comment
+    ADD CONSTRAINT FK_comment_comment_userpk_user_user_pk FOREIGN KEY (comment_userpk)
+        REFERENCES user (user_pk) ON DELETE CASCADE ON UPDATE RESTRICT;
+
+
+-- user Table Create SQL
+CREATE TABLE hashtag
+(
+    `hashtag_pk`    INT UNSIGNED    NOT NULL    AUTO_INCREMENT COMMENT '해시태그 번호', 
+    `hashtag_ctnt`  VARCHAR(20)     NOT NULL    COMMENT '해시태그 내용', 
+    PRIMARY KEY (hashtag_pk)
+);
+
+ALTER TABLE hashtag COMMENT '해시태그';
+
+
+-- user Table Create SQL
+CREATE TABLE chatroom
+(
+    `chatroom_id`          VARCHAR(45)     NOT NULL    COMMENT '채팅방 아이디', 
+    `chatroom_userpk`      INT UNSIGNED    NOT NULL    COMMENT '사용자 번호', 
+    `chatroom_friendpk`    INT UNSIGNED    NOT NULL    COMMENT '친구 번호', 
+    `chatroom_createdate`  TIMESTAMP       NOT NULL    DEFAULT current_timestamp() COMMENT '생성날짜', 
+    PRIMARY KEY (chatroom_id, chatroom_userpk, chatroom_friendpk)
+);
+
+ALTER TABLE chatroom COMMENT '채팅방';
+
+ALTER TABLE chatroom
+    ADD CONSTRAINT FK_chatroom_chatroom_userpk_user_user_pk FOREIGN KEY (chatroom_userpk)
+        REFERENCES user (user_pk) ON DELETE CASCADE ON UPDATE RESTRICT;
+
+ALTER TABLE chatroom
+    ADD CONSTRAINT FK_chatroom_chatroom_friendpk_user_user_pk FOREIGN KEY (chatroom_friendpk)
+        REFERENCES user (user_pk) ON DELETE CASCADE ON UPDATE RESTRICT;
+
+
+-- user Table Create SQL
+CREATE TABLE friend
+(
+    `user_pk`    INT UNSIGNED    NOT NULL    COMMENT '내번호', 
+    `friend_pk`  INT UNSIGNED    NOT NULL    COMMENT '상대방 번호', 
+    PRIMARY KEY (user_pk, friend_pk)
+);
+
+ALTER TABLE friend COMMENT '친구';
+
+ALTER TABLE friend
+    ADD CONSTRAINT FK_friend_user_pk_user_user_pk FOREIGN KEY (user_pk)
+        REFERENCES user (user_pk) ON DELETE CASCADE ON UPDATE RESTRICT;
+
+ALTER TABLE friend
+    ADD CONSTRAINT FK_friend_friend_pk_user_user_pk FOREIGN KEY (friend_pk)
+        REFERENCES user (user_pk) ON DELETE CASCADE ON UPDATE RESTRICT;
+
+
+-- user Table Create SQL
+CREATE TABLE notice
+(
+    `notice_pk`         INT UNSIGNED    NOT NULL    AUTO_INCREMENT COMMENT '공지사항 번호', 
+    `notice_title`      VARCHAR(45)     NOT NULL    COMMENT '공지사항 제목', 
+    `notice_ctnt`       VARCHAR(45)     NOT NULL    COMMENT '공지사항 내용', 
+    `notice_writedate`  TIMESTAMP       NOT NULL    DEFAULT current_timestamp() COMMENT '작성날짜', 
+    `notice_view`       INT UNSIGNED    NOT NULL    DEFAULT 0 COMMENT '조회수', 
+    `notice_userpk`     INT UNSIGNED    NOT NULL    COMMENT '작성자', 
+    `notice_img`        VARCHAR(100)    NULL        COMMENT '이미지', 
+    PRIMARY KEY (notice_pk)
+);
+
+ALTER TABLE notice COMMENT '공지사항';
+
+ALTER TABLE notice
+    ADD CONSTRAINT FK_notice_notice_userpk_user_user_pk FOREIGN KEY (notice_userpk)
+        REFERENCES user (user_pk) ON DELETE CASCADE ON UPDATE RESTRICT;
+
+
+-- user Table Create SQL
+CREATE TABLE bookmark
+(
+    `bookmark_feedpk`  INT UNSIGNED    NOT NULL    COMMENT '피드 번호', 
+    `bookmark_userpk`  INT UNSIGNED    NOT NULL    COMMENT '회원 번호', 
+    PRIMARY KEY (bookmark_feedpk, bookmark_userpk)
+);
+
+ALTER TABLE bookmark COMMENT '북마크';
+
+ALTER TABLE bookmark
+    ADD CONSTRAINT FK_bookmark_bookmark_feedpk_feed_feed_pk FOREIGN KEY (bookmark_feedpk)
+        REFERENCES feed (feed_pk) ON DELETE CASCADE ON UPDATE RESTRICT;
+
+ALTER TABLE bookmark
+    ADD CONSTRAINT FK_bookmark_bookmark_userpk_user_user_pk FOREIGN KEY (bookmark_userpk)
+        REFERENCES user (user_pk) ON DELETE CASCADE ON UPDATE RESTRICT;
+
+
+-- user Table Create SQL
+CREATE TABLE favorite
+(
+    `favorite_feedpk`  INT UNSIGNED    NOT NULL    AUTO_INCREMENT COMMENT '피드 번호', 
+    `favorite_userpk`  INT UNSIGNED    NOT NULL    COMMENT '사용자 번호', 
+    PRIMARY KEY (favorite_feedpk, favorite_userpk)
+);
+
+ALTER TABLE favorite COMMENT '좋아요';
+
+ALTER TABLE favorite
+    ADD CONSTRAINT FK_favorite_favorite_feedpk_feed_feed_pk FOREIGN KEY (favorite_feedpk)
+        REFERENCES feed (feed_pk) ON DELETE CASCADE ON UPDATE RESTRICT;
+
+ALTER TABLE favorite
+    ADD CONSTRAINT FK_favorite_favorite_userpk_user_user_pk FOREIGN KEY (favorite_userpk)
+        REFERENCES user (user_pk) ON DELETE CASCADE ON UPDATE RESTRICT;
+
+
+-- user Table Create SQL
+CREATE TABLE answer
+(
+    `answer_pk`         INT UNSIGNED    NOT NULL    COMMENT '문의사항 번호', 
+    `answer_ctnt`       VARCHAR(45)     NOT NULL    COMMENT '답변 내용', 
+    `answer_writedate`  TIMESTAMP       NOT NULL    DEFAULT current_timestamp() COMMENT '작성날짜', 
+    `answer_userpk`     INT UNSIGNED    NOT NULL    COMMENT '작성자', 
+    PRIMARY KEY (answer_pk)
+);
+
+ALTER TABLE answer COMMENT '문의사항답변';
+
+ALTER TABLE answer
+    ADD CONSTRAINT FK_answer_answer_pk_question_question_pk FOREIGN KEY (answer_pk)
+        REFERENCES question (question_pk) ON DELETE CASCADE ON UPDATE RESTRICT;
+
+ALTER TABLE answer
+    ADD CONSTRAINT FK_answer_answer_userpk_user_user_pk FOREIGN KEY (answer_userpk)
+        REFERENCES user (user_pk) ON DELETE CASCADE ON UPDATE RESTRICT;
+
+
+-- user Table Create SQL
+CREATE TABLE hashtag_relation
+(
+    `htrel_hashtagpk`  INT UNSIGNED    NOT NULL    COMMENT '해시태그 번호', 
+    `htrel_feedpk`     INT UNSIGNED    NOT NULL    COMMENT '피드번호', 
+    PRIMARY KEY (htrel_hashtagpk, htrel_feedpk)
+);
+
+ALTER TABLE hashtag_relation COMMENT '해시태그 관계';
+
+ALTER TABLE hashtag_relation
+    ADD CONSTRAINT FK_hashtag_relation_htrel_feedpk_feed_feed_pk FOREIGN KEY (htrel_feedpk)
+        REFERENCES feed (feed_pk) ON DELETE CASCADE ON UPDATE RESTRICT;
+
+ALTER TABLE hashtag_relation
+    ADD CONSTRAINT FK_hashtag_relation_htrel_hashtagpk_hashtag_hashtag_pk FOREIGN KEY (htrel_hashtagpk)
+        REFERENCES hashtag (hashtag_pk) ON DELETE CASCADE ON UPDATE RESTRICT;
+
+
+-- user Table Create SQL
+CREATE TABLE alarm
+(
+    `alarm_category`   TINYINT         NOT NULL    COMMENT '알림종류', 
+    `alarm_sendto`     INT UNSIGNED    NOT NULL    COMMENT '받는사람', 
+    `alarm_from`       INT UNSIGNED    NOT NULL    COMMENT '보내는사람', 
+    `alarm_valuepk`    INT UNSIGNED    NOT NULL    COMMENT '연결되는 pk값', 
+    `alarm_readstate`  TINYINT         NOT NULL    DEFAULT 1 COMMENT '읽음여부', 
+    `alarm_date`       DATETIME        NOT NULL    DEFAULT current_timestamp() COMMENT '알림 생성날짜', 
+    PRIMARY KEY (alarm_category, alarm_from, alarm_valuepk, alarm_readstate, alarm_date)
+);
+
+ALTER TABLE alarm COMMENT '알림';
+
+ALTER TABLE alarm
+    ADD CONSTRAINT FK_alarm_alarm_sendto_user_user_pk FOREIGN KEY (alarm_sendto)
+        REFERENCES user (user_pk) ON DELETE CASCADE ON UPDATE RESTRICT;
+
+ALTER TABLE alarm
+    ADD CONSTRAINT FK_alarm_alarm_from_user_user_pk FOREIGN KEY (alarm_from)
+        REFERENCES user (user_pk) ON DELETE CASCADE ON UPDATE RESTRICT;
+
+
+-- user Table Create SQL
+CREATE TABLE media
+(
+    `media_pk`      INT UNSIGNED    NOT NULL    AUTO_INCREMENT COMMENT '미디어 번호', 
+    `media_feedpk`  INT UNSIGNED    NOT NULL    COMMENT '피드번호', 
+    `media_url`     VARCHAR(100)    NOT NULL    COMMENT '미디어 경로', 
+    PRIMARY KEY (media_pk, media_feedpk)
+);
+
+ALTER TABLE media COMMENT '미디어';
+
+ALTER TABLE media
+    ADD CONSTRAINT FK_media_media_feedpk_feed_feed_pk FOREIGN KEY (media_feedpk)
+        REFERENCES feed (feed_pk) ON DELETE CASCADE ON UPDATE RESTRICT;
+
+
+-- user Table Create SQL
+CREATE TABLE message
+(
+    `message_pk`          INT UNSIGNED    NOT NULL    AUTO_INCREMENT COMMENT '메시지 번호', 
+    `message_chatroomid`  VARCHAR(45)     NOT NULL    COMMENT '채팅방 아이디', 
+    `message_ctnt`        VARCHAR(100)    NOT NULL    COMMENT '메시지 내용', 
+    `message_date`        VARCHAR(45)     NOT NULL    DEFAULT 'current_timestamp()' COMMENT '메시지 날짜', 
+    `message_sendto`      INT UNSIGNED    NOT NULL    COMMENT '받는사람', 
+    `message_from`        INT UNSIGNED    NOT NULL    COMMENT '보내는 사람', 
+    `message_readstate`   TINYINT         NOT NULL    DEFAULT 1 COMMENT '읽음여부', 
+    `message_state`       TINYINT         NOT NULL    DEFAULT 1 COMMENT '삭제여부', 
+    PRIMARY KEY (message_pk, message_sendto, message_from)
+);
+
+ALTER TABLE message COMMENT '메시지';
+
+ALTER TABLE message
+    ADD CONSTRAINT FK_message_message_chatroomid_chatroom_chatroom_id FOREIGN KEY (message_chatroomid)
+        REFERENCES chatroom (chatroom_id) ON DELETE CASCADE ON UPDATE RESTRICT;
+
+ALTER TABLE message
+    ADD CONSTRAINT FK_message_message_sendto_user_user_pk FOREIGN KEY (message_sendto)
+        REFERENCES user (user_pk) ON DELETE CASCADE ON UPDATE RESTRICT;
+
+ALTER TABLE message
+    ADD CONSTRAINT FK_message_message_from_user_user_pk FOREIGN KEY (message_from)
+        REFERENCES user (user_pk) ON DELETE CASCADE ON UPDATE RESTRICT;

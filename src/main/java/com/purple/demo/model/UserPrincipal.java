@@ -23,6 +23,8 @@ public class UserPrincipal extends UserEntity implements Principal, UserDetails,
 
 	private Map<String, Object> attributes;
 
+
+	//생성자가 필요해서 만들어놓았음
 	public UserPrincipal() {
 	}
 	
