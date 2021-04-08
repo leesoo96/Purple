@@ -44,7 +44,43 @@ public class CommonController {
 		return "unusedtiles/welcome";
 	}
 
-//	로그인 성공 시 로그인 상태로 회원상태 전환 
+	// oauth 타입
+	@ResponseBody
+	@GetMapping("/oauth2Typ")
+	public Map<String, Object> oauth2_typ(UserEntity entity) {
+		Map<String, Object> oauth2_typ = new HashMap<String, Object>();
+		String oauthTyp = commonService.oauth2_typ(entity).getOauth_typ();
+		System.out.println("oauthTypoauthTypoauthTypoauthTypoauthTyp: " + oauthTyp);
+		UserPrincipal p = (UserPrincipal)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		
+		switch (oauthTyp) {
+			case "kakao": 
+				oauth2_typ.put("result", "1");
+				oauth2_typ.put("url", "https://kauth.kakao.com/oauth/logout?client_id=dcd77beafc72e48753f0d5c6a3de7357&logout_redirect_uri=http://localhost:8091/logout");
+				break;
+
+			case "facebook": 
+				oauth2_typ.put("result", "2");
+				break;
+
+			case "google": 
+				oauth2_typ.put("result", "3");
+				oauth2_typ.put("url", "https://www.google.com/accounts/Logout?continue=https://appengine.google.com");
+				break;
+
+			case "naver": 
+				oauth2_typ.put("result", "4");
+				oauth2_typ.put("url", "http://nid.naver.com/nidlogin.logout");
+				break;
+
+			default : 
+				userMapper.changeLogoutState(p.getUser_id()); // 일반회원 로그아웃 
+				oauth2_typ.put("result", "0");
+		}
+		return oauth2_typ;
+	}
+			
+
 	@RequestMapping("/duplLogin")
 	public String duplLogin() {
 		UserPrincipal p = (UserPrincipal)SecurityContextHolder.getContext().getAuthentication().getPrincipal();

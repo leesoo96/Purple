@@ -2,7 +2,6 @@ package com.purple.demo.service;
 
 import org.apache.commons.mail.HtmlEmail;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -15,7 +14,10 @@ import javax.servlet.http.HttpServletResponse;
 import com.purple.demo.mapper.UserMapper;
 import com.purple.demo.model.UserEntity;
 import com.purple.demo.model.UserPrincipal;
-
+ 
+// 시큐리티 설정에서 loginProcessingUrl("/login") 을 했을때
+// "/login" 요청이 오면 자동으로 UserDetailsService 타입으로 ioc 되어있는
+// loadUserByUsername 함수가 실행함
 @Service
 public class UserServiceImpl implements UserDetailsService {
 
@@ -34,11 +36,27 @@ public class UserServiceImpl implements UserDetailsService {
 		UserEntity user = userMapper.loginUser(entity);
 		return UserPrincipal.create(user);
 	}
+	
+
+
+	// oauth2
+	public UserDetails loadUserByUsername(String provider, String oauth_id) throws UsernameNotFoundException {
+		UserEntity entity = new UserEntity();
+		entity.setUser_provider(provider);
+		entity.setOauth_id(oauth_id);	
+		UserPrincipal user = userMapper.oauthloginUser(entity);	
+		if(user == null) {
+			return null;
+		}
+		return UserPrincipal.create(user);
+	}
+	
 
 	// 회원가입
 	public int join(UserEntity entity) {
 		if(entity.getUser_pw() != null && !"".equals(entity.getUser_pw())) {
 			entity.setUser_pw(encoder.encode(entity.getUser_pw()));
+			entity.setOauth_typ("purple");
 		}
 		return userMapper.joinUser(entity);
 	}

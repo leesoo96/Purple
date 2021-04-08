@@ -37,7 +37,7 @@
 		<tr>
 			<th>문의내용</th>
 			<td>
-				<img class="ctnt_img" src="${questionUpd.question_img}" onerror="this.src='/images/question/basic_question.jpg'">
+				<img class="ctnt_img" src="${questionUpd.question_img}" onerror="this.src='/resources/img/cs/basic_question.jpg'">
 				<textarea id="text" cols="60" rows="15" name="question_ctnt" 
 					placeholder="내용을 입력하세요">${questionUpd.question_ctnt}</textarea></td>
 		</tr>

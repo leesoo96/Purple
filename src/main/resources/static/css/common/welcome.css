@@ -164,6 +164,21 @@ a {
   margin: 9em 0 0 6em;
   color: #f85656;
 }
+
+/*oauth2 login*/
+#oauth2button {
+  position: relative;
+  transition: 0.5s;
+}
+.oauth_img {
+  position: relative;
+  float: left;
+  top: 230px;
+  left: 75px;
+  padding-left: 20px;
+  height: 50px;
+}
+
 /* 생년월일란 css */
 input[type='date']::before {
   content: attr(data-placeholder);
@@ -178,6 +193,7 @@ input[type='date']:valid::before {
 /* 비밀번호 찾기 CSS */
 #findpw .findpw_btn {
   position: relative;
+  transition: 0.5s;
   top: 6.5em;
   left: 15.9em;
   font-size: 1.2rem;

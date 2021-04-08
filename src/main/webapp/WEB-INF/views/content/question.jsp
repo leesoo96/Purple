@@ -48,7 +48,7 @@
 			<div class="cs_question_detail">
 
 				<div class="detail_img">
-					<img src="${item.question_img}" onerror="this.src='/images/question/basic_question.jpg'">
+					<img src="${item.question_img}" onerror="this.src='/resources/img/cs/basic_question.jpg'">
 				</div>
 
 				<div class="question_detail">

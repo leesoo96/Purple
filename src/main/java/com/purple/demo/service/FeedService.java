@@ -91,7 +91,7 @@ public class FeedService {
         
         // 해시 태그
         if(dto.getHashtag() != null) {
-            for(int i=0; i < dto.getHashtag().size(); i++){
+            for(int i = 0; i < dto.getHashtag().size(); i++){
                 System.out.println(dto.getHashtag().get(i));
                 HashtagRelationEntity hrel = new HashtagRelationEntity();
                 HashtagEntity htentity = new HashtagEntity();
@@ -99,8 +99,8 @@ public class FeedService {
                 int state = feedMapper.insHashtag(htentity);
                 hrel.setHtrel_feedpk(dto.getFeed_pk());
                 if(state == 0) {
-                int hashtag_pk = feedMapper.selHashtag_pk(htentity);
-                hrel.setHtrel_hashtagpk(hashtag_pk);
+                    int hashtag_pk = feedMapper.selHashtag_pk(htentity);
+                    hrel.setHtrel_hashtagpk(hashtag_pk);
                 }else {
                     hrel.setHtrel_hashtagpk(htentity.getHashtag_pk());
                 }
@@ -112,7 +112,7 @@ public class FeedService {
         UserPrincipal principal = (UserPrincipal)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         dto.setFavorite_userpk(principal.getUser_pk());
         
-        if(dto.getFavorite_state() ==  0) {
+        if(dto.getFavorite_state() == 0) {
             int result = feedMapper.insFavorite(dto);
             dto.setFavorite_state(result);
         } else {

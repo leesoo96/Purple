@@ -62,7 +62,7 @@ function sendAlarm(alarm_category, alarm_valuepk, alarm_sendto) {
     socket.send(JSON.stringify(params))
 }
 
-//서버로 값을 보낼 때
+// 서버로 값을 보낼 때
 const sendChatBtn = document.querySelector('button[name="send_btn"]')
 const sendInput = document.querySelector('input[name="msg_input"]')
 const send_id = document.querySelector('#chat_friendName')
