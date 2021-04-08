@@ -151,6 +151,7 @@ public class principalOauth2UserService extends DefaultOAuth2UserService{
 			throw new OAuth2AuthenticationProcessingException("Email not found from OAuth2 provider");
 		}
 		 */		
+		
 		UserPrincipal user = (UserPrincipal) myUserService.loadUserByUsername(oAuth2UserInfo.getProvider(),
 				oAuth2UserInfo.getId());
 		if (user == null ) { // insert
@@ -165,11 +166,12 @@ public class principalOauth2UserService extends DefaultOAuth2UserService{
 			System.out.println("oAuth2UserInfo.getProvider()oAuth2UserInfo.getProvider()oAuth2UserInfo.getProvider():    " + oAuth2UserInfo.getProvider());
 			myUserService.join(userjoin);
 			 
-			userjoin.setAttributes(oAuth2User.getAttributes());
+			userjoin = (UserPrincipal) myUserService.loadUserByUsername(oAuth2UserInfo.getProvider(),
+				oAuth2UserInfo.getId());
 			
 			return userjoin;
 		}
-
+		
 		return user;
 	}
 

@@ -51,6 +51,7 @@ public class CommonController {
 		Map<String, Object> oauth2_typ = new HashMap<String, Object>();
 		String oauthTyp = commonService.oauth2_typ(entity).getOauth_typ();
 		System.out.println("oauthTypoauthTypoauthTypoauthTypoauthTyp: " + oauthTyp);
+		
 		switch (oauthTyp) {
 			case "kakao": 
 				oauth2_typ.put("result", "1");
