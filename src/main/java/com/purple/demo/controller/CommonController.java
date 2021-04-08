@@ -80,7 +80,13 @@ public class CommonController {
 		}
 		return oauth2_typ;
 	}
-			
+	
+	@RequestMapping("/sessionLogout")
+	public void sessionLogout() {
+		UserPrincipal p = (UserPrincipal)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		userMapper.changeLogoutState(p.getUser_pk()); // 로그아웃 상태로 전환
+	}
+
 
 	@RequestMapping("/duplLogin")
 	public String duplLogin() {
