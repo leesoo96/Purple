@@ -68,6 +68,7 @@ function alertCheck() {
     userModFrm.mod_id.focus()
   }
 }
+
 // 사용자 정보 변경
 const userMod_contentEle = document.querySelector('#userMod_content')
 const saveBtn = document.querySelector('#save_userModBtn')
@@ -77,6 +78,7 @@ const user_backgroundimg = document.querySelector('#mod_background')
 
 saveBtn.addEventListener('click', () => {
   // 아이디 변경을 할 때 중복검사 여부 확인
+  console.log('연결')
   if (userModFrm.mod_id.value) {
     if (check_state === 0) {
       alert('아이디 중복체크를 해주세요')
@@ -132,19 +134,28 @@ saveBtn.addEventListener('click', () => {
       user_email: userModFrm.mod_email.value,
       user_birth: userModFrm.mod_birth.value,
     }
-    fetchAjax(params, 'put', '/mypage/mod_userinfo', (myJson) => {
-      if (myJson.result === 1) {
-        alert('회원정보 수정이 완료되었습니다.')
-        location.href = `/logout`
-      } else {
-        alert('회원정보 수정이 실패했습니다.')
-        openCloseModal('#userMod_container', 'none')
-      }
+    fetch(`/mypage/mod_userinfo`, {
+      method: 'put',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(params),
     })
+      .then((res) => res.json())
+      .then((myJson) => {
+        if (myJson.result === 1) {
+          alert('회원정보 수정이 완료되었습니다.')
+          location.href = `/logout`
+        } else {
+          alert('회원정보 수정이 실패했습니다.')
+          openCloseModal('#userMod_container', 'none')
+        }
+      })
   }
 })
 
 const userPwModFrm = document.querySelector('form[name="userPwModFrm"]')
+
 //현재 비밀번호 검사
 function pw_check(user_pk, user_pw) {
   let isTrue = true
@@ -222,7 +233,7 @@ function CheckPassword(upw) {
   var chk_num = upw.search(/[0-9]/g)
   var chk_eng = upw.search(/[a-z]/gi)
   if (chk_num < 0 || chk_eng < 0) {
-    alert('비밀번호는 숫자와 영무자를 혼용하여야 합니다.')
+    alert('비밀번호는 숫자와 영문자를 혼용하여야 합니다.')
     return false
   }
   if (/(\w)\1\1\1/.test(upw)) {
@@ -259,24 +270,23 @@ function postCode() {
 let page_count = 0
 const feedEle = document.querySelector('#feed')
 
-
 // feed scroll
 const windowHeight = window.innerHeight // 현재 보이는 창 높이
 
 document.addEventListener('DOMContentLoaded', async function () { // HTML과 script가 로드된 시점에 발생하는 이벤트.
-    await makeFeedAjax(1, page_count, '/mypage').then((myJson) => {
-      makeFeed(myJson, feedEle)
-    })
-    page_count++
-    await ajax()
-function ajax() {
+  await makeFeedAjax(1, page_count, '/mypage').then((myJson) => {
+    makeFeed(myJson, feedEle)
+  })
+  page_count++
+  await ajax()
+  function ajax() {
     if(document.body.scrollHeight <= windowHeight) {
-    makeFeedAjax(1, page_count, '/mypage').then((myJson) => {
-      makeFeed(myJson, feedEle)
-    })
-    page_count++
+      makeFeedAjax(1, page_count, '/mypage').then((myJson) => {
+        makeFeed(myJson, feedEle)
+      })
+      page_count++
+    }
   }
-}
 })
 
 document.addEventListener('scroll', () => {

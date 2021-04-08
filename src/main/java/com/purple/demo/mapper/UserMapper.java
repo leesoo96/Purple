@@ -9,7 +9,8 @@ import com.purple.demo.model.UserPrincipal;
 public interface UserMapper {
 
 //	로그인
-	UserEntity loginUser(UserEntity entity);
+	UserPrincipal loginUser(UserEntity entity);
+	
 	
 	UserPrincipal oauthloginUser(UserEntity entity);
 	

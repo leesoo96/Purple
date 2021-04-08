@@ -18,6 +18,15 @@ function keyEnter(event) {
   if (event.keyCode === 13) {
     return false
   }
+  return true
+}
+
+function checkNull() {
+  let content_ctnt = document.querySelector('#write_text')
+  if(content_ctnt.value == '' && document.querySelector('.span_ht') == null && document.querySelector('.preview') == null){
+    alert('내용을 입력해 주세요')
+    return false
+  }
 }
 
 //해시태그
@@ -76,7 +85,6 @@ function hashtag() {
   document.querySelector('#write_hashtag').appendChild(span_ht)
   input_ht.before(span_ht)
   input_ht.value = ''
-  console.log(arr)
 }
 
 // 맨앞에 #붙이기

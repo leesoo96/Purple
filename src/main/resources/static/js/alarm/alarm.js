@@ -1,13 +1,11 @@
 readAlarm()
 getAlarm()
-getAlarmCount()
 
 function readAlarm() {
   fetchAjax(user_pk.value, 'get', '/alarm/readalarm/', (myJson) => {
       
   })
-  }
-
+}
 
 const alarmTable = document.querySelector('.alarmTable')
 function getAlarm() {

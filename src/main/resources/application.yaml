@@ -55,3 +55,4 @@ server:
     key-password: 'purple'
     trust-store: purpletrust
     trust-store-password: 'purple'
+#구글 로그인
