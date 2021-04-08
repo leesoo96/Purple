@@ -197,6 +197,8 @@ function nextImg(e) {
 function feedFavorite(e, feed_pk) {
   let favorite_state = 0
   const function_bar = e.parentNode
+  console.log(e.parentNode.parentNode)
+
   let favoriteI = function_bar.querySelector('.fa-heart')
   if (favoriteI.className === 'fas fa-heart') {
     favorite_state = 1
@@ -212,6 +214,7 @@ function feedFavorite(e, feed_pk) {
       favoriteI.className = 'far fa-heart'
     } else {
       favoriteI.className = 'fas fa-heart'
+      sendAlarm(2, feed_pk, e.parentNode.parentNode.querySelector('span').innerText)
     }
     favoriteI.innerHTML = myJson.result.favorite_count
   })

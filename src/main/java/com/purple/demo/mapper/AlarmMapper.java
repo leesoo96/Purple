@@ -12,4 +12,5 @@ public interface AlarmMapper {
 
     int getAlarmCount(int send_to);
     int readAlarm(int user_pk);
+    int insAlarm(AlarmDTO dto);
 }
