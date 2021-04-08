@@ -37,17 +37,7 @@ public class UserServiceImpl implements UserDetailsService {
 		return UserPrincipal.create(user);
 	}
 	
-	// oauth2
-	public UserDetails loadUserByUsername(String provider, String uid) throws UsernameNotFoundException {
-		UserEntity p = new UserEntity();
-		p.setProvider(provider);
-		p.setUser_id(uid);	
-		UserPrincipal ue = userMapper.loginUser(p);	
-		if(ue == null) {
-			return null;
-		}
-		return ue;
-	}
+
 
 	// oauth2
 	public UserDetails loadUserByUsername(String provider, String oauth_id) throws UsernameNotFoundException {

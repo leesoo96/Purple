@@ -166,13 +166,11 @@ public class principalOauth2UserService extends DefaultOAuth2UserService{
 			System.out.println("oAuth2UserInfo.getProvider()oAuth2UserInfo.getProvider()oAuth2UserInfo.getProvider():    " + oAuth2UserInfo.getProvider());
 			myUserService.join(userjoin);
 			 
-			userjoin = (UserPrincipal) myUserService.loadUserByUsername(oAuth2UserInfo.getProvider(),
-				oAuth2UserInfo.getId());
-			
-			return userjoin;
+
 		}
 		
-		return user;
+		return (UserPrincipal) myUserService.loadUserByUsername(oAuth2UserInfo.getProvider(),
+		oAuth2UserInfo.getId());
 	}
 
 
