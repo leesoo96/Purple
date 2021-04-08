@@ -62,7 +62,7 @@ id_chekBtn.addEventListener('click', () => {
 })
 
 function alertCheck() {
-  if(check_state === 1) {
+  if (check_state === 1) {
     alert('아이디 중복 검사를 다시 해주세요.')
     check_state = 0
     userModFrm.mod_id.focus()
@@ -145,7 +145,7 @@ saveBtn.addEventListener('click', () => {
       .then((myJson) => {
         if (myJson.result === 1) {
           alert('회원정보 수정이 완료되었습니다.')
-          location.href = `/logout`
+          location.href = `/duplLogin`
         } else {
           alert('회원정보 수정이 실패했습니다.')
           openCloseModal('#userMod_container', 'none')
@@ -159,7 +159,7 @@ const userPwModFrm = document.querySelector('form[name="userPwModFrm"]')
 //현재 비밀번호 검사
 function pw_check(user_pk, user_pw) {
   let isTrue = true
-  fetchAjax({user_pk, user_pw}, 'post', '/mypage/pw_check', (myJson) => {
+  fetchAjax({ user_pk, user_pw }, 'post', '/mypage/pw_check', (myJson) => {
     if (myJson.result !== 1) {
       alert('현재 비밀번호가 틀렸습니다. 다시 확인해 주세요')
       userPwModFrm.user_pw.value = ''
@@ -190,10 +190,10 @@ pwModBtn.addEventListener('click', () => {
   let user_pk = user_pkInput.value
   let user_pw = userPwModFrm.user_pw.value
   let mod_pw = userPwModFrm.mod_pw.value
-  
+
   if (!CheckPassword(mod_pw)) {
     mod_pw.focus()
-  return
+    return
   }
   if (!pw_check(user_pk, user_pw)) {
     return
@@ -210,10 +210,10 @@ pwModBtn.addEventListener('click', () => {
     mod_chkpw.focus()
     return
   }
-  fetchAjax({user_pk, user_pw}, 'post', '/mypage/mod_userpw', (myJson) => {
+  fetchAjax({ user_pk, user_pw }, 'post', '/mypage/mod_userpw', (myJson) => {
     if (myJson.result === 1) {
       alert('비밀번호가 변경 되었습니다.')
-      location.href = `/logout`
+      location.href = `/duplLogin`
       return
     }
   })
@@ -273,14 +273,15 @@ const feedEle = document.querySelector('#feed')
 // feed scroll
 const windowHeight = window.innerHeight // 현재 보이는 창 높이
 
-document.addEventListener('DOMContentLoaded', async function () { // HTML과 script가 로드된 시점에 발생하는 이벤트.
+document.addEventListener('DOMContentLoaded', async function () {
+  // HTML과 script가 로드된 시점에 발생하는 이벤트.
   await makeFeedAjax(1, page_count, '/mypage').then((myJson) => {
     makeFeed(myJson, feedEle)
   })
   page_count++
   await ajax()
   function ajax() {
-    if(document.body.scrollHeight <= windowHeight) {
+    if (document.body.scrollHeight <= windowHeight) {
       makeFeedAjax(1, page_count, '/mypage').then((myJson) => {
         makeFeed(myJson, feedEle)
       })

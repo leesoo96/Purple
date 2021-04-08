@@ -268,14 +268,6 @@ a {
   position: relative;
   left: 7em;
   cursor: pointer;
-  color: #8d8d8d;
-}
-
-.logout {
-  margin-left: 4em;
-  font-size: 1.2em;
-  margin-top: 0.3em;
-  cursor: pointer;
   color: #7901a1;
 }
 
