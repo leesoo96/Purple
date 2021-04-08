@@ -30,7 +30,7 @@ public interface UserMapper {
 	UserEntity compareId_email(UserEntity entity);
 
 //	클라이언트 로그인 시 state 값 1로 변경
-	int changeLoginState(String user_id);
+	int changeLoginState(int user_pk);
 //	로그아웃 시 state 리셋
-	int changeLogoutState(String user_id);
+	int changeLogoutState(int user_pk);
 }

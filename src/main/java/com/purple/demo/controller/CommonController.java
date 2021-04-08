@@ -53,7 +53,7 @@ public class CommonController {
 		System.out.println("oauthTypoauthTypoauthTypoauthTypoauthTyp: " + oauthTyp);
 		
 		UserPrincipal p = (UserPrincipal)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		userMapper.changeLogoutState(p.getUser_id()); // 로그아웃 상태로 전환
+		userMapper.changeLogoutState(p.getUser_pk()); // 로그아웃 상태로 전환
 		
 		switch (oauthTyp) {
 			case "kakao": 
@@ -85,7 +85,7 @@ public class CommonController {
 	@RequestMapping("/duplLogin")
 	public String duplLogin() {
 		UserPrincipal p = (UserPrincipal)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		userMapper.changeLoginState(p.getUser_id());
+		userMapper.changeLoginState(p.getUser_pk());
 
 		if(p.getUser_state() == 0) { // 로그인하기 전의 state 상태
 			return "redirect:feed"; // feed로 넘어갈때 state 값이 1로 변경됩니다.

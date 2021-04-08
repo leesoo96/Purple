@@ -154,7 +154,7 @@ public class principalOauth2UserService extends DefaultOAuth2UserService{
 		
 		UserPrincipal user = (UserPrincipal) myUserService.loadUserByUsername(oAuth2UserInfo.getProvider(),
 				oAuth2UserInfo.getId());
-				
+				System.out.println(user);
 		if (user == null ) { // insert
 			UserPrincipal userjoin = new UserPrincipal();
 			userjoin.setUser_id(oAuth2UserInfo.getId());
