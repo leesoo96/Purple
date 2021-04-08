@@ -5,6 +5,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import com.purple.demo.common.Utils;
 import com.purple.demo.config.AlarmSocketService;
+import com.purple.demo.mapper.AlarmMapper;
 import com.purple.demo.mapper.ChatMapper;
 import com.purple.demo.model.DTO.AlarmDTO;
 import com.purple.demo.model.DTO.MessageDTO;
@@ -24,6 +25,7 @@ import lombok.RequiredArgsConstructor;
 public class WebsocketHandler extends TextWebSocketHandler { 
 
     final ChatMapper chatMapper;
+    final AlarmMapper alarmMapper;
     final Utils utils;
     final AlarmSocketService socketService; // 로그인한 사용자들 
 
@@ -84,7 +86,7 @@ public class WebsocketHandler extends TextWebSocketHandler {
             alarmDTO.setAlarm_sendto(send_to_pk);
             alarmDTO.setAlarm_valuepk(Integer.parseInt(String.valueOf(json.get("alarm_valuepk"))));
             
-            chatMapper.insAlarm(alarmDTO);
+            alarmMapper.insAlarm(alarmDTO);
 
             json.replace("alarm_from", from);
             WebSocketSession wss = socketService.getSession(send_to);
