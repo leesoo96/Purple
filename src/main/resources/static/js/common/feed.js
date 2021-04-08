@@ -15,7 +15,7 @@ function makeFeed(myJson, cotainer) {
     page_count--
     return
   }
-
+  
   for (let i = 0; i < myJson.result.length; i++) {
     // feed_container 생성
     let feed_containerEle = document.createElement('div')

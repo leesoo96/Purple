@@ -104,6 +104,7 @@ public class FeedService {
                 }else {
                     hrel.setHtrel_hashtagpk(htentity.getHashtag_pk());
                 }
+                feedMapper.insHashtagRel(hrel);
             }
         }
     }
