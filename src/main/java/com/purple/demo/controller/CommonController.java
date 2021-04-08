@@ -50,7 +50,6 @@ public class CommonController {
 	public Map<String, Object> oauth2_typ(UserEntity entity) {
 		Map<String, Object> oauth2_typ = new HashMap<String, Object>();
 		String oauthTyp = commonService.oauth2_typ(entity).getOauth_typ();
-		System.out.println("oauthTypoauthTypoauthTypoauthTypoauthTyp: " + oauthTyp);
 		
 		UserPrincipal p = (UserPrincipal)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		userMapper.changeLogoutState(p.getUser_pk()); // 로그아웃 상태로 전환
@@ -80,7 +79,13 @@ public class CommonController {
 		}
 		return oauth2_typ;
 	}
-			
+	
+	@RequestMapping("/sessionLogout")
+	public void sessionLogout() {
+		UserPrincipal p = (UserPrincipal)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		userMapper.changeLogoutState(p.getUser_pk()); // 로그아웃 상태로 전환
+	}
+
 
 	@RequestMapping("/duplLogin")
 	public String duplLogin() {

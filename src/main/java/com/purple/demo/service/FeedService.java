@@ -92,7 +92,6 @@ public class FeedService {
         // 해시 태그
         if(dto.getHashtag() != null) {
             for(int i = 0; i < dto.getHashtag().size(); i++){
-                System.out.println(dto.getHashtag().get(i));
                 HashtagRelationEntity hrel = new HashtagRelationEntity();
                 HashtagEntity htentity = new HashtagEntity();
                 htentity.setHashtag_ctnt((String)dto.getHashtag().get(i));
@@ -157,7 +156,6 @@ public class FeedService {
 
     public int insComment(CommentWriteDTO dto) {
         UserPrincipal principal = (UserPrincipal)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        System.out.println(principal.getUser_pk());
         dto.setComment_userpk(principal.getUser_pk());
         dto.setComment_state(1);
         feedMapper.insComment(dto);
