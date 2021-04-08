@@ -452,7 +452,7 @@ function getRecFriend_List(myJson) {
           fetchAjax(
             addFriendParam,
             'post',
-            '/layout/addNewFriend',
+            '/friend/addNewFriend',
             (addFriend) => {
               if (addFriend.result == 0) {
                 alert('친구 추가에 실패하였습니다.')

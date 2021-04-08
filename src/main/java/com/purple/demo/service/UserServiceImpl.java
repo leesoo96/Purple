@@ -56,6 +56,7 @@ public class UserServiceImpl implements UserDetailsService {
 	public int join(UserEntity entity) {
 		if(entity.getUser_pw() != null && !"".equals(entity.getUser_pw())) {
 			entity.setUser_pw(encoder.encode(entity.getUser_pw()));
+			entity.setOauth_typ("purple");
 		}
 		return userMapper.joinUser(entity);
 	}

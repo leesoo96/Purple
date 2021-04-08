@@ -27,13 +27,10 @@ public class WebsocketHandler extends TextWebSocketHandler {
     final Utils utils;
     final AlarmSocketService socketService; // 로그인한 사용자들 
 
-    // 로그인한 사용자들 
-    private Map<String, WebSocketSession> users = new ConcurrentHashMap<>();
-
     // 클라이언트가 접속했을 때 호출
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-        users.put(session.getId(),session);
+        
     }
 
     // 데이터 전송 시 호출
@@ -102,7 +99,6 @@ public class WebsocketHandler extends TextWebSocketHandler {
     // 클라이언트 접속이 종료되었을 때 호출
     @Override
     public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
-        users.remove(session.getId());
         socketService.removeSession(session);
         
         super.afterConnectionClosed(session, status);
