@@ -6,6 +6,7 @@ const registerFrmEle = document.querySelector('#registerFrm')
 const btn_wrapEle = document.querySelector('#btn-wrap')
 const togglebtn_span = document.querySelectorAll('.togglebtn span')
 const errMSG = document.querySelector('#errMSG')
+const oauth_button = document.querySelector('#oauth2button')
 let findpw_open = document.querySelector('.findpw_btn')
 
 function login() {
@@ -15,6 +16,7 @@ function login() {
   registerFrmEle.style.left = '480px'
   btn_wrapEle.style.left = '0'
   findpw_open.style.left = '15.9em'
+  oauth_button.style.left = '0'
 }
 
 function register() {
@@ -24,6 +26,7 @@ function register() {
   registerFrmEle.style.left = '50px'
   btn_wrapEle.style.left = '147px'
   findpw_open.style.left = '-6.1em'
+  oauth_button.style.left = '-400px'
   errMSG.style.left = '-400px'
 }
 

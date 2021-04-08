@@ -41,13 +41,10 @@
         	<input type="submit" id="login_Btn" class="input_submit" value="로그인">
         	<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }">
 			
-			<!--소셜 로그인-->
-			<div><a href='/oauth2/authorization/google'>google</a></div>
-			<div><a href='/oauth2/authorization/facebook'>facebook</a></div>
-			<div><a href='/oauth2/authorization/naver'>naver</a></div>
-			<div class="kakaoButton"><a href='/oauth2/authorization/kakao'><img src="resources/img/common/kakaoLogin.png" alt="카카오로그인"></a></div>
+			
      	</form>
 
+	
 		<!-- 비밀번호 찾기 -->
 		<div id="findpw">
 			<span class="findpw_btn">비밀번호 찾기</span>
@@ -89,6 +86,15 @@
       		<input type="date" name="user_birth" class="input-field" data-placeholder="생년월일을 선택해주세요" required>
       		<input type="button" id="join_btn" class="input_submit" value="회원가입">
     	</form>
+
+			<!--소셜 로그인-->
+		<div id="oauth2button">
+			<a href='/oauth2/authorization/google'><img class="oauth_img" src="resources/img/common/google.jpg" alt="구글로그인"></a>
+			<a href='/oauth2/authorization/facebook'><img class="oauth_img" src="resources/img/common/facebook.jpg" alt="페이스북로그인"></a>
+			<a href='/oauth2/authorization/naver'><img class="oauth_img" src="resources/img/common/naver.png" alt="네이버로그인"></a>
+			<a href='/oauth2/authorization/kakao'><img class="oauth_img" src="resources/img/common/kakao.jpg" alt="카카오로그인"></a>
+		</div>
+
   	</div>
 </body>
 </html>

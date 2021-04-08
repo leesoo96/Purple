@@ -19,7 +19,7 @@
   	<div id="write_container">
 	  	<button id="write_btn" onclick="off()"><img src="/resources/img/common/close_icon.png"></button>
 	  	<div id="write_title">Upload Post</div>
-	  		<form id="write_content" action="/feed/feed_write" method="post" enctype="multipart/form-data" onkeydown ="return keyEnter(event)">
+	  		<form id="write_content" action="/feed/feed_write" method="post" enctype="multipart/form-data" onsubmit="return checkNull()" onkeydown="return keyEnter(event)">
           <div class='write_preview' >
             <div id="add_image">사진을 추가해 주세요</div>
             <!-- 미리보기 공간 -->  	
@@ -31,7 +31,7 @@
             <input type="text" onkeyup="enterkey();" name = "hashtag_ctnt" class="text_hashtag" placeholder="#해시태그(최대10개)"  />
           </div>
           <input id="submit_btn" type="submit" value="upload">   
-	      </form>        
+	      </form>
   	</div>
   </div>
 

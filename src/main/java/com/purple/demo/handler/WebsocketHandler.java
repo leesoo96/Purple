@@ -5,6 +5,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import com.purple.demo.common.Utils;
 import com.purple.demo.config.AlarmSocketService;
+import com.purple.demo.mapper.AlarmMapper;
 import com.purple.demo.mapper.ChatMapper;
 import com.purple.demo.model.DTO.AlarmDTO;
 import com.purple.demo.model.DTO.MessageDTO;
@@ -24,16 +25,14 @@ import lombok.RequiredArgsConstructor;
 public class WebsocketHandler extends TextWebSocketHandler { 
 
     final ChatMapper chatMapper;
+    final AlarmMapper alarmMapper;
     final Utils utils;
     final AlarmSocketService socketService; // 로그인한 사용자들 
-
-    // 로그인한 사용자들 
-    private Map<String, WebSocketSession> users = new ConcurrentHashMap<>();
 
     // 클라이언트가 접속했을 때 호출
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-        users.put(session.getId(),session);
+        
     }
 
     // 데이터 전송 시 호출
@@ -87,7 +86,7 @@ public class WebsocketHandler extends TextWebSocketHandler {
             alarmDTO.setAlarm_sendto(send_to_pk);
             alarmDTO.setAlarm_valuepk(Integer.parseInt(String.valueOf(json.get("alarm_valuepk"))));
             
-            chatMapper.insAlarm(alarmDTO);
+            alarmMapper.insAlarm(alarmDTO);
 
             json.replace("alarm_from", from);
             WebSocketSession wss = socketService.getSession(send_to);
@@ -102,7 +101,6 @@ public class WebsocketHandler extends TextWebSocketHandler {
     // 클라이언트 접속이 종료되었을 때 호출
     @Override
     public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
-        users.remove(session.getId());
         socketService.removeSession(session);
         
         super.afterConnectionClosed(session, status);

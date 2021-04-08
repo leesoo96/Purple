@@ -71,7 +71,7 @@
             
             <p>${userInfo.user_name }</p>
             <a href="/mypage">마이페이지</a>
-            <div class="logout">로그아웃</div>
+            <div class="logout"><p>로그아웃</p></div>
           </div>
           
         </div> <!-- menus -->
