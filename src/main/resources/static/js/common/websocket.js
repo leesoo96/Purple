@@ -3,7 +3,7 @@
 let socket
 
 if (typeof socket == 'undefined') {
-  socket = new WebSocket('ws://' + location.hostname + ':8090/socket')
+  socket = new WebSocket('ws://' + location.hostname + '/socket')
   socket.onopen = function () {
     let createSocketParam = {
       user_id: document.querySelector('#temp_user').innerText,
