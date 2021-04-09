@@ -11,7 +11,7 @@
 
   <div id="footer">
     <div id="footer_content">
-      <a href="https://github.com/leesoojin961202/Purple">
+      <a href="https://github.com/leesoojin961202/Purple" target="_blank">
         <img src="/resources/img/common/github.png" alt="깃허브">
       </a>
     </div>
