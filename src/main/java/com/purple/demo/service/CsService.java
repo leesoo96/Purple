@@ -89,7 +89,10 @@ public class CsService {
 		String folder = "/images/notice/" + user_pk + "/" + notice_pk;
 		try {
 			// 삭제
-			fUtils.delFolder(fUtils.getRealPath(folder));
+			if (img != null) {
+				fUtils.delFolder(fUtils.getRealPath(folder));
+			}
+			
 			
 			String fileNm = fUtils.transferTo(img, folder);
 
@@ -189,7 +192,9 @@ public class CsService {
 		// 업로드 할 파일 경로
 		String folder = "/images/question/" + user_pk + "/" + question_pk;
 		try {
-			fUtils.delFolder(fUtils.getRealPath(folder));
+			if (img != null) {
+				fUtils.delFolder(fUtils.getRealPath(folder));
+			}
 			String fileNm = fUtils.transferTo(img, folder);
 			String DbFileName = folder + "/" + fileNm;
 

@@ -49,10 +49,6 @@ server:
     max-file-size: 100MB
     max-request-size: 500MB
 
-  servlet:
-    session:
-      timeout: 61s
-
   ssl:
     enabled: true
     key-alias: purplestore

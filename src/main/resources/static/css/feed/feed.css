@@ -59,19 +59,17 @@
   border-radius: 1em;
   background-color: white;
 }
-.feedMenu li:hover{
+.feedMenu li:hover {
   color: #ad00e2;
 }
 .feedLi {
-  left:0;
+  left: 0;
   margin-bottom: 1em;
 }
-
 
 .fa-heart {
   color: red;
 }
-
 
 .leftposition {
   width: 4em;
@@ -96,12 +94,12 @@
 }
 
 .feed_content a {
-  font-size: 1.0em;
+  font-size: 1em;
   margin-right: 0.4em;
 }
 
-.feed_content a:hover{
-  color:#ad00e2
+.feed_content a:hover {
+  color: #ad00e2;
 }
 
 .feed_content p {
@@ -118,14 +116,13 @@
   margin-bottom: 0.5em;
   margin-left: 1em;
 }
-.feed_functionbar i{
+.feed_functionbar i {
   width: 1em;
   font-size: 2em;
   cursor: pointer;
   margin-left: 0.1em;
   margin-right: 1em;
 }
-
 
 .feed_img {
   min-height: 10em;
