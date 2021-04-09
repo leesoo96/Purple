@@ -6,7 +6,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ChatRoomDTO extends ChatroomEntity {
-    
     private String user_id;
     private String user_profileimg;
     private String last_message;

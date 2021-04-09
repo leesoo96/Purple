@@ -37,8 +37,6 @@ public class UserServiceImpl implements UserDetailsService {
 		return UserPrincipal.create(user);
 	}
 	
-
-
 	// oauth2
 	public UserDetails loadUserByUsername(String provider, String oauth_id) throws UsernameNotFoundException {
 		UserEntity entity = new UserEntity();
@@ -51,7 +49,6 @@ public class UserServiceImpl implements UserDetailsService {
 		return UserPrincipal.create(user);
 	}
 	
-
 	// 회원가입
 	public int join(UserEntity entity) {
 		if(entity.getUser_pw() != null && !"".equals(entity.getUser_pw())) {

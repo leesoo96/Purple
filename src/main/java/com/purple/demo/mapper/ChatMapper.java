@@ -9,7 +9,6 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface ChatMapper {
-
     // 채팅방
     String getRoom(ChatRoomDTO dto);
     int createRoom(ChatRoomDTO dto);

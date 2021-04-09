@@ -12,7 +12,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 // loadUserByUsername 메소드가 userDetails를 리턴
 
@@ -23,9 +22,9 @@ public class UserPrincipal extends UserEntity implements Principal, UserDetails,
 
 	private Map<String, Object> attributes;
 
-
 	//생성자가 필요해서 만들어놓았음
 	public UserPrincipal() {
+
 	}
 	
 	public UserPrincipal(UserEntity user) {
@@ -77,19 +76,19 @@ public class UserPrincipal extends UserEntity implements Principal, UserDetails,
 	   return this.getUser_id();
 	}
 	
-	// 유저계정이 만료안했으면 true
+	// 유저계정이 만료안했으면, true
 	@Override
 	public boolean isAccountNonExpired() {
 	   return true;
 	}
 
-	// 유저계정이 안잠겨있으면 true
+	// 유저계정이 안잠겨있으면, true
 	@Override
 	public boolean isAccountNonLocked() {
 		return true;
 	}
 	
- 	// 유저계정의 비밀번호를 오래사용한것이 아니면 true
+ 	// 유저계정의 비밀번호를 오래사용한것이 아니면, true
 	@Override
 	public boolean isCredentialsNonExpired() {
 	   return true;

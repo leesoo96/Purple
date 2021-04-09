@@ -1,3 +1,5 @@
+'use strict'
+
 let search_contentEle = document.querySelector('.search-form')
 const search_content = document.querySelector('.search_content')
 const search_input = document.querySelector('.search-input')
@@ -49,12 +51,14 @@ function userSearchClick() {
   search_content.innerHTML = ''
   page_count = 0
 }
+
 function feedSearchClick() {
   search_content.querySelectorAll('*').forEach((test) => test.remove())
   form.search_input.value = ''
   search_content.innerHTML = ''
   page_count = 0
 }
+
 function hashtagSearchClick() {
   search_content.querySelectorAll('*').forEach((test) => test.remove())
   form.search_input.value = '#'
