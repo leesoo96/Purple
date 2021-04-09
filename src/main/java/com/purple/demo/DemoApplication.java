@@ -14,6 +14,7 @@ public class DemoApplication {
 		SpringApplication.run(DemoApplication.class, args);
 	}
 
+/* SSL 적용 시 (SSL port : 8090)
 	@Bean
 	public ServletWebServerFactory serverFactory() {
         TomcatServletWebServerFactory tomcatServletWebServerFactory
@@ -31,4 +32,5 @@ public class DemoApplication {
 
         return connector;
     }
+*/
 }

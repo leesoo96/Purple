@@ -7,6 +7,7 @@ import java.nio.file.Paths;
 import java.util.UUID;
 
 import org.apache.commons.io.FileUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.multipart.MultipartFile;
@@ -18,6 +19,9 @@ import lombok.RequiredArgsConstructor;
 public class PurpleFileUtils {
 	
 	final WebApplicationContext webApplicationContext;
+	
+	@Value("${spring.servlet.multipart.location}")
+	private String uploadImgPath;
 
 	// 폴더 만들기
 	public void makeFolders(String path) {
@@ -71,9 +75,7 @@ public class PurpleFileUtils {
 	
 	// 스프링이 돌아가고 있는 절대주소값에 path값을 붙여서 가져오기
 	public String getRealPath(String path) {
-		Path uploadPath = Paths.get("." + path);
-		
-		return uploadPath.toFile().getAbsolutePath();
+		return uploadImgPath + path;
 	}
 	
 	public String getRandomFileNm() {

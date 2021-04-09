@@ -3,9 +3,8 @@
 let socket
 
 if (typeof socket == 'undefined') {
-  socket = new WebSocket('ws://' + location.hostname + ':8091/socket')
+  socket = new WebSocket('ws://' + location.hostname + ':8090/socket')
   socket.onopen = function () {
-    console.log('웹소켓 서버 가동')
     let createSocketParam = {
       user_id: document.querySelector('#temp_user').innerText,
       type: 'CREATE',
@@ -52,14 +51,14 @@ if (typeof socket == 'undefined') {
 }
 
 function sendAlarm(alarm_category, alarm_valuepk, alarm_sendto) {
-    let params = {
-      alarm_from: user_pk.value,
-      alarm_sendto,
-      alarm_category,
-      alarm_valuepk,
-      type: 'ALARM',
-    }
-    socket.send(JSON.stringify(params))
+  let params = {
+    alarm_from: user_pk.value,
+    alarm_sendto,
+    alarm_category,
+    alarm_valuepk,
+    type: 'ALARM',
+  }
+  socket.send(JSON.stringify(params))
 }
 
 // 서버로 값을 보낼 때
@@ -68,13 +67,13 @@ const sendInput = document.querySelector('input[name="msg_input"]')
 const send_id = document.querySelector('#chat_friendName')
 
 sendChatBtn.addEventListener('click', () => {
-  if(sendInput.value === '') {
+  if (sendInput.value === '') {
     return
   }
   sendChat()
   goToBottom()
 })
-  
+
 function sendChat() {
   const room_id = document.querySelector('.room_id')
   let params = {
@@ -105,10 +104,10 @@ function sendChat() {
 }
 
 function enterKey(event) {
-  if(event.keyCode === 13) {
-    if(sendInput.value === '') {
+  if (event.keyCode === 13) {
+    if (sendInput.value === '') {
       return false
-    }else {
+    } else {
       sendChat()
       goToBottom()
       return true
