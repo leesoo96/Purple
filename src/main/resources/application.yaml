@@ -9,6 +9,12 @@ spring:
       prefix: /WEB-INF/views/
       suffix: .jsp
 
+  servlet:
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 50MB
+      location: /home/purple
+
   #jdbc 설정
   datasource:
     url: jdbc:mysql://localhost:3306/purple?autoReconnect=true
@@ -45,10 +51,6 @@ mybatis:
 #Tomcat
 server:
   port: 8090
-  multipart:
-    max-file-size: 100MB
-    max-request-size: 500MB
-    location: /home/purple
 
   # ssl 적용
   # ssl:
