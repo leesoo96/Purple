@@ -156,7 +156,6 @@ public class principalOauth2UserService extends DefaultOAuth2UserService{
 			UserPrincipal userjoin = new UserPrincipal();
 			userjoin.setUser_id(oAuth2UserInfo.getId());
 			userjoin.setUser_email(oAuth2UserInfo.getEmail());
-			// p.setUser_profileimg(oAuth2UserInfo.getImageUrl());
 			userjoin.setUser_name(oAuth2UserInfo.getName());
 			userjoin.setUser_auth("ROLE_USER");
 			userjoin.setOauth_id(oAuth2UserInfo.getId());

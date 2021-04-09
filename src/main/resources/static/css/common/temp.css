@@ -170,6 +170,11 @@ a {
   height: 4em;
 }
 #temp_user p {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 130px;
+  height: 20px;
   color: #7901a1;
   padding-top: 1.2em;
   font-size: 1.1rem;
