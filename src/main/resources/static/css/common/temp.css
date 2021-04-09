@@ -266,6 +266,7 @@ a {
   font-size: 1.1rem;
   color: #9c9c9c;
 }
+
 .logout {
   border-top: 2px solid rgb(230, 230, 230);
 }
@@ -355,7 +356,7 @@ a {
 }
 #recommand_div span {
   font-size: 1.25rem;
-  margin-left: 1em;
+  margin-left: 3em;
 }
 
 /* footer */
