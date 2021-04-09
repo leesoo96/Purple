@@ -1,12 +1,4 @@
 'use strict'
-window.onbeforeunload = function (e) {
-  location.href = ''
-  e = e || window.event
-  if (e) {
-    e.returnValue = '페이지를 닫습니다.'
-  }
-  return '페이지를 닫습니다.'
-}
 
 document.addEventListener('DOMContentLoaded', () => {
   dm_view()
