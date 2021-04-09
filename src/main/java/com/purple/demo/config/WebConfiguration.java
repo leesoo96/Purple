@@ -10,7 +10,7 @@ import org.springframework.web.servlet.resource.PathResourceResolver;
 public class WebConfiguration implements WebMvcConfigurer {
 
 	@Value("${spring.servlet.multipart.location}") 
-   private String uploadImagePath;
+    private String uploadImagePath;
 
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {	
@@ -20,6 +20,5 @@ public class WebConfiguration implements WebMvcConfigurer {
 				.setCachePeriod(3600)
 				.resourceChain(true)
 				.addResolver(new PathResourceResolver());
-
 	}	
 }

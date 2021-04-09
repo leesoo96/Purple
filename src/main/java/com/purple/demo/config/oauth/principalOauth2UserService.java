@@ -5,7 +5,6 @@ import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 
-import com.nimbusds.oauth2.sdk.OAuth2Error;
 import com.purple.demo.model.UserPrincipal;
 import com.purple.demo.model.security.OAuth2UserInfo;
 import com.purple.demo.model.security.OAuth2UserInfoFactory;
@@ -27,17 +26,13 @@ import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequestEntityConverter;
 import org.springframework.security.oauth2.core.OAuth2AccessToken;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
-import org.springframework.security.oauth2.core.OAuth2AuthorizationException;
 import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.oauth2.core.user.OAuth2UserAuthority;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
-import org.springframework.util.StringUtils;
-import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestOperations;
 import org.springframework.web.client.RestTemplate;
-
 
 @Component
 public class principalOauth2UserService extends DefaultOAuth2UserService{
@@ -46,6 +41,7 @@ public class principalOauth2UserService extends DefaultOAuth2UserService{
 	private static final String INVALID_USER_INFO_RESPONSE_ERROR_CODE = "invalid_user_info_response";
 
     private static final ParameterizedTypeReference<Map<String, Object>> PARAMETERIZED_RESPONSE_TYPE = new ParameterizedTypeReference<Map<String, Object>>() {
+		
 	};
 
 	private Converter<OAuth2UserRequest, RequestEntity<?>> requestEntityConverter = new OAuth2UserRequestEntityConverter();
@@ -60,7 +56,7 @@ public class principalOauth2UserService extends DefaultOAuth2UserService{
 		this.restOperations = restTemplate;
 	}
     
-    //구글로부터 받은 userRequest 데이터 후처리 돠는 함수
+    // 구글로부터 받은 userRequest 데이터 후처리 돠는 함수
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest)throws OAuth2AuthenticationException{
 
@@ -70,7 +66,7 @@ public class principalOauth2UserService extends DefaultOAuth2UserService{
             throw new IllegalArgumentException("userRequest cannot be null");
         }*/  
 
-        //끝점
+        // 끝점
         UserInfoEndpoint uiep = userRequest.getClientRegistration().getProviderDetails().getUserInfoEndpoint();
        
         String uri = uiep.getUri();  //url
@@ -118,7 +114,7 @@ public class principalOauth2UserService extends DefaultOAuth2UserService{
 			throw new OAuth2AuthenticationException(oauth2Error, oauth2Error.toString(), ex);
 		}*/
 
-        Map<String, Object> userAttributes = getUserAttributes(response);  //OAuth2UserService를 통해 가져온 OAuth2User의 attribute를 담을 클래스입니다. 
+        Map<String, Object> userAttributes = getUserAttributes(response);  // OAuth2UserService를 통해 가져온 OAuth2User의 attribute를 담을 클래스입니다. 
 		Set<GrantedAuthority> authorities = new LinkedHashSet<>();
 		authorities.add(new OAuth2UserAuthority(userAttributes));
 		OAuth2AccessToken token = userRequest.getAccessToken();
@@ -139,7 +135,7 @@ public class principalOauth2UserService extends DefaultOAuth2UserService{
         }
     }
     
-    //커스터마이징 할 수 있는 부분
+    // 커스터마이징 할 수 있는 부분
 	private OAuth2User processOAuth2User(OAuth2UserRequest oAuth2UserRequest, OAuth2User oAuth2User) {
 		OAuth2UserInfo oAuth2UserInfo = OAuth2UserInfoFactory.getOAuth2UserInfo(
 				oAuth2UserRequest.getClientRegistration().getRegistrationId(), oAuth2User.getAttributes());
@@ -161,14 +157,11 @@ public class principalOauth2UserService extends DefaultOAuth2UserService{
 			userjoin.setOauth_id(oAuth2UserInfo.getId());
 			userjoin.setOauth_typ(oAuth2UserInfo.getProvider());
 			myUserService.join(userjoin);
-			 
-
 		}
 		
 		return (UserPrincipal) myUserService.loadUserByUsername(oAuth2UserInfo.getProvider(),
 		oAuth2UserInfo.getId());
 	}
-
 
     private Map<String, Object> getUserAttributes(ResponseEntity<Map<String, Object>> response) {
 		Map<String, Object> userAttributes = response.getBody();
@@ -176,7 +169,7 @@ public class principalOauth2UserService extends DefaultOAuth2UserService{
 			LinkedHashMap responseData = (LinkedHashMap) userAttributes.get("response");
 			userAttributes.putAll(responseData);
 			userAttributes.remove("response");
-		} else if(userAttributes.containsKey("properties")) { //카카오는 properties 안에 nickname값이 포함되어 있음
+		} else if(userAttributes.containsKey("properties")) { // 카카오는 properties 안에 nickname값이 포함되어 있음
 			LinkedHashMap propertiesData = (LinkedHashMap) userAttributes.get("properties");
 			userAttributes.putAll(propertiesData);
 			userAttributes.remove("properties");
