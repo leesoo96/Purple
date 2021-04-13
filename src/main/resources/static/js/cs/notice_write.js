@@ -40,6 +40,7 @@ function notice_write_submit_btn() {
   noticeUpd()
 }
 
+//공지사항 글 등록
 function noticeReg() {
   Regajax().then((notice_pk) => {
     if (notice_img) {
@@ -49,12 +50,12 @@ function noticeReg() {
   })
 }
 
+// 재목과 내용과 insert 후 글 pk 값을 반환
 function Regajax() {
   return new Promise(function (resolve) {
     let param = {
       notice_title: notice_write_form.notice_title.value,
       notice_ctnt: notice_write_form.notice_ctnt.value,
-      notice_userpk: document.querySelector('#user_pk').value,
     }
     fetchAjax(param, 'post', '/notice_write', (myJson) => {
       resolve(myJson.result)
@@ -62,7 +63,8 @@ function Regajax() {
   })
 }
 
-async function RegajaxImg(notice_pk) {
+//이미지 업로드와 이미지 경로 insert
+function RegajaxImg(notice_pk) {
   var formData = new FormData()
   formData.append('img', notice_img.files[0])
   formData.append('notice_pk', notice_pk)
@@ -74,19 +76,13 @@ async function RegajaxImg(notice_pk) {
     .then((myJson) => {})
 }
 
-//공지사항 수정
-function noticeUpd() {
-  Updajax().then(() => {
-    location.href = `/notice`
-  })
-}
-async function Updajax() {
-  let img = await UpdajaxImg()
+//제목과 내용과 이미지 경로 수정
+async function noticeUpd() {
+  await UpdajaxImg()
   let param = {
     notice_title: notice_write_form.notice_title.value,
     notice_ctnt: notice_write_form.notice_ctnt.value,
     notice_pk: notice_write_form.notice_pk.value,
-    notice_img: img,
   }
 
   fetch('/notice_upd', {
@@ -97,20 +93,20 @@ async function Updajax() {
     body: JSON.stringify(param),
   })
     .then((res) => res.json())
-    .then(function (myJson) {})
-}
-function UpdajaxImg() {
-  return new Promise(function (resolve) {
-    var formData = new FormData()
-    formData.append('img', notice_img.files[0])
-    formData.append('notice_pk', notice_write_form.notice_pk.value)
-    fetch('/notice_img', {
-      method: 'post',
-      body: formData,
+    .then(function (myJson) {
+      location.href = `/notice`
     })
-      .then((res) => res.json())
-      .then((myJson) => {
-        resolve(myJson.result)
-      })
+}
+
+//이미지 업로드 후 경로 반환
+function UpdajaxImg() {
+  var formData = new FormData()
+  formData.append('img', notice_img.files[0])
+  formData.append('notice_pk', notice_write_form.notice_pk.value)
+  fetch('/notice_img', {
+    method: 'post',
+    body: formData,
   })
+    .then((res) => res.json())
+    .then((myJson) => {})
 }

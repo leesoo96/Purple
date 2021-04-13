@@ -39,8 +39,10 @@ public class UserServiceImpl implements UserDetailsService {
 	
 
 
-	// oauth2
-	public UserDetails loadUserByUsername(String provider, String oauth_id) throws UsernameNotFoundException {
+	// oauth2 DB로부터 회원정보를 가져와서 존재하는 회원인지 아닌지를 체크하는 주요메소드 
+	public UserDetails loadUserByUsername(String provider, String oauth_id) 
+		throws UsernameNotFoundException {
+			
 		UserEntity entity = new UserEntity();
 		entity.setUser_provider(provider);
 		entity.setOauth_id(oauth_id);	

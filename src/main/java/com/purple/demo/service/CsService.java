@@ -25,6 +25,8 @@ public class CsService {
 	@Autowired
 	private PurpleFileUtils fUtils;
 
+
+
 	public NoticeDomain selNoticeList(NoticeDTO dto){
 		if(dto.getRecordCntPerPage() == 0) {
 			dto.setRecordCntPerPage(10);
@@ -72,14 +74,20 @@ public class CsService {
 		return nd;
 	}
 	
+	//공지사항 
 	public NoticeEntity selNotice(NoticeEntity entity) {
 		return csMapper.selNotice(entity);
 	}
 
+	//공지사항 글등록
 	public int regNotice(NoticeEntity entity) {
+		UserPrincipal principal = (UserPrincipal)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		int user_pk = principal.getUser_pk();
+		entity.setNotice_userpk(user_pk);
 		return csMapper.regNotice(entity);
 	}
 
+	//공지사항 이미지
 	public String notice_img(MultipartFile img, int notice_pk) {
 		// 유저 pk 값
 		UserPrincipal principal = (UserPrincipal)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -87,12 +95,13 @@ public class CsService {
 		
 		// 업로드 할 파일 경로
 		String folder = "/images/notice/" + user_pk + "/" + notice_pk;
+		
 		try {
+
 			// 삭제
 			if (img != null) {
 				fUtils.delFolder(fUtils.getRealPath(folder));
 			}
-			
 			
 			String fileNm = fUtils.transferTo(img, folder);
 
@@ -110,17 +119,20 @@ public class CsService {
 		}	
 	}
 	
+	//공지사항 수정
 	public int notice_upd(NoticeEntity entity) {
 		return csMapper.notice_upd(entity);
 	}
 	
+	//공지사항 조회수
 	public int updNoticevieView(NoticeEntity entity) {
 		return csMapper.updNoticevieView(entity);
 	}
 	
+	//공지사항 삭제
 	public int Notice_del(NoticeEntity entity) {
 		UserPrincipal principal = (UserPrincipal)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		int user_pk = principal.getUser_pk(); 
+		int user_pk = principal.getUser_pk();
 		
 		String folder = "/images/notice/" + user_pk + "/" + entity.getNotice_pk();
 		fUtils.delFolder(fUtils.getRealPath(folder));
@@ -176,14 +188,25 @@ public class CsService {
 		return nd;
 	}
 	
+	//문의사항 정보
 	public QuestionEntity selQuestion(QuestionEntity entity) {
 		return csMapper.selQuestion(entity);
 	}
 	
+	//문의사항 글 등록
 	public int regQuestion(QuestionEntity entity) {
+		UserPrincipal principal = (UserPrincipal)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		int user_pk = principal.getUser_pk();  
+		entity.setQuestion_userpk(user_pk);
 		return csMapper.regQuestion(entity);
 	}
+	
+	//문의사항 댓글 등록
+	public int question_cmt_reg(AnswerEntity entity){
+		return csMapper.question_cmt_reg(entity);
+	}
 
+	//문의사항 이미지
 	public String question_img(MultipartFile img, int question_pk) {
 		// 유저 pk 값
 		UserPrincipal principal = (UserPrincipal)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -210,14 +233,17 @@ public class CsService {
 		}
 	}
 	
+	//문의사항 수정
 	public int question_upd(QuestionEntity entity) {
 		return csMapper.question_upd(entity);
 	}
 
+	//문의사항 조회수
 	public int updQuestionView(QuestionEntity entity) {
 		return csMapper.updQuestionView(entity);
 	}
 	
+	//문의사항 글 삭제
 	public int question_del(QuestionEntity entity) {
 		UserPrincipal principal = (UserPrincipal)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		int user_pk = principal.getUser_pk(); 
@@ -228,10 +254,7 @@ public class CsService {
 		return csMapper.question_del(entity);
 	}
 
-	public int question_cmt_reg(AnswerEntity entity){
-		return csMapper.question_cmt_reg(entity);
-	}
-
+	//문의사항 댓글 삭제
 	public int answer_del(AnswerEntity entity){
 		return csMapper.answer_del(entity);
 	}

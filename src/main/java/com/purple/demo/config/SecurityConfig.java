@@ -114,6 +114,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
          new HttpSessionEventPublisher());
    }
    
+   //facebook, kakao, google의 인증 정보들이 메모리상에 상주하게끔 설정
    @Bean
       public ClientRegistrationRepository clientRegistrationRepository(OAuth2ClientProperties oAuth2ClientProperties,
             @Value("${custom.oauth2.kakao.client-id}") String kakaoClientId,

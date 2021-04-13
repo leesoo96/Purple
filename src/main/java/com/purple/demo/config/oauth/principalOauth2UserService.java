@@ -70,7 +70,7 @@ public class principalOauth2UserService extends DefaultOAuth2UserService{
             throw new IllegalArgumentException("userRequest cannot be null");
         }*/  
 
-        //끝점
+        //끝점, 사용자에 대한 ID 정보를 검색하는 데 사용
         UserInfoEndpoint uiep = userRequest.getClientRegistration().getProviderDetails().getUserInfoEndpoint();
        
         String uri = uiep.getUri();  //url
@@ -123,6 +123,7 @@ public class principalOauth2UserService extends DefaultOAuth2UserService{
 		authorities.add(new OAuth2UserAuthority(userAttributes));
 		OAuth2AccessToken token = userRequest.getAccessToken();
 		for (String authority : token.getScopes()) {
+			
 			authorities.add(new SimpleGrantedAuthority("SCOPE_" + authority));
         }
 
@@ -161,8 +162,6 @@ public class principalOauth2UserService extends DefaultOAuth2UserService{
 			userjoin.setOauth_id(oAuth2UserInfo.getId());
 			userjoin.setOauth_typ(oAuth2UserInfo.getProvider());
 			myUserService.join(userjoin);
-			 
-
 		}
 		
 		return (UserPrincipal) myUserService.loadUserByUsername(oAuth2UserInfo.getProvider(),

@@ -1,6 +1,6 @@
-let kakaoButton = document.querySelector('.logout')
+let logoutButton = document.querySelector('.logout')
 
-kakaoButton.addEventListener('click', function () {
+logoutButton.addEventListener('click', function () {
   fetch(`/oauth2Typ`)
     .then((res) => res.json())
     .then((myJson) => {
