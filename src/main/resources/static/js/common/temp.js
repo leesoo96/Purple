@@ -391,7 +391,7 @@ function getRecommandFriendListFunc() {
   let param = {
     user_pk: user_pk.value,
   }
-  fetch('/friend/recommandFriend', {
+  fetch('/friend/recommand', {
     method : 'post',
     headers : {
       'Content-Type': 'application/json',
