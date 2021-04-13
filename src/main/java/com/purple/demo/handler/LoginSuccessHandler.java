@@ -23,19 +23,19 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler{
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 			Authentication authentication) throws IOException, ServletException {
 
-		String rememberCheck = request.getParameter("remember_userId");
 		HttpSession session = request.getSession();
 		
 		session.setAttribute(Const.KEY_LOGINUSER, authentication.getPrincipal());
 		
-		// UserDetails를 구현한 사용자 객체를 리턴
-		UserPrincipal p = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		UserPrincipal p = (UserPrincipal) SecurityContextHolder.getContext()
+															   .getAuthentication()
+															   .getPrincipal();
 		
+		String rememberCheck = request.getParameter("remember_userId");
 		Cookie cookie = new Cookie("RememberId", p.getUser_id());
 		if(rememberCheck != null) {
 			cookie.setMaxAge(60 * 60 * 24 * 7);	// 쿠키 저장 기한 지정		
 		} else {
-			// 쿠키를 가지고 와서 rememberId 쿠키를 지워줘야하는 부분
 			cookie.setMaxAge(0); // rememberId 쿠키 기한 초기화 => 쿠키 제거 
 		}
 		response.addCookie(cookie); 

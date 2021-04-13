@@ -44,16 +44,12 @@ public class CommonController {
 		return "unusedtiles/welcome";
 	}
 
-	// oauth 타입
-	@ResponseBody // 로그아웃
+	// oauth 타입 로그아웃
+	@ResponseBody 
 	@GetMapping("/oauth2Typ")
 	public Map<String, Object> oauth2_typ(UserEntity entity) {
 		Map<String, Object> oauth2_typ = new HashMap<String, Object>();
-		String oauthTyp = commonService.oauth2_typ(entity).getOauth_typ();
-		
-		// state code 
-		// UserPrincipal p = (UserPrincipal)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		// userMapper.changeLogoutState(p.getUser_pk()); // 로그아웃 상태로 전환
+		String oauthTyp = commonService.oauth2_typ(entity).getOauth_typ(); // 소셜 타입 가져오기
 		
 		switch (oauthTyp) {
 			case "kakao": 

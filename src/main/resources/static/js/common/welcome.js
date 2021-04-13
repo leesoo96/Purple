@@ -36,8 +36,8 @@ function email_check(email) {
   return email != '' && email != 'undefined' && regex.test(email)
 }
 
-//아이디 형식
-function CheckId(uid) {
+//이름 형식
+function CheckName(uid) {
   if (!/[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]{2,7}$/.test(uid)) {
     alert('이름은 한글로 2~7자리를 입력해야 합니다.')
     return false
@@ -93,7 +93,6 @@ function loginFunc() {
       user_pw: user_pw.value,
       remember_Id: remember_Id.checked,
     }
-
     fetch('/login', {
       method: 'post',
       headers: {
@@ -104,8 +103,7 @@ function loginFunc() {
       .then((res) => {
         res.json()
       })
-      .then(function (myJson) {
-      })
+      .then(function (myJson) {})
   }
 }
 //이메일 형식
@@ -115,7 +113,7 @@ function email_check(email) {
 }
 
 //아이디 형식
-function CheckId(uid) {
+function CheckName(uid) {
   if (!/[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]{2,7}$/.test(uid)) {
     alert('이름은 한글로 2~7자리를 입력해야 합니다.')
     return false
@@ -178,7 +176,7 @@ function joinProc() {
   ajax()
 
   function ajax() {
-    if (!CheckId(user_nameEle.value)) {
+    if (!CheckName(user_nameEle.value)) {
       user_nameEle.focus()
       return
     } else if (!CheckPassword(user_idEle.value, user_pwEle.value)) {

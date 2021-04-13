@@ -118,12 +118,13 @@ public class principalOauth2UserService extends DefaultOAuth2UserService{
 			throw new OAuth2AuthenticationException(oauth2Error, oauth2Error.toString(), ex);
 		}*/
 
-        Map<String, Object> userAttributes = getUserAttributes(response);  //OAuth2UserService를 통해 가져온 OAuth2User의 attribute를 담을 클래스입니다. 
+		// 해당 소셜 계정에 있는 유저의 정보를 담는다
+        Map<String, Object> userAttributes = getUserAttributes(response);  
 		Set<GrantedAuthority> authorities = new LinkedHashSet<>();
-		authorities.add(new OAuth2UserAuthority(userAttributes));
-		OAuth2AccessToken token = userRequest.getAccessToken();
+		authorities.add(new OAuth2UserAuthority(userAttributes)); 
+		OAuth2AccessToken token = userRequest.getAccessToken(); // 토큰을 발급받는다 
 		for (String authority : token.getScopes()) {
-			authorities.add(new SimpleGrantedAuthority("SCOPE_" + authority));
+			authorities.add(new SimpleGrantedAuthority("SCOPE_" + authority)); // 토큰의 접근(액세스)범위 할당
         }
 
         OAuth2User oAuth2User = new DefaultOAuth2User(authorities, userAttributes, userNameAttributeName);
@@ -152,7 +153,7 @@ public class principalOauth2UserService extends DefaultOAuth2UserService{
 		
 		UserPrincipal user = (UserPrincipal) myUserService.loadUserByUsername(oAuth2UserInfo.getProvider(),
 				oAuth2UserInfo.getId());
-		if (user == null ) { // insert
+		if (user == null ) { 
 			UserPrincipal userjoin = new UserPrincipal();
 			userjoin.setUser_id(oAuth2UserInfo.getId());
 			userjoin.setUser_email(oAuth2UserInfo.getEmail());
@@ -161,8 +162,6 @@ public class principalOauth2UserService extends DefaultOAuth2UserService{
 			userjoin.setOauth_id(oAuth2UserInfo.getId());
 			userjoin.setOauth_typ(oAuth2UserInfo.getProvider());
 			myUserService.join(userjoin);
-			 
-
 		}
 		
 		return (UserPrincipal) myUserService.loadUserByUsername(oAuth2UserInfo.getProvider(),
@@ -172,10 +171,12 @@ public class principalOauth2UserService extends DefaultOAuth2UserService{
 
     private Map<String, Object> getUserAttributes(ResponseEntity<Map<String, Object>> response) {
 		Map<String, Object> userAttributes = response.getBody();
+
 		if (userAttributes.containsKey("response")) { 	// 네이버는 HTTP response body에 response 안에 id 값을 포함한 유저정보를 넣어주므로 유저정보를 빼내기 위한 작업을 함
 			LinkedHashMap responseData = (LinkedHashMap) userAttributes.get("response");
 			userAttributes.putAll(responseData);
 			userAttributes.remove("response");
+
 		} else if(userAttributes.containsKey("properties")) { //카카오는 properties 안에 nickname값이 포함되어 있음
 			LinkedHashMap propertiesData = (LinkedHashMap) userAttributes.get("properties");
 			userAttributes.putAll(propertiesData);

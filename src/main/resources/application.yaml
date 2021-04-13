@@ -52,7 +52,7 @@ mybatis:
 server:
   port: 80
 
-  # ssl 적용
+  # # ssl 적용
   # ssl:
   #   enabled: true
   #   key-alias: purplestore
