@@ -46,14 +46,15 @@ public class UserServiceImpl implements UserDetailsService {
 		UserEntity entity = new UserEntity();
 		entity.setUser_provider(provider);
 		entity.setOauth_id(oauth_id);	
+		
 		UserPrincipal user = userMapper.oauthloginUser(entity);	
+
 		if(user == null) {
 			return null;
 		}
 		return UserPrincipal.create(user);
 	}
 	
-
 	// 회원가입
 	public int join(UserEntity entity) {
 		if(entity.getUser_pw() != null && !"".equals(entity.getUser_pw())) {
@@ -103,7 +104,7 @@ public class UserServiceImpl implements UserDetailsService {
 			userMapper.temporary_pw(dto.getUser_id(), bcryptTemp_pw);
 
 			// 이메일 발송
-			return sendEmail(dto); // 3
+			return sendEmail(dto); 
 		}
 	}
 

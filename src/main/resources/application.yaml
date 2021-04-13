@@ -9,10 +9,16 @@ spring:
       prefix: /WEB-INF/views/
       suffix: .jsp
 
+  servlet:
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 50MB
+      location: /home/purple
+
   #jdbc 설정
   datasource:
     url: jdbc:mysql://localhost:3306/purple?autoReconnect=true
-    username: root
+    username: purple
     password: koreait2020
     driver-class-name: com.mysql.cj.jdbc.Driver
 
@@ -44,16 +50,14 @@ mybatis:
 
 #Tomcat
 server:
-  port: 8090
-  multipart:
-    max-file-size: 100MB
-    max-request-size: 500MB
+  port: 80
 
-  ssl:
-    enabled: true
-    key-alias: purplestore
-    key-store: purplestore
-    key-store-password: 'purple'
-    key-password: 'purple'
-    trust-store: purpletrust
-    trust-store-password: 'purple'
+  # # ssl 적용
+  # ssl:
+  #   enabled: true
+  #   key-alias: purplestore
+  #   key-store: purplestore
+  #   key-store-password: 'purple'
+  #   key-password: 'purple'
+  #   trust-store: purpletrust
+  #   trust-store-password: 'purple'

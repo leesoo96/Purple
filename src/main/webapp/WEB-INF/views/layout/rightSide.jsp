@@ -6,27 +6,21 @@
   <h3>알 수도 있는 사람</h3>
   <div id="recommand_div">
     <table name="recommand_friend">
-  </table>
+    </table>
   </div> <!-- fetch 이용 -->
 
   <div id="footer">
     <div id="footer_content">
-      <a href="">
+      <a href="https://github.com/leesoojin961202/Purple" target="_blank">
         <img src="/resources/img/common/github.png" alt="깃허브">
       </a>
-    <p>개발자 : 최홍석, 이수진<br>
-      김가영, 이동건<br>
-      안상후
-    </p>
     </div>
   </div> <!-- side_etc -->
 </div> <!-- followers -->
 
 <div id="dm_view"> <!-- 대화창 표시 -->
   <p>Purple Talk</p>
-    <!-- <div id="new_dm">
-      <div>13</div>
-    </div> -->
+
   <i class="fas fa-angle-double-up dm_open"></i>
 
   <div class="chat_view">
@@ -41,8 +35,8 @@
 
     <div id="friend_list">
       <span>친구목록</span>
-        <table>
-        </table>
+      <table>
+      </table>
     </div> <!-- fetch 이용 -->
 
     <div class="chat_list">
@@ -51,7 +45,6 @@
 
     <!-- 채팅방 --> 
     <div class="chat_msg">
-    
       <p id="chat_friendName">
       </p>
 
@@ -65,9 +58,6 @@
             </div>
           </div> <!-- msg_container -->
       </div> <!-- chat --> 
-
-      
-     
     </div><!--chat msg-->
   </div> <!-- chat_view -->
 </div> <!-- dm_view -->

@@ -140,38 +140,38 @@ saveBtn.addEventListener('click', () => {
       },
       body: JSON.stringify(params),
     })
-      .then((res) => res.json())
-      .then((myJson) => {
-        if (myJson.result === 1) {
-          alert('회원정보 수정이 완료되었습니다.')
-          fetch(`/oauth2Typ`)
-            .then((res) => res.json())
-            .then((myJson) => {
-              switch (myJson.result) {
-                case '1':
-                  location.href = myJson.url
-                  break
-                case '3':
-                case '4':
-                  window.open(myJson.url, '', 'width=500, height=400', '_blank')
+    .then((res) => res.json())
+    .then((myJson) => {
+      if (myJson.result === 1) {
+        alert('회원정보 수정이 완료되었습니다.')
+        fetch(`/oauth2Typ`)
+          .then((res) => res.json())
+          .then((myJson) => {
+            switch (myJson.result) {
+              case '1':
+                location.href = myJson.url
+                break
+              case '3':
+              case '4':
+                window.open(myJson.url, '', 'width=500, height=400', '_blank')
 
-                case '2':
+              case '2':
 
-                default:
-                  location.href = '/logout'
-              }
-            })
-        } else {
-          alert('회원정보 수정이 실패했습니다.')
-          openCloseModal('#userMod_container', 'none')
-        }
-      })
+              default:
+                location.href = '/logout'
+            }
+          })
+      } else {
+        alert('회원정보 수정이 실패했습니다.')
+        openCloseModal('#userMod_container', 'none')
+      }
+    })
   }
 })
 
 const userPwModFrm = document.querySelector('form[name="userPwModFrm"]')
 
-//현재 비밀번호 검사
+// 현재 비밀번호 검사
 function pw_check(user_pk, user_pw) {
   let isTrue = true
   fetchAjax({ user_pk, user_pw }, 'post', '/mypage/pw_check', (myJson) => {
@@ -186,7 +186,7 @@ function pw_check(user_pk, user_pw) {
   return Boolean(isTrue)
 }
 
-//비밀번호 확인 검사
+// 비밀번호 확인 검사
 const mod_chkpw = userPwModFrm.mod_chkpw
 
 mod_chkpw.addEventListener('change', () => {
@@ -198,7 +198,7 @@ mod_chkpw.addEventListener('change', () => {
   }
 })
 
-//사용자 비밀번호 변경
+// 사용자 비밀번호 변경
 const pwModBtn = document.querySelector('button[name="pwModBtn"]')
 
 pwModBtn.addEventListener('click', () => {
@@ -210,6 +210,7 @@ pwModBtn.addEventListener('click', () => {
     mod_pw.focus()
     return
   }
+
   if (!pw_check(user_pk, user_pw)) {
     return
   }
@@ -225,7 +226,8 @@ pwModBtn.addEventListener('click', () => {
     mod_chkpw.focus()
     return
   }
-  fetchAjax({ user_pk, user_pw }, 'post', '/mypage/mod_userpw', (myJson) => {
+  
+  fetchAjax({ user_pk, mod_pw }, 'post', '/mypage/mod_userpw', (myJson) => {
     if (myJson.result === 1) {
       alert('비밀번호가 변경 되었습니다.')
       fetch(`/oauth2Typ`)

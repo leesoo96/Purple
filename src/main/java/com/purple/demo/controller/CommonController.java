@@ -44,21 +44,17 @@ public class CommonController {
 		return "unusedtiles/welcome";
 	}
 
-	// oauth 타입
-	@ResponseBody // 로그아웃
+	// oauth 타입 로그아웃
+	@ResponseBody 
 	@GetMapping("/oauth2Typ")
 	public Map<String, Object> oauth2_typ(UserEntity entity) {
 		Map<String, Object> oauth2_typ = new HashMap<String, Object>();
-		String oauthTyp = commonService.oauth2_typ(entity).getOauth_typ();
-		
-		UserPrincipal p = (UserPrincipal)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		userMapper.changeLogoutState(p.getUser_pk()); // 로그아웃 상태로 전환
+		String oauthTyp = commonService.oauth2_typ(entity).getOauth_typ(); // 소셜 타입 가져오기
 		
 		switch (oauthTyp) {
 			case "kakao": 
 				oauth2_typ.put("result", "1");
-				oauth2_typ.put("url", "https://kauth.kakao.com/oauth/logout?client_id=dcd77beafc72e48753f0d5c6a3de7357"+
-										"&logout_redirect_uri=http://localhost:8091/logout");
+				oauth2_typ.put("url", "https://kauth.kakao.com/oauth/logout?client_id=dcd77beafc72e48753f0d5c6a3de7357&logout_redirect_uri=http://purple0409.shop/logout");
 				break;
 
 			case "facebook": 
@@ -81,29 +77,29 @@ public class CommonController {
 		return oauth2_typ;
 	}
 	
-	@RequestMapping("/sessionLogout")
-	public void sessionLogout() {
-		UserPrincipal p = (UserPrincipal)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		userMapper.changeLogoutState(p.getUser_pk()); // 로그아웃 상태로 전환
-	}
+	// @RequestMapping("/sessionLogout")
+	// public void sessionLogout() {
+	// 	UserPrincipal p = (UserPrincipal)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+	// 	userMapper.changeLogoutState(p.getUser_pk()); // 로그아웃 상태로 전환
+	// }
 
 
-	@RequestMapping("/duplLogin")
-	public String duplLogin() {
-		UserPrincipal p = (UserPrincipal)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		userMapper.changeLoginState(p.getUser_pk());
+	// @RequestMapping("/duplLogin")
+	// public String duplLogin() {
+	// 	UserPrincipal p = (UserPrincipal)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+	// 	userMapper.changeLoginState(p.getUser_pk());
 
-		if(p.getUser_state() == 0) { // 로그인하기 전의 state 상태
-			return "redirect:feed"; // feed로 넘어갈때 state 값이 1로 변경됩니다.
-		} else {
-			return "redirect:logout"; 
-			/* 이미 로그인 -> 
-			중복로그인을 방어하기위한 부분으로 다른 브라우저에서
-			동일한 아이디로 로그인을 시도할 경우 /welcome으로 이동해서 
-			중복 로그인을 방어합니다.
-			*/
-		}
-	}
+	// 	if(p.getUser_state() == 0) { // 로그인하기 전의 state 상태
+	// 		return "redirect:feed"; // feed로 넘어갈때 state 값이 1로 변경됩니다.
+	// 	} else {
+	// 		return "redirect:logout"; 
+	// 		/* 이미 로그인 -> 
+	// 		중복로그인을 방어하기위한 부분으로 다른 브라우저에서
+	// 		동일한 아이디로 로그인을 시도할 경우 /welcome으로 이동해서 
+	// 		중복 로그인을 방어합니다.
+	// 		*/
+	// 	}
+	// }
 
 //	회원가입
 	@ResponseBody

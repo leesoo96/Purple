@@ -45,7 +45,7 @@ document.querySelector('select[name="feed"]').addEventListener('change', () => {
     })
     .then(() => {
       let scrollLocation = document.documentElement.scrollTop // 현재 스크롤바 위치
-      let fullHeight = document.body.scrollHeight // 스크롤 포함 전체 길이
+      let fullHeight = document.body.scrollHeight             // 스크롤 포함 전체 길이
       if (scrollLocation + windowHeight >= fullHeight) {
         makeFeedAjax(
           document.querySelector('select[name="feed"]').value,
@@ -60,7 +60,7 @@ document.querySelector('select[name="feed"]').addEventListener('change', () => {
 
 document.addEventListener('scroll', () => {
   let scrollLocation = document.documentElement.scrollTop // 현재 스크롤바 위치
-  let fullHeight = document.body.scrollHeight // 스크롤 포함 전체 길이
+  let fullHeight = document.body.scrollHeight             // 스크롤 포함 전체 길이
 
   if (scrollLocation + windowHeight >= fullHeight) {
     makeFeedAjax(

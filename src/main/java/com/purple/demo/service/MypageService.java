@@ -57,7 +57,7 @@ public class MypageService {
 		UserPrincipal principal = (UserPrincipal)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		int user_pk = principal.getUser_pk();  
 		
-        //업로드 할 파일 경로
+        // 업로드 할 파일 경로
 		String folder = "/images/user/" + user_pk + "/profileimg";
 		
         try {
@@ -78,7 +78,7 @@ public class MypageService {
 		UserPrincipal principal = (UserPrincipal)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		int user_pk = principal.getUser_pk();  
 		
-        //업로드 할 파일 경로
+        // 업로드 할 파일 경로
 		String folder = "/images/user/" + user_pk +"/backgroundimg";
 		
         try {

@@ -22,8 +22,6 @@
 		WHERE user_id = #{user_id}
 	</select>
 
-	
-
 	<select id="selUserInfo" resultType="UserEntity">
 		SELECT user_pk, user_id, user_name, user_profileimg, user_backgroundimg,
 		user_location, user_email, user_bio, user_birth
