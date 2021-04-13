@@ -393,10 +393,11 @@ function getRecommandFriendListFunc() {
     user_pk: user_pk.value,
   }
   fetchAjax(param, 'post', '/friend/recommandFriend', resolve)
+})
   .then((myJson) => {
     getRecFriend_List(myJson)
   })
-})
+
 }
 
 const recFriendTable = document.querySelector("table[name='recommand_friend']")

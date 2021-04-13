@@ -1,5 +1,3 @@
-let logoutBtn = document.querySelector('.logout')
-
 let logoutBtn = document
   .querySelector('.logout')
   .addEventListener('click', function () {
