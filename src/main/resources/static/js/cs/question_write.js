@@ -54,8 +54,7 @@ function questionReg() {
       let param = {
         question_title: question_write_form.question_title.value,
         question_ctnt: question_write_form.question_ctnt.value,
-        question_userpk: question_write_form.question_userpk.value,
-        question_typ: question_write_form.question_type.value,
+        question_type: question_write_form.question_type.value,
       }
       fetch('/question_write', {
         method: 'post',
@@ -83,42 +82,35 @@ function questionReg() {
   }
 }
 //문의사항 수정
-function questionUpd() {
-  Updajax().then(() => {
-    location.href = `/question`
-  })
 
-  async function Updajax() {
-    let img = await UpdajaxImg()
-    let param = {
-      question_title: question_write_form.question_title.value,
-      question_ctnt: question_write_form.question_ctnt.value,
-      question_pk: question_write_form.question_pk.value,
-      question_img: img,
-    }
-    fetch('/question_upd', {
-      method: 'post',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(param),
-    })
-      .then((res) => res.json())
-      .then(function (myJson) {})
+async function questionUpd() {
+  let img = await UpdajaxImg()
+  let param = {
+    question_title: question_write_form.question_title.value,
+    question_ctnt: question_write_form.question_ctnt.value,
+    question_type: question_write_form.question_type.value,
+    question_pk: question_write_form.question_pk.value,
   }
-  function UpdajaxImg() {
-    return new Promise(function (resolve) {
-      var formData = new FormData()
-      formData.append('img', question_img.files[0])
-      formData.append('question_pk', question_write_form.question_pk.value)
-      fetch('/question_img', {
-        method: 'post',
-        body: formData,
-      })
-        .then((res) => res.json())
-        .then((myJson) => {
-          resolve(myJson.result)
-        })
+  fetch('/question_upd', {
+    method: 'post',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(param),
+  })
+    .then((res) => res.json())
+    .then(function (myJson) {
+      location.href = `/question`
     })
-  }
+}
+function UpdajaxImg() {
+  var formData = new FormData()
+  formData.append('img', question_img.files[0])
+  formData.append('question_pk', question_write_form.question_pk.value)
+  fetch('/question_img', {
+    method: 'post',
+    body: formData,
+  })
+    .then((res) => res.json())
+    .then((myJson) => {})
 }

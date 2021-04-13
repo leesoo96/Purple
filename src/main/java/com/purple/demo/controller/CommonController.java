@@ -54,7 +54,7 @@ public class CommonController {
 		switch (oauthTyp) {
 			case "kakao": 
 				oauth2_typ.put("result", "1");
-				oauth2_typ.put("url", "https://kauth.kakao.com/oauth/logout?client_id=dcd77beafc72e48753f0d5c6a3de7357&logout_redirect_uri=http://localhost:8090/logout");
+				oauth2_typ.put("url", "https://kauth.kakao.com/oauth/logout?client_id=dcd77beafc72e48753f0d5c6a3de7357&logout_redirect_uri=http://purple0409.shop/logout");
 				break;
 
 			case "facebook": 

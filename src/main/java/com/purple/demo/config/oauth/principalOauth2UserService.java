@@ -70,7 +70,7 @@ public class principalOauth2UserService extends DefaultOAuth2UserService{
             throw new IllegalArgumentException("userRequest cannot be null");
         }*/  
 
-        //끝점
+        //끝점, 사용자에 대한 ID 정보를 검색하는 데 사용
         UserInfoEndpoint uiep = userRequest.getClientRegistration().getProviderDetails().getUserInfoEndpoint();
        
         String uri = uiep.getUri();  //url
