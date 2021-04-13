@@ -388,16 +388,19 @@ function makeChat(user_id, myJson) {
 
 // 알 수도 있는 사람 목록(추천친구)
 function getRecommandFriendListFunc() {
-  return new Promise((resolve) => {
   let param = {
     user_pk: user_pk.value,
   }
-  fetchAjax(param, 'post', '/friend/recommandFriend', resolve)
-})
+  fetch('/friend/recommandFriend', {
+    method : 'post',
+    headers : {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(param),
+  }).then(res => res.json())
   .then((myJson) => {
     getRecFriend_List(myJson)
   })
-
 }
 
 const recFriendTable = document.querySelector("table[name='recommand_friend']")

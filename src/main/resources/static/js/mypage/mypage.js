@@ -227,7 +227,7 @@ pwModBtn.addEventListener('click', () => {
     return
   }
   
-  fetchAjax({ user_pk, mod_pw }, 'post', '/mypage/mod_userpw', (myJson) => {
+  fetchAjax({ user_pk, user_pw : mod_pw }, 'post', '/mypage/mod_userpw', (myJson) => {
     if (myJson.result === 1) {
       alert('비밀번호가 변경 되었습니다.')
       fetch(`/oauth2Typ`)
