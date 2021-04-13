@@ -112,6 +112,7 @@ friend_btn.addEventListener('click', () => {
 })
 
 function getFriendListFunc() {
+  
   let param = {
     user_pk: user_pk.value,
   }
@@ -390,7 +391,14 @@ function getRecommandFriendListFunc() {
   let param = {
     user_pk: user_pk.value,
   }
-  fetchAjax(param, 'post', '/friend/recommandFriend', (myJson) => {
+  fetch('/friend/recommand', {
+    method : 'post',
+    headers : {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(param),
+  }).then(res => res.json())
+  .then((myJson) => {
     getRecFriend_List(myJson)
   })
 }

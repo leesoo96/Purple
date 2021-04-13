@@ -90,7 +90,6 @@ public class CsController {
 		Map<String, Object> noticeWriteResult = new HashMap<String, Object>();
 		noticeWriteResult.put(Const.KEY_RESULT, csService.updNoticevieView(entity));
 		noticeWriteResult.put("notice_view", entity.getNotice_view());
-		
 		return noticeWriteResult;
 	}
 
@@ -105,7 +104,6 @@ public class CsController {
 	}
 
 	// 문의사항
-	
 	@GetMapping("/question")
 	public String question(Model model, QuestionDTO dto) {
 		UserPrincipal principal = (UserPrincipal)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -116,11 +114,13 @@ public class CsController {
 		return "/question";
 	}
 
+	//문의사항 글 등록(화면)
 	@GetMapping("/question_write")
 	public String question_write() {
 		return "/question_write";
 	}
 
+	//문의사항 글 등록
 	@ResponseBody
 	@PostMapping("/question_write")
 	public Map<String, Object> regQuestion(@RequestBody QuestionEntity entity) {
@@ -131,6 +131,7 @@ public class CsController {
 		return noticeWriteResult;
 	}
 
+	//문의사항 이미지 등록
 	@ResponseBody
 	@PostMapping("/question_img")
 	public Map<String, Object> question_img(MultipartFile img, @RequestParam("question_pk") int question_pk) {
@@ -143,13 +144,25 @@ public class CsController {
 			return questionWriteResult; 
 		}
 	}
+	
+	//문의사항 댓글 등록
+	@ResponseBody
+	@PostMapping("/question_cmt_reg")
+	public Map<String, Object> question_cmt_reg(@RequestBody AnswerEntity entity) {
+		Map<String, Object> noticeWriteResult = new HashMap<String, Object>();
+		noticeWriteResult.put(Const.KEY_RESULT, csService.question_cmt_reg(entity));
 
+		return noticeWriteResult;
+	}
+
+	//문의사항 글 수정(화면)
 	@GetMapping("/question_upd")
 	public String question_upd(Model model, QuestionEntity entity) {
 		model.addAttribute("questionUpd", csService.selQuestion(entity));
 		return "/question_write";
 	}
 
+	//문의사항 글 수정
 	@ResponseBody
 	@PostMapping("/question_upd")
 	public Map<String, Object> question_upd(@RequestBody QuestionEntity entity) {
@@ -176,16 +189,6 @@ public class CsController {
 	public Map<String, Object> question_del(QuestionEntity entity) {
 		Map<String, Object> noticeWriteResult = new HashMap<String, Object>();
 		noticeWriteResult.put(Const.KEY_RESULT, csService.question_del(entity));
-
-		return noticeWriteResult;
-	}
-
-	//문의사항 댓글 등록
-	@ResponseBody
-	@PostMapping("/question_cmt_reg")
-	public Map<String, Object> question_cmt_reg(@RequestBody AnswerEntity entity) {
-		Map<String, Object> noticeWriteResult = new HashMap<String, Object>();
-		noticeWriteResult.put(Const.KEY_RESULT, csService.question_cmt_reg(entity));
 
 		return noticeWriteResult;
 	}

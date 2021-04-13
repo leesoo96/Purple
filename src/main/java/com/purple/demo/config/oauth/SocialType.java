@@ -1,6 +1,7 @@
 package com.purple.demo.config.oauth;
 
 public enum SocialType {
+	
 	FACEBOOK("facebook"), 
 	GOOGLE("google"), 
 	KAKAO("kakao"), 

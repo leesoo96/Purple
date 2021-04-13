@@ -44,21 +44,17 @@ public class CommonController {
 		return "unusedtiles/welcome";
 	}
 
-	// oauth 타입
-	@ResponseBody // 로그아웃
+	// oauth 타입 로그아웃
+	@ResponseBody 
 	@GetMapping("/oauth2Typ")
 	public Map<String, Object> oauth2_typ(UserEntity entity) {
 		Map<String, Object> oauth2_typ = new HashMap<String, Object>();
-		String oauthTyp = commonService.oauth2_typ(entity).getOauth_typ();
-		
-		// state code 
-		// UserPrincipal p = (UserPrincipal)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		// userMapper.changeLogoutState(p.getUser_pk()); // 로그아웃 상태로 전환
+		String oauthTyp = commonService.oauth2_typ(entity).getOauth_typ(); // 소셜 타입 가져오기
 		
 		switch (oauthTyp) {
 			case "kakao": 
 				oauth2_typ.put("result", "1");
-				oauth2_typ.put("url", "https://kauth.kakao.com/oauth/logout?client_id=dcd77beafc72e48753f0d5c6a3de7357&logout_redirect_uri=http://localhost:8090/logout");
+				oauth2_typ.put("url", "https://kauth.kakao.com/oauth/logout?client_id=dcd77beafc72e48753f0d5c6a3de7357&logout_redirect_uri=http://purple0409.shop/logout");
 				break;
 
 			case "facebook": 

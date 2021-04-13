@@ -29,7 +29,7 @@ public class FriendController {
 
     // 알 수도 있는 사람 목록 
     @ResponseBody
-    @PostMapping("/recommandFriend")
+    @PostMapping("/recommand")
     public List<FriendDTO> getRecommandFriendList(@RequestBody FriendDTO dto) {
         return friendService.getRecommandFriendList(dto);
     }

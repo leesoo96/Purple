@@ -46,7 +46,7 @@ if (typeof socket == 'undefined') {
   }
   socket.onclose = function () {
     console.log('소켓 종료')
-    socket = new WebSocket('ws://' + location.hostname + ':8091/socket')
+    socket = new WebSocket('ws://' + location.hostname + '/socket')
   }
 }
 

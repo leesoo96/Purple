@@ -18,6 +18,8 @@ for (let i = 0; i < cs_notice_titlebar.length; i++) {
         cs_notice_detail_close[j].style.padding = '0px'
       }
       let notice_pk = cs_notice_titlebarEle.dataset.pk
+
+      //공지사항 조회수
       fetch(`/updNoticeView?notice_pk=${notice_pk}`, {
         method: 'put',
       })
@@ -29,6 +31,7 @@ for (let i = 0; i < cs_notice_titlebar.length; i++) {
             notice_view.innerHTML = myJson.notice_view
           }
         })
+
       cs_notice_detail.style.height = `25em`
       cs_notice_titlebarEle.style.backgroundColor = 'rgb(82, 0, 121)'
       cs_notice_titlebarEle.style.color = 'rgb(255, 255, 255)'
