@@ -127,7 +127,10 @@ function getFriend_list(myJson) {
     let fList_div = document.createElement('div')
     table.append(fList_div)
     fList_div.className = 'notHaveAFriend'
-    fList_div.innerText = '친구가 없습니다ㅠ'
+    let sad_cryI = document.createElement('i')
+    sad_cryI.className = 'far fa-sad-cry'
+    fList_div.innerText = '친구가 없습니다 '
+    fList_div.appendChild(sad_cryI)
     return
   }
   for (let i = 0; i < myJson.length; i++) {

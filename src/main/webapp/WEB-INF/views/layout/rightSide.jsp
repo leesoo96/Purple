@@ -10,11 +10,14 @@
   </div> <!-- fetch 이용 -->
 
   <div id="footer">
-    <div id="footer_content">
-      <a href="https://github.com/leesoojin961202/Purple" target="_blank">
-        <img src="/resources/img/common/github.png" alt="깃허브">
-      </a>
-    </div>
+    <p>Contributors</p>
+    <span><a href="https://github.com/ash0419">안상후</a></span>
+    <span><a href="https://github.com/leesoojin961202">이수진</a></span>
+    <span><a href="https://github.com/Ds-000">이동건</a></span>
+    <span><a href="https://github.com/Kimgayoung97">김가영</a></span>
+    <a href="https://github.com/leesoojin961202/Purple" target="_blank">
+      <img src="/resources/img/common/github.png" alt="깃허브">
+    </a>
   </div> <!-- side_etc -->
 </div> <!-- followers -->
 
