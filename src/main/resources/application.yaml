@@ -17,7 +17,7 @@ spring:
 
   #jdbc 설정
   datasource:
-    url: jdbc:mysql://localhost:3307/purple?autoReconnect=true
+    url: jdbc:mysql://localhost:3306/purple?autoReconnect=true
     username: purple
     password: koreait2020
     driver-class-name: com.mysql.cj.jdbc.Driver
