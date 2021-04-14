@@ -1,8 +1,8 @@
 'use strict'
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
   dm_view()
-  getRecommandFriendListFunc()
+  await getRecommandFriendListFunc()
   getAlarmCount()
   getNoRealAllMessage()
 })
@@ -127,7 +127,10 @@ function getFriend_list(myJson) {
     let fList_div = document.createElement('div')
     table.append(fList_div)
     fList_div.className = 'notHaveAFriend'
-    fList_div.innerText = '친구가 없습니다ㅠ'
+    let sad_cryI = document.createElement('i')
+    sad_cryI.className = 'far fa-sad-cry'
+    fList_div.innerText = '친구가 없습니다 '
+    fList_div.appendChild(sad_cryI)
     return
   }
   for (let i = 0; i < myJson.length; i++) {
@@ -391,16 +394,7 @@ function getRecommandFriendListFunc() {
   let param = {
     user_pk: user_pk.value,
   }
-  fetch('/friend/recommand', {
-    method : 'post',
-    headers : {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(param),
-  }).then(res => res.json())
-  .then((myJson) => {
-    getRecFriend_List(myJson)
-  })
+  fetchAjax(param, 'post', '/friend/recommand', getRecFriend_List)
 }
 
 const recFriendTable = document.querySelector("table[name='recommand_friend']")

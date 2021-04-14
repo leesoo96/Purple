@@ -361,15 +361,21 @@ a {
 
 /* footer */
 #footer {
-  margin-top: 1em;
+  padding-top: 0.6em;
   border-top: 0.15em solid rgb(112, 17, 163);
+  height: 5em;
 }
 #footer p {
-  font-size: 1.3rem;
-  padding-left: 0.5em;
-  margin: 0.5em 0 0.5em 0;
+  font-size: 1rem;
+}
+#footer span {
+  top: 0.5em;
+  font-size: 0.9rem;
+  cursor: pointer;
 }
 #footer img {
+  float: right;
+  margin-top: -1em;
   width: 3em;
   border-radius: 70%;
   height: 3em;

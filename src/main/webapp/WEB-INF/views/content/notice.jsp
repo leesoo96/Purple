@@ -4,10 +4,10 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib uri="http://www.springframework.org/security/tags"
 	prefix="sec"%>
-<!DOCTYPE html>
-<link rel="stylesheet" href="resources/css/common/temp.css" />
-<link rel="stylesheet" href="resources/css/cs/notice.css" />
-<script defer src="resources/js/cs/notice.js"></script>
+
+
+<link rel="stylesheet" href="/resources/css/cs/notice.css" />
+<script defer src="/resources/js/cs/notice.js"></script>
 
 <sec:authorize access="hasAnyRole('ROLE_ADMIN')">
 	<div id="cs_reg">
