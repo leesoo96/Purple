@@ -20,8 +20,6 @@ public class OAuth2UserInfoFactory {
 					"Sorry! Login with " + registrationId + " is not supported yet.");
 		}
 	}
-
-	
 }
 
 

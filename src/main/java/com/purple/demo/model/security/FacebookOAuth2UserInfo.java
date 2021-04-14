@@ -4,7 +4,6 @@ import java.util.Map;
 
 import com.purple.demo.config.oauth.SocialType;
 
-
 public class FacebookOAuth2UserInfo extends OAuth2UserInfo {
 	public FacebookOAuth2UserInfo(Map<String, Object> attributes) {
         super(attributes);
