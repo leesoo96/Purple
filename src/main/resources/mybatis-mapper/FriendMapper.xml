@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.purple.demo.mapper.FriendMapper">
-    
+
     <!-- 이미 친구인지 확인 -->
     <select id="friendCheck" resultType="FriendDTO">
         SELECT user_pk, friend_pk 
@@ -18,14 +18,14 @@
         JOIN user C
         ON A.friend_pk = B.user_pk
         AND B.friend_pk = C.user_pk
-        AND b.friend_pk 
+        AND B.friend_pk 
         NOT IN
         (
             SELECT friend_pk 
             FROM friend 
             WHERE user_pk = #{user_pk}
         )
-        AND b.friend_pk 
+        AND B.friend_pk 
         NOT IN (#{user_pk})
         ORDER BY RAND()
         LIMIT 20

@@ -5,9 +5,8 @@
 	prefix="sec"%>
 <!DOCTYPE html>
 
-<link rel="stylesheet" href="resources/css/common/temp.css" />
-<link rel="stylesheet" href="resources/css/cs/cs_write.css" />
-<script defer src="resources/js/cs/notice_write.js"></script>
+<link rel="stylesheet" href="/resources/css/cs/cs_write.css" />
+<script defer src="/resources/js/cs/notice_write.js"></script>
 
 <div id="cs_write_title">${noticeUpd == null ? '공지사항 등록' : '공지사항 수정'}</div>
 <form id="notice_write_form">

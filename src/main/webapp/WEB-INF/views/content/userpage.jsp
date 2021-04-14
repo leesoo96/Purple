@@ -6,7 +6,7 @@ pageEncoding="UTF-8"%>
 <link rel="stylesheet" href="/resources/css/feed/feedDetail.css">
 
 <script defer src="/resources/js/mypage/userpage.js"></script>
-<script defer src="/resources/js/feed/feedDetail.js"></script>
+
 
 <input type="hidden" id="friend_pk" value=${userInfo.user_pk} />
 <div id="userpage_userinfo_container">

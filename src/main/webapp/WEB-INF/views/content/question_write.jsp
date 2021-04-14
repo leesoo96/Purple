@@ -2,8 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://www.springframework.org/security/tags"
 	prefix="sec"%>
-<!DOCTYPE html>
-<link rel="stylesheet" href="/resources/css/common/temp.css" />
+
 <link rel="stylesheet" href="/resources/css/cs/cs_write.css" />
 <script defer src="/resources/js/cs/question_write.js"></script>
 

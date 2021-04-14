@@ -1,8 +1,8 @@
 'use strict'
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
   dm_view()
-  getRecommandFriendListFunc()
+  await getRecommandFriendListFunc()
   getAlarmCount()
   getNoRealAllMessage()
 })
@@ -391,16 +391,7 @@ function getRecommandFriendListFunc() {
   let param = {
     user_pk: user_pk.value,
   }
-  fetch('/friend/recommand', {
-    method : 'post',
-    headers : {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(param),
-  }).then(res => res.json())
-  .then((myJson) => {
-    getRecFriend_List(myJson)
-  })
+  fetchAjax(param, 'post', '/friend/recommand', getRecFriend_List)
 }
 
 const recFriendTable = document.querySelector("table[name='recommand_friend']")
